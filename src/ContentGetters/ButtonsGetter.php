@@ -1,0 +1,36 @@
+<?php
+
+namespace Ikoncept\Fabriq\ContentGetters;
+
+use Ikoncept\Fabriq\Models\Page;
+use Infab\TranslatableRevisions\Models\RevisionMeta;
+
+class ButtonsGetter
+{
+    /**
+     * Return a representation of an image
+     *
+     * @param RevisionMeta $meta
+     * @param boolean $publishing
+     * @return mixed
+     */
+    public static function get(RevisionMeta $meta, $publishing = false)
+    {
+        if(empty($meta->toArray())) {
+            return [
+                'meta_id' => $meta->id
+            ];
+        }
+        $value = collect($meta->meta_value);
+
+        $buttons = $value->map(function($button) {
+            $tempMeta = RevisionMeta::make([
+                'meta_value' => $button
+            ]);
+            $button = ButtonGetter::get($tempMeta);
+            return $button;
+        });
+
+        return $buttons;
+    }
+}
