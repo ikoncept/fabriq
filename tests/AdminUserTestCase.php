@@ -18,16 +18,17 @@ abstract class AdminUserTestCase extends Orchestra
         parent::setUp();
         Fabriq::routes(
             function ($router) {
-                $router->forInternalArticles();
+                $router->allInternal();
             }
         );
         $this->setUpDatabase($this->app);
-        $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
 
         Artisan::call('fabriq:install');
+        Artisan::call('vendor:publish', [
+            '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
+            '--tag' => 'fabriq-translations'
+        ]);
 
-        // include_once(__DIR__  . '/../database/migrations/2014_10_12_000000_create_users_table.php');
-        // (new \CreateUsersTable())->up();
         $user = User::factory()->create([
             'name' => 'Albin N',
             'email' => 'albin@infab.io',
@@ -47,15 +48,7 @@ abstract class AdminUserTestCase extends Orchestra
 
     public function setUpDatabase($app)
     {
-
-        // $this->artisan('vendor:publish', [
-        //     '--provider' => 'Infab\TranslatableRevisions\TranslatableRevisionsServiceProvider'
-        // ]);
         $this->loadMigrationsFrom(realpath(__DIR__.'/../database/migrations'));
-        // $this->artisan('migrate', [
-        //     '--database' => 'sqlite',
-        //     '--realpath' => realpath(__DIR__.'/../database/migrations'),
-        // ]);
     }
 
     protected function getEnvironmentSetUp($app)
@@ -65,6 +58,12 @@ abstract class AdminUserTestCase extends Orchestra
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => '',
+        ]);
+        $app['config']->set('filesystems.disks.__test', [
+            'driver' => 'local',
+            'root' => storage_path('app/public/__test'),
+            'url' => env('APP_URL').'/storage/__test',
+            'visibility' => 'public',
         ]);
     }
 

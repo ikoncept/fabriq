@@ -1,0 +1,36 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Actions\Fortify\UpdateUserPassword;
+use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Http\Controllers\Controller;
+use App\Transformers\UserTransformer;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Infab\Core\Traits\ApiControllerTrait;
+
+class AuthenticatedUserController extends Controller
+{
+
+    use ApiControllerTrait;
+
+    public function index(Request $request) : JsonResponse
+    {
+        return $this->respondWithItem($request->user(), new UserTransformer);
+    }
+
+    public function update(Request $request) : JsonResponse
+    {
+        $user = $request->user();
+        if($request->input('password', false)) {
+            $updateUserPassword = new UpdateUserPassword();
+            $updateUserPassword->update($user, $request->all());
+        }
+
+        // Update the profile
+        (new UpdateUserProfileInformation())->update($user, $request->all());
+
+        return $this->respondWithItem($request->user(), new UserTransformer);
+    }
+}

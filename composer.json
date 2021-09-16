@@ -5,7 +5,8 @@
     "autoload": {
         "psr-4": {
             "Ikoncept\\Fabriq\\": "src/",
-            "Ikoncept\\Fabriq\\Database\\Factories\\": "database/factories"
+            "Ikoncept\\Fabriq\\Database\\Factories\\": "database/factories",
+            "Ikoncept\\Fabriq\\Database\\Seeders\\": "database/seeders"
         }
     },
     "autoload-dev": {

@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Models;
 
+use Ikoncept\Fabriq\Database\Factories\VideoFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,11 @@ class Video extends Model implements HasMedia
     use HasFactory, InteractsWithMedia, HasTags;
 
     const RELATIONSHIPS = ['tags'];
+
+    protected static function newFactory() : VideoFactory
+    {
+        return VideoFactory::new();
+    }
 
     protected $with = ['media'];
 

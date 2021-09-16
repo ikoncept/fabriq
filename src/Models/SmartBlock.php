@@ -7,6 +7,7 @@ use Ikoncept\Fabriq\ContentGetters\ButtonsGetter;
 use Ikoncept\Fabriq\ContentGetters\FileGetter;
 use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Ikoncept\Fabriq\ContentGetters\VideoGetter;
+use Ikoncept\Fabriq\Database\Factories\SmartBlockFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,23 +23,10 @@ class SmartBlock extends Model
 
     const RELATIONSHIPS = [];
 
-
-    /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
-    // protected static function booted()
-    // {
-    //     static::deleting(function () {
-    //         // Figure out which slugs are connect to this smart block?
-    //         Cache::tags($this->getRevisionOptions()->cacheTagsToFlush)->flush();
-    //     });
-    //     static::saved(function ($model) {
-    //         // Figure out which slugs are connect to this smart block?
-    //         Cache::tags($model->getRevisionOptions()->cacheTagsToFlush)->flush();
-    //     });
-    // }
+    protected static function newFactory() : SmartBlockFactory
+    {
+        return SmartBlockFactory::new();
+    }
 
     /**
      * Get the options for the revisions.

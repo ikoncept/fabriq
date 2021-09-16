@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Models;
 
+use Ikoncept\Fabriq\Database\Factories\CommentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -12,6 +13,15 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 class Comment extends Model
 {
     use HasFactory;
+
+
+    /**
+     * Create a new factory
+     */
+    protected static function newFactory() : CommentFactory
+    {
+        return CommentFactory::new();
+    }
 
     protected static function booted() : void
     {

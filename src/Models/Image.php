@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Models;
 
+use Ikoncept\Fabriq\Database\Factories\ImageFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,14 @@ use Illuminate\Support\Str;
 class Image extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, HasTags;
+
+    /**
+     * Create a new factory
+     */
+    protected static function newFactory() : ImageFactory
+    {
+        return ImageFactory::new();
+    }
 
     protected $with = ['media'];
 

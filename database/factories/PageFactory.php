@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Ikoncept\Fabriq\Database\Factories;
 
 use Ikoncept\Fabriq\Models\Page;
 use Illuminate\Database\Eloquent\Factories\Factory;

@@ -1,0 +1,22 @@
+{
+    "E-Mail Address": "E-post",
+    "Password": "Lösenord",
+    "Login": "Logga in",
+    "Remember Me": "Kom ihåg mig",
+    "Forgot Your Password?": "Glömt ditt lösenord?",
+    "Back to login": "Tillbaka till inloggning",
+    "Send Password Reset Link": "Skicka lösenordsåterställning",
+    "Reset Password": "Återställ lösenord",
+    "Confirm Password": "Bekräfta lösenord",
+    "Hello!": "Hejsan!",
+    "You are receiving this email because we received a password reset request for your account.": "Du får detta meddelande eftersom vi fick en begäran om att återställa ditt lösenord",
+    "This password reset link will expire in :count minutes.": "Återställningslänken är giltig i :count minuter.",
+    "If you did not request a password reset, no further action is required.": "Om du inte efterfrågat denna lösenordåterställning kan du strunta i detta meddelande.",
+    "Regards": "Hälsar",
+    "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Om du har problem med att klicka på \":actionText\"-knappen, kopiera och klistra in följande URL\ni din webbläsare",
+    "The :attribute must be at least :length characters.": ":attribute måste vara minst :length tecken långt.",
+    "Reset Password Notification": "Återställning av lösenord",
+    "Verify Email Address": "Bekräfta din e-postadress",
+    "Please click the button below to verify your email address.": "Klicka på nedan knapp för att bekräfta din e-postadress",
+    "If you did not create an account, no further action is required.": "Om du inte känner igen detta meddelande kan du ignorera det."
+}

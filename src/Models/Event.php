@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Models;
 
 use Carbon\Carbon;
+use Ikoncept\Fabriq\Database\Factories\EventFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,21 @@ class Event extends Model
     protected $fillable = ['start', 'end', 'start_time', 'end_time', 'date', 'title', 'daily_interval'];
 
     protected $dates = ['start', 'end'];
+
+    /**
+     * Morph class
+     *
+     * @var string
+     */
+    protected $morphClass = 'MorphEvent';
+
+    /**
+     * Create a new factory
+     */
+    protected static function newFactory() : EventFactory
+    {
+        return EventFactory::new();
+    }
 
     /**
      * Get the options for the revisions.
@@ -47,7 +63,9 @@ class Event extends Model
      */
     public function getTitleAttribute()
     {
-        return $this->translateByKey('events_'. $this->id .'__title', 'sv');
+        $delimiter = $this->getDelimiter();
+
+        return $this->translateByKey('events'. $delimiter . $this->id . $delimiter . $delimiter .'title', 'sv');
     }
 
     /**

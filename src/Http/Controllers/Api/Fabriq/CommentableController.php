@@ -3,7 +3,8 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Infab\Core\Http\Controllers\Api\ApiController;
-use App\Http\Requests\CreateCommentRequest;
+use Ikoncept\Fabriq\Http\Requests\CreateCommentRequest;
+use Ikoncept\Fabriq\Models\Comment;
 use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Transformers\CommentTransformer;
 use Illuminate\Http\JsonResponse;

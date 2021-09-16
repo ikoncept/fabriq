@@ -1,0 +1,53 @@
+image: lorisleiva/laravel-docker:latest
+
+
+before_script:
+# Install git, the php image doesn't have installed
+ - apk add ffmpeg
+
+
+# The job's name.
+composer:
+
+  # The job's stage (build, test or deploy).
+  stage: build
+
+  # What to run on the job.
+  script:
+      - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+      - cp .env.example .env
+      - php artisan key:generate
+
+  artifacts:
+
+    # (Optional) Give it an expiration date,
+    # after that period you won't be able to
+    # download them via the UI anymore.
+    expire_in: 1 month
+
+    # Define what to output from the job.
+    paths:
+      - vendor/
+      - .env
+  cache:
+
+    # The variable CI_COMMIT_REF_SLUG
+    # refers to the slug of the branch.
+    # For example: `master` for the master branch.
+    # We use the `composer` suffix to avoid conflicts with
+    # the `npm` cache that we'll define next.
+    key: ${CI_COMMIT_REF_SLUG}-composer
+
+    # Define what to cache.
+    paths:
+      - vendor/
+
+phpunit:
+  stage: test
+  script:
+    - phpunit --coverage-text --colors=never
+
+static_analysis:
+  stage: test
+  script:
+    - php -d memory_limit=512M ./vendor/bin/phpstan analyse -c phpstan.neon

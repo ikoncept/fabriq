@@ -1,6 +1,6 @@
 <?php
 
-namespace Infab\TranslatableRevisions\Tests;
+namespace Ikoncept\Fabriq\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
 

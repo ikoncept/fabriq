@@ -3,11 +3,8 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Infab\Core\Http\Controllers\Api\ApiController;
-use Ikoncept\Fabriq\Transformers\DummyTransformer;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
-use NamespacedDummyModel;
 
 class ModelCountController extends ApiController
 {

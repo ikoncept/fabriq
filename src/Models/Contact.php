@@ -3,11 +3,11 @@
 namespace Ikoncept\Fabriq\Models;
 
 use Ikoncept\Fabriq\ContentGetters\ImageGetter;
+use Ikoncept\Fabriq\Database\Factories\ContactFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
 use Infab\TranslatableRevisions\Traits\HasTranslatedRevisions;
 use Infab\TranslatableRevisions\Traits\RevisionOptions;
 use Spatie\Tags\HasTags;
@@ -20,16 +20,21 @@ class Contact extends Model
 
     protected $guarded = ['content', 'localizedContent'];
 
+    /**
+     * Morph class
+     *
+     * @var string
+     */
     protected $morphClass = 'MorphContact';
 
-    // public function getContactClass()
-    // {
-    //     if (! isset($this->permissionClass)) {
-    //         $this->permissionClass = app(PermissionRegistrar::class)->getPermissionClass();
-    //     }
+    /**
+     * Create a new factory
+     */
+    protected static function newFactory() : ContactFactory
+    {
+        return ContactFactory::new();
+    }
 
-    //     return $this->permissionClass;
-    // }
 
     /**
      * Get the options for the revisions.

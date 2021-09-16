@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Models;
 
+use Ikoncept\Fabriq\Database\Factories\MenuItemFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,6 +31,10 @@ class MenuItem extends Model
         '_rgt' => 'int',
     ];
 
+    protected static function newFactory() : MenuItemFactory
+    {
+        return MenuItemFactory::new();
+    }
 
     /**
      * The "booted" method of the model.

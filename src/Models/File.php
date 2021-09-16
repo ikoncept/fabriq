@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Models;
 
+use Ikoncept\Fabriq\Database\Factories\FileFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,15 @@ class File extends Model implements HasMedia
     const RELATIONSHIPS = ['tags'];
 
     protected $with = ['media'];
+
+
+    /**
+     * Create a new factory
+     */
+    protected static function newFactory() : FileFactory
+    {
+        return FileFactory::new();
+    }
 
     public function registerMediaConversions(Media $media = null): void
     {

@@ -24,6 +24,11 @@ class Article extends Model
 
     public array $templateSluggable = ['article_title'];
 
+    /**
+     * Morph class
+     *
+     * @var string
+     */
     protected $morphClass = 'MorphArticle';
 
     /**

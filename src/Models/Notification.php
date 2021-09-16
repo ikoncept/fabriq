@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Models;
 
+use Ikoncept\Fabriq\Database\Factories\NotificationFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,12 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class Notification extends Model
 {
     use HasFactory;
+
+
+    protected static function newFactory() : NotificationFactory
+    {
+        return NotificationFactory::new();
+    }
 
     const RELATIONSHIPS = ['notifiable', 'notifiable.user', 'notifiable.commentable'];
 

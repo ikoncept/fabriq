@@ -48,9 +48,9 @@ class PublishControllerCommand extends GeneratorCommand
         $model = $this->option('model') ?? null;
         $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
 
-        if ($this->option('tests')) {
-            $this->createTests($model);
-        }
+        // if ($this->option('tests')) {
+        //     $this->createTests($model);
+        // }
 
 
         return $model ? $this->replaceModel($stub, $model) : $stub;

@@ -27,7 +27,7 @@ class MacroServiceProvider extends ServiceProvider
     public function boot()
     {
         Builder::macro('whereLike', function ($attributes, string $searchTerm) {
-            /* @var Builder $this */
+            /** @var Builder $this **/
             $this->where(function (Builder $query) use ($attributes, $searchTerm) {
                 foreach (Arr::wrap($attributes) as $attribute) {
                     $query->when(

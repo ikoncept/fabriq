@@ -11,8 +11,28 @@ parameters:
 
     ignoreErrors:
         - '#Access to an undefined property#'
+        -
+            message: '#Call to an undefined method#'
+            path: ./src/Http/Controllers/Api/Fabriq/MenuItemTreeController.php
+        -
+            message: '#Call to an undefined static method#'
+            path: ./src/Http/Controllers/Api/Fabriq/MenuItemTreeController.php
+        -
+            message: '#Call to an undefined method#'
+            path: ./src/Http/Controllers/Api/Fabriq/PageTreeController.php
+        -
+            message: '#Call to an undefined static method#'
+            path: ./src/Http/Controllers/Api/Fabriq/PageTreeController.php
+        -
+            message: '#Call to an undefined method#'
+            path: ./src/Services/ResponsiveImageGenerator.php
+        -
+            message: '#$view of function view expects view-string|null#'
+            path: ./src/Http/Controllers/Api/Fabriq/ImageSourceSetController.php
 
     excludePaths:
         - ./*/*/FileToBeExcluded.php
+        - src/Console/*
+        - src/RouteRegistrar.php
 
     checkMissingIterableValueType: false

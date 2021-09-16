@@ -34,5 +34,10 @@ return [
     'modelMap' => [
         'article' => \Ikoncept\Fabriq\Models\Article::class,
         'contact' => \Ikoncept\Fabriq\Models\Contact::class,
+        'event' => \Ikoncept\Fabriq\Models\Event::class,
+        'page' => \Ikoncept\Fabriq\Models\Page::class,
+        'slug' => \Ikoncept\Fabriq\Models\Slug::class,
+        'menuItem' => \Ikoncept\Fabriq\Models\MenuItem::class,
+        'menu' => \Ikoncept\Fabriq\Models\Menu::class,
     ]
 ];

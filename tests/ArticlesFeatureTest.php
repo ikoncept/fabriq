@@ -6,11 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Infab\TranslatableRevisions\Models\RevisionTemplate;
 use Infab\TranslatableRevisions\Models\RevisionTemplateField;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Route;
-use Infab\TranslatableRevisions\Models\I18nTerm;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
 
 class ArticlesFeatureTest extends AdminUserTestCase
 {

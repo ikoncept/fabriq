@@ -6,6 +6,7 @@ use Ikoncept\Fabriq\ContentGetters\ButtonGetter;
 use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Ikoncept\Fabriq\ContentGetters\SmartBlockGetter;
 use Ikoncept\Fabriq\ContentGetters\VideoGetter;
+use Ikoncept\Fabriq\Database\Factories\PageFactory;
 use Ikoncept\Fabriq\Traits\Commentable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,6 +40,14 @@ class Page extends Model implements HasMedia
         '_rgt' => 'int',
         'parent_id' => 'int',
     ];
+
+    /**
+     * Create a new factory
+     */
+    protected static function newFactory() : PageFactory
+    {
+        return PageFactory::new();
+    }
 
     /**
      * The "booted" method of the model.
