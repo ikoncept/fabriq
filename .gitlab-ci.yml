@@ -15,8 +15,6 @@ composer:
   # What to run on the job.
   script:
       - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-      - cp .env.example .env
-      - php artisan key:generate
 
   artifacts:
 
@@ -28,7 +26,6 @@ composer:
     # Define what to output from the job.
     paths:
       - vendor/
-      - .env
   cache:
 
     # The variable CI_COMMIT_REF_SLUG
