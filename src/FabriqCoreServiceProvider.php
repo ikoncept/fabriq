@@ -47,6 +47,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
             __DIR__.'/../.eslintrc' => '.eslintrc',
             __DIR__.'/../.babelrc' => '.babelrc',
             __DIR__.'/../.styleci.yml' => '.styleci.yml',
+            __DIR__.'/../yarn.lock' => 'yarn.lock',
         ], 'fabriq-frontend-assets');
     }
 

@@ -1,0 +1,359 @@
+.vs__selected button {
+    height: 1rem;
+    width: 1rem;
+    position: relative;
+    background-repeat: no-repeat;
+    /* background-image: url("data:image/svg+xml;base64,PHN2ZyBkYXRhLWljb249InhtYXJrIiByb2xlPSJpbWciCiAgICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzODQgNTEyIj4KICAgIDxwYXRoICBkPSJNMzQ1IDM3NUMzNTQgMzg0IDM1NCA0MDAgMzQ1IDQwOVMzMjAgNDE4IDMxMSA0MDlMMTkyIDI5MEw3MyA0MDlDNjQgNDE4IDQ4IDQxOCAzOSA0MDlTMzAgMzg0IDM5IDM3NUwxNTggMjU2TDM5IDEzN0MzMCAxMjggMzAgMTEyIDM5IDEwM1M2NCA5NCA3MyAxMDNMMTkyIDIyMkwzMTEgMTAzQzMyMCA5NCAzMzYgOTQgMzQ1IDEwM1MzNTQgMTI4IDM0NSAxMzdMMjI2IDI1NkwzNDUgMzc1WiIgZmlsbD0iIzZCNzI4MCIvPgo8L3N2Zz4="); */
+    background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' data-prefix='fa-light' data-icon='xmark' class='svg-inline--fa fa-xmark fa-w-10' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M315.31 411.31C309.056 417.563 298.936 417.563 292.682 411.31L160 278.627L27.318 411.31C21.064 417.563 10.944 417.563 4.69 411.31C-1.563 405.056 -1.563 394.936 4.69 388.682L137.373 256L4.69 123.318C-1.563 117.064 -1.563 106.944 4.69 100.69C10.944 94.437 21.064 94.437 27.318 100.69L160 233.373L292.682 100.69C298.936 94.437 309.056 94.437 315.31 100.69C321.563 106.944 321.563 117.064 315.31 123.318L182.627 256L315.31 388.682C321.563 394.936 321.563 405.056 315.31 411.31Z' fill='%231F2937'/%3E%3C/svg%3E");
+}
+.fabriq-input .vs__search {
+    color: inherit;
+}
+ .vs__clear svg {
+    display: none;
+}
+ .vs__clear {
+    z-index: 10;
+    height: 1rem;
+    width: 1rem;
+    position: relative;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyBkYXRhLWljb249InhtYXJrIiByb2xlPSJpbWciCiAgICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzODQgNTEyIj4KICAgIDxwYXRoICBkPSJNMzQ1IDM3NUMzNTQgMzg0IDM1NCA0MDAgMzQ1IDQwOVMzMjAgNDE4IDMxMSA0MDlMMTkyIDI5MEw3MyA0MDlDNjQgNDE4IDQ4IDQxOCAzOSA0MDlTMzAgMzg0IDM5IDM3NUwxNTggMjU2TDM5IDEzN0MzMCAxMjggMzAgMTEyIDM5IDEwM1M2NCA5NCA3MyAxMDNMMTkyIDIyMkwzMTEgMTAzQzMyMCA5NCAzMzYgOTQgMzQ1IDEwM1MzNTQgMTI4IDM0NSAxMzdMMjI2IDI1NkwzNDUgMzc1WiIgZmlsbD0iIzZCNzI4MCIvPgo8L3N2Zz4=");
+}
+
+/* purgecss start ignore */
+
+.v-select {
+    position: relative;
+    font-family: inherit;
+}
+
+.v-select,
+.v-select * {
+    box-sizing: border-box
+}
+
+@-webkit-keyframes vSelectSpinner {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(1turn)
+    }
+}
+
+@keyframes vSelectSpinner {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(1turn)
+    }
+}
+
+.vs__fade-enter-active,
+.vs__fade-leave-active {
+    pointer-events: none;
+    transition: opacity .15s cubic-bezier(1, .5, .8, 1)
+}
+
+.vs__fade-enter,
+.vs__fade-leave-to {
+    opacity: 0
+}
+
+.vs__search {
+    line-height: 1.35 !important;
+}
+.vs--disabled .vs__clear,
+.vs--disabled .vs__dropdown-toggle,
+.vs--disabled .vs__open-indicator,
+.vs--disabled .vs__search,
+.vs--disabled .vs__selected {
+    cursor: not-allowed;
+    background-color: inherit;
+    color: inherit;
+}
+
+.v-select[dir=rtl] .vs__actions {
+    /* padding: 0 3px 0 6px */
+}
+
+ .v-select[dir=rtl] .vs__clear {
+    margin-left: 6px;
+    margin-right: 0
+}
+
+.v-select[dir=rtl] .vs__deselect {
+    margin-left: 0;
+    margin-right: 2px
+}
+
+.v-select[dir=rtl] .vs__dropdown-menu {
+    text-align: right
+}
+
+.vs__selected { }
+
+.vs__dropdown-toggle {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: flex;
+    /* padding: 0 0 4px; */
+    background: none;
+    /* border: 1px solid rgba(60, 60, 60, .26); */
+    /* border-radius: 4px; */
+    white-space: normal
+}
+
+.vs__selected-options {
+    display: flex;
+    flex-basis: 100%;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    /* padding: 0 2px; */
+    position: relative;
+    @apply -mb-2;
+}
+.vs__selected-options span.vs__selected {
+    @apply  mb-2;
+}
+.vs__selected-options .vs__search {
+    @apply pb-2;
+}
+.vs__actions {
+    display: flex;
+    align-items: center;
+    /* padding: 4px 6px 0 3px */
+}
+
+.vs--searchable .vs__dropdown-toggle {
+    cursor: text
+}
+
+.vs--unsearchable .vs__dropdown-toggle {
+    cursor: pointer
+}
+
+.vs--open .vs__dropdown-toggle {
+    border-bottom-color: transparent;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0
+}
+
+.vs__open-indicator {
+    fill: rgba(60, 60, 60, .5);
+    transform: scale(1);
+    transition: transform .15s cubic-bezier(1, -.115, .975, .855);
+    transition-timing-function: cubic-bezier(1, -.115, .975, .855)
+}
+
+.vs--open .vs__open-indicator {
+    transform: rotate(180deg) scale(1)
+}
+
+.vs--loading .vs__open-indicator {
+    opacity: 0
+}
+
+.vs__clear {
+    fill: rgba(60, 60, 60, .5);
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    margin-right: 8px
+}
+
+.vs__dropdown-menu {
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 1000;
+    padding: 5px 0;
+    margin: 0;
+    width: 100%;
+    max-height: 350px;
+    min-width: 160px;
+    overflow-y: auto;
+    border-top-style: none;
+    text-align: left;
+    list-style: none;
+    background: #fff;
+    @apply rounded shadow-lg ring-1 ring-gray-300;
+}
+
+.vs__no-options {
+    text-align: center
+}
+
+.vs__dropdown-option {
+    /* line-height: 1.42857143; */
+    display: block;
+    clear: both;
+    white-space: nowrap;
+    @apply px-4 py-3 leading-none text-gray-800;
+}
+
+.vs__dropdown-option:hover {
+    cursor: pointer
+}
+
+.vs__dropdown-option--highlight {
+    @apply text-gray-800 bg-gray-100;
+}
+
+.vs__dropdown-option--disabled {
+    background: inherit;
+    color: rgba(60, 60, 60, .5);
+    @apply cursor-not-allowed;
+}
+
+.vs__dropdown-option--disabled:hover {
+    cursor: inherit
+}
+
+.vs__selected {
+    display: flex;
+    align-items: center;
+    z-index: 0;
+}
+
+.vs__deselect {
+    display: inline-flex;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin-left: 4px;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    background: none;
+    fill: rgba(60, 60, 60, .5);
+    text-shadow: 0 1px 0 #fff
+}
+
+.vs--single .vs__selected {
+    background-color: transparent;
+    /* line-height: 100; */
+    border-color: transparent;
+
+    @apply px-0 text-sm font-normal rounded-none;
+}
+
+.vs--single.vs--open .vs__selected {
+    /* position: absolute; */
+    opacity: .4
+}
+
+.vs--single.vs--searching .vs__selected {
+    display: none
+}
+
+.vs__search::-webkit-search-cancel-button {
+    display: none
+}
+
+.vs__search::-ms-clear,
+.vs__search::-webkit-search-decoration,
+.vs__search::-webkit-search-results-button,
+.vs__search::-webkit-search-results-decoration {
+    display: none
+}
+
+.vs__search,
+.vs__search:focus {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 1em;
+    border: 1px solid transparent;
+    border-left: none;
+    outline: none;
+    background: none;
+    box-shadow: none;
+    width: 0;
+    max-width: 100%;
+    flex-grow: 1;
+    z-index: 1;
+    /* line-height: 1.4; */
+    /* padding: 0 7px; */
+    /* margin: 4px 0 0; */
+}
+
+.vs__search::-webkit-input-placeholder {
+    color: inherit
+}
+
+.vs__search::-moz-placeholder {
+    color: inherit
+}
+
+.vs__search:-ms-input-placeholder {
+    color: inherit
+}
+
+.vs__search::-ms-input-placeholder {
+    color: inherit
+}
+
+.vs__search::placeholder {
+    color: inherit
+}
+
+.vs--unsearchable .vs__search {
+    opacity: 1
+}
+
+.vs--unsearchable:not(.vs--disabled) .vs__search:hover {
+    cursor: pointer
+}
+
+.vs--single.vs--searching:not(.vs--open):not(.vs--loading) .vs__search {
+    opacity: .2
+}
+
+.vs__spinner {
+    align-self: center;
+    opacity: 0;
+    font-size: 5px;
+    text-indent: -9999em;
+    overflow: hidden;
+    border: .9em solid hsla(0, 0%, 39.2%, .1);
+    border-left-color: rgba(60, 60, 60, .45);
+    transform: translateZ(0);
+    -webkit-animation: vSelectSpinner 1.1s linear infinite;
+    animation: vSelectSpinner 1.1s linear infinite;
+    transition: opacity .1s
+}
+
+.vs__spinner,
+.vs__spinner:after {
+    border-radius: 50%;
+    width: 5em;
+    height: 5em
+}
+
+.vs--loading .vs__spinner {
+    opacity: 1
+}
+/* purgecss end ignore */
+
+ .vs__selected {
+    @apply inline-flex items-center pl-3 pr-1.5 py-0.5 -my-0.5 mr-2 text-xs font-semibold text-gray-800 rounded-full bg-gold-200;
+}
+ .vs__selected button {
+    @apply ml-2;
+}
+.vs__selected button svg {
+    display: none;
+}
+
+ .vs--disabled  .vs__selected {
+    @apply inline-flex items-center pl-3 pr-1.5 py-0.5 -my-0.5 mr-2 text-xs font-semibold text-gray-800 rounded-full bg-gold-200 opacity-75;
+}
