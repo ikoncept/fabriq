@@ -75,7 +75,7 @@ class ImageFeatureTest extends AdminUserTestCase
         ]);
 
         // Assert
-        $response->assertStatus(500);
+        $response->assertStatus(400);
     }
 
     /** @test **/

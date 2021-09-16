@@ -42,7 +42,9 @@ class InstallFabriqCommand extends Command
 
         $this->info('Installing controllers');
         $files = scandir(__DIR__ . '/../../../stubs');
-        $names = collect($files)->map(function($item) {
+        $names = collect($files)->filter(function($item){
+            return Str::contains($item, 'Controller');
+        })->map(function($item) {
             return Str::singular(explode('.stub', $item)[0]);
         })->filter(function($item) {
             return $item !== '..' && $item !== '.';
@@ -62,6 +64,11 @@ class InstallFabriqCommand extends Command
         $this->call('vendor:publish', [
             '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
             '--tag' => 'fabriq-frontend-assets',
+            '--force' => true
+        ]);
+        $this->call('vendor:publish', [
+            '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
+            '--tag' => 'fabriq-web-assets',
             '--force' => true
         ]);
 

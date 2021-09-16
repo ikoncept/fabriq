@@ -49,6 +49,13 @@ class FabriqCoreServiceProvider extends ServiceProvider
             __DIR__.'/../.styleci.yml' => '.styleci.yml',
             __DIR__.'/../yarn.lock' => 'yarn.lock',
         ], 'fabriq-frontend-assets');
+
+        $this->publishes([
+            __DIR__.'/../stubs/Web/SpaController.stub' => app_path('Http/Controllers/SpaController.php'),
+            __DIR__.'/../resources/views' => resource_path(),
+            __DIR__.'/../stubs/Actions' => app_path('Actions'),
+        ], 'fabriq-web-assets');
+
     }
 
 

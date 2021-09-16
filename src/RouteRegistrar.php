@@ -25,8 +25,40 @@ class RouteRegistrar
         $this->router = $router;
     }
 
+
     /**
-     * Register routes for transient tokens, clients, and personal access tokens.
+     * Register routes for web.
+     *
+     * @return void
+     */
+    public function allWeb() : void
+    {
+        Route::get('/email/verify', function ($request) {
+            return view('auth.verify-email', ['request' => $request]);
+        })->middleware('auth')->name('verification.notice');
+
+        Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
+            $request->fulfill();
+
+            return redirect('/profile/settings');
+        })->middleware(['auth', 'signed'])->name('verification.verify');
+
+        Route::get('/email/verification-notification', function () {
+            config('fabriq.modelMap.user')::find(1)->sendEmailVerificationNotification();
+
+            return 'ok';
+            return back()->with('message', 'Verification link sent!');
+        })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+        // Route::get('login/infab',  [InfabAuthController::class, 'redirectToProvider']);
+        // Route::get('login/infab/callback', [InfabAuthController::class, 'handleProviderCallback']);
+
+        Route::get('/', [\App\Http\Controllers\SpaController::class, 'index'])->middleware('auth');
+        Route::get('/{any}', [\App\Http\Controllers\SpaController::class, 'index'])->where('any', '.*')->middleware('auth');
+    }
+
+    /**
+     * Register routes for API endpoints.
      *
      * @return void
      */

@@ -39,5 +39,6 @@ return [
         'slug' => \Ikoncept\Fabriq\Models\Slug::class,
         'menuItem' => \Ikoncept\Fabriq\Models\MenuItem::class,
         'menu' => \Ikoncept\Fabriq\Models\Menu::class,
+        'user' => \Ikoncept\Fabriq\Models\User::class,
     ]
 ];
