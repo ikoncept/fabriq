@@ -20,6 +20,16 @@ class Contact extends Model
 
     protected $guarded = ['content', 'localizedContent'];
 
+    protected $morphClass = 'MorphContact';
+
+    // public function getContactClass()
+    // {
+    //     if (! isset($this->permissionClass)) {
+    //         $this->permissionClass = app(PermissionRegistrar::class)->getPermissionClass();
+    //     }
+
+    //     return $this->permissionClass;
+    // }
 
     /**
      * Get the options for the revisions.

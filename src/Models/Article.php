@@ -24,6 +24,7 @@ class Article extends Model
 
     public array $templateSluggable = ['article_title'];
 
+    protected $morphClass = 'MorphArticle';
 
     /**
      * Create a new factory

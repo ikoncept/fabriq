@@ -1,2 +1,6 @@
 /vendor/
 composer.lock
+.env
+.env.backup
+.phpunit.result.cache
+tests/_output

@@ -2,8 +2,10 @@
 
 namespace Ikoncept\Fabriq\Tests;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Laravel\Sanctum\Sanctum;
@@ -14,8 +16,15 @@ abstract class AdminUserTestCase extends Orchestra
     public function setUp() : void
     {
         parent::setUp();
+        Fabriq::routes(
+            function ($router) {
+                $router->forInternalArticles();
+            }
+        );
         $this->setUpDatabase($this->app);
         $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
+
+        Artisan::call('fabriq:install');
 
         // include_once(__DIR__  . '/../database/migrations/2014_10_12_000000_create_users_table.php');
         // (new \CreateUsersTable())->up();
@@ -24,9 +33,8 @@ abstract class AdminUserTestCase extends Orchestra
             'email' => 'albin@infab.io',
             'password' => bcrypt('secret')
         ]);
-        $user->assignRole('admin');
 
-        Sanctum::actingAs($user);
+        $this->actingAs($user);
     }
 
     public function tearDown() : void

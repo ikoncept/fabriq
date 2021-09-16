@@ -1,13 +1,12 @@
 <?php
 
-namespace Ikoncept\Fabriq\Http\Controllers\Api;
+namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Http\Controllers\Controller;
 use Ikoncept\Fabriq\Http\Requests\CreateArticleRequest;
 use Ikoncept\Fabriq\Http\Requests\UpdateArticleRequest;
 use Ikoncept\Fabriq\Models\Article;
 use Ikoncept\Fabriq\Transformers\ArticleTransformer;
-use Ikoncept\Fabriq\Transformers\ContentTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
@@ -57,8 +56,6 @@ class ArticlesController extends Controller
     public function update(UpdateArticleRequest $request, int $id) : JsonResponse
     {
         $article = Article::findOrFail($id);
-        // $article->name = $request->name;
-        // $article->publishes_at = $request->publishes_at;
         $article->fill($request->validated());
         $article->updateContent($request->content);
         $article->save();
