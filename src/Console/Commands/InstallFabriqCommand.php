@@ -57,6 +57,30 @@ class InstallFabriqCommand extends Command
         }
 
         $this->info('All controllers has been installed');
+
+        $this->info('Installing front end assets');
+        $this->call('vendor:publish', [
+            '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
+            '--tag' => 'fabriq-frontend-assets',
+            '--force' => true
+        ]);
+
+        $this->info('Front end assets has been installed');
+
+        $this->info('Installing translations');
+        $this->call('vendor:publish', [
+            '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
+            '--tag' => 'fabriq-translations',
+        ]);
+
+        $this->info('Translations has been installed');
+
+        $this->info('Migrating...');
+
+        $this->call('migrate');
+
+        $this->info('Fabriq has been installed');
+
         return 0;
     }
 }

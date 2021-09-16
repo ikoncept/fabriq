@@ -32,7 +32,24 @@ class RouteRegistrar
      */
     public function all() : void
     {
+        $this->forMiscRoutes();
+
         $this->forArticles();
+        $this->forContacts();
+        $this->forBlockTypes();
+        $this->forComments();
+        $this->forConfig();
+        $this->forEvents();
+        $this->forFiles();
+        $this->forImages();
+        $this->forDownloads();
+        $this->forMenus();
+        $this->forPages();
+        $this->forRoles();
+        $this->forSmartBlocks();
+        $this->forTags();
+        $this->forUsers();
+        $this->forVideos();
     }
 
     public function allInternal() : void
@@ -69,6 +86,135 @@ class RouteRegistrar
         Route::get('articles/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesController::class, 'show']);
         Route::patch('articles/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesController::class, 'update']);
         Route::delete('articles/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesController::class, 'destroy']);
+    }
+
+    public function forContacts() : void
+    {
+        Route::resource('contacts', \App\Http\Controllers\Api\Fabriq\ArticlesControllerContactsController::class);
+    }
+
+    public function forBlockTypes() : void
+    {
+        Route::resource('block-types', \App\Http\Controllers\Api\Fabriq\ArticlesControllerBlockTypesController::class);
+    }
+
+    public function forComments() : void
+    {
+        Route::get('{model}/{id}/comments', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerCommentableController::class, 'index']);
+        Route::post('{model}/{id}/comments', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerCommentableController::class, 'store']);
+        Route::patch('comments/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerCommentsController::class, 'update']);
+        Route::delete('comments/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerCommentsController::class, 'destroy']);
+    }
+
+    public function forConfig() : void
+    {
+        Route::get('config', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerConfigController::class, 'index']);
+    }
+
+    public function forEvents() : void
+    {
+        Route::resource('events', \App\Http\Controllers\Api\Fabriq\ArticlesControllerEventsController::class);
+    }
+
+    public function forFiles() : void
+    {
+        Route::get('files', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerFilesController::class, 'index']);
+        Route::get('files/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerFilesController::class, 'show']);
+        Route::patch('files/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerFilesController::class, 'update']);
+        Route::delete('files/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerFilesController::class, 'destroy']);
+    }
+
+    public function forImages() : void
+    {
+        Route::get('/{model}/{id}/images', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerImageablesController::class, 'index']);
+        Route::post('/images/{id}/{model}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerImageablesController::class, 'store']);
+        Route::get('images', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerImagesController::class, 'index']);
+        Route::get('images/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerImagesController::class, 'show']);
+        Route::patch('images/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerImagesController::class, 'update']);
+        Route::delete('images/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerImagesController::class, 'destroy']);
+    }
+
+    public function forDownloads() : void
+    {
+        Route::get('downloads', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerDownloadsController::class, 'index']);
+    }
+
+    public function forMiscRoutes() : void
+    {
+        Route::get('templates', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerRevisionTemplatesController::class, 'index']);
+        Route::get('menus/{slug}/public', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerMenuItemTreeController::class, 'show']);
+        Route::get('{model}/count', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerModelCountController::class, 'show']);
+
+        // Uploads
+        Route::post('uploads/images', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerImageUploadsController::class, 'store']);
+        Route::post('uploads/files', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerFileUploadsController::class, 'store']);
+        Route::post('uploads/videos', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerVideoUploadsController::class, 'store']);
+    }
+
+    public function forMenus() : void
+    {
+        Route::get('menus', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerMenusController::class, 'index']);
+        Route::post('menus', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerMenusController::class, 'store']);
+        Route::get('menus/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerMenusController::class, 'show']);
+        Route::patch('menus/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerMenusController::class, 'update']);
+        Route::delete('menus/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerMenusController::class, 'destroy']);
+        Route::get('menus/{id}/items/tree', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerMenuItemTreeController::class, 'index']);
+        Route::patch('menus/{id}/items/tree', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerMenuItemTreeController::class, 'update']);
+        Route::post('/menus/{id}/items', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerMenuItemsController::class, 'store']);
+
+        Route::get('menu-items/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerMenuItemsController::class, 'show']);
+        Route::patch('menu-items/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerMenuItemsController::class, 'update']);
+        Route::delete('menu-items/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerMenuItemsController::class, 'destroy']);
+    }
+
+    public function forPages() : void
+    {
+        Route::get('pages-tree', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerPageTreeController::class, 'index']);
+        Route::patch('pages-tree', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerPageTreeController::class, 'update']);
+        Route::get('pages/{slug}/live', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerPageSlugsController::class, 'show']);
+        Route::get('pages/{slug}/preview', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerPageSlugPreviewsController::class, 'show'])->name('pages.show.preview');
+        Route::get('pages', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerPagesController::class, 'index']);
+        Route::post('pages', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerPagesController::class, 'store']);
+        Route::get('pages/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerPagesController::class, 'show']);
+        Route::patch('pages/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerPagesController::class, 'update']);
+        Route::delete('pages/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerPagesController::class, 'destroy']);
+        Route::post('pages/{id}/publish', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerPublishPagesController::class, 'store']);
+        Route::get('pages/{id}/signed-url', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerPageSignedUrlsController::class, 'show']);
+    }
+
+    public function forRoles() : void
+    {
+        Route::get('roles', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerRolesController::class, 'index']);
+    }
+
+    public function forSmartBlocks() : void
+    {
+        Route::resource('smart-blocks', \App\Http\Controllers\Api\Fabriq\ArticlesControllerSmartBlocksController::class);
+    }
+
+    public function forTags() : void
+    {
+        Route::get('tags', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerTagsController::class, 'index']);
+        Route::post('tags', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerTagsController::class, 'store']);
+    }
+
+    public function forUsers() : void
+    {
+        Route::get('user', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerAuthenticatedUserController::class, 'index']);
+        Route::patch('user', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerAuthenticatedUserController::class, 'update']);
+        Route::post('user/send-email-verification', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerEmailVerificationsController::class, 'store']);
+        Route::get('/user/notifications', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerNotificationsController::class, 'index']);
+        Route::patch('/user/notifications/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerNotificationsController::class, 'update']);
+
+        Route::resource('users', \App\Http\Controllers\Api\Fabriq\ArticlesControllerUsersController::class);
+    }
+
+    public function forVideos() : void
+    {
+        Route::get('videos', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerVideosController::class, 'index']);
+        Route::get('videos/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerVideosController::class, 'show']);
+        Route::patch('videos/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerVideosController::class, 'update']);
+        Route::delete('videos/{id}', [\App\Http\Controllers\Api\Fabriq\ArticlesControllerVideosController::class, 'destroy']);
     }
 
     public function forInternalArticles() : void

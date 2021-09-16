@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./resources",
+        "paths": {
+            "~/*": [
+                "./js/*"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

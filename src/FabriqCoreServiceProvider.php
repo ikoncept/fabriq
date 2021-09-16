@@ -4,23 +4,14 @@ namespace Ikoncept\Fabriq;
 
 use Ikoncept\Fabriq\Console\Commands\InstallFabriqCommand;
 use Ikoncept\Fabriq\Console\Commands\PublishControllerCommand;
-use Ikoncept\Fabriq\Models\Menu;
-use Ikoncept\Fabriq\Models\MenuItem;
-use Ikoncept\Fabriq\Models\Page;
-use Ikoncept\Fabriq\Models\Slug;
 use Ikoncept\Fabriq\Repositories\Decorators\CachingMenuRepository;
 use Ikoncept\Fabriq\Repositories\Decorators\CachingPageRepository;
 use Ikoncept\Fabriq\Repositories\EloquentMenuRepository;
 use Ikoncept\Fabriq\Repositories\EloquentPageRepository;
 use Ikoncept\Fabriq\Repositories\Interfaces\PageRepositoryInterface;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Infab\Core\CoreServiceProvider;
-use Illuminate\Support\Facades\Route;
 use Infab\TranslatableRevisions\TranslatableRevisionsServiceProvider;
-use Laravel\Sanctum\SanctumServiceProvider;
-use League\CommonMark\Extension\CommonMark\Node\Block\ThematicBreak;
 use League\Fractal\Manager;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
@@ -45,39 +36,19 @@ class FabriqCoreServiceProvider extends ServiceProvider
             __DIR__.'/../resources/lang' => resource_path('lang'),
         ], 'fabriq-translations');
 
-        $this->registerResources();
+        $this->publishes([
+            __DIR__.'/../resources/js' => resource_path('js'),
+            __DIR__.'/../resources/images' => resource_path('images'),
+            __DIR__.'/../resources/css' => resource_path('css'),
+            __DIR__.'/../tailwind.config.js' => 'tailwind.config.js',
+            __DIR__.'/../webpack.mix.js' => 'webpack.mix.js',
+            __DIR__.'/../package.json' => 'package.json',
+            __DIR__.'/../jsconfig.json' => 'jsconfig.json',
+            __DIR__.'/../.eslintrc' => '.eslintrc',
+            __DIR__.'/../.babelrc' => '.babelrc',
+            __DIR__.'/../.styleci.yml' => '.styleci.yml',
+        ], 'fabriq-frontend-assets');
     }
-
-    protected function registerResources() : void
-    {
-        // $this->registerRoutes();
-    }
-
-    /**
-     * Register the package routes.
-     *
-     * @return void
-     */
-    protected function registerRoutes() : void
-    {
-        Route::group($this->routeConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__.'/../routes/api-admin-protected.php');
-        });
-
-    }
-
-
-    /**
-     * Get the Nova route group configuration array.
-     *
-     * @return array
-     */
-    protected function routeConfiguration()
-    {
-        return [
-        ];
-    }
-
 
 
     /**

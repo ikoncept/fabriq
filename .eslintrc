@@ -1,0 +1,66 @@
+{
+    "root": true,
+    "parserOptions": {
+        "parser": "@babel/eslint-parser",
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "extends": [
+        "plugin:vue/recommended",
+        "standard"
+    ],
+    "rules": {
+        "vue/max-attributes-per-line": [
+            "error",
+            {
+                "singleline": 1,
+                "multiline": {
+                    "max": 1,
+                    "allowFirstLine": true
+                }
+            }
+        ],
+        "vue/custom-event-name-casing": [
+            "error",
+            "kebab-case",
+            {
+              "ignores": []
+            }
+        ],
+        "vue/component-name-in-template-casing": [
+            "error",
+            "PascalCase",
+            {
+                "registeredComponentsOnly": false,
+                "ignores": []
+            }
+        ],
+        "vue/no-v-html": "off",
+        "indent": [
+            "error",
+            4
+        ],
+        "vue/html-indent": [
+            "error",
+            4
+        ],
+        "multiline-ternary": [
+            "error",
+            "never"
+        ],
+        "eqeqeq": [
+            "error",
+            "always"
+        ],
+        "unicorn/prevent-abbreviations": "error",
+        "unicorn/throw-new-error": "error",
+        "unicorn/prefer-type-error": "error",
+        "unicorn/prefer-date-now": "error",
+        "unicorn/explicit-length-check": "error",
+        "unicorn/prefer-spread": "error"
+    },
+    "plugins": [
+        "@babel",
+        "unicorn"
+    ]
+}
