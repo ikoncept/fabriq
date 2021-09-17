@@ -21,15 +21,21 @@ class FortifyServiceProvider extends ServiceProvider
     public function register()
     {
         Fortify::loginView(function () {
-            return view('vendor.fabriq.auth.login');
+            /** @var view-string $viewString **/
+            $viewString = 'vendor.fabriq.auth.login';
+            return view($viewString);
         });
 
         Fortify::requestPasswordResetLinkView(function () {
-            return view('vendor.fabriq.auth.forgot-password');
+            /** @var view-string $viewString **/
+            $viewString = 'vendor.fabriq.auth.forgot-password';
+            return view($viewString);
         });
 
         Fortify::resetPasswordView(function ($request) {
-            return view('vendor.fabriq.auth.reset-password', ['request' => $request]);
+            /** @var view-string $viewString **/
+            $viewString = 'vendor.fabriq.auth.reset-password';
+            return view($viewString, ['request' => $request]);
         });
 
         // Fortify::verifyEmailView(function($request) {

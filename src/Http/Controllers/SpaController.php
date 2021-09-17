@@ -15,6 +15,9 @@ class SpaController extends Controller
             return response()->json('Get outta here!', 404);
         }
 
-        return view('index');
+        /** @var view-string $viewString **/
+        $viewString = 'vendor.fabriq.index';
+
+        return view($viewString);
     }
 }

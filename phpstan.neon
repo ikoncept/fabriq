@@ -26,9 +26,9 @@ parameters:
         -
             message: '#Call to an undefined method#'
             path: ./src/Services/ResponsiveImageGenerator.php
-        # -
-        #     message: '#$view of function view expects view-string#'
-        #     path: ./src/FortifyServiceProvider.php
+        -
+            message: '#Parameter#'
+            path: ./src/MacroServiceProvider.php
         # -
         #     message: '#$view of function view expects view-string#'
         #     path: ./src/Http/Controllers/Api/Fabriq/ImageSourceSetController.php
