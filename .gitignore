@@ -2,5 +2,5 @@
 composer.lock
 .env
 .env.backup
-.phpunit.result.cache
+# .phpunit.result.cache
 tests/_output
