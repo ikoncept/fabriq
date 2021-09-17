@@ -3,6 +3,8 @@
 namespace Ikoncept\Fabriq;
 
 use Illuminate\Support\Facades\Route;
+use InvalidArgumentException;
+use Illuminate\Database\Eloquent\Model;
 
 class Fabriq
 {
@@ -27,5 +29,22 @@ class Fabriq
         Route::group($options, function ($router) use ($callback) {
             $callback(new RouteRegistrar($router));
         });
+    }
+
+    /**
+     * Return a new instance of a model
+     *
+     * @param string $key
+     * @param mixed ...$arguments
+     * @return mixed
+     */
+    public static function getModelClass(string $key, ...$arguments)
+    {
+        $class = config('fabriq.models.' . $key);
+        if(! $class) {
+            throw new InvalidArgumentException('The model key was not found: ' . $key);
+        }
+
+        return new $class($arguments);
     }
 }

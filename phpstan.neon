@@ -26,9 +26,6 @@ parameters:
         -
             message: '#Call to an undefined method#'
             path: ./src/Services/ResponsiveImageGenerator.php
-        -
-            message: '#$view of function view expects view-string|null#'
-            path: ./src/Http/Controllers/Api/Fabriq/ImageSourceSetController.php
 
     excludePaths:
         - ./*/*/FileToBeExcluded.php

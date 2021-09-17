@@ -2,8 +2,13 @@
 
 namespace Ikoncept\Fabriq;
 
+use Ikoncept\Fabriq\Console\Commands\CreatePageRootCommand;
+use Ikoncept\Fabriq\Console\Commands\GenerateRevisionField;
 use Ikoncept\Fabriq\Console\Commands\InstallFabriqCommand;
 use Ikoncept\Fabriq\Console\Commands\PublishControllerCommand;
+use Ikoncept\Fabriq\Console\Commands\PublishNotification;
+use Ikoncept\Fabriq\Console\Commands\PutPagesIntoRootCommand;
+use Ikoncept\Fabriq\Console\Commands\SendNotificationReminders;
 use Ikoncept\Fabriq\Repositories\Decorators\CachingMenuRepository;
 use Ikoncept\Fabriq\Repositories\Decorators\CachingPageRepository;
 use Ikoncept\Fabriq\Repositories\EloquentMenuRepository;
@@ -26,35 +31,35 @@ class FabriqCoreServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/../config/fabriq.php' => config_path('fabriq.php'),
-        ], 'fabriq-config');
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/fabriq.php' => config_path('fabriq.php'),
+            ], 'fabriq-config');
 
-        $this->loadMigrationsFrom([realpath(__DIR__.'/../database/migrations')]);
+            $this->loadMigrationsFrom([realpath(__DIR__.'/../database/migrations')]);
 
-        $this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang'),
-        ], 'fabriq-translations');
+            $this->publishes([
+                __DIR__.'/../resources/lang' => resource_path('lang'),
+            ], 'fabriq-translations');
 
-        $this->publishes([
-            __DIR__.'/../resources/js' => resource_path('js'),
-            __DIR__.'/../resources/images' => resource_path('images'),
-            __DIR__.'/../resources/css' => resource_path('css'),
-            __DIR__.'/../tailwind.config.js' => 'tailwind.config.js',
-            __DIR__.'/../webpack.mix.js' => 'webpack.mix.js',
-            __DIR__.'/../package.json' => 'package.json',
-            __DIR__.'/../jsconfig.json' => 'jsconfig.json',
-            __DIR__.'/../.eslintrc' => '.eslintrc',
-            __DIR__.'/../.babelrc' => '.babelrc',
-            __DIR__.'/../.styleci.yml' => '.styleci.yml',
-            __DIR__.'/../yarn.lock' => 'yarn.lock',
-        ], 'fabriq-frontend-assets');
+            $this->publishes([
+                __DIR__.'/../resources/js' => resource_path('js'),
+                __DIR__.'/../resources/images' => resource_path('images'),
+                __DIR__.'/../resources/css' => resource_path('css'),
+                __DIR__.'/../tailwind.config.js' => 'tailwind.config.js',
+                __DIR__.'/../webpack.mix.js' => 'webpack.mix.js',
+                __DIR__.'/../package.json' => 'package.json',
+                __DIR__.'/../jsconfig.json' => 'jsconfig.json',
+                __DIR__.'/../.eslintrc' => '.eslintrc',
+                __DIR__.'/../.babelrc' => '.babelrc',
+                __DIR__.'/../.styleci.yml' => '.styleci.yml',
+                __DIR__.'/../yarn.lock' => 'yarn.lock',
+            ], 'fabriq-frontend-assets');
 
-        $this->publishes([
-            __DIR__.'/../stubs/Web/SpaController.stub' => app_path('Http/Controllers/SpaController.php'),
-            __DIR__.'/../resources/views' => resource_path(),
-            __DIR__.'/../stubs/Actions' => app_path('Actions'),
-        ], 'fabriq-web-assets');
+            $this->publishes([
+                __DIR__.'/../resources/views' => resource_path('views'),
+            ], 'fabriq-views');
+        }
 
     }
 
@@ -78,24 +83,23 @@ class FabriqCoreServiceProvider extends ServiceProvider
         $this->commands([
             PublishControllerCommand::class,
             InstallFabriqCommand::class,
+            // CreatePageRootCommand::class,
+            // GenerateRevisionField::class,
+            // PublishNotification::class,
+            // PutPagesIntoRootCommand::class,
+            // SendNotificationReminders::class
         ]);
 
-
         $this->app->singleton(PageRepositoryInterface::class, function () {
-            $pageClass = config('fabriq.modelMap.page');
-            $slugClass = config('fabriq.modelMap.slug');
-            $baseRepo = new EloquentPageRepository(new $pageClass, new $slugClass);
+            $baseRepo = new EloquentPageRepository(Fabriq::getModelClass('page'), Fabriq::getModelClass('slug'));
             $cachingRepo = new CachingPageRepository($baseRepo, $this->app['cache.store']);
             return $cachingRepo;
         });
 
         $this->app->singleton('Ikoncept\Fabriq\Repositories\Interfaces\MenuRepositoryInterface', function () {
-            $menuItemClass = config('fabriq.modelMap.menuItem');
-            $menuClass = config('fabriq.modelMap.menu');
-            $baseRepo = new EloquentMenuRepository(new Manager(), new $menuItemClass, new $menuClass);
+            $baseRepo = new EloquentMenuRepository(new Manager(), Fabriq::getModelClass('menuItem'), Fabriq::getModelClass('menu'));
             $cachingRepo = new CachingMenuRepository($baseRepo, $this->app['cache.store']);
             return $cachingRepo;
         });
-
     }
 }

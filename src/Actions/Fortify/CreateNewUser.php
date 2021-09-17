@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Actions\Fortify;
+namespace Ikoncept\Fabriq\Actions\Fortify;
 
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -16,7 +15,6 @@ class CreateNewUser implements CreatesNewUsers
      * Validate and create a newly registered user.
      *
      * @param  array  $input
-     * @return \App\Models\User
      */
     public function create(array $input)
     {
@@ -27,12 +25,12 @@ class CreateNewUser implements CreatesNewUsers
                 'string',
                 'email',
                 'max:255',
-                Rule::unique(User::class),
+                Rule::unique(config('fabriq.models.user')),
             ],
             'password' => $this->passwordRules(),
         ])->validate();
 
-        return User::create([
+        return config('fabriq.models.user')::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),

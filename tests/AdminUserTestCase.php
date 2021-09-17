@@ -18,7 +18,7 @@ abstract class AdminUserTestCase extends Orchestra
         parent::setUp();
         Fabriq::routes(
             function ($router) {
-                $router->allInternal();
+                $router->all();
             }
         );
         $this->setUpDatabase($this->app);
@@ -71,6 +71,7 @@ abstract class AdminUserTestCase extends Orchestra
     {
         return [
             \Ikoncept\Fabriq\FabriqCoreServiceProvider::class,
+            \Ikoncept\Fabriq\FortifyServiceProvider::class
         ];
     }
 

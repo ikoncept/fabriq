@@ -31,14 +31,23 @@ return [
     /**
      * Model mapping
      */
-    'modelMap' => [
+    'models' => [
         'article' => \Ikoncept\Fabriq\Models\Article::class,
+        'blockType' => \Ikoncept\Fabriq\Models\BlockType::class,
+        'comment' => \Ikoncept\Fabriq\Models\Comment::class,
         'contact' => \Ikoncept\Fabriq\Models\Contact::class,
         'event' => \Ikoncept\Fabriq\Models\Event::class,
-        'page' => \Ikoncept\Fabriq\Models\Page::class,
-        'slug' => \Ikoncept\Fabriq\Models\Slug::class,
-        'menuItem' => \Ikoncept\Fabriq\Models\MenuItem::class,
+        'file' => \Ikoncept\Fabriq\Models\File::class,
+        'i18nDefinition' => \Ikoncept\Fabriq\Models\I18nDefinition::class,
+        'image' => \Ikoncept\Fabriq\Models\Image::class,
+        'media' => \Ikoncept\Fabriq\Models\Media::class,
         'menu' => \Ikoncept\Fabriq\Models\Menu::class,
+        'menuItem' => \Ikoncept\Fabriq\Models\MenuItem::class,
+        'notification' => \Ikoncept\Fabriq\Models\Notification::class,
+        'page' => \Ikoncept\Fabriq\Models\Page::class,
+        'role' => \Ikoncept\Fabriq\Models\Role::class,
+        'slug' => \Ikoncept\Fabriq\Models\Slug::class,
         'user' => \Ikoncept\Fabriq\Models\User::class,
+        'video' => \Ikoncept\Fabriq\Models\Video::class,
     ]
 ];

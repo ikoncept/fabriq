@@ -22,7 +22,7 @@
                 <span v-else-if="prop == 'commentInfo'">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 w-2 h-2 mt-1 mr-4 bg-red-400 rounded-full" />
-                        <div v-if="item.notifiable.data.commentable_type === 'App\\Models\\Page'">
+                        <div v-if="item.notifiable.data.commentable_type === 'Ikoncept\Fabriq\\Models\\Page'">
                             <div>
                                 <div class="text-xs">Sida: {{ item.notifiable.data.page.data.name }}</div>
                             </div>
@@ -62,7 +62,7 @@
                 <span v-else-if="prop == 'commentInfo'">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 w-2 h-2 mt-1 mr-4 bg-gray-400 rounded-full" />
-                        <div v-if="item.notifiable.data.commentable_type === 'App\\Models\\Page'"
+                        <div v-if="item.notifiable.data.commentable_type === 'Ikoncept\Fabriq\\Models\\Page'"
                              class="opacity-80"
                         >
                             <div>
@@ -181,7 +181,7 @@ export default {
             }
         },
         handleRowClicked (row) {
-            if (row.notifiable.data.commentable_type === 'App\\Models\\Page') {
+            if (row.notifiable.data.commentable_type === 'Ikoncept\Fabriq\\Models\\Page') {
                 this.clearNotification(row.id)
                 this.$router.push({ name: 'pages.edit', params: { id: row.notifiable.data.commentable_id }, query: { openComments: true } })
             }

@@ -31,7 +31,7 @@ class ImageSourceSetController extends ApiController
         $width = ($media->responsiveImages()->files->first()) ? $media->responsiveImages()->files->first()->width() : null;
         $height = ($media->responsiveImages()->files->first()) ? $media->responsiveImages()->files->first()->height() : null;
 
-        $srcset = view('_partials.srcset', compact(
+        $srcset = view('vendor.fabriq._partials.srcset', compact(
             'media',
             'conversion',
             'attributeString',

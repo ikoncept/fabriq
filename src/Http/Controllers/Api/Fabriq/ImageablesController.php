@@ -29,7 +29,7 @@ class ImageablesController extends ApiController
     public function index(Request $request, $model, $modelId) : JsonResponse
     {
         $guess = Str::lower(Str::studly(Str::singular($model)));
-        $relatedModelClass = config('fabriq.modelMap.'. $guess);
+        $relatedModelClass = config('fabriq.models.'. $guess);
 
         if(! class_exists($relatedModelClass)) {
             throw new InvalidArgumentException('The related model was not found, you might want to add a mapping in your Image::class');
@@ -53,7 +53,7 @@ class ImageablesController extends ApiController
         $modelId = $request->model_id;
         $image = Image::findOrFail($imageId);
         $guess = Str::lower(Str::studly(Str::singular($model)));
-        $relatedModelClass = config('fabriq.modelMap.'. $guess);
+        $relatedModelClass = config('fabriq.models.'. $guess);
 
         if(! class_exists($relatedModelClass)) {
             throw new InvalidArgumentException('The related model was not found, you might want to add a mapping in your Image::class');

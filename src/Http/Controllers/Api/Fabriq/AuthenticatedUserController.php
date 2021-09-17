@@ -1,6 +1,6 @@
 <?php
 
-namespace {{ namespace }};
+namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Actions\Fortify\UpdateUserPassword;
 use Ikoncept\Fabriq\Actions\Fortify\UpdateUserProfileInformation;

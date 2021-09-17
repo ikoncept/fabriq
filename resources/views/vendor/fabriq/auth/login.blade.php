@@ -1,8 +1,8 @@
-@extends('layouts.auth')
+@extends('vendor.fabriq.layouts.auth')
 
 @section('content')
     <div class="w-full mx-4 md:mx-auto md:max-w-md">
-        @include('_partials.logo')
+        @include('vendor.fabriq._partials.logo')
         <div class="flex flex-wrap justify-center p-8 bg-white border rounded-lg shadow-lg">
             <div class="w-full">
                 <div class="flex flex-col break-words">

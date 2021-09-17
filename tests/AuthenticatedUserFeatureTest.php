@@ -13,10 +13,11 @@ class AuthenticatedUserFeatureTest extends AdminUserTestCase
 
     public function testAnAuhtenticatedUserCanGetInfoAboutSelf()
     {
-        $this->markTestSkipped();
         // Arrange
         $this->withoutExceptionHandling();
-        $user = \Ikoncept\Fabriq\Models\User::factory()->create();
+        $user = \Ikoncept\Fabriq\Models\User::factory([
+            'email_verified_at' => now()->subSeconds(30)
+        ])->create();
 
         // Act
         $response = $this->actingAs($user)
@@ -37,11 +38,12 @@ class AuthenticatedUserFeatureTest extends AdminUserTestCase
         // Arrange
         // $this->withoutExceptionHandling();
         $user = \Ikoncept\Fabriq\Models\User::factory()->create([
-            'password' => bcrypt('secret')
+            'password' => bcrypt('secret'),
+            'email_verified_at' => now()->subSeconds(30)
         ]);
 
         // Act
-        $response = $this->actingAs($user)->json('PATCH', '/user', [
+        $response = $this->actingAs($user)->json('PATCH', '/user/self', [
             'name' => 'Anders Persson',
             'email' => 'foppp@fep.com',
             'password' => 'newsecret12345',

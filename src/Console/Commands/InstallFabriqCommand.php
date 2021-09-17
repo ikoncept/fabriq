@@ -39,26 +39,32 @@ class InstallFabriqCommand extends Command
      */
     public function handle()
     {
+        $installControllers = false;
 
-        $this->info('Installing controllers');
-        $files = scandir(__DIR__ . '/../../../stubs');
-        $names = collect($files)->filter(function($item){
-            return Str::contains($item, 'Controller');
-        })->map(function($item) {
-            return Str::singular(explode('.stub', $item)[0]);
-        })->filter(function($item) {
-            return $item !== '..' && $item !== '.';
-        });
-
-        foreach($names as $name) {
-            $this->call('fabriq:publish-controller', [
-                'name' => 'Fabriq/' . $name,
-                '--model' => 'N\A',
-                '--stub' => $name . '.stub'
-            ]);
+        if (config('app.env') != 'testing') {
+            $installControllers =  $this->choice('Do you want to publish controllers?', ['Yes', 'No'], 1);
         }
+        if($installControllers) {
+            $this->info('Installing controllers');
+            $files = scandir(__DIR__ . '/../../../stubs');
+            $names = collect($files)->filter(function($item){
+                return Str::contains($item, 'Controller');
+            })->map(function($item) {
+                return Str::singular(explode('.stub', $item)[0]);
+            })->filter(function($item) {
+                return $item !== '..' && $item !== '.';
+            });
 
-        $this->info('All controllers has been installed');
+            foreach($names as $name) {
+                $this->call('fabriq:publish-controller', [
+                    'name' => 'Fabriq/' . $name,
+                    '--model' => 'N\A',
+                    '--stub' => $name . '.stub'
+                ]);
+            }
+
+            $this->info('All controllers has been installed');
+        }
 
         $this->info('Installing front end assets');
         $this->call('vendor:publish', [
@@ -68,7 +74,7 @@ class InstallFabriqCommand extends Command
         ]);
         $this->call('vendor:publish', [
             '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
-            '--tag' => 'fabriq-web-assets',
+            '--tag' => 'fabriq-views',
             '--force' => true
         ]);
 
@@ -80,11 +86,18 @@ class InstallFabriqCommand extends Command
             '--tag' => 'fabriq-translations',
         ]);
 
+
         $this->info('Translations has been installed');
 
-        $this->info('Migrating...');
 
+        $this->info('Migrating...');
         $this->call('migrate');
+
+        $this->info('Creating page root');
+
+        if (config('app.env') != 'testing') {
+            $this->call('fabriq:create-page-root');
+        }
 
         $this->info('Fabriq has been installed');
 

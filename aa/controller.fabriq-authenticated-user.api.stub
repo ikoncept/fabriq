@@ -2,8 +2,8 @@
 
 namespace {{ namespace }};
 
-use App\Actions\Fortify\UpdateUserPassword;
-use App\Actions\Fortify\UpdateUserProfileInformation;
+use Ikoncept\Fabriq\Actions\Fortify\UpdateUserPassword;
+use Ikoncept\Fabriq\Actions\Fortify\UpdateUserProfileInformation;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\User;
 use Ikoncept\Fabriq\Transformers\UserTransformer;
