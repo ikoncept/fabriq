@@ -39,6 +39,9 @@ $ php artisan fabriq:install
 This command will publish front end assets and views. It will also run the migrations
 
 **Important** Delete the files `app.js` and `bootstrap.js` in the `resources/js` directory
+```
+rm resources/js/app.js && rm resources/js/bootstrap.js
+```
 
 
 Run `yarn install` and `yarn production` to build assets
