@@ -1,6 +1,9 @@
 
-[![pipeline status](https://gitlab.com/ikoncept/fabriq/badges/main/pipeline.svg)](https://gitlab.com/ikoncept/fabriq/-/commits/main)
+
+[![tests](https://github.com/ikoncept/fabriq/workflows/tests/badge.svg?branch=main)](https://github.com/ikoncept/fabriq/actions?query=workflow%3Atests)
+[![PHPStanLevel7](https://github.com/ikoncept/fabriq/workflows/PHPStanLevel7/badge.svg?branch=main)](https://github.com/ikoncept/fabriq/actions?query=workflow%3APHPStanLevel7)
 [![minimum_php_version](https://img.shields.io/badge/php-%5E7.3%7C%5E8.0-%238892BF)](https://gitlab.com/ikoncept/fabriq/-/commits/main)
+
 
 
 ## Fabriq CMS
@@ -147,7 +150,7 @@ $ php artisan vendor:publish --provider="Ikoncept\Fabriq\FabriqCoreServiceProvid
 
 If you want to overwrite your old published assets with new ones (for example when the package has updated views) you can use the `--force` flag
 ```
-$ php artisan vendor:publish --provider="Ikoncept\Fabriq\FabriqCoreServiceProvider" --tag=fabriq-view --force
+$ php artisan vendor:publish --provider="Ikoncept\Fabriq\FabriqCoreServiceProvider" --tag=fabriq-views --force
 ```
 
 **Note** _Above tags have been published when the `fabriq:install` was run_
