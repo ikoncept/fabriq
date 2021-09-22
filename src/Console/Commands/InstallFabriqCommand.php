@@ -44,7 +44,7 @@ class InstallFabriqCommand extends Command
         if (config('app.env') != 'testing') {
             $installControllers =  $this->choice('Do you want to publish controllers?', ['Yes', 'No'], 1);
         }
-        if($installControllers) {
+        if($installControllers === 0) {
             $this->info('Installing controllers');
             $files = scandir(__DIR__ . '/../../../stubs');
             $names = collect($files)->filter(function($item){

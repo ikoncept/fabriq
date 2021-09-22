@@ -111,6 +111,11 @@ class RouteRegistrar
         $this->forVideos();
     }
 
+    public function forDevProtected()
+    {
+        Route::post('bust-cache', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\BustCacheController::class, 'store']);
+    }
+
     public function forArticles() : void
     {
         Route::resource('articles', \Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ArticlesController::class);

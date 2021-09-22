@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2020 ikoncept
+Copyright (c) 2020 Ikoncept AB hej@ikoncept.se
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

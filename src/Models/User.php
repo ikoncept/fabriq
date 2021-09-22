@@ -91,7 +91,7 @@ class User extends Authenticatable implements MustVerifyEmail
             ->orWhere('email', 'LIKE', '%' . $search . '%');
     }
 
-    public function notifications() : HasMany
+    public function fabriqNotifications() : HasMany
     {
         return $this->hasMany(Notification::class);
     }

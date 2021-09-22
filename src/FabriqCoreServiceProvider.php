@@ -79,11 +79,13 @@ class FabriqCoreServiceProvider extends ServiceProvider
         $this->app->register(MediaLibraryServiceProvider::class);
         $this->app->register(QueryBuilderServiceProvider::class);
         $this->app->register(MacroServiceProvider::class);
+        $this->app->register(RouteServiceProvider::class);
+        $this->app->register(FortifyServiceProvider::class);
 
         $this->commands([
             PublishControllerCommand::class,
             InstallFabriqCommand::class,
-            // CreatePageRootCommand::class,
+            CreatePageRootCommand::class,
             // GenerateRevisionField::class,
             // PublishNotification::class,
             // PutPagesIntoRootCommand::class,

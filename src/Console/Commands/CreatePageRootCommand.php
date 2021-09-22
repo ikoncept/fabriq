@@ -39,7 +39,7 @@ class CreatePageRootCommand extends Command
     public function handle()
     {
         $name = $this->ask('Provide a name for the page root', 'root');
-        $page = Fabriq::getModelClass('pages');
+        $page = Fabriq::getModelClass('page');
         $page->name = $name;
         $page->template_id = 1;
         $page->save();
