@@ -17,6 +17,7 @@ use Ikoncept\Fabriq\Repositories\Interfaces\PageRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Infab\Core\CoreServiceProvider;
 use Infab\TranslatableRevisions\TranslatableRevisionsServiceProvider;
+use Laravel\Fortify\FortifyServiceProvider as BaseFortifyServiceProvider;
 use League\Fractal\Manager;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
@@ -34,6 +35,10 @@ class FabriqCoreServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/fabriq.php' => config_path('fabriq.php'),
+            ], 'fabriq-config');
+
+            $this->publishes([
+                __DIR__.'/../config/fortify.php' => config_path('fortify.php'),
             ], 'fabriq-config');
 
             $this->loadMigrationsFrom([realpath(__DIR__.'/../database/migrations')]);
@@ -72,6 +77,8 @@ class FabriqCoreServiceProvider extends ServiceProvider
     public function register() : void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/fabriq.php', 'fabriq');
+        $this->mergeConfigFrom(__DIR__.'/../config/fortify.php', 'fortify');
+
         $this->app->register(EventServiceProvider::class);
         $this->app->register(TranslatableRevisionsServiceProvider::class);
         $this->app->register(CoreServiceProvider::class);
@@ -81,6 +88,19 @@ class FabriqCoreServiceProvider extends ServiceProvider
         $this->app->register(MacroServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(FortifyServiceProvider::class);
+        $this->app->register(BaseFortifyServiceProvider::class);
+
+        $this->app['config']->set('media-library.jobs.generate_responsive_images',
+             $this->app['config']->get('fabriq.media-library.jobs.generate_responsive_images')
+        );
+
+        // dd($this->app['config']);
+        // $test = array_merge($this->app['config']->get('fabriq.fortify'), $this->app['config']->get('fortify'));
+        // dd($test);
+
+        // $this->app['config']->set('fortify.features',
+        //     $this->app['config']->get('fabriq.fortify.features')
+        // );
 
         $this->commands([
             PublishControllerCommand::class,
