@@ -1,0 +1,32 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use Infab\TranslatableRevisions\Models\I18nLocale;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
+use League\Fractal\TransformerAbstract;
+
+class {{ model }}Transformer extends TransformerAbstract
+{
+    /**
+     * Determines which resources
+     * that can be included
+     *
+     * @var array
+     */
+    protected $availableIncludes = [];
+
+    /**
+     * Transform the given object
+     * to the required format
+     *
+     * @param  {{ model }}  ${{ modelVariable }}
+     * @return array
+     */
+    public function transform({{ model }} ${{ modelVariable }})
+    {
+        return ${{ modelVariable }}->toArray();
+    }
+}

@@ -1,0 +1,67 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use Ikoncept\Fabriq\Http\Controllers\Controller;
+use App\Http\Requests\Create{{ model }}Request;
+use App\Http\Requests\Update{{ model }}Request;
+use App\Transformers\{{ model }}Transformer;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
+
+class {{ class }} extends Controller
+{
+
+    public function index() : JsonResponse
+    {
+        $eagerLoad = $this->getEagerLoad([]);
+        ${{ modelVariable }} = QueryBuilder::for({{ model }}::class)
+            ->allowedSorts(['id'])
+            ->allowedFilters()
+            ->with($eagerLoad)
+            ->paginate($this->number);
+
+        return $this->respondWithPaginator(${{ modelVariable }}, new {{ model }}Transformer());
+    }
+
+    public function show(int $id) : JsonResponse
+    {
+        $eagerLoad = $this->getEagerLoad([]);
+        ${{ modelVariable }} = {{ model }}::where('id', $id)
+            ->with($eagerLoad)
+            ->firstOrFail();
+
+        return $this->respondWithItem(${{ modelVariable }}, new {{ model }}Transformer);
+    }
+
+    public function store(Create{{ model }}Request $request) : JsonResponse
+    {
+        ${{ modelVariable }} = new {{ model }};
+        ${{ modelVariable }}->name = $request->name;
+        ${{ modelVariable }}->save();
+
+        return $this->respondWithItem(${{ modelVariable }}, new {{ model }}Transformer, 201);
+    }
+
+    public function update(Update{{ model }}Request $request, int $id) : JsonResponse
+    {
+        ${{ modelVariable }} = {{ model }}::findOrFail($id);
+        ${{ modelVariable }}->fill($request->validated());
+
+        ${{ modelVariable }}->save();
+
+        return $this->respondWithItem(${{ modelVariable }}, new {{ model }}Transformer);
+    }
+
+    public function destroy(int $id) : JsonResponse
+    {
+        ${{ modelVariable }} = {{ model }}::findOrFail($id);
+        ${{ modelVariable }}->delete();
+
+        return $this->respondWithSuccess('The {{ model }} has been deleted successfully');
+    }
+
+}

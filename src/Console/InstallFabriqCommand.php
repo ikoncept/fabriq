@@ -1,6 +1,6 @@
 <?php
 
-namespace Ikoncept\Fabriq\Console\Commands;
+namespace Ikoncept\Fabriq\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -39,39 +39,13 @@ class InstallFabriqCommand extends Command
      */
     public function handle()
     {
-        $installControllers = false;
-
-        if (config('app.env') != 'testing') {
-            $installControllers =  $this->choice('Do you want to publish controllers?', ['Yes', 'No'], 1);
-        }
-        if($installControllers === 0) {
-            $this->info('Installing controllers');
-            $files = scandir(__DIR__ . '/../../../stubs');
-            $names = collect($files)->filter(function($item){
-                return Str::contains($item, 'Controller');
-            })->map(function($item) {
-                return Str::singular(explode('.stub', $item)[0]);
-            })->filter(function($item) {
-                return $item !== '..' && $item !== '.';
-            });
-
-            foreach($names as $name) {
-                $this->call('fabriq:publish-controller', [
-                    'name' => 'Fabriq/' . $name,
-                    '--model' => 'N\A',
-                    '--stub' => $name . '.stub'
-                ]);
-            }
-
-            $this->info('All controllers has been installed');
-        }
-
         $this->info('Installing front end assets');
         $this->call('vendor:publish', [
             '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
             '--tag' => 'fabriq-frontend-assets',
             '--force' => true
         ]);
+
         $this->call('vendor:publish', [
             '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
             '--tag' => 'fabriq-views',
@@ -86,9 +60,7 @@ class InstallFabriqCommand extends Command
             '--tag' => 'fabriq-translations',
         ]);
 
-
         $this->info('Translations has been installed');
-
 
         $this->info('Migrating...');
         $this->call('migrate');

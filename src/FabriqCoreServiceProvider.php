@@ -2,13 +2,14 @@
 
 namespace Ikoncept\Fabriq;
 
-use Ikoncept\Fabriq\Console\Commands\CreatePageRootCommand;
-use Ikoncept\Fabriq\Console\Commands\GenerateRevisionField;
-use Ikoncept\Fabriq\Console\Commands\InstallFabriqCommand;
-use Ikoncept\Fabriq\Console\Commands\PublishControllerCommand;
-use Ikoncept\Fabriq\Console\Commands\PublishNotification;
-use Ikoncept\Fabriq\Console\Commands\PutPagesIntoRootCommand;
-use Ikoncept\Fabriq\Console\Commands\SendNotificationReminders;
+use Ikoncept\Fabriq\Console\ControllerMakeCommand;
+use Ikoncept\Fabriq\Console\CreatePageRootCommand;
+use Ikoncept\Fabriq\Console\GenerateRevisionField;
+use Ikoncept\Fabriq\Console\InstallFabriqCommand;
+use Ikoncept\Fabriq\Console\PublishNotification;
+use Ikoncept\Fabriq\Console\ResourceMakeCommand;
+use Ikoncept\Fabriq\Console\SendNotificationReminders;
+use Ikoncept\Fabriq\Console\TransformerMakeCommand;
 use Ikoncept\Fabriq\Repositories\Decorators\CachingMenuRepository;
 use Ikoncept\Fabriq\Repositories\Decorators\CachingPageRepository;
 use Ikoncept\Fabriq\Repositories\EloquentMenuRepository;
@@ -17,7 +18,6 @@ use Ikoncept\Fabriq\Repositories\Interfaces\PageRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Infab\Core\CoreServiceProvider;
 use Infab\TranslatableRevisions\TranslatableRevisionsServiceProvider;
-use Laravel\Fortify\FortifyServiceProvider as BaseFortifyServiceProvider;
 use League\Fractal\Manager;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
@@ -46,6 +46,10 @@ class FabriqCoreServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../resources/lang' => resource_path('lang'),
             ], 'fabriq-translations');
+
+            $this->publishes([
+                __DIR__.'/../stubs' => base_path('stubs'),
+            ], 'fabriq-stubs');
 
             $this->publishes([
                 __DIR__.'/../resources/js' => resource_path('js'),
@@ -88,28 +92,20 @@ class FabriqCoreServiceProvider extends ServiceProvider
         $this->app->register(MacroServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(FortifyServiceProvider::class);
-        $this->app->register(BaseFortifyServiceProvider::class);
 
         $this->app['config']->set('media-library.jobs.generate_responsive_images',
              $this->app['config']->get('fabriq.media-library.jobs.generate_responsive_images')
         );
 
-        // dd($this->app['config']);
-        // $test = array_merge($this->app['config']->get('fabriq.fortify'), $this->app['config']->get('fortify'));
-        // dd($test);
-
-        // $this->app['config']->set('fortify.features',
-        //     $this->app['config']->get('fabriq.fortify.features')
-        // );
-
         $this->commands([
-            PublishControllerCommand::class,
+            ControllerMakeCommand::class,
             InstallFabriqCommand::class,
             CreatePageRootCommand::class,
-            // GenerateRevisionField::class,
-            // PublishNotification::class,
-            // PutPagesIntoRootCommand::class,
-            // SendNotificationReminders::class
+            TransformerMakeCommand::class,
+            ResourceMakeCommand::class,
+            GenerateRevisionField::class,
+            PublishNotification::class,
+            SendNotificationReminders::class
         ]);
 
         $this->app->singleton(PageRepositoryInterface::class, function () {

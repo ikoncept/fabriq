@@ -1,12 +1,13 @@
 <?php
 
-namespace Ikoncept\Fabriq\Console\Commands;
+namespace Ikoncept\Fabriq\Console;
 use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
 use Infab\Core\Console\ReplacesModelName;
+use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputOption;
 
-class PublishControllerCommand extends GeneratorCommand
+class ControllerMakeCommand extends GeneratorCommand
 {
     use ReplacesModelName;
 
@@ -15,21 +16,21 @@ class PublishControllerCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'fabriq:publish-controller';
+    protected $name = 'make:fabriq-controller';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Publishes a controller from a stub';
+    protected $description = 'Creates a Fabriq opionated controller from a stub';
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'ApiController';
+    protected $type = 'FabriqController';
 
     /**
      * Build the class with the given name.
@@ -39,38 +40,57 @@ class PublishControllerCommand extends GeneratorCommand
      */
     protected function buildClass($name)
     {
-        $this->type = $name;
-        $stub = $this->replaceUserNamespace(
-            parent::buildClass($name)
-        );
-        $stub = $this->files->get($this->getStub());
+        $stub = parent::buildClass($name);
 
-        $model = $this->option('model') ?? null;
-        $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
-
-        // if ($this->option('tests')) {
-        //     $this->createTests($model);
-        // }
-
+        $model = $this->option('model');
 
         return $model ? $this->replaceModel($stub, $model) : $stub;
     }
 
-    /**
-     * Replace the User model namespace.
+        /**
+     * Replace the model for the given stub.
      *
      * @param  string  $stub
+     * @param  string  $model
      * @return string
      */
-    protected function replaceUserNamespace($stub)
+    protected function replaceModel($stub, $model)
     {
+        $modelClass = $this->parseModel($model);
+
+        $replace = [
+            'DummyFullModelClass' => $modelClass,
+            '{{ namespacedModel }}' => $modelClass,
+            '{{namespacedModel}}' => $modelClass,
+            'DummyModelClass' => class_basename($modelClass),
+            '{{ model }}' => class_basename($modelClass),
+            '{{model}}' => class_basename($modelClass),
+            'DummyModelVariable' => lcfirst(class_basename($modelClass)),
+            '{{ modelVariable }}' => lcfirst(class_basename($modelClass)),
+            '{{modelVariable}}' => lcfirst(class_basename($modelClass)),
+        ];
+
         return str_replace(
-            $this->rootNamespace().'User',
-            config('auth.providers.users.model'),
-            $stub
+            array_keys($replace), array_values($replace), $stub
         );
     }
 
+    /**
+     * Get the fully-qualified model class name.
+     *
+     * @param  string  $model
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function parseModel($model)
+    {
+        if (preg_match('([^A-Za-z0-9_/\\\\])', $model)) {
+            throw new InvalidArgumentException('Model name contains invalid characters.');
+        }
+
+        return $this->qualifyModel($model);
+    }
 
     /**
      * Get the console command arguments.
@@ -81,7 +101,6 @@ class PublishControllerCommand extends GeneratorCommand
     {
         return [
             ['model', 'm', InputOption::VALUE_OPTIONAL, 'The model that the Api Controller applies to.'],
-            ['stub', 's', InputOption::VALUE_REQUIRED, 'The stub to be used.'],
             ['tests', 't', InputOption::VALUE_OPTIONAL, 'Create basic tests for the created API Controller.'],
         ];
     }
@@ -94,8 +113,9 @@ class PublishControllerCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../stubs/' . $this->option('stub');
+        return __DIR__.'/stubs/controller.stub';
     }
+
 
     /**
      * Get the default namespace for the class.

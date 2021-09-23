@@ -1,6 +1,6 @@
 <?php
 
-namespace Ikoncept\Fabriq\Console\Commands;
+namespace Ikoncept\Fabriq\Console;
 
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Console\Command;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ikoncept\Fabriq\Console\Commands;
+namespace Ikoncept\Fabriq\Console;
 
 use Illuminate\Console\Command;
 use Infab\TranslatableRevisions\Models\RevisionTemplate;
