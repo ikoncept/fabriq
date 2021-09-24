@@ -97,11 +97,8 @@ class FabriqCoreServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(FortifyServiceProvider::class);
 
-        $this->app['config']->set('media-library.jobs.generate_responsive_images',
-             $this->app['config']->get('fabriq.media-library.jobs.generate_responsive_images')
-        );
-        $this->app['config']->set('media-library.path_generator',
-             $this->app['config']->get('fabriq.media-library.path_generator')
+        $this->app['config']->set('media-library',
+            array_merge($this->app['config']->get('media-library'), $this->app['config']->get('fabriq.media-library'))
         );
 
         $this->commands([
