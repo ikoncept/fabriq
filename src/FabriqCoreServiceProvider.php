@@ -10,6 +10,10 @@ use Ikoncept\Fabriq\Console\PublishNotification;
 use Ikoncept\Fabriq\Console\ResourceMakeCommand;
 use Ikoncept\Fabriq\Console\SendNotificationReminders;
 use Ikoncept\Fabriq\Console\TransformerMakeCommand;
+use Ikoncept\Fabriq\Console\VueApiModelMakeCommand;
+use Ikoncept\Fabriq\Console\VueEditTemplateMakeCommand;
+use Ikoncept\Fabriq\Console\VueIndexTemplateMakeCommand;
+use Ikoncept\Fabriq\Console\VueResourceMakeCommand;
 use Ikoncept\Fabriq\Repositories\Decorators\CachingMenuRepository;
 use Ikoncept\Fabriq\Repositories\Decorators\CachingPageRepository;
 use Ikoncept\Fabriq\Repositories\EloquentMenuRepository;
@@ -105,7 +109,11 @@ class FabriqCoreServiceProvider extends ServiceProvider
             ResourceMakeCommand::class,
             GenerateRevisionField::class,
             PublishNotification::class,
-            SendNotificationReminders::class
+            SendNotificationReminders::class,
+            VueResourceMakeCommand::class,
+            VueIndexTemplateMakeCommand::class,
+            VueEditTemplateMakeCommand::class,
+            VueApiModelMakeCommand::class
         ]);
 
         $this->app->singleton(PageRepositoryInterface::class, function () {

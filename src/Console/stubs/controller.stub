@@ -3,24 +3,26 @@
 namespace {{ namespace }};
 
 use {{ namespacedModel }};
-use Ikoncept\Fabriq\Http\Controllers\Controller;
 use App\Http\Requests\Create{{ model }}Request;
 use App\Http\Requests\Update{{ model }}Request;
 use App\Transformers\{{ model }}Transformer;
-use Illuminate\Http\Request;
+use Ikoncept\Fabriq\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class {{ class }} extends Controller
 {
+    use ApiControllerTrait;
 
     public function index() : JsonResponse
     {
         $eagerLoad = $this->getEagerLoad([]);
         ${{ modelVariable }} = QueryBuilder::for({{ model }}::class)
-            ->allowedSorts(['id'])
-            ->allowedFilters()
+            ->allowedSorts(['id', 'created_at'])
+            ->allowedFilters([])
             ->with($eagerLoad)
             ->paginate($this->number);
 
