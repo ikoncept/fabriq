@@ -21,7 +21,6 @@ abstract class AdminUserTestCase extends Orchestra
                 $router->all();
             }
         );
-        dd(config('media-library'));
         $this->setUpDatabase($this->app);
 
         Artisan::call('fabriq:install');
