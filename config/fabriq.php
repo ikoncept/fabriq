@@ -22,11 +22,6 @@ return [
     'remote_image_processing_url' => env('FABRIQ_REMOTE_IMAGE_PROCESSING_URL', 'https://media-cruncher.ikoncept.io'),
     'remote_image_processing_api_key' => env('FABRIQ_REMOTE_IMAGE_PROCESSING_KEY', ''),
 
-    // 'aliases' => [
-    //      env('FABRIQ_MORPH_ARTICLE_NAME', 'MorphArticle') => 'Ikoncept\Fabriq\Models\Article',
-    //      env('FABRIQ_MORPH_ARTICLE_NAME', 'MorphContact') => 'Ikoncept\Fabriq\Models\Contact',
-    // ],
-
 
     /**
      * Model mapping
@@ -49,5 +44,19 @@ return [
         'slug' => \Ikoncept\Fabriq\Models\Slug::class,
         'user' => \Ikoncept\Fabriq\Models\User::class,
         'video' => \Ikoncept\Fabriq\Models\Video::class,
+    ],
+
+    'media-library' => [
+        'jobs' => [
+            'generate_responsive_images' => \Ikoncept\Fabriq\Jobs\GenerateResponsiveImagesJob::class,
+        ]
+    ],
+
+    'fortify' => [
+        'features' => [
+            \Laravel\Fortify\Features::resetPasswords(),
+            \Laravel\Fortify\Features::updateProfileInformation(),
+            \Laravel\Fortify\Features::updatePasswords()
+        ]
     ]
 ];

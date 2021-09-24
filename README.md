@@ -110,8 +110,7 @@ Fabriq::routes(function($router) {
 Fabriq::routes(function($router) {
     $router->forApiProtected();
 },[
-    'middleware' => ['auth:sanctum'],
-    'prefix' => 'admin'
+    'middleware' => ['auth:sanctum']
 ]);
 
 Fabriq::routes(function($router) {

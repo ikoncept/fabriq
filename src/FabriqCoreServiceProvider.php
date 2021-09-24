@@ -2,13 +2,18 @@
 
 namespace Ikoncept\Fabriq;
 
-use Ikoncept\Fabriq\Console\Commands\CreatePageRootCommand;
-use Ikoncept\Fabriq\Console\Commands\GenerateRevisionField;
-use Ikoncept\Fabriq\Console\Commands\InstallFabriqCommand;
-use Ikoncept\Fabriq\Console\Commands\PublishControllerCommand;
-use Ikoncept\Fabriq\Console\Commands\PublishNotification;
-use Ikoncept\Fabriq\Console\Commands\PutPagesIntoRootCommand;
-use Ikoncept\Fabriq\Console\Commands\SendNotificationReminders;
+use Ikoncept\Fabriq\Console\ControllerMakeCommand;
+use Ikoncept\Fabriq\Console\CreatePageRootCommand;
+use Ikoncept\Fabriq\Console\GenerateRevisionField;
+use Ikoncept\Fabriq\Console\InstallFabriqCommand;
+use Ikoncept\Fabriq\Console\PublishNotification;
+use Ikoncept\Fabriq\Console\ResourceMakeCommand;
+use Ikoncept\Fabriq\Console\SendNotificationReminders;
+use Ikoncept\Fabriq\Console\TransformerMakeCommand;
+use Ikoncept\Fabriq\Console\VueApiModelMakeCommand;
+use Ikoncept\Fabriq\Console\VueEditTemplateMakeCommand;
+use Ikoncept\Fabriq\Console\VueIndexTemplateMakeCommand;
+use Ikoncept\Fabriq\Console\VueResourceMakeCommand;
 use Ikoncept\Fabriq\Repositories\Decorators\CachingMenuRepository;
 use Ikoncept\Fabriq\Repositories\Decorators\CachingPageRepository;
 use Ikoncept\Fabriq\Repositories\EloquentMenuRepository;
@@ -36,11 +41,19 @@ class FabriqCoreServiceProvider extends ServiceProvider
                 __DIR__.'/../config/fabriq.php' => config_path('fabriq.php'),
             ], 'fabriq-config');
 
+            $this->publishes([
+                __DIR__.'/../config/fortify.php' => config_path('fortify.php'),
+            ], 'fabriq-config');
+
             $this->loadMigrationsFrom([realpath(__DIR__.'/../database/migrations')]);
 
             $this->publishes([
                 __DIR__.'/../resources/lang' => resource_path('lang'),
             ], 'fabriq-translations');
+
+            $this->publishes([
+                __DIR__.'/../stubs' => base_path('stubs'),
+            ], 'fabriq-stubs');
 
             $this->publishes([
                 __DIR__.'/../resources/js' => resource_path('js'),
@@ -72,6 +85,8 @@ class FabriqCoreServiceProvider extends ServiceProvider
     public function register() : void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/fabriq.php', 'fabriq');
+        $this->mergeConfigFrom(__DIR__.'/../config/fortify.php', 'fortify');
+
         $this->app->register(EventServiceProvider::class);
         $this->app->register(TranslatableRevisionsServiceProvider::class);
         $this->app->register(CoreServiceProvider::class);
@@ -82,14 +97,23 @@ class FabriqCoreServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(FortifyServiceProvider::class);
 
+        $this->app['config']->set('media-library.jobs.generate_responsive_images',
+             $this->app['config']->get('fabriq.media-library.jobs.generate_responsive_images')
+        );
+
         $this->commands([
-            PublishControllerCommand::class,
+            ControllerMakeCommand::class,
             InstallFabriqCommand::class,
             CreatePageRootCommand::class,
-            // GenerateRevisionField::class,
-            // PublishNotification::class,
-            // PutPagesIntoRootCommand::class,
-            // SendNotificationReminders::class
+            TransformerMakeCommand::class,
+            ResourceMakeCommand::class,
+            GenerateRevisionField::class,
+            PublishNotification::class,
+            SendNotificationReminders::class,
+            VueResourceMakeCommand::class,
+            VueIndexTemplateMakeCommand::class,
+            VueEditTemplateMakeCommand::class,
+            VueApiModelMakeCommand::class
         ]);
 
         $this->app->singleton(PageRepositoryInterface::class, function () {
