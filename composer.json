@@ -60,7 +60,5 @@
             "php --version && php -d memory_limit=512M ./vendor/bin/phpstan analyse -c phpstan.neon",
             "php --version && vendor/bin/phpunit --coverage-text --colors=never --testdox"
         ]
-    },
-
-    "version": "0.0.2"
+    }
 }
