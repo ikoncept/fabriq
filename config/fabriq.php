@@ -1,5 +1,6 @@
 <?php
 
+
 return [
     'modules' => [
         'dashboard' => [
@@ -49,7 +50,8 @@ return [
     'media-library' => [
         'jobs' => [
             'generate_responsive_images' => \Ikoncept\Fabriq\Jobs\GenerateResponsiveImagesJob::class,
-        ]
+        ],
+        'path_generator' => \Ikoncept\Fabriq\Services\MediaPathGenerator::class,
     ],
 
     'fortify' => [

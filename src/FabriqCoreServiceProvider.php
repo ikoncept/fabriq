@@ -100,6 +100,9 @@ class FabriqCoreServiceProvider extends ServiceProvider
         $this->app['config']->set('media-library.jobs.generate_responsive_images',
              $this->app['config']->get('fabriq.media-library.jobs.generate_responsive_images')
         );
+        $this->app['config']->set('media-library.path_generator',
+             $this->app['config']->get('fabriq.media-library.path_generator')
+        );
 
         $this->commands([
             ControllerMakeCommand::class,
