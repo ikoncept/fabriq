@@ -263,7 +263,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
         // Assert
         $this->assertEquals('A nice header right', $content->first());
         $this->assertDatabaseHas('revision_meta', [
-            'model_type' => 'MorphArticle'
+            'model_type' => $article->morphClass
         ]);
     }
 }

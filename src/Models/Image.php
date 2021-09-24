@@ -19,6 +19,13 @@ class Image extends Model implements HasMedia
     use HasFactory, InteractsWithMedia, HasTags;
 
     /**
+     * Morph class
+     *
+     * @var string
+     */
+    public $morphClass = 'image';
+
+    /**
      * Create a new factory
      */
     protected static function newFactory() : ImageFactory

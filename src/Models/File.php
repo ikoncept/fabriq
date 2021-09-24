@@ -22,6 +22,14 @@ class File extends Model implements HasMedia
 
 
     /**
+     * Morph class
+     *
+     * @var string
+     */
+    public $morphClass = 'file';
+
+
+    /**
      * Create a new factory
      */
     protected static function newFactory() : FileFactory

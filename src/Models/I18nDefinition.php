@@ -11,4 +11,11 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class I18nDefinition extends BaseI18nDefinition implements HasMedia
 {
     use InteractsWithMedia;
+
+    /**
+     * Morph class
+     *
+     * @var string
+     */
+    public $morphClass = 'i18n_definition';
 }

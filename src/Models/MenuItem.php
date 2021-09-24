@@ -17,6 +17,13 @@ class MenuItem extends Model
 
     const RELATIONSHIPS = ['page'];
 
+    /**
+     * Morph class
+     *
+     * @var string
+     */
+    public $morphClass = 'menu_item';
+
     protected $with = ['page'];
 
     protected $appends = ['title'];

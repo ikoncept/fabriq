@@ -29,7 +29,7 @@ class Article extends Model
      *
      * @var string
      */
-    protected $morphClass = 'MorphArticle';
+    public $morphClass = 'article';
 
     /**
      * Create a new factory

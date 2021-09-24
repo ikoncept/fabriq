@@ -14,6 +14,13 @@ class Slug extends Model
     protected $guarded = ['id'];
 
     /**
+     * Morph class
+     *
+     * @var string
+     */
+    public $morphClass = 'slug';
+
+    /**
      * Get the options for generating the slug.
      */
     public function getSlugOptions() : SlugOptions
