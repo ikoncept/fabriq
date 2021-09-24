@@ -11,6 +11,13 @@ class BlockType extends Model
     use HasFactory;
 
     /**
+     * Morph class
+     *
+     * @var string
+     */
+    public $morphClass = 'block_type';
+
+    /**
      * Create a new factory
      */
     protected static function newFactory() : BlockTypeFactory

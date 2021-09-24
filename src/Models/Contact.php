@@ -25,7 +25,7 @@ class Contact extends Model
      *
      * @var string
      */
-    protected $morphClass = 'MorphContact';
+    public $morphClass = 'contact';
 
     /**
      * Create a new factory

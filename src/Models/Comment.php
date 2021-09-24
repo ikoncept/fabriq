@@ -14,6 +14,12 @@ class Comment extends Model
 {
     use HasFactory;
 
+    /**
+     * Morph class
+     *
+     * @var string
+     */
+    public $morphClass = 'comment';
 
     /**
      * Create a new factory

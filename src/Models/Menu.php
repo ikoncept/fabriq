@@ -13,6 +13,13 @@ class Menu extends Model
 
     const RELATIONSHIPS = [];
 
+    /**
+     * Morph class
+     *
+     * @var string
+     */
+    public $morphClass = 'menu';
+
     protected static function newFactory() : MenuFactory
     {
         return MenuFactory::new();

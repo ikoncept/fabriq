@@ -82,6 +82,7 @@ class RouteRegistrar
         $this->forNotifications();
         $this->forAuthenticatedUsers();
         $this->forConfig();
+        $this->forPageSlugs();
     }
 
     public function forApiProtected()
@@ -109,6 +110,11 @@ class RouteRegistrar
         $this->forTags();
         $this->forUsers();
         $this->forVideos();
+    }
+
+    public function forPublicApi()
+    {
+        $this->forPageSlugs();
     }
 
     public function forDevProtected()
@@ -205,7 +211,6 @@ class RouteRegistrar
         Route::get('pages-tree', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageTreeController::class, 'index']);
         Route::patch('pages-tree', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageTreeController::class, 'update']);
         Route::get('pages/{slug}/live', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageSlugsController::class, 'show']);
-        Route::get('pages/{slug}/preview', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageSlugPreviewsController::class, 'show'])->name('pages.show.preview');
         Route::get('pages', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PagesController::class, 'index']);
         Route::post('pages', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PagesController::class, 'store']);
         Route::get('pages/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PagesController::class, 'show']);
@@ -213,6 +218,11 @@ class RouteRegistrar
         Route::delete('pages/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PagesController::class, 'destroy']);
         Route::post('pages/{id}/publish', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PublishPagesController::class, 'store']);
         Route::get('pages/{id}/signed-url', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageSignedUrlsController::class, 'show']);
+    }
+
+    public function forPageSlugs()
+    {
+        Route::get('pages/{slug}/preview', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageSlugPreviewsController::class, 'show'])->name('pages.show.preview');
     }
 
     public function forRoles() : void

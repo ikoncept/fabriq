@@ -23,6 +23,13 @@ class SmartBlock extends Model
 
     const RELATIONSHIPS = [];
 
+    /**
+     * Morph class
+     *
+     * @var string
+     */
+    public $morphClass = 'smart_block';
+
     protected static function newFactory() : SmartBlockFactory
     {
         return SmartBlockFactory::new();
