@@ -49,9 +49,16 @@ return [
 
     'media-library' => [
         'jobs' => [
-            'generate_responsive_images' => \Ikoncept\Fabriq\Jobs\GenerateResponsiveImagesJob::class,
+            'perform_conversions' => Spatie\MediaLibrary\Conversions\Jobs\PerformConversionsJob::class,
+            'generate_responsive_images' => \Ikoncept\Fabriq\Jobs\GenerateResponsiveImagesJob::class
         ],
         'path_generator' => \Ikoncept\Fabriq\Services\MediaPathGenerator::class,
+        'remote' => [
+            'extra_headers' => [
+                'CacheControl' => 'max-age=604800',
+                'ACL' => 'public-read',
+            ],
+        ]
     ],
 
     'fortify' => [
