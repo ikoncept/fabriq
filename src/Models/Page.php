@@ -29,6 +29,11 @@ class Page extends Model implements HasMedia
 
     const RELATIONSHIPS = ['template', 'template.fields'];
 
+    /**
+     * Morph class
+     *
+     * @var string
+     */
     public $morphClass = 'page';
 
     protected $dates = ['published_at'];
