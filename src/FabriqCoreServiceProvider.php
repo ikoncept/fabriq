@@ -40,11 +40,11 @@ class FabriqCoreServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/fabriq.php' => config_path('fabriq.php'),
-            ], 'fabriq-config');
+            ], 'config');
 
             $this->publishes([
                 __DIR__.'/../config/fortify.php' => config_path('fortify.php'),
-            ], 'fabriq-config');
+            ], 'config');
 
             $this->loadMigrationsFrom([realpath(__DIR__.'/../database/migrations')]);
 

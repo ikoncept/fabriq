@@ -26,9 +26,20 @@
 composer require ikoncept/fabriq
 ```
 
+If you're planning on using AWS s3:
+```
+composer require --with-all-dependencies league/flysystem-aws-s3-v3 "^1.0"
+```
+
 You probably want to install [Laravel Sanctum](https://github.com/laravel/sanctum) as well for authentication
 ```
 composer require laravel/sanctum
+```
+
+Publish the configurations:
+```
+php artisan vendor:publish --provider="Ikoncept\Fabriq\FabriqCoreServiceProvider" --tag=config
+php artisan vendor:publish --provider="Infab\TranslatableRevisions\TranslatableRevisionsServiceProvider" --tag=config
 ```
 
 Setup your database using the .env
@@ -141,7 +152,7 @@ Create your first user in the database, or by using a package like [michaeldyryn
 
 #### Publishing assets 🗄️
 Assets can be published using their respective tags. The tags that are available are:
-* `fabriq-config` - The config file
+* `config` - The config file
 * `fabriq-translations` - Translations for auth views and validation messages
 * `fabriq-frontend-assets` - Front end build system and Vue project files
 * `fabriq-views` - Blade views and layouts
