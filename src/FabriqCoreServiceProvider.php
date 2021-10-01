@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq;
 
 use Ikoncept\Fabriq\Console\ControllerMakeCommand;
+use Ikoncept\Fabriq\Console\CreateMenuCommand;
 use Ikoncept\Fabriq\Console\CreatePageRootCommand;
 use Ikoncept\Fabriq\Console\GenerateRevisionField;
 use Ikoncept\Fabriq\Console\InstallFabriqCommand;
@@ -103,17 +104,18 @@ class FabriqCoreServiceProvider extends ServiceProvider
 
         $this->commands([
             ControllerMakeCommand::class,
-            InstallFabriqCommand::class,
+            CreateMenuCommand::class,
             CreatePageRootCommand::class,
-            TransformerMakeCommand::class,
-            ResourceMakeCommand::class,
             GenerateRevisionField::class,
+            InstallFabriqCommand::class,
             PublishNotification::class,
+            ResourceMakeCommand::class,
             SendNotificationReminders::class,
-            VueResourceMakeCommand::class,
-            VueIndexTemplateMakeCommand::class,
+            TransformerMakeCommand::class,
+            VueApiModelMakeCommand::class,
             VueEditTemplateMakeCommand::class,
-            VueApiModelMakeCommand::class
+            VueIndexTemplateMakeCommand::class,
+            VueResourceMakeCommand::class,
         ]);
 
         $this->app->singleton(PageRepositoryInterface::class, function () {
