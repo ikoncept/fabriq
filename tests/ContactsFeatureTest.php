@@ -71,9 +71,7 @@ class ContactsFeatureTest extends AdminUserTestCase
             'published' => true,
             'locale' => 'sv',
             'content' => [
-                // 'image' => [
-                //     'id' => 1
-                // ]
+                'body' => '<p>a nice text</p>'
             ],
             'localizedContent' => [
                 'sv' => [

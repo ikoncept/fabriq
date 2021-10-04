@@ -41,6 +41,17 @@ class AddContactRevisionTemplate extends Migration
             'sort_index' => 20
         ]);
 
+        $templateField = RevisionTemplateField::factory()->create([
+            'template_id' => $template->id,
+            'name' => 'Roll',
+            'key' => 'position',
+            'type' => 'text',
+            'translated' => true,
+            'group' => 'contact',
+            'repeater' => false,
+            'sort_index' => 30
+        ]);
+
         Schema::table('contacts', function (Blueprint $table) {
             $table->dropColumn('body');
         });
