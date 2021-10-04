@@ -66,6 +66,11 @@ class ContactsController extends ApiController
 
         $contact->contactTags = $request->tags;
         $contact->localizedContent = $request->localizedContent;
+
+        $contact->updateContent([
+            'image' => $request->content['image'] ?? null
+        ],$request->input('locale', app()->getLocale()));
+
         $contact->save();
 
         return $this->respondWithItem($contact, new ContactTransformer);
