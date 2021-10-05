@@ -63,7 +63,8 @@ class MenuItem extends Model
     public function getRevisionOptions() : RevisionOptions
     {
         return RevisionOptions::create()
-            ->registerDefaultTemplate('menu-item');
+            ->registerDefaultTemplate('menu-item')
+            ->registerCacheTagsToFlush(['cms_menu']);
     }
 
 

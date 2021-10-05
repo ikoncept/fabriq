@@ -9,6 +9,8 @@ use Infab\TranslatableRevisions\Models\RevisionTemplate;
 use Infab\TranslatableRevisions\Models\RevisionTemplateField;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Ikoncept\Fabriq\Tests\TestCase;
+use Illuminate\Support\Facades\Event;
+use Infab\TranslatableRevisions\Events\TranslatedRevisionUpdated;
 
 class MenuItemFeatureTest extends AdminUserTestCase
 {
@@ -87,6 +89,8 @@ class MenuItemFeatureTest extends AdminUserTestCase
     public function it_can_update_a_single_menu_item()
     {
         // Arrange
+        Event::fake(TranslatedRevisionUpdated::class);
+
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $menu = \Ikoncept\Fabriq\Models\Menu::factory()->create();
         $root = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
@@ -114,6 +118,9 @@ class MenuItemFeatureTest extends AdminUserTestCase
             'page_id' => $page->id,
             'type' => 'internal'
         ]);
+        Event::assertDispatched(function (TranslatedRevisionUpdated $event) {
+            return $event->model->getRevisionOptions()->cacheTagsToFlush[0] === 'cms_menu';
+        });
     }
 
     /** @test **/
