@@ -16,17 +16,13 @@
             @sort="setSort"
         >
             <template #default="{ row: item, prop }">
-                <span v-if="prop == 'created_at'"
-                      class="text-xs"
-                >{{ item.created_at | localTime(null, true) }}</span>
-                <span v-else-if="prop == 'commentInfo'">
-                    <div class="flex items-start">
+                <span v-if="prop == 'commentInfo'">
+                    <div class="flex items-start ">
                         <div class="flex-shrink-0 w-2 h-2 mt-1 mr-4 bg-red-400 rounded-full" />
-                        <div v-if="item.notifiable.data.commentable_type === 'Ikoncept\Fabriq\\Models\\Page'">
-                            <div>
-                                <div class="text-xs">Sida: {{ item.notifiable.data.page.data.name }}</div>
-                            </div>
-                            Du blev omnämnd i en kommentar av <span class="font-semibold">{{ item.notifiable.data.user.data.name }}</span>
+                        <div v-if="item.notifiable.data.commentable_type.includes('Page')">
+                            <PageComment :item="item"
+                                         :cleared="false"
+                            />
                         </div>
                         <div v-else
                              class="max-w-full whitespace-normal"
@@ -56,32 +52,25 @@
             @sort="setSort"
         >
             <template #default="{ row: item, prop }">
-                <span v-if="prop == 'created_at'"
-                      class="text-xs"
-                >{{ item.created_at | localTime(null, true) }}</span>
-                <span v-else-if="prop == 'commentInfo'">
+                <span v-if="prop == 'commentInfo'">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 w-2 h-2 mt-1 mr-4 bg-gray-400 rounded-full" />
-                        <div v-if="item.notifiable.data.commentable_type === 'Ikoncept\Fabriq\\Models\\Page'"
+                        <div v-if="item.notifiable.data.commentable_type.includes('Page')"
                              class="opacity-80"
                         >
-                            <div>
-                                <div class="text-xs">Sida: {{ item.notifiable.data.page.data.name }}</div>
-                            </div>
-                            Du blev omnämnd i en kommentar av <span class="font-semibold">{{ item.notifiable.data.user.data.name }}</span>
+                            <PageComment :item="item"
+                                         :cleared="true"
+                            />
                         </div>
                         <div v-else
                              class="max-w-full whitespace-normal opacity-80"
                         >
                             {{ item.content }}
+                            <div class="text-xs font-semibold">
+                                {{ item.created_at | localTime(null, true) }}
+                            </div>
                         </div>
                     </div>
-                </span>
-                <span v-else-if="prop == 'controls'">
-                    <!-- <div class="flex items-center">
-
-                        <XMarkIcon class="w-4 h-4" />
-                    </div> -->
                 </span>
             </template>
         </FTable>
@@ -89,8 +78,12 @@
 </template>
 <script>
 import Notification from '~/models/Notification'
+import PageComment from '~/notifications/PageComment'
 export default {
     name: 'NotificationsIndex',
+    components: {
+        PageComment
+    },
     data () {
         return {
             email: '',
@@ -114,17 +107,13 @@ export default {
                 {
                     title: 'Nya notiser',
                     key: 'commentInfo',
-                    tdClasses: 'w-full',
-                    thClasses: 'w-full'
+                    tdClasses: 'w-full ',
+                    thClasses: 'w-full bg-royal-500 rounded-tl text-gold-200'
                 },
                 {
                     title: '',
-                    key: 'controls'
-                },
-                {
-                    title: '',
-                    key: 'created_at',
-                    sortable: false
+                    key: 'controls',
+                    thClasses: 'w-full bg-royal-500  text-gold-300 rounded-tr'
                 }
             ],
             seenNotificationColumns: [
@@ -132,16 +121,7 @@ export default {
                     title: 'Hanterade notiser',
                     key: 'commentInfo',
                     tdClasses: 'w-full',
-                    thClasses: 'w-full'
-                },
-                {
-                    title: '',
-                    key: 'controls'
-                },
-                {
-                    title: '',
-                    key: 'created_at',
-                    sortable: false
+                    thClasses: 'w-full bg-royal-500 rounded-t text-gold-200'
                 }
             ]
         }
@@ -150,7 +130,6 @@ export default {
         this.fetchUnseenItems()
         this.fetchSeenItems()
     },
-
     methods: {
         async fetchItems () {
             await this.fetchUnseenItems()
@@ -181,7 +160,7 @@ export default {
             }
         },
         handleRowClicked (row) {
-            if (row.notifiable.data.commentable_type === 'Ikoncept\Fabriq\\Models\\Page') {
+            if (row.notifiable.data.commentable_type.includes('Page')) {
                 this.clearNotification(row.id)
                 this.$router.push({ name: 'pages.edit', params: { id: row.notifiable.data.commentable_id }, query: { openComments: true } })
             }
@@ -214,3 +193,13 @@ export default {
     }
 }
 </script>
+<style>
+blockquote {
+    overflow: hidden;
+    white-space: nowrap;
+}
+blockquote p {
+    /* white-space: nowrap; */
+    display: inline;
+}
+</style>
