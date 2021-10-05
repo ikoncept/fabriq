@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Illuminate\Database\Eloquent\Model;
+use Ikoncept\Fabriq\Models\Menu;
 use League\Fractal\TransformerAbstract;
 
 class MenuTransformer extends TransformerAbstract
@@ -20,10 +20,10 @@ class MenuTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param Model $menu
+     * @param  Menu  $menu
      * @return array
      */
-    public function transform(Model $menu)
+    public function transform(Menu $menu)
     {
         return [
             'id' => (int) $menu->id,

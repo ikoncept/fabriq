@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Illuminate\Database\Eloquent\Model;
+use Ikoncept\Fabriq\Models\User;
 use Illuminate\Support\Collection as IlluminateCollection;
 use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
@@ -23,10 +23,10 @@ class UserTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Model  $user
+     * @param  User  $user
      * @return array
      */
-    public function transform(Model $user)
+    public function transform(User $user)
     {
         return [
             'id' => $user->id,
@@ -41,10 +41,10 @@ class UserTransformer extends TransformerAbstract
     /**
      * Include roles
      *
-     * @param Model $user
+     * @param User $user
      * @return Collection
      */
-    public function includeRoles(Model $user) : Collection
+    public function includeRoles(User $user) : Collection
     {
         return $this->collection($user->roles, new RoleTransformer);
     }
@@ -52,10 +52,10 @@ class UserTransformer extends TransformerAbstract
     /**
      * Get roles
      *
-     * @param Model $user
+     * @param User $user
      * @return IlluminateCollection
      */
-    public function getRoles(Model $user) : IlluminateCollection
+    public function getRoles(User $user) : IlluminateCollection
     {
         if(auth()->user()->id == $user->id) {
             return $user->roles->pluck('name');

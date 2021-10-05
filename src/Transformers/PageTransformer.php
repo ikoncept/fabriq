@@ -2,8 +2,9 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Illuminate\Database\Eloquent\Model;
+use Ikoncept\Fabriq\Models\Page;
 use Infab\TranslatableRevisions\Models\I18nLocale;
+use League\CommonMark\Block\Element\ThematicBreak;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
@@ -25,10 +26,10 @@ class PageTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Model  $page
+     * @param  Page  $page
      * @return array
      */
-    public function transform(Model $page) : array
+    public function transform(Page $page) : array
     {
         return $page->toArray();
     }
@@ -36,10 +37,10 @@ class PageTransformer extends TransformerAbstract
     /**
      * Include content
      *
-     * @param Model $page
+     * @param Page $page
      * @return Item
      */
-    public function includeContent(Model $page) : Item
+    public function includeContent(Page $page) : Item
     {
         $content = $page->getFieldContent($page->revision);
 
@@ -49,10 +50,10 @@ class PageTransformer extends TransformerAbstract
     /**
      * Include page template
      *
-     * @param Model $page
+     * @param Page $page
      * @return Item
      */
-    public function includeTemplate(Model $page) : Item
+    public function includeTemplate(Page $page) : Item
     {
         return $this->item($page->template, new TemplateTransformer());
     }
@@ -60,15 +61,15 @@ class PageTransformer extends TransformerAbstract
     /**
      * Include slugs
      *
-     * @param Model $page
+     * @param Page $page
      * @return Collection
      */
-    public function includeSlugs(Model $page) : Collection
+    public function includeSlugs(Page $page) : Collection
     {
         return $this->collection($page->slugs, new SlugTransformer());
     }
 
-    public function includeLocalizedContent(Model $page) : Item
+    public function includeLocalizedContent(Page $page) : Item
     {
 
         $enabledLocales = I18nLocale::where('enabled', 1)
@@ -78,7 +79,7 @@ class PageTransformer extends TransformerAbstract
         return $this->item($enabledLocales, new LocaleContentTransformer($page));
     }
 
-    public function includeChildren(Model $page) : Collection
+    public function includeChildren(Page $page) : Collection
     {
         return $this->collection($page->children, new  PageTransformer);
     }

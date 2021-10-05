@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Illuminate\Database\Eloquent\Model;
+use Ikoncept\Fabriq\Models\MenuItem;
 use Infab\TranslatableRevisions\Models\I18nLocale;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
@@ -23,10 +23,10 @@ class MenuItemTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Model  $menuItem
+     * @param  MenuItem  $menuItem
      * @return array
      */
-    public function transform(Model $menuItem)
+    public function transform(MenuItem $menuItem)
     {
         return [
             'id' => (int) $menuItem->id,
@@ -44,22 +44,22 @@ class MenuItemTransformer extends TransformerAbstract
     /**
      * Include content
      *
-     * @param Model $menuItem
+     * @param MenuItem $menuItem
      * @return Item
      */
-    public function includeContent(Model $menuItem) : Item
+    public function includeContent(MenuItem $menuItem) : Item
     {
         $content = $menuItem->getFieldContent();
 
         return $this->item($content, new ContentTransformer());
     }
 
-    public function includePage(Model $menuItem) : Item
+    public function includePage(MenuItem $menuItem) : Item
     {
         return $this->item($menuItem->page, new PageTransformer);
     }
 
-    public function includeLocalizedContent(Model $menuItem) : Item
+    public function includeLocalizedContent(MenuItem $menuItem) : Item
     {
 
         $enabledLocales = I18nLocale::where('enabled', 1)

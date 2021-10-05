@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Illuminate\Database\Eloquent\Model;
+use Ikoncept\Fabriq\Models\Video;
 use League\Fractal\TransformerAbstract;
 use Illuminate\Support\Str;
 use League\Fractal\Resource\Collection;
@@ -23,10 +23,10 @@ class VideoTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Model  $video
+     * @param  Video  $video
      * @return array
      */
-    public function transform(Model $video)
+    public function transform(Video $video)
     {
         $media = $video->getFirstMedia('videos');
         if(! $media) {
@@ -56,7 +56,7 @@ class VideoTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeTags(Model $video) : Collection
+    public function includeTags(Video $video) : Collection
     {
         return $this->collection($video->tags, new TagTransformer);
     }

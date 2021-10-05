@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Illuminate\Database\Eloquent\Model;
+use Infab\TranslatableRevisions\Models\RevisionTemplateField;
 use League\Fractal\TransformerAbstract;
 
 class TemplateFieldTransformer extends TransformerAbstract
@@ -20,10 +20,10 @@ class TemplateFieldTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Model  $pageTemplateField
+     * @param  RevisionTemplateField  $pageTemplateField
      * @return array
      */
-    public function transform(Model $pageTemplateField)
+    public function transform(RevisionTemplateField $pageTemplateField)
     {
         return $pageTemplateField->toArray();
     }

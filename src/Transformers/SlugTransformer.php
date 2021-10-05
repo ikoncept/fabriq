@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Illuminate\Database\Eloquent\Model;
+use Ikoncept\Fabriq\Models\Slug;
 use League\Fractal\TransformerAbstract;
 
 class SlugTransformer extends TransformerAbstract
@@ -20,10 +20,10 @@ class SlugTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Model  $slug
+     * @param  Slug  $slug
      * @return array
      */
-    public function transform(Model $slug)
+    public function transform(Slug $slug)
     {
         return $slug->toArray();
         // return [

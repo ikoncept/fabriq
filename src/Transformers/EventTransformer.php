@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Illuminate\Database\Eloquent\Model;
+use Ikoncept\Fabriq\Models\Event;
 use Infab\TranslatableRevisions\Models\I18nLocale;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
@@ -23,10 +23,10 @@ class EventTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Model  $event
+     * @param  Event  $event
      * @return array
      */
-    public function transform(Model $event)
+    public function transform(Event $event)
     {
         return [
             'id' => (int) $event->id,
@@ -41,14 +41,14 @@ class EventTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeContent(Model $event) : Item
+    public function includeContent(Event $event) : Item
     {
         $content = $event->getFieldContent();
 
         return $this->item($content, new ContentTransformer());
     }
 
-    public function includeLocalizedContent(Model $event) : Item
+    public function includeLocalizedContent(Event $event) : Item
     {
 
         $enabledLocales = I18nLocale::where('enabled', 1)

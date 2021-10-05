@@ -29,9 +29,6 @@ parameters:
         -
             message: '#Parameter#'
             path: ./src/MacroServiceProvider.php
-        -
-            message: '#getSlugString#'
-            path: ./src/Models/Page.php
         # -
         #     message: '#$view of function view expects view-string#'
         #     path: ./src/Http/Controllers/Api/Fabriq/ImageSourceSetController.php
