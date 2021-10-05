@@ -9,6 +9,7 @@ use Ikoncept\Fabriq\Services\CalendarService;
 use Ikoncept\Fabriq\Transformers\EventTransformer;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
@@ -21,7 +22,7 @@ class EventsController extends ApiController
 
     public function index(Request $request) : JsonResponse
     {
-        $events = QueryBuilder::for(Event::class)
+        $events = QueryBuilder::for(Fabriq::getFqnModel('event'))
             ->allowedFilters(AllowedFilter::scope('dateRange'))
             ->allowedAppends(['title'])
             ->paginate($this->number);

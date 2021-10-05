@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\CreateCommentRequest;
 use Ikoncept\Fabriq\Models\Comment;
@@ -21,7 +22,7 @@ class CommentableController extends ApiController
      * @var array
      */
     protected $modelMap = [
-        'pages' => Page::class
+        'pages' => 'page'
     ];
 
     public function index(Request $request, string $modelName, int $modelId) : JsonResponse
@@ -31,7 +32,7 @@ class CommentableController extends ApiController
         }
 
         $modelClass = $this->modelMap[$modelName];
-        $model = $modelClass::where('id', $modelId)
+        $model = Fabriq::getModelClass($modelClass)->where('id', $modelId)
             ->with('comments', 'comments.user', 'comments.user.roles')
             ->firstOrFail();
 
@@ -45,7 +46,7 @@ class CommentableController extends ApiController
         }
 
         $modelClass = $this->modelMap[$modelName];
-        $model = $modelClass::where('id', $modelId)
+        $model = Fabriq::getModelClass($modelClass)->where('id', $modelId)
             ->firstOrFail();
         $comment = $model->commentAs($request->user(), $request->comment);
 

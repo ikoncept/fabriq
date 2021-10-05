@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Controllers\Controller;
 use Ikoncept\Fabriq\Http\Requests\CreateArticleRequest;
 use Ikoncept\Fabriq\Http\Requests\UpdateArticleRequest;
@@ -20,8 +21,8 @@ class ArticlesController extends Controller
 
     public function index(Request $request) : JsonResponse
     {
-        $eagerLoad = $this->getEagerLoad(Article::RELATIONSHIPS);
-        $articles = QueryBuilder::for(Article::class)
+        $eagerLoad = $this->getEagerLoad(Fabriq::getFqnModel('article')::RELATIONSHIPS);
+        $articles = QueryBuilder::for(Fabriq::getFqnModel('article'))
             ->allowedSorts(['name', 'updated_at', 'publishes_at'])
             ->allowedFilters([
                 AllowedFilter::scope('search'),

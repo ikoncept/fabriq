@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\CreateSmartBlockRequest;
 use Ikoncept\Fabriq\Models\SmartBlock;
@@ -25,7 +26,7 @@ class SmartBlocksController extends ApiController
     public function index(Request $request) : JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(SmartBlock::RELATIONSHIPS);
-        $paginator = QueryBuilder::for(SmartBlock::class)
+        $paginator = QueryBuilder::for(Fabriq::getFqnModel('smartBlock'))
             ->allowedSorts('name', 'updated_at')
             ->allowedFilters([
                 AllowedFilter::scope('search')

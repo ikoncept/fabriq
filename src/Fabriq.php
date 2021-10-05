@@ -47,4 +47,14 @@ class Fabriq
 
         return new $class($arguments);
     }
+
+    public static function getFqnModel(string $key) : mixed
+    {
+        $class = config('fabriq.models.' . $key);
+        if(! $class) {
+            throw new InvalidArgumentException('The model key was not found: ' . $key);
+        }
+
+        return $class;
+    }
 }

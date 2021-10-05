@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\ClearNotificationRequest;
 use Ikoncept\Fabriq\Models\Notification;
@@ -18,8 +19,8 @@ class NotificationsController extends ApiController
 
     public function index(Request $request) : JsonResponse
     {
-        $eagerLoad = $this->getEagerLoad(Notification::RELATIONSHIPS);
-        $notifications = QueryBuilder::for(Notification::class)
+        $eagerLoad = $this->getEagerLoad(Fabriq::getFqnModel('notification')::RELATIONSHIPS);
+        $notifications = QueryBuilder::for(Fabriq::getFqnModel('notification'))
             ->allowedFilters([
                 AllowedFilter::scope('unseen'),
                 AllowedFilter::scope('seen')

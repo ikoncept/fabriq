@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\Image;
 use Ikoncept\Fabriq\Transformers\TagTransformer;
@@ -24,7 +25,7 @@ class TagsController extends ApiController
 
     public function index(Request $request) : JsonResponse
     {
-        $tags = QueryBuilder::for(Tag::class)
+        $tags = QueryBuilder::for(Fabriq::getFqnModel('tag'))
             ->allowedFilters([
                 AllowedFilter::scope('type', 'withType')
             ])

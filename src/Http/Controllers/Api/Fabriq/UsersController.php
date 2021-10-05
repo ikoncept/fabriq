@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\CreateUserRequest;
 use Ikoncept\Fabriq\Http\Requests\UpdateUserRequest;
@@ -28,7 +29,7 @@ class UsersController extends ApiController
     public function index(Request $request) : JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(User::RELATIONSHIPS);
-        $paginator = QueryBuilder::for(User::class)
+        $paginator = QueryBuilder::for(Fabriq::getFqnModel('user'))
             ->allowedSorts('name', 'email', 'id', 'updated_at')
             ->allowedFilters([
                 AllowedFilter::scope('search')
@@ -46,6 +47,7 @@ class UsersController extends ApiController
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt(Str::random(12));
+        $user->email_verified_at = now();
         $user->save();
 
         return $this->respondWithItem($user, new UserTransformer, 201);

@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Models;
 
 use Ikoncept\Fabriq\Database\Factories\CommentFactory;
+use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -65,11 +66,11 @@ class Comment extends Model
 
     public function user() : BelongsTo
     {
-        return $this->belongsTo(\Ikoncept\Fabriq\Models\User::class);
+        return $this->belongsTo(Fabriq::getFqnModel('user'));
     }
 
     public function notifications() : MorphMany
     {
-        return $this->morphMany(Notification::class, 'notifiable');
+        return $this->morphMany(Fabriq::getFqnModel('notification'), 'notifiable');
     }
 }

@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Models;
 
 use Ikoncept\Fabriq\Database\Factories\UserFactory;
+use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -99,12 +100,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function fabriqNotifications() : HasMany
     {
-        return $this->hasMany(Notification::class);
+        return $this->hasMany(Fabriq::getFqnModel('notification'));
     }
 
     public function notificationsToBeNotified() : HasMany
     {
-        return $this->hasMany(Notification::class)
+        return $this->hasMany(Fabriq::getFqnModel('notification'))
             ->whereNull('cleared_at')
             ->whereNull('notified_at');
     }

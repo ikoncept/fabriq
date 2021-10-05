@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\Video;
 use Ikoncept\Fabriq\QueryBuilders\VideoSort;
@@ -21,7 +22,7 @@ class VideosController extends ApiController
     public function index(Request $request) : JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Video::RELATIONSHIPS);
-        $videos = QueryBuilder::for(Video::class)
+        $videos = QueryBuilder::for(Fabriq::getFqnModel('video'))
             ->allowedFilters([
                 AllowedFilter::scope('search')
             ])

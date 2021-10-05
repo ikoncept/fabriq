@@ -4,6 +4,7 @@ namespace Ikoncept\Fabriq\Models;
 
 use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Ikoncept\Fabriq\Database\Factories\ContactFactory;
+use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -67,7 +68,7 @@ class Contact extends Model
      */
     public function images() : MorphToMany
     {
-        return $this->morphToMany(\Ikoncept\Fabriq\Models\Image::class, 'imageable')
+        return $this->morphToMany(Fabriq::getFqnModel('image'), 'imageable')
             ->withPivot('id', 'sortindex')
             ->orderBy('imageables.sortindex');
     }

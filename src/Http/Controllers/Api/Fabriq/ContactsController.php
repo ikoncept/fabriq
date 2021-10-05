@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\CreateContactRequest;
 use Ikoncept\Fabriq\Http\Requests\UpdateContactRequest;
@@ -26,8 +27,8 @@ class ContactsController extends ApiController
      */
     public function index(Request $request) : JsonResponse
     {
-        $eagerLoad = $this->getEagerLoad(Contact::RELATIONSHIPS);
-        $contacts = QueryBuilder::for(Contact::class)
+        $eagerLoad = $this->getEagerLoad(Fabriq::getFqnModel('contact')::RELATIONSHIPS);
+        $contacts = QueryBuilder::for(Fabriq::getFqnModel('contact'))
             ->allowedSorts('name', 'email', 'updated_at')
             ->allowedFilters([
                 AllowedFilter::scope('search')
@@ -41,7 +42,7 @@ class ContactsController extends ApiController
 
     public function show(Request $request, int $id) : JsonResponse
     {
-        $eagerLoad = $this->getEagerLoad(Contact::RELATIONSHIPS);
+        $eagerLoad = $this->getEagerLoad(Fabriq::getFqnModel('contact')::RELATIONSHIPS);
         $contact = Contact::where('id', $id)
             ->with($eagerLoad)
             ->firstOrFail();

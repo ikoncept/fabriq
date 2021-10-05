@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\UpdateImageRequest;
 use Ikoncept\Fabriq\Models\Image;
@@ -28,7 +29,7 @@ class ImagesController extends ApiController
     public function index(Request $request) : JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Image::RELATIONSHIPS);
-        $images = QueryBuilder::for(Image::class)
+        $images = QueryBuilder::for(Fabriq::getFqnModel('image'))
             ->allowedSorts([
                 'id', 'created_at', 'updated_at', 'alt_text',
                 AllowedSort::custom('file_name', new ImageSort()),

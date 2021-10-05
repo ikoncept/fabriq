@@ -6,6 +6,7 @@ use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\Image;
 use Ikoncept\Fabriq\Transformers\ImageTransformer;
 use Exception;
+use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
@@ -32,7 +33,7 @@ class ImageablesController extends ApiController
         $relatedModelClass = config('fabriq.models.'. $guess);
 
         if(! class_exists($relatedModelClass)) {
-            throw new InvalidArgumentException('The related model was not found, you might want to add a mapping in your Image::class');
+            throw new InvalidArgumentException('The related model was not found, you might want to add a mapping in your ' . Fabriq::getFqnModel('image') . ' model');
         }
 
         $relatedModel = $relatedModelClass::findOrFail($modelId);
@@ -56,7 +57,7 @@ class ImageablesController extends ApiController
         $relatedModelClass = config('fabriq.models.'. $guess);
 
         if(! class_exists($relatedModelClass)) {
-            throw new InvalidArgumentException('The related model was not found, you might want to add a mapping in your Image::class');
+            throw new InvalidArgumentException('The related model was not found, you might want to add a mapping in your ' . Fabriq::getFqnModel('image') . ' model');
         }
 
         $relatedModel = $relatedModelClass::findOrFail($modelId);

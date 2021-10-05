@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\File;
 use Ikoncept\Fabriq\QueryBuilders\FileSort;
@@ -28,7 +29,7 @@ class FilesController extends ApiController
     public function index(Request $request) : JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(File::RELATIONSHIPS);
-        $files = QueryBuilder::for(File::class)
+        $files = QueryBuilder::for(Fabriq::getFqnModel('file'))
             ->allowedSorts([
                 'id', 'created_at', 'updated_at', 'alt_text',
                 AllowedSort::custom('file_name', new FileSort()),

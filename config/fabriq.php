@@ -43,6 +43,8 @@ return [
         'page' => \Ikoncept\Fabriq\Models\Page::class,
         'role' => \Ikoncept\Fabriq\Models\Role::class,
         'slug' => \Ikoncept\Fabriq\Models\Slug::class,
+        'smartBlock' => \Ikoncept\Fabriq\Models\SmartBlock::class,
+        'tag' => \Spatie\Tags\Tag::class,
         'user' => \Ikoncept\Fabriq\Models\User::class,
         'video' => \Ikoncept\Fabriq\Models\Video::class,
     ],
