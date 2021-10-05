@@ -22,7 +22,7 @@ class Article extends Model
 
     protected $dates = ['publishes_at', 'unpublishes_at'];
 
-    public array $templateSluggable = ['article_title'];
+    public array $templateSluggable = ['title'];
 
     /**
      * Morph class

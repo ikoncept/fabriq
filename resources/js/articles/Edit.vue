@@ -37,9 +37,9 @@
                 />
                 <div class="col-span-2" />
                 <!-- </div> -->
-                <FInput v-model="content.article_title"
+                <FInput v-model="content.title"
                         label="Titel"
-                        name="article_title"
+                        name="title"
                         rules="required"
                         placeholder="Skriv titel här..."
                 />
@@ -85,22 +85,22 @@
                     </div>
                 </div>
                 <FImageInput v-if="article.id"
-                             v-model="content.article_image"
+                             v-model="content.image"
                              label="Bild"
-                             name="article_image"
+                             name="image"
                              class="col-span-1 row-span-2"
                              :model-id="article.id"
                 />
-                <FInput v-model="content.article_preamble"
+                <FInput v-model="content.preamble"
                         label="Ingress"
                         name="preamble"
                         textarea
                         class="col-span-2"
                         placeholder="Skriv en ingress här..."
                 />
-                <FEditor v-model="content.article_body"
+                <FEditor v-model="content.body"
                          class="col-span-2 mb-4"
-                         name="article_body"
+                         name="body"
                 />
             </div>
         </UiCard>
@@ -119,8 +119,8 @@ export default {
                 publishes_at: ''
             },
             content: {
-                article_publishes_at: '',
-                article_image: { id: 0 }
+                publishes_at: '',
+                image: { id: 0 }
             },
             queryParams: {
                 include: 'content,template,template.groupedFields'

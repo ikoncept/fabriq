@@ -30,7 +30,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
     }
 
     /** @test **/
-    public function it_will_not_create_a_new_article_without_a_title()
+    public function it_will_not_create_a_new_without_a_title()
     {
         // Arrange
 
@@ -54,7 +54,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
         $field = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'name' => 'Titel',
-            'key' => 'article_title',
+            'key' => 'title',
             'translated' => true
         ]);
         $article = \Ikoncept\Fabriq\Models\Article::factory()->create([
@@ -67,7 +67,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
         // Act
         $response = $this->json('PATCH', '/articles/' . $article->id, [
             'content' => [
-                'article_title' => 'A real title'
+                'title' => 'A real title'
             ],
             'name' => 'Nyhet',
             'publishes_at' => '2043-02-02 15:00:00',
@@ -155,7 +155,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
         // Arrange
         $template = RevisionTemplate::factory()
             ->hasFields(1, [
-                'key' => 'article_title',
+                'key' => 'title',
                 'type' => 'text',
                 'translated' => true
             ])
@@ -166,7 +166,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
         $metaField = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'translated' => false,
-            'key' => 'article_image',
+            'key' => 'image',
             'type' => 'image'
         ]);
         $article = \Ikoncept\Fabriq\Models\Article::factory()->create([
@@ -175,8 +175,8 @@ class ArticlesFeatureTest extends AdminUserTestCase
         ]);
 
         $content = [
-            'article_title' => 'En titel',
-            'article_image' => [1]
+            'title' => 'En titel',
+            'image' => [1]
         ];
         $article->updateContent($content);
 
@@ -190,7 +190,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
             'id' => $article->id
         ]);
         $this->assertDatabaseMissing('i18n_terms', [
-            'key' => 'articles_1_1_article_title'
+            'key' => 'articles_1_1_title'
         ]);
         $this->assertDatabaseMissing('i18n_definitions', [
             'content' => 'En titel'
@@ -234,7 +234,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
         // Arrange
         $template = RevisionTemplate::factory()
            ->hasFields(1, [
-               'key' => 'article_title',
+               'key' => 'title',
                'type' => 'text',
                'translated' => true
            ])
