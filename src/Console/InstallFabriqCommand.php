@@ -68,8 +68,17 @@ class InstallFabriqCommand extends Command
         $this->info('Creating page root');
 
         if (config('app.env') != 'testing') {
-            $this->call('fabriq:create-page-root');
+            $this->call('fabriq:create-page-root', [
+                '--silent' => true
+            ]);
+            $answer = $this->ask('Do you want to create a new user?', 'yes');
+
+            if($answer === 'yes') {
+                $this->call('make:user');
+                $this->call('fabriq:add-role-to-user');
+            }
         }
+
 
         $this->info('Fabriq has been installed');
 

@@ -20,11 +20,6 @@ class AddAdminRolesToUsers extends Migration
             'display_name' => 'Admin',
             'description' => 'Administratörer',
         ]);
-        $devRole = DB::table('roles')->insert([
-            'name' => 'dev',
-            'display_name' => 'Dev',
-            'description' => 'Developers/Internal',
-        ]);
 
         User::all()->each(function($user) {
             $user->assignRole('admin');

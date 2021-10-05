@@ -6,14 +6,14 @@ use Illuminate\Console\Command;
 use Infab\TranslatableRevisions\Models\RevisionTemplate;
 use Infab\TranslatableRevisions\Models\RevisionTemplateField;
 
-class GenerateRevisionField extends Command
+class MakeRevisionField extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'fabriq:create-revision-field';
+    protected $signature = 'fabriq:make-revision-field';
 
     /**
      * The console command description.

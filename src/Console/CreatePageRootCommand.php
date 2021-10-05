@@ -4,6 +4,7 @@ namespace Ikoncept\Fabriq\Console;
 
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 
 class CreatePageRootCommand extends Command
 {
@@ -12,7 +13,7 @@ class CreatePageRootCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'fabriq:create-page-root';
+    protected $signature = 'fabriq:create-page-root {--silent= : Generate a root named root}';
 
     /**
      * The console command description.
@@ -38,12 +39,34 @@ class CreatePageRootCommand extends Command
      */
     public function handle()
     {
-        $name = $this->ask('Provide a name for the page root', 'root');
+        $name = 'root';
+        if(! $this->option('silent')) {
+            $name = $this->ask('Provide a name for the page root', 'root');
+        }
+
+        if(Fabriq::getModelClass('page')->whereName('root')->first()) {
+            $this->info('Root already exists');
+            return 0;
+        }
+
         $page = Fabriq::getModelClass('page');
         $page->name = $name;
         $page->template_id = 1;
         $page->save();
 
         $this->info('Page root has been created successfully');
+        return 0;
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['silent', 's', InputOption::VALUE_NONE, 'Generate a root named root']
+        ];
     }
 }

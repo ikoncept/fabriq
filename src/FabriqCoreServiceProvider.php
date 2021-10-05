@@ -2,10 +2,12 @@
 
 namespace Ikoncept\Fabriq;
 
+use Dyrynda\Artisan\Console\Commands\MakeUser;
+use Ikoncept\Fabriq\Console\AddRoleToUserCommand;
 use Ikoncept\Fabriq\Console\ControllerMakeCommand;
 use Ikoncept\Fabriq\Console\CreateMenuCommand;
 use Ikoncept\Fabriq\Console\CreatePageRootCommand;
-use Ikoncept\Fabriq\Console\GenerateRevisionField;
+use Ikoncept\Fabriq\Console\MakeRevisionField;
 use Ikoncept\Fabriq\Console\InstallFabriqCommand;
 use Ikoncept\Fabriq\Console\PublishNotification;
 use Ikoncept\Fabriq\Console\ResourceMakeCommand;
@@ -103,10 +105,11 @@ class FabriqCoreServiceProvider extends ServiceProvider
         );
 
         $this->commands([
+            AddRoleToUserCommand::class,
             ControllerMakeCommand::class,
             CreateMenuCommand::class,
             CreatePageRootCommand::class,
-            GenerateRevisionField::class,
+            MakeRevisionField::class,
             InstallFabriqCommand::class,
             PublishNotification::class,
             ResourceMakeCommand::class,
@@ -116,6 +119,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
             VueEditTemplateMakeCommand::class,
             VueIndexTemplateMakeCommand::class,
             VueResourceMakeCommand::class,
+            MakeUser::class
         ]);
 
         $this->app->singleton(PageRepositoryInterface::class, function () {
