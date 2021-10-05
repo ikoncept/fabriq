@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Ikoncept\Fabriq\Models\Page;
+use Illuminate\Database\Eloquent\Model;
 use League\Fractal\TransformerAbstract;
 
 class LivePageTransformer extends TransformerAbstract
@@ -20,10 +20,10 @@ class LivePageTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Page  $page
+     * @param  Model  $page
      * @return array
      */
-    public function transform(Page $page)
+    public function transform(Model $page)
     {
         $pageData = [
             'name' => $page->name,

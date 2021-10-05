@@ -3,7 +3,7 @@
 namespace Ikoncept\Fabriq\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use Spatie\Tags\Tag;
+use Illuminate\Database\Eloquent\Model;
 
 class TagTransformer extends TransformerAbstract
 {
@@ -20,10 +20,10 @@ class TagTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Tag  $tag
+     * @param  Model  $tag
      * @return array
      */
-    public function transform(Tag $tag)
+    public function transform(Model $tag)
     {
         return [
             'id' => $tag->id,

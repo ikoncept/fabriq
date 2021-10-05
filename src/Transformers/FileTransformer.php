@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Ikoncept\Fabriq\Models\File;
+use Illuminate\Database\Eloquent\Model;
 use League\Fractal\TransformerAbstract;
 use Illuminate\Support\Str;
 use League\Fractal\Resource\Collection;
@@ -23,10 +23,10 @@ class FileTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  File  $file
+     * @param  Model  $file
      * @return array
      */
-    public function transform(File $file)
+    public function transform(Model $file)
     {
         $media = $file->getFirstMedia('files');
         if(! $media) {
@@ -52,7 +52,7 @@ class FileTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeTags(File $file) : Collection
+    public function includeTags(Model $file) : Collection
     {
         return $this->collection($file->tags, new TagTransformer);
     }

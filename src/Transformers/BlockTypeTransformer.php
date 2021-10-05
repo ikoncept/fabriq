@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Ikoncept\Fabriq\Models\BlockType;
+use Illuminate\Database\Eloquent\Model;
 use League\Fractal\TransformerAbstract;
 
 class BlockTypeTransformer extends TransformerAbstract
@@ -20,10 +20,10 @@ class BlockTypeTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  BlockType  $blockType
+     * @param  Model  $blockType
      * @return array
      */
-    public function transform(BlockType $blockType)
+    public function transform(Model $blockType)
     {
         return $blockType->toArray();
         // return [

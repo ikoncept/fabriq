@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Ikoncept\Fabriq\Models\Notification;
+use Illuminate\Database\Eloquent\Model;
 use League\Fractal\TransformerAbstract;
 
 class NotificationTransformer extends TransformerAbstract
@@ -21,10 +21,10 @@ class NotificationTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Notification  $notification
+     * @param  Model  $notification
      * @return array
      */
-    public function transform(Notification $notification)
+    public function transform(Model $notification)
     {
         return $notification->toArray();
         // return [
@@ -35,10 +35,10 @@ class NotificationTransformer extends TransformerAbstract
     /**
      * Include notifiable
      *
-     * @param Notification $notification
+     * @param Model $notification
      * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
      */
-    public function includeNotifiable(Notification $notification)
+    public function includeNotifiable(Model $notification)
     {
         if(! $notification->notifiable) {
             return $this->null();

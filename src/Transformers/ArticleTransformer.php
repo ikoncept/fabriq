@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Ikoncept\Fabriq\Models\Article;
+use Illuminate\Database\Eloquent\Model;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
 
@@ -22,10 +22,10 @@ class ArticleTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Article  $article
+     * @param  Model  $article
      * @return array
      */
-    public function transform(Article $article)
+    public function transform(Model $article)
     {
         return [
             'id' => (int) $article->id,
@@ -43,10 +43,10 @@ class ArticleTransformer extends TransformerAbstract
     /**
      * Include content
      *
-     * @param Article $article
+     * @param Model $article
      * @return Item
      */
-    public function includeContent(Article $article) : Item
+    public function includeContent(Model $article) : Item
     {
         $content = $article->getFieldContent($article->revision);
 
@@ -56,10 +56,10 @@ class ArticleTransformer extends TransformerAbstract
     /**
      * Include page template
      *
-     * @param Article $article
+     * @param Model $article
      * @return Item
      */
-    public function includeTemplate(Article $article) : Item
+    public function includeTemplate(Model $article) : Item
     {
         return $this->item($article->template, new TemplateTransformer());
     }

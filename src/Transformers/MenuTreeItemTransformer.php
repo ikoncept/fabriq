@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Ikoncept\Fabriq\Models\MenuItem;
+use Illuminate\Database\Eloquent\Model;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
@@ -24,10 +24,10 @@ class MenuTreeItemTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  MenuItem  $menuItem
+     * @param  Model  $menuItem
      * @return array
      */
-    public function transform(MenuItem $menuItem) : array
+    public function transform(Model $menuItem) : array
     {
         return [
             'id' => $menuItem->id,
@@ -39,12 +39,12 @@ class MenuTreeItemTransformer extends TransformerAbstract
         ];
     }
 
-    public function includePage(MenuItem $tree) : Item
+    public function includePage(Model $tree) : Item
     {
         return $this->item($tree->page, new PageTransformer);
     }
 
-    public function includeChildren(MenuItem $tree) : Collection
+    public function includeChildren(Model $tree) : Collection
     {
         return $this->collection($tree->children, new MenuTreeItemTransformer);
     }
@@ -52,10 +52,10 @@ class MenuTreeItemTransformer extends TransformerAbstract
     /**
      * Include content
      *
-     * @param MenuItem $menuItem
+     * @param Model $menuItem
      * @return Item
      */
-    public function includeContent(MenuItem $menuItem) : Item
+    public function includeContent(Model $menuItem) : Item
     {
         $content = $menuItem->getFieldContent($menuItem->revision);
 

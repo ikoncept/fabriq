@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
+use Illuminate\Database\Eloquent\Model;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
@@ -23,10 +23,10 @@ class TemplateTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  RevisionTemplate  $template
+     * @param Model $template
      * @return array
      */
-    public function transform(RevisionTemplate $template) : array
+    public function transform(Model $template) : array
     {
         return $template->toArray();
     }
@@ -34,10 +34,10 @@ class TemplateTransformer extends TransformerAbstract
     /**
      * Include template fields
      *
-     * @param RevisionTemplate $template
+     * @param Model $template
      * @return Collection
      */
-    public function includeFields(RevisionTemplate $template) : Collection
+    public function includeFields(Model $template) : Collection
     {
         return $this->collection($template->fields, new TemplateFieldTransformer());
     }
@@ -45,10 +45,10 @@ class TemplateTransformer extends TransformerAbstract
     /**
      * Return grouped fields
      *
-     * @param RevisionTemplate $template
+     * @param Model $template
      * @return Item
      */
-    public function includeGroupedFields(RevisionTemplate $template) : Item
+    public function includeGroupedFields(Model $template) : Item
     {
         $grouped = $template->fields->groupBy('group');
 

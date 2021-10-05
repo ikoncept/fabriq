@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Ikoncept\Fabriq\Models\Image;
+use Illuminate\Database\Eloquent\Model;
 use League\Fractal\TransformerAbstract;
 use Illuminate\Support\Str;
 use League\Fractal\Resource\Collection;
@@ -23,10 +23,10 @@ class ImageTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Image  $image
+     * @param  Model  $image
      * @return array
      */
-    public function transform(Image $image)
+    public function transform(Model $image)
     {
         $media = $image->getFirstMedia('images');
         if(! $media) {
@@ -56,7 +56,7 @@ class ImageTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeTags(Image $image) : Collection
+    public function includeTags(Model $image) : Collection
     {
         return $this->collection($image->tags, new TagTransformer);
     }

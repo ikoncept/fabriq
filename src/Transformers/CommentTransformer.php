@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Ikoncept\Fabriq\Models\Comment;
+use Illuminate\Database\Eloquent\Model;
 use League\Fractal\TransformerAbstract;
 
 class CommentTransformer extends TransformerAbstract
@@ -21,10 +21,10 @@ class CommentTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Comment  $comment
+     * @param  Model  $comment
      * @return array
      */
-    public function transform(Comment $comment)
+    public function transform(Model $comment)
     {
         return [
             'id' => (int) $comment->id,
@@ -37,10 +37,10 @@ class CommentTransformer extends TransformerAbstract
     /**
      * Include user
      *
-     * @param Comment $comment
+     * @param Model $comment
      * @return \League\Fractal\Resource\Item
      */
-    public function includeUser(Comment $comment)
+    public function includeUser(Model $comment)
     {
         return $this->item($comment->user, new UserTransformer);
     }

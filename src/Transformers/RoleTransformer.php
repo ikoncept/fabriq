@@ -3,7 +3,7 @@
 namespace Ikoncept\Fabriq\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use Spatie\Permission\Models\Role;
+use Illuminate\Database\Eloquent\Model;
 
 class RoleTransformer extends TransformerAbstract
 {
@@ -20,10 +20,10 @@ class RoleTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format
      *
-     * @param  Role  $role
+     * @param  Model  $role
      * @return array
      */
-    public function transform(Role $role)
+    public function transform(Model $role)
     {
         return $role->toArray();
     }
