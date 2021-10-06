@@ -417,20 +417,8 @@ class PagesFeatureTest extends AdminUserTestCase
 
         // Assert
         $response->assertOk();
-        $response->assertJsonFragment([
-            'en' => [
-                'content' => [
-                    'page_title' => 'English title',
-                ]
-            ]
-        ]);
-        $response->assertJsonFragment([
-            'sv' => [
-                'content' => [
-                    'page_title' => 'Svensk titel',
-                ]
-            ]
-        ]);
+        $response->assertJsonPath('data.localizedContent.data.en.content.page_title', 'English title');
+        $response->assertJsonPath('data.localizedContent.data.sv.content.page_title', 'Svensk titel');
     }
 
     /** @test **/
