@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->integer('published_version')->nullable();
             $table->integer('revision')->default(1);
-            $table->date('publishes_at')->nullable();
+            $table->dateTime('publishes_at')->nullable();
             $table->unsignedBigInteger('template_id')->nullable();
             $table->timestamps();
         });

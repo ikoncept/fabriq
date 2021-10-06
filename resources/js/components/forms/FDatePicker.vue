@@ -3,7 +3,8 @@
                         :mode="validationMode"
                         :rules="rules"
     >
-        <VDatePicker
+        <!-- eslint-disable-next-line -->
+        <v-date-picker
             :class="classes"
             :timezone="localTimezone"
             :value="value"
@@ -92,7 +93,7 @@
                     </template>
                 </FInput>
             </template>
-        </VDatePicker>
+        </v-date-picker>
         <span v-if="errors[0]"
               class="font-sans text-xs text-red-500"
               :class="{'absolute': absolutePosErrors, 'hidden': hideErrors}"

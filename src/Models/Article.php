@@ -8,6 +8,7 @@ use Ikoncept\Fabriq\Database\Factories\ArticleFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 use Infab\TranslatableRevisions\Traits\HasTranslatedRevisions;
 use Infab\TranslatableRevisions\Traits\RevisionOptions;
@@ -16,7 +17,7 @@ class Article extends Model
 {
     use HasFactory, HasTranslatedRevisions;
 
-    const RELATIONSHIPS = ['template', 'template.fields'];
+    const RELATIONSHIPS = ['template', 'template.fields', 'slugs'];
 
     protected $guarded = ['content'];
 
@@ -50,6 +51,16 @@ class Article extends Model
             ->registerGetters([
                 'image' => 'getImages'
             ]);
+    }
+
+    /**
+     * Relation for slugs
+     *
+     * @return MorphMany
+     */
+    public function slugs() : MorphMany
+    {
+        return $this->morphMany(Fabriq::getFqnModel('slug'), 'model');
     }
 
     /**
