@@ -5,6 +5,7 @@ namespace Ikoncept\Fabriq\Models;
 use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Carbon\Carbon;
 use Ikoncept\Fabriq\Database\Factories\ArticleFactory;
+use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
