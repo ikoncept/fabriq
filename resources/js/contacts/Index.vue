@@ -40,7 +40,7 @@
 
             <FTable
                 :columns="columns"
-                :options="{clickableRows: false, defaultSort: 'name', sortDescending: false, shadow: false, search: true}"
+                :options="{clickableRows: false, defaultSort: 'sortindex', sortDescending: false, shadow: false, search: true}"
                 :pagination="pagination"
                 :rows="contacts"
                 :search-query="searchQuery"
@@ -89,6 +89,9 @@
                                  :key="index"
                         >{{ tag.name }}</UiBadge>
                     </span>
+                    <span v-else-if="prop == 'sortindex'">
+                        <UiBadge>{{ item.sortindex }}</UiBadge>
+                    </span>
 
                     <span v-else-if="prop == 'edit'"
                           class="flex items-start justify-end space-x-5"
@@ -132,7 +135,7 @@ export default {
             creationObject: defaultCreationObject(),
             queryParams: {
                 number: 50,
-                sort: 'name',
+                sort: 'sortindex',
                 'filter[search]': '',
                 include: 'tags',
                 append: 'image'
@@ -152,6 +155,11 @@ export default {
                 {
                     title: 'Telefonnummer',
                     key: 'phone',
+                    sortable: true
+                },
+                {
+                    title: 'Sorteringsindex',
+                    key: 'sortindex',
                     sortable: true
                 },
                 {

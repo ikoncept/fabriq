@@ -57,7 +57,13 @@
                             class="col-span-4 row-start-2"
                             name="phone"
                     />
-                    <FSelect v-model="tags"
+                    <FInput v-model="contact.sortindex"
+                            type="number"
+                            class="col-span-4 row-start-2"
+                            label="Sorteringsindex"
+                            help-text="Sorterar kontakter i stigande ordning (lägst först)"
+                    />
+                    <!-- <FSelect v-model="tags"
                              multiple
                              taggable
                              label="Kontaktgrupp"
@@ -69,7 +75,7 @@
                              option-label="name"
                              :push-tags="false"
                              :options="contactTags"
-                    />
+                    /> -->
                     <div class="col-span-12">
                         <FImageInput v-if="contact.id"
                                      v-model="content.image"
