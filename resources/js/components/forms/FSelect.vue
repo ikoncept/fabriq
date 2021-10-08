@@ -161,11 +161,20 @@ export default {
         helpText: {
             type: String,
             default: ''
+        },
+        defaultValue: {
+            type: [String, Number, Object, Array],
+            default: ''
         }
     },
     computed: {
         hasRuleRequired () {
             return this.rules.includes('required')
+        }
+    },
+    mounted () {
+        if (this.defaultValue && !this.value) {
+            this.$emit('input', this.defaultValue)
         }
     },
     methods: {
