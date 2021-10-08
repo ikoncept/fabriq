@@ -45,7 +45,7 @@ return [
         'slug' => \Ikoncept\Fabriq\Models\Slug::class,
         'smartBlock' => \Ikoncept\Fabriq\Models\SmartBlock::class,
         'tag' => \Spatie\Tags\Tag::class,
-        'user' => \Ikoncept\Fabriq\Models\User::class,
+        'user' => \App\Models\User::class,
         'video' => \Ikoncept\Fabriq\Models\Video::class,
     ],
 

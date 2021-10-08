@@ -65,6 +65,7 @@ abstract class AdminUserTestCase extends Orchestra
             'url' => env('APP_URL').'/storage/__test',
             'visibility' => 'public',
         ]);
+        $app['config']->set('fabriq.models.user',  \Ikoncept\Fabriq\Models\User::class);
     }
 
     protected function getPackageProviders($app)

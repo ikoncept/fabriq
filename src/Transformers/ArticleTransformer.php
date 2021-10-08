@@ -55,7 +55,7 @@ class ArticleTransformer extends TransformerAbstract
     }
 
     /**
-     * Include page template
+     * Include template
      *
      * @param Article $article
      * @return Item
@@ -68,12 +68,12 @@ class ArticleTransformer extends TransformerAbstract
     /**
      * Include slugs
      *
-     * @param Page $page
+     * @param Article $article
      * @return Collection
      */
-    public function includeSlugs(Article $page) : Collection
+    public function includeSlugs(Article $article) : Collection
     {
-        return $this->collection($page->slugs, new SlugTransformer());
+        return $this->collection($article->slugs, new SlugTransformer());
     }
 
 }
