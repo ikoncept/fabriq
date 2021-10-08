@@ -70,6 +70,7 @@ class ContactsFeatureTest extends AdminUserTestCase
             'phone' => '070-991100',
             'published' => true,
             'locale' => 'sv',
+            'sortindex' => 100,
             'content' => [
                 'body' => '<p>a nice text</p>'
             ],
@@ -93,6 +94,13 @@ class ContactsFeatureTest extends AdminUserTestCase
         ]);
         $response->assertJsonFragment([
             'body' => '<p>en fin text text</p>'
+        ]);
+        $this->assertDatabaseHas('contacts', [
+            'name' => 'Janne Josefsson',
+            'email' => 'janne@svt.se',
+            'phone' => '070-991100',
+            'published' => true,
+            'sortindex' => 100,
         ]);
         $this->assertDatabaseHas('i18n_definitions', [
             'content' => json_encode('<p>en fin text text</p>'),

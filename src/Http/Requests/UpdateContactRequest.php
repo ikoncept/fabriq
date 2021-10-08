@@ -28,6 +28,7 @@ class UpdateContactRequest extends FormRequest
             'email' => 'nullable|email|max:255',
             'phone' => 'nullable|max:255',
             'published' => 'boolean',
+            'sortindex' => 'nullable',
             'content' => 'array',
             'localizedContent' => 'nullable|array',
             'tags' => 'array'
