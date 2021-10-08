@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Transformers;
 
 use Ikoncept\Fabriq\Models\Article;
+use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
 
@@ -63,4 +64,16 @@ class ArticleTransformer extends TransformerAbstract
     {
         return $this->item($article->template, new TemplateTransformer());
     }
+
+    /**
+     * Include slugs
+     *
+     * @param Page $page
+     * @return Collection
+     */
+    public function includeSlugs(Article $page) : Collection
+    {
+        return $this->collection($page->slugs, new SlugTransformer());
+    }
+
 }
