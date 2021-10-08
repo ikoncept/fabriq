@@ -29,7 +29,7 @@ class ContactsController extends ApiController
     {
         $eagerLoad = $this->getEagerLoad(Fabriq::getFqnModel('contact')::RELATIONSHIPS);
         $contacts = QueryBuilder::for(Fabriq::getFqnModel('contact'))
-            ->allowedSorts('name', 'email', 'updated_at')
+            ->allowedSorts('name', 'email', 'updated_at', 'sortindex')
             ->allowedFilters([
                 AllowedFilter::scope('search')
             ])
