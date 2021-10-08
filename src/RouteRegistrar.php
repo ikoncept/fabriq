@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq;
 
+
 use Illuminate\Contracts\Routing\Registrar as Router;
 use Illuminate\Support\Facades\Route;
 
@@ -115,6 +116,7 @@ class RouteRegistrar
     public function forPublicApi()
     {
         $this->forPageSlugs();
+        $this->forImageSrcSet();
     }
 
     public function forDevProtected()
@@ -266,5 +268,10 @@ class RouteRegistrar
         Route::get('videos/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\VideosController::class, 'show']);
         Route::patch('videos/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\VideosController::class, 'update']);
         Route::delete('videos/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\VideosController::class, 'destroy']);
+    }
+
+    public function forImageSrcSet() : void
+    {
+        Route::get('images/{id}/src-set', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ImageSourceSetController::class, 'show']);
     }
 }
