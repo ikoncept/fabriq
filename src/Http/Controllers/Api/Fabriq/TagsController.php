@@ -21,6 +21,7 @@ class TagsController extends ApiController
         'images' => 'Ikoncept\Fabriq\Models\Image',
         'files' => 'Ikoncept\Fabriq\Models\File',
         'videos' => 'Ikoncept\Fabriq\Models\Video',
+        'contacts' => 'Ikoncept\Fabriq\Models\Contact',
     ];
 
     public function index(Request $request) : JsonResponse
