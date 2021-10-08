@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Models;
 
 use Ikoncept\Fabriq\ContentGetters\ButtonGetter;
+use Ikoncept\Fabriq\ContentGetters\ButtonsGetter;
 use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Ikoncept\Fabriq\ContentGetters\SmartBlockGetter;
 use Ikoncept\Fabriq\ContentGetters\VideoGetter;
@@ -90,7 +91,7 @@ class Page extends Model implements HasMedia
                 'buttons' => 'getButtons',
                 'file' => 'getFiles',
                 'video' => 'getVideos',
-                'button' => 'getButtons',
+                'button' => 'getButton',
                 'smartBlock' => 'getSmartBlock'
             ]);
     }
@@ -136,7 +137,7 @@ class Page extends Model implements HasMedia
      */
     public function getButtons(RevisionMeta $meta)
     {
-        return ButtonGetter::get($meta, $this->isPublishing);
+        return ButtonsGetter::get($meta, $this->isPublishing);
     }
 
 
