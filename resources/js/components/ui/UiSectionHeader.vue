@@ -26,21 +26,6 @@
             </div>
         </Transition>
     </div>
-    <!-- <div class="flex-1 div-b">
-            <div
-                class="leading-none text-gray-800 "
-            >
-                <div class="block overflow-hidden bg-red-400 md:text-4xl">
-
-                    <div class="mt-2 text-sm font-semibold text-gray-400 truncate div-b">
-                        <slot name="subtitle" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="flex flex-wrap justify-end w-full mt-2 2xl:w-auto">
-        </div> -->
-    <!-- </div> -->
 </template>
 <script>
 export default {
@@ -75,7 +60,6 @@ export default {
         onElementObserved (entries) {
             entries.forEach(({ target, isIntersecting }) => {
                 if (!isIntersecting) {
-                    console.log('not interesecting!', target)
                     this.showFixedTools = true
                     return
                 }

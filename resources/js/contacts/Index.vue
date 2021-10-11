@@ -220,7 +220,9 @@ export default {
             this.searchQuery = value
         },
         resetCreateModal () {
-            this.creationObject = { ...defaultCreationObject() }
+            setTimeout(() => {
+                this.creationObject = { ...defaultCreationObject() }
+            }, 200)
         },
         async createContact () {
             try {

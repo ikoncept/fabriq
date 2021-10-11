@@ -3,7 +3,7 @@
     <Transition :duration="201">
         <div v-show="open"
              key="mm"
-             class="fixed inset-0 z-20 overflow-hidden"
+             class="fixed inset-0 z-[60] overflow-hidden"
         >
             <div class="absolute inset-0 overflow-hidden">
                 <section

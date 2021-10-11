@@ -162,7 +162,9 @@ export default {
             }
         },
         resetCreateModal () {
-            this.newSmartBlock = { ...defaultCreationObject() }
+            setTimeout(() => {
+                this.newSmartBlock = { ...defaultCreationObject() }
+            }, 200)
         }
     }
 }

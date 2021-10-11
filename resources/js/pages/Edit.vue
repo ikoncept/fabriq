@@ -1,43 +1,41 @@
 <template>
     <div>
-        <div>
-            <UiSectionHeader>
-                Redigera sida
-                <template #subtitle>
-                    {{ page.name }}
-                </template>
-                <template #tools>
-                    <div class="flex flex-wrap space-x-4 whitespace-nowrap">
-                        <FButton
-                            class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-link"
-                            back-button="pages.index"
-                        >
-                            Avbryt
-                        </FButton>
-                        <FButton
-                            :click="previewPage"
-                            spinner-color="text-royal-500"
-                            class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-outline-royal"
-                        >
-                            Förhandsgranska
-                        </FButton>
-                        <FButton
-                            :click="updateContent"
-                            spinner-color="text-royal-500"
-                            class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-outline-royal"
-                        >
-                            Spara utkast
-                        </FButton>
-                        <FButton
-                            :click="publishPage"
-                            class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-royal"
-                        >
-                            Spara & publicera
-                        </FButton>
-                    </div>
-                </template>
-            </UiSectionHeader>
-        </div>
+        <UiSectionHeader>
+            Redigera sida
+            <template #subtitle>
+                {{ page.name }}
+            </template>
+            <template #tools>
+                <div class="flex flex-wrap space-x-4 whitespace-nowrap">
+                    <FButton
+                        class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-link"
+                        back-button="pages.index"
+                    >
+                        Avbryt
+                    </FButton>
+                    <FButton
+                        :click="previewPage"
+                        spinner-color="text-royal-500"
+                        class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-outline-royal"
+                    >
+                        Förhandsgranska
+                    </FButton>
+                    <FButton
+                        :click="updateContent"
+                        spinner-color="text-royal-500"
+                        class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-outline-royal"
+                    >
+                        Spara utkast
+                    </FButton>
+                    <FButton
+                        :click="publishPage"
+                        class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-royal"
+                    >
+                        Spara & publicera
+                    </FButton>
+                </div>
+            </template>
+        </UiSectionHeader>
         <FTabs v-if="Object.keys(locales).length"
                @change="setLanguage"
         >
@@ -211,7 +209,6 @@
                                                     :key="'alt' + boxIndex + activeLocale"
                                                     class="list-group-item"
                                                 >
-                                                    <!-- {{ localizedContent['en'].content[field.key] }} -->
                                                     <UiCard v-if="block.name"
                                                             collapsible
                                                             :open-by-default="block.newlyAdded"
@@ -227,8 +224,17 @@
                                                                         <span class="inline-flex text-sm font-semibold leading-none text-gray-400">{{ block.block_type.name }}</span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="flex items-center">
+                                                                <div class="flex items-center space-x-4">
                                                                     <!-- <ellipsis-icon class="w-6 h-6 mr-4" /> -->
+                                                                    <button v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Klona block' }"
+                                                                            class="focus:outline-none"
+                                                                            @click.stop="cloneBlock(block)"
+                                                                    >
+                                                                        <CloneIcon
+                                                                            thin
+                                                                            class="h-6"
+                                                                        />
+                                                                    </button>
                                                                     <button v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Kopiera block-ID' }"
                                                                             v-clipboard="'#' + block.id"
                                                                             v-clipboard:success="copySuccess"
@@ -236,12 +242,12 @@
                                                                             type="button"
                                                                             @click.stop
                                                                     >
-                                                                        <LinkIcon class="h-6 mr-4"
+                                                                        <LinkIcon class="h-6"
                                                                                   thin
                                                                         />
                                                                     </button>
                                                                     <FButtonSwitch v-model="block.hidden"
-                                                                                   class="self-center mb-1 mr-4 "
+                                                                                   class="self-center mb-1 "
                                                                     />
                                                                     <FConfirmDropdown confirm-question="Vill du ta bort detta blocket?"
                                                                                       class="relative w-6 h-6"
@@ -356,8 +362,6 @@ export default {
                     name: this.page.name,
                     localizedContent: { ...this.localizedContent }
                 }
-                // this.page.content = { ...this.content }
-                // this.page.localizedContent = { ...this.localizedContent }
                 await Page.update(this.id, payload)
             } catch (error) {
                 console.error(error)
@@ -407,7 +411,6 @@ export default {
             })
         },
         deleteBlock (index) {
-            // this.content.boxes.splice(index, 1)
             this.localizedContent[this.activeLocale].boxes.splice(index, 1)
         },
         refreshBlock (payload) {
@@ -428,6 +431,12 @@ export default {
             } catch (error) {
                 console.error(error)
             }
+        },
+        cloneBlock (block) {
+            const clonedBlock = { ...block }
+            clonedBlock.id = 'i' + Math.random().toString(20).substr(2, 6)
+            clonedBlock.name = 'Kopia av ' + block.name
+            this.blockTypeAdded({ ...clonedBlock })
         }
     }
 }

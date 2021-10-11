@@ -297,12 +297,6 @@ export default {
                 this.$vfm.hide('createPageModal')
                 this.resetCreateModal()
                 this.fetchPageTree()
-                setTimeout(() => {
-                    this.newPage = {
-                        name: '',
-                        template_id: 0
-                    }
-                }, 300)
             } catch (error) {
                 console.error(error)
                 if (error.response.status === 422) {
@@ -346,7 +340,9 @@ export default {
             this.fetchPages()
         },
         resetCreateModal () {
-            this.newPage = { ...defaultCreationObject() }
+            setTimeout(() => {
+                this.newPage = { ...defaultCreationObject() }
+            }, 200)
         }
     }
 }

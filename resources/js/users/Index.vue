@@ -209,10 +209,12 @@ export default {
             }
         },
         resetCreateModal () {
-            this.newUser = {
-                name: '',
-                email: ''
-            }
+            setTimeout(() => {
+                this.newUser = {
+                    name: '',
+                    email: ''
+                }
+            }, 200)
         }
     }
 }

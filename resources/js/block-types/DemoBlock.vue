@@ -20,10 +20,10 @@
                     name="subheader"
                     label="Underrubrik"
             />
-            <FVideoInput v-model="localContent.video"
+            <FImageInput v-model="localContent.image"
                          class="col-span-4"
-                         name="video"
-                         label="Video"
+                         label="Bild"
+                         name="image"
             />
         </div>
         <div class="flex items-center justify-between">
@@ -64,7 +64,30 @@
                             <GripVerticalIcon class="block w-4 h-4 text-gray-400 handle" />
                             <span class="inline-flex text-sm font-semibold text-gray-500">{{ child.name }}</span>
                         </div>
-                        <div class="flex items-center">
+                        <div class="flex items-center space-x-4">
+                            <button v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Klona block' }"
+                                    class="focus:outline-none"
+                                    @click.stop="addCard(child)"
+                            >
+                                <CloneIcon
+                                    thin
+                                    class="h-6"
+                                />
+                            </button>
+                            <button v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Kopiera block-ID' }"
+                                    v-clipboard="'#' + child.id"
+                                    v-clipboard:success="copySuccess"
+                                    class="focus:outline-none"
+                                    type="button"
+                                    @click.stop
+                            >
+                                <LinkIcon class="h-6"
+                                          thin
+                                />
+                            </button>
+                            <FButtonSwitch v-model="child.hidden"
+                                           class="self-center mb-1 "
+                            />
                             <FConfirmDropdown confirm-question="Vill du ta bort detta kortet?"
                                               @confirmed="deleteChild(childIndex)"
                             >
@@ -248,11 +271,18 @@ export default {
         this.$set(this.localContent, 'button', { text: '', linkType: 'internal', page_id: null })
     },
     methods: {
-        addCard () {
-            const newItem = {
-                id: 'i' + Math.random().toString(20).substr(2, 6),
-                name: 'Kort ' + (this.localContent.children.length + 1),
-                newlyAdded: true
+        addCard (item) {
+            let newItem = {}
+            if (!item) {
+                newItem = {
+                    id: 'i' + Math.random().toString(20).substr(2, 6),
+                    name: 'Kort ' + (this.localContent.children.length + 1),
+                    newlyAdded: true
+                }
+            } else {
+                newItem = { ...item }
+                newItem.id = 'i' + Math.random().toString(20).substr(2, 6)
+                newItem.name = 'Kopia av ' + newItem.name
             }
             this.localContent.children.push(newItem)
             this.$nextTick(() => {
@@ -261,6 +291,9 @@ export default {
         },
         deleteChild (index) {
             this.localContent.children.splice(index, 1)
+        },
+        copySuccess () {
+            this.$toast.success({ title: 'Kortets ID har kopierats', message: 'Klista in som en extern länk i fältet till kontrollen du önskar länka blocket till.' })
         }
     }
 }

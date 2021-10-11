@@ -12,7 +12,7 @@
                 <slot name="header" />
             </span>
             <div v-if="collapsible">
-                <AngleDownIcon class="block w-6 h-6 text-gray-800 transition-all duration-300 transform "
+                <AngleDownIcon class="block w-6 h-6 ml-4 text-gray-800 transition-all duration-300 transform "
                                :class="open ? '-rotate-180' : 'rotate-0'"
                 />
             </div>

@@ -219,7 +219,9 @@ export default {
             this.fetchArticles()
         },
         resetCreateModal () {
-            this.newArticle = { ...defaultCreationObject() }
+            setTimeout(() => {
+                this.newArticle = { ...defaultCreationObject() }
+            }, 200)
         }
     }
 }
