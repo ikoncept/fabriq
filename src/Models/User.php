@@ -82,7 +82,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function setRoleListAttribute(array $value)
     {
-        $this->syncRoles($value);
+        Fabriq::getModelClass('user')->find($this->id)->syncRoles($value);
     }
 
     /**

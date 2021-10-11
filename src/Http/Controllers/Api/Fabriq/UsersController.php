@@ -63,7 +63,7 @@ class UsersController extends ApiController
     public function show(Request $request, int $id) : JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(User::RELATIONSHIPS);
-        $user = User::with($eagerLoad)
+        $user = Fabriq::getModelClass('user')->with($eagerLoad)
             ->with('roles')
             ->findOrFail($id);
 
@@ -72,7 +72,7 @@ class UsersController extends ApiController
 
     public function update(UpdateUserRequest $request, int $id) : JsonResponse
     {
-        $user = User::findOrFail($id);
+        $user =  Fabriq::getModelClass('user')->findOrFail($id);
         $user->fill($request->validated());
         $user->save();
 
