@@ -189,7 +189,7 @@ export default {
                     thClasses: 'w-36'
                 },
                 {
-                    key: 'file_name',
+                    key: 'c_name',
                     title: 'Namn',
                     tdClasses: 'text-gray-600 font-medium',
                     sortable: true
