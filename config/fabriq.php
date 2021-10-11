@@ -50,6 +50,7 @@ return [
     ],
 
     'media-library' => [
+        'max_file_size' => 1024 * 1024 * 500, // 500 MB,
         'jobs' => [
             'perform_conversions' => Spatie\MediaLibrary\Conversions\Jobs\PerformConversionsJob::class,
             'generate_responsive_images' => \Ikoncept\Fabriq\Jobs\GenerateResponsiveImagesJob::class
