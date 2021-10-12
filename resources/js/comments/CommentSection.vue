@@ -1,5 +1,6 @@
 <template>
     <div
+        ref="comments"
         class="fixed bottom-0 right-0 w-4/5 bg-white border-l border-gray-200 rounded-tl xl:w-1/2 lg:w-2/3 min-h-10 comment-box"
     >
         <div class="flex items-center justify-between text-gray-100 bg-gray-800 rounded-tl cursor-pointer min-h-10"
@@ -32,34 +33,10 @@
                         <li v-for="(comment, index) in comments"
                             :key="comment.id"
                         >
-                            <div class="relative pb-8">
-                                <span v-if="(index+1) < comments.length"
-                                      class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-royal-500"
-                                      aria-hidden="true"
-                                />
-                                <div class="relative flex items-start space-x-3">
-                                    <div class="relative">
-                                        <UiAvatar :email="comment.user.data.email"
-                                                  class="flex items-center justify-center w-10 h-10 bg-gray-400 rounded-full ring-1 ring-gold-500"
-                                        />
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <div>
-                                            <div class="text-sm">
-                                                <a href="#"
-                                                   class="font-medium text-gray-900"
-                                                >{{ comment.user.data.name }}</a>
-                                            </div>
-                                            <p class="mt-0.5 text-xs text-gray-500">
-                                                för {{ comment.created_at | localTime(null, true) }}
-                                            </p>
-                                        </div>
-                                        <div class="pr-4 mt-2 text-sm text-gray-700">
-                                            <div v-html="comment.comment" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <CommentItem :comment="comment"
+                                         :is-last="(index+1) < comments.length"
+                                         @comment-deleted="fetchComments"
+                            />
                         </li>
                     </ul>
                     <div class="relative z-20 flex items-end mx-6 my-6 space-x-6">
@@ -82,12 +59,11 @@
     </div>
 </template>
 <script>
+import CommentItem from '~/comments/CommentItem'
 import Comment from '~/models/Comment'
 export default {
     name: 'CommentSection',
-    beforeRouteLeave () {
-        console.log('bye from comment section')
-    },
+    components: { CommentItem },
     data () {
         return {
             commentSectionOpen: false,
@@ -101,11 +77,18 @@ export default {
         }
     },
     mounted () {
+        const vm = this
+        this.$refs.comments.addEventListener('keydown', function (event) {
+            if (!(event.keyCode === 13 && event.metaKey)) return
+            vm.postComment()
+        })
+
         this.fetchComments()
         this.$eventBus.$on('open-comment-section', this.openCommentSection)
     },
     beforeDestroy () {
         this.$eventBus.$off('open-comment-section', this.openCommentSection)
+        this.$refs.comments.removeEventListener('keydown')
     },
     methods: {
         openCommentSection () {

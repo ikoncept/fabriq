@@ -5,6 +5,10 @@
             :editor="editor"
             class="w-full border-t rounded focus:outline-none focus:ring-1 f-comment-editor"
         />
+        <p v-if="helpText"
+           class="mt-1 text-xs text-gray-500 help-text"
+           v-text="helpText"
+        />
     </div>
 </template>
 <script>
@@ -46,6 +50,10 @@ export default {
             default: 'name'
         },
         placeholder: {
+            type: String,
+            default: ''
+        },
+        helpText: {
             type: String,
             default: ''
         }
