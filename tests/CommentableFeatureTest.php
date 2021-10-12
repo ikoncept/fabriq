@@ -110,8 +110,14 @@ class CommentableFeatureTest extends AdminUserTestCase
         // Arrange
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $user = \Ikoncept\Fabriq\Models\User::factory()->create();
-        $user->assignRole('admin');
-        $page->commentAs($user, 'This is my special comment!');
+        $otherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
+            'name' => 'Roger Pontare'
+        ]);
+        $anotherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
+            'name' => 'Sven'
+        ]);
+        $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-id="Roger Pontare">@Roger Pontare</span> <span data-mention="" class="mention" data-id="Sven">@Sven</span><p>');
+
         $this->actingAs($user);
 
         // Act
@@ -121,6 +127,10 @@ class CommentableFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $this->assertDatabaseMissing('comments', [
             'comment' => 'This is my special comment!'
+        ]);
+        $this->assertDatabaseMissing('notifications', [
+            'type' => 'comment',
+            'notifiable_id' => $page->id
         ]);
     }
 

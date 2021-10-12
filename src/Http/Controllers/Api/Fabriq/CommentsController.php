@@ -28,6 +28,7 @@ class CommentsController extends ApiController
     public function destroy(DeleteCommentRequest $request, int $id) : JsonResponse
     {
         $comment = Comment::findOrFail($id);
+        $comment->notifications()->delete();
         $comment->delete();
 
         return $this->respondWithSuccess('Comment was deleted');
