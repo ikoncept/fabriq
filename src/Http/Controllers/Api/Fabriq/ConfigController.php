@@ -22,7 +22,11 @@ class ConfigController extends ApiController
      */
     public function index() : JsonResponse
     {
-        $fabriqConfig = collect(config('fabriq'))->only(['models', 'modules'])->toArray();
+        $fabriqConfig = collect(config('fabriq'))->only([
+            'models',
+            'modules',
+            'front_end_domain'
+        ])->toArray();
         $supportedLocales = Cache::rememberForever('locales', function() {
             return Locale::enabled()->get()
                 ->mapWithKeys(function ($item) {
