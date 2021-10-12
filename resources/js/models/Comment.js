@@ -28,7 +28,7 @@ export default {
     },
 
     async destroy (id, payload) {
-        const { data } = await axios.delete(this.endpoint + id, payload)
+        const { data } = await axios.delete(this.endpoint + 'comments/' + id, payload)
 
         return data
     }

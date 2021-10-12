@@ -76,6 +76,7 @@ export default {
             try {
                 await Comment.destroy(this.comment.id)
                 this.$emit('comment-deleted')
+                this.$toast.success({ title: 'Kommentaren har raderats!' })
             } catch (error) {
                 console.error(error)
                 this.isDeleting = false
