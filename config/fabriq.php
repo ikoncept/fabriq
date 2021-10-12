@@ -36,6 +36,7 @@ return [
         'file' => \Ikoncept\Fabriq\Models\File::class,
         'i18nDefinition' => \Ikoncept\Fabriq\Models\I18nDefinition::class,
         'image' => \Ikoncept\Fabriq\Models\Image::class,
+        'locale' => \Ikoncept\Fabriq\Models\Locale::class,
         'media' => \Ikoncept\Fabriq\Models\Media::class,
         'menu' => \Ikoncept\Fabriq\Models\Menu::class,
         'menuItem' => \Ikoncept\Fabriq\Models\MenuItem::class,
