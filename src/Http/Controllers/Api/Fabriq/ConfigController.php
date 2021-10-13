@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Locale;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Transformers\ConfigTransformer;
@@ -27,14 +28,8 @@ class ConfigController extends ApiController
             'modules',
             'front_end_domain'
         ])->toArray();
-        $supportedLocales = Cache::rememberForever('locales', function() {
-            return Locale::enabled()->get()
-                ->mapWithKeys(function ($item) {
-                    return [$item->iso_code => $item];
-            });
-        });
 
-
+        $supportedLocales = Fabriq::getModelClass('locale')->cachedLocales();
         $config = array_merge($fabriqConfig, ['supported_locales' => $supportedLocales]);
 
         return $this->respondWithItem($config, new ConfigTransformer);

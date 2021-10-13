@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Infab\TranslatableRevisions\Models\I18nLocale;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
@@ -160,7 +161,10 @@ class Page extends Model implements HasMedia
     public function getPathsAttribute() : Collection
     {
         $slugGroups = collect([]);
-        foreach(config('translatable-revisions.supportedLocales') as $locale => $item) {
+
+        $supportedLocales = Fabriq::getModelClass('locale')->cachedLocales();
+
+        foreach($supportedLocales as $locale => $item) {
             $localizedSlugs = $this->menuItems->map(function($item) use ($locale) {
                 if(! $item->ancestors->count()) {
                     return '';
