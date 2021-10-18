@@ -50,7 +50,7 @@
                     endpoint="/api/admin/uploads/images"
                     types="image/*"
                     upload-name="image"
-                    @upload-complete="fetchImages"
+                    @upload-queue-complete="fetchImages"
                 >
                     <template #button>
                         <button type="button"

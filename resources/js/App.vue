@@ -12,7 +12,7 @@
             >
                 <BlockTypeModal />
                 <div class="py-6">
-                    <div class="px-4 mx-auto max-w-10xl sm:px-6 md:px-8">
+                    <div class="px-4 pb-24 mx-auto max-w-10xl sm:px-6 md:px-8">
                         <Transition mode="out-in"
                                     name="fade"
                         >

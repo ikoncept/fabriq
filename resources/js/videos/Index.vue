@@ -50,7 +50,7 @@
                     endpoint="/api/admin/uploads/videos"
                     upload-name="video"
                     types="video/mp4,video/mov,video/quicktime,video/webm"
-                    @upload-complete="fetchVideos"
+                    @upload-queue-complete="fetchVideos"
                 >
                     <template #button>
                         <button type="button"

@@ -209,7 +209,7 @@
                                                     :key="'alt' + boxIndex + activeLocale"
                                                     class="list-group-item"
                                                 >
-                                                    <UiCard v-if="block.name"
+                                                    <UiCard v-if="block.id"
                                                             collapsible
                                                             :open-by-default="block.newlyAdded"
                                                     >
