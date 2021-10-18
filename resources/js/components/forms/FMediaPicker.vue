@@ -41,7 +41,7 @@
                                                 endpoint="/api/admin/uploads/images"
                                                 types="image/*"
                                                 upload-name="image"
-                                                @upload-complete="fetchImages"
+                                                @upload-queue-complete="fetchImages"
                                             />
                                             <FUpload
                                                 v-else-if="mediaType === 'video'"
@@ -49,13 +49,13 @@
                                                 endpoint="/api/admin/uploads/videos"
                                                 types="video/mp4,video/mov,video/quicktime,video/webm"
                                                 upload-name="video"
-                                                @upload-complete="fetchVideos"
+                                                @upload-queue-complete="fetchVideos"
                                             />
                                             <FUpload v-else
                                                      class="mr-10"
                                                      endpoint="/api/admin/uploads/files"
                                                      upload-name="file"
-                                                     @upload-complete="fetchFiles"
+                                                     @upload-queue-complete="fetchFiles"
                                             />
                                             <button
                                                 class="text-gray-400 bg-white rounded-md hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

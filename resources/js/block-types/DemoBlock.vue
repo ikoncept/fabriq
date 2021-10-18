@@ -7,6 +7,12 @@
                     rules="required"
                     help-text="Visas endast internt"
             />
+            <FSelect v-model="localContent.size"
+                     name="size"
+                     default-value="large"
+                     label="Storlek"
+                     :options="[{ label: 'Small', value: 'small' }, { label: 'Medium', value: 'medium' }, { label: 'Large', value: 'large' }]"
+            />
         </div>
         <hr class="w-full h-px my-6 ">
         <div class="grid grid-cols-12 mb-10 gap-x-6 gap-y-6">
@@ -105,29 +111,6 @@
                     <FInput v-model="child.name"
                             label="Namn"
                     />
-                    <FSelect v-model="child.bgColor"
-                             label="Bakgrundsfärg"
-                             :reduce-fn="bgColor => bgColor.value"
-                             name="bgColor"
-                             value-key="value"
-                             option-label="text"
-                             :clearable="false"
-                             :options="[{text: 'Grön', hex: '#2E604D', value: 'bg-moss-700'}, {text: 'Ingen', hex: '#fff', value: 'bg-white'},]"
-                    >
-                        <template #fop="option">
-                            <div class="w-5 h-5 mr-4 border rounded-full"
-                                 :style="{backgroundColor: option.hex}"
-                            />
-                            {{ option.text }}
-                        </template>
-                        <template #prefix="option">
-                            <div class="cool">
-                                <div class="w-5 h-5 mr-4 border rounded-full"
-                                     :style="{backgroundColor: option.hex}"
-                                />
-                            </div>
-                        </template>
-                    </FSelect>
                     <div>
                         <FLabel>Bild</FLabel>
                         <div class="flex items-center mb-6">
@@ -273,7 +256,7 @@ export default {
     methods: {
         addCard (item) {
             let newItem = {}
-            if (!item) {
+            if (!item.name) {
                 newItem = {
                     id: 'i' + Math.random().toString(20).substr(2, 6),
                     name: 'Kort ' + (this.localContent.children.length + 1),

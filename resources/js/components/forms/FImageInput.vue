@@ -5,11 +5,11 @@
                 :name="name"
         >{{ label }}</FLabel>
         <div :ref="randomRef"
-             class="flex items-center justify-center transition-colors duration-150 border-dashed rounded-md max-w-96 h-52"
-             :class="[hasImage ? 'border-transparent border-0' : 'border-royal-300 p-4 border-2', isDraggingOver ? 'bg-royal-100' : 'bg-royal-50']"
+             class="relative flex items-center justify-center transition-colors duration-150 border-dashed rounded-md aspect-w-16 aspect-h-9"
+             :class="[hasImage ? 'border-transparent ring-2 ring-inset' : 'ring-royal-500  ring-2 ring-inset', isDraggingOver ? 'bg-royal-100' : 'bg-royal-50']"
         >
-            <div v-show=" !hasImage && !isDraggingOver"
-                 class="relative block w-full max-w-96"
+            <div v-show="!hasImage"
+                 class="absolute flex flex-col items-center justify-center "
             >
                 <div
                     class="flex flex-col items-center space-y-2 text-sm "
@@ -30,7 +30,7 @@
                     </button>
                 </div>
                 <FUpload
-                    class="absolute pt-4 pb-1 mx-auto text-sm "
+                    class="absolute bottom-0 mx-auto mb-6 text-sm "
                     :max-items="1"
                     endpoint="/api/admin/uploads/images"
                     types="image/*"
@@ -41,17 +41,8 @@
                     @upload-complete="handleNewImage"
                 />
             </div>
-            <span v-show=" !hasImage && isDraggingOver"
-                  class="pointer-events-none"
-            >
-                <div
-                    class="flex flex-col items-center space-y-2 text-sm link"
-                >
-                    Släpp din fil här för att ladda upp
-                </div>
-            </span>
             <div v-if="hasImage"
-                 class="relative w-full h-full group"
+                 class="absolute w-full h-full group"
             >
                 <div class="absolute inset-0 z-10 flex items-end justify-end transition-opacity duration-300 opacity-0 group-hover:opacity-100 ">
                     <div class="flex w-full -mb-px">
@@ -68,10 +59,10 @@
                 <div class="absolute inset-0 transition-opacity duration-300 bg-black rounded-md opacity-0 group-hover:opacity-50 overlay " />
                 <UiImagePresenter thumbnail
                                   :image="localImage"
-                                  image-classes="object-cover rounded-md h-52 w-full"
-                                  class="block w-full rounded-md h-52 "
+                                  class="block object-cover w-full h-full rounded-md"
                 />
             </div>
+
         </div>
         <FMediaPicker :open="pickerOpen"
                       @close="pickerOpen = false"
@@ -213,6 +204,7 @@ export default {
             }
         },
         async handleNewImage (item) {
+            console.log(item)
             await this.pickImage(item.id)
         },
         setImage (payload) {

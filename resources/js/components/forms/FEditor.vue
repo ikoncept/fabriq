@@ -503,7 +503,7 @@
 </template>
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-2'
-import { defaultExtensions } from '@tiptap/starter-kit'
+import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import Table from '@tiptap/extension-table'
 import TableRow from '@tiptap/extension-table-row'
@@ -613,7 +613,7 @@ export default {
         this.editor = new Editor({
             // content: '<p>I’m running tiptap with Vue.js. 🎉</p>',
             extensions: [
-                ...defaultExtensions(),
+                StarterKit,
                 Underline,
                 Table.configure({
                     resizable: true

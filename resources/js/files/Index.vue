@@ -49,7 +49,7 @@
                     class="mr-10"
                     endpoint="/api/admin/uploads/files"
                     upload-name="file"
-                    @upload-complete="fetchFiles"
+                    @upload-queue-complete="fetchFiles"
                 >
                     <template #button>
                         <button type="button"

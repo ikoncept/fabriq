@@ -99,11 +99,11 @@ export default {
         },
         optionLabel: {
             type: String,
-            default: ''
+            default: 'label'
         },
         valueKey: {
             type: String,
-            default: ''
+            default: 'value'
         },
         multiple: {
             type: Boolean,
@@ -120,7 +120,7 @@ export default {
         reduceFn: {
             type: Function,
             required: false,
-            default: item => item.name
+            default: item => item.value
         },
         rules: {
             type: String,

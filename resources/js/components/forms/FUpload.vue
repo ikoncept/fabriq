@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <span class="inline-block w-12 ml-1">({{ progressPercentage }}%)</span>
-                <span class="inline-flex ml-4 animate-spin">
+                <span class="inline-flex mx-4 animate-spin">
                     <SpinIcon class="w-5 h-5 text-royal-500" />
                 </span>
             </div>
@@ -169,6 +169,7 @@ export default {
                 }, 1600)
                 setTimeout(() => {
                     this.isUploading = 0
+                    this.$emit('upload-queue-complete')
                 }, 600)
             })
             this.UploadDropzone.on('error', (file, errorMessage) => {
