@@ -60,11 +60,11 @@ class Image extends Model implements HasMedia
     public function scopeSearch(Builder $query, $search) : Builder
     {
         $searchColumns = ['media.file_name', 'media.name', 'alt_text'];
-        $search = Str::lower($search);
 
         return $query->whereLike($searchColumns, $search)
             ->orWhereHas('tags', function($query) use ($search) {
-                return $query->where('name->sv', 'like', '%' . $search . '%');
+                return $query->where('name->sv', 'like', '%' . $search . '%')
+                    ->orWhere('name->en', 'like', '%' . $search . '%');
             });
     }
 
