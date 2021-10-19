@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\ContentGetters;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Page;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 
@@ -45,6 +46,22 @@ class ButtonGetter
             $paths = $page->localizedPaths->flatten();
             unset($value['url']);
             $value['path'] = $paths->first() ?? '/' . $page->slugs->where('locale', app()->getLocale())->first()->slug;
+
+            return $value;
+        }
+
+        if($value['linkType'] === 'file') {
+            if(! isset($value['file']['id'])) {
+                return $value;
+            }
+            $file = Fabriq::getFqnModel('file')::find($value['file']['id']);
+            if(! $file) {
+                return $value;
+            }
+            $media = $file->getFirstMedia('files');
+            $value['path'] = $media->getUrl();
+            $value['url'] = $value['path'];
+            $value['thumb'] = ($media->hasGeneratedConversion('file_thumb')) ? $media->getUrl('file_thumb')  : '';
 
             return $value;
         }

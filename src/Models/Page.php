@@ -4,6 +4,7 @@ namespace Ikoncept\Fabriq\Models;
 
 use Ikoncept\Fabriq\ContentGetters\ButtonGetter;
 use Ikoncept\Fabriq\ContentGetters\ButtonsGetter;
+use Ikoncept\Fabriq\ContentGetters\FileGetter;
 use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Ikoncept\Fabriq\ContentGetters\SmartBlockGetter;
 use Ikoncept\Fabriq\ContentGetters\VideoGetter;
@@ -82,7 +83,7 @@ class Page extends Model implements HasMedia
     public function getRevisionOptions() : RevisionOptions
     {
         return RevisionOptions::create()
-            ->registerSpecialTypes(['image', 'video', 'file', 'buttons', 'smartBlock', 'button'])
+            ->registerSpecialTypes(['image', 'video', 'file', 'buttons', 'smartBlock', 'button', 'buttons'])
             ->registerGetters([
                 'image' => 'getImages',
                 'main_image' => 'getImages',
@@ -93,6 +94,7 @@ class Page extends Model implements HasMedia
                 'file' => 'getFiles',
                 'video' => 'getVideos',
                 'button' => 'getButton',
+                'buttons' => 'getButtons',
                 'smartBlock' => 'getSmartBlock'
             ]);
     }
@@ -106,6 +108,17 @@ class Page extends Model implements HasMedia
     public function getImages(RevisionMeta $meta)
     {
         return ImageGetter::get($meta, $this->isPublishing);
+    }
+
+    /**
+     * Getter for files
+     *
+     * @param RevisionMeta $meta
+     * @return mixed
+     */
+    public function getFiles(RevisionMeta $meta)
+    {
+        return FileGetter::get($meta, $this->isPublishing);
     }
 
     /**
