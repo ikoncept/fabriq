@@ -16,7 +16,7 @@ jobs:
         php-versions: ['8.0']
     steps:
       - name: Install ffmpeg
-        run: sudo apt-get install ffmpeg
+        run: sudo apt-get update && sudo apt-get install ffmpeg
 
       - name: Checkout
         uses: actions/checkout@v2
