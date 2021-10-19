@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Infab\Core\Traits\ApiControllerTrait;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use ZipArchive;
 
 class DownloadsController extends ApiController
@@ -43,10 +44,37 @@ class DownloadsController extends ApiController
         });
 
         $zip->close();
-        // file_put_contents($tempFile, storage_path('hehe.zip'));
         $path = Storage::putFileAs('downloads', (string) $tempFile, $filename);
         unlink((string)$tempFile);
 
-        return response()->download(storage_path('app/' . $path), $filename);
+        return response()->download(storage_path('app/' . $path), $filename)
+            ->deleteFileAfterSend();
     }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return mixed BinaryFileResponse | StreamedResponse
+     */
+    public function show(Request $request, int $id) : mixed
+    {
+        $type = self::DOWNLOADABLE_TYPES[$request->type];
+        $item = $type::where('id', $id)->firstOrFail();
+
+        $mediaFile = $item->getFirstMedia($request->type);
+        $disk = $mediaFile->disk;
+        $headers = [
+            'X-Filename' => $mediaFile->file_name
+        ];
+
+        if($disk === 'public') {
+            return response()->download($mediaFile->getPath(), $mediaFile->file_name, $headers);
+        }
+
+        return Storage::disk($disk)->download($mediaFile->getPath(), $mediaFile->file_name, $headers);
+    }
+
 }

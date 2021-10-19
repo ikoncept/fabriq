@@ -16,8 +16,13 @@ class FileUploadsController extends ApiController
     {
         $file = new File();
         $file->save();
-        $media = $file->addMediaFromRequest('file')
-            ->toMediaCollection('files');
+        try {
+            $file->addMediaFromRequest('file')
+                ->toMediaCollection('files');
+        } catch (\Throwable $exception) {
+            $file->delete();
+            throw $exception;
+        }
 
         return $this->respondWithArray($file->toArray());
     }

@@ -178,6 +178,7 @@ class RouteRegistrar
     public function forDownloads() : void
     {
         Route::get('downloads', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\DownloadsController::class, 'index']);
+        Route::get('downloads/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\DownloadsController::class, 'show']);
     }
 
     public function forMiscRoutes() : void

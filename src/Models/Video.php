@@ -6,7 +6,6 @@ use Ikoncept\Fabriq\Database\Factories\VideoFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -40,9 +39,11 @@ class Video extends Model implements HasMedia
         $this->addMediaConversion('thumb')
               ->nonQueued()
               ->extractVideoFrameAtSecond(20)
+              ->performOnCollections('videos')
               ->crop(Manipulations::CROP_CENTER, 480, 320);
 
         $this->addMediaConversion('poster')
+              ->performOnCollections('videos')
               ->extractVideoFrameAtSecond(0);
     }
 

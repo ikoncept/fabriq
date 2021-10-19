@@ -25,4 +25,17 @@ class ImageDownloadsFeatureTest extends AdminUserTestCase
         // Assert
         $response->assertOk();
     }
+
+    /** @test **/
+    public function it_can_download_a_single_file()
+    {
+        // Arrange
+        $image = \Ikoncept\Fabriq\Models\Image::factory()->create();
+
+        // Act
+        $response = $this->json('GET', '/downloads/' . $image->id, ['type' => 'images']);
+
+        // Assert
+        $response->assertOk();
+    }
 }

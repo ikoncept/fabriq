@@ -17,8 +17,13 @@ class VideoUploadsController extends ApiController
     {
         $video = new Video();
         $video->save();
-        $media = $video->addMediaFromRequest('video')
-            ->toMediaCollection('videos');
+        try {
+            $video->addMediaFromRequest('video')
+                ->toMediaCollection('videos');
+        } catch (\Throwable $exception) {
+            $video->delete();
+            throw $exception;
+        }
 
         return $this->respondWithArray($video->toArray());
     }
