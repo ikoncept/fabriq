@@ -83,7 +83,7 @@ class Page extends Model implements HasMedia
     public function getRevisionOptions() : RevisionOptions
     {
         return RevisionOptions::create()
-            ->registerSpecialTypes(['image', 'video', 'file', 'buttons', 'smartBlock', 'button', 'buttons'])
+            ->registerSpecialTypes(['image', 'video', 'file', 'smartBlock', 'button', 'buttons'])
             ->registerGetters([
                 'image' => 'getImages',
                 'main_image' => 'getImages',
