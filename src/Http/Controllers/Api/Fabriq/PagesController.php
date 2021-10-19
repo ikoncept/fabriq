@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\CreatePageRequest;
 use Ikoncept\Fabriq\Models\Page;
@@ -98,10 +99,11 @@ class PagesController extends ApiController
         ];
         $page->parent_id = $pageRoot->id;
         $page->save();
-        collect(config('translatable-revisions.supportedLocales'))
-            ->each(function($locale, $key) use ($content, $page) {
-                $page->updateContent($content, $key, 1);
-            });
+
+        $supportedLocales = Fabriq::getModelClass('locale')->cachedLocales();
+        $supportedLocales->each(function($locale, $key) use ($content, $page) {
+            $page->updateContent($content, $key, 1);
+        });
 
 
         return $this->respondWithItem($page, new PageTransformer, 201);
