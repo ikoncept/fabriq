@@ -343,29 +343,15 @@ export default {
             this.fetchImages()
         },
         async downloadCheckedItems () {
-            const anchor = document.createElement('a')
-            document.body.appendChild(anchor)
             try {
-                console.log(this.checkedRows)
                 const payload = {
                     params: {
                         items: this.checkedRows,
                         type: 'images'
-                    },
-                    responseType: 'blob'
+                    }
                 }
                 const data = await Download.index(payload)
-                const binaryData = []
-                binaryData.push(data)
-
-                const objectUrl = window.URL.createObjectURL(new Blob(binaryData, { type: 'application/zip' }))
-
-                anchor.href = objectUrl
-                anchor.download = 'fabriq-cms-export-' + Date.now() + '.zip'
-                anchor.click()
-
-                window.URL.revokeObjectURL(objectUrl)
-                anchor.remove()
+                Download.handleBlobDownload(data)
             } catch (error) {
                 console.error(error)
             }

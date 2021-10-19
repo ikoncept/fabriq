@@ -77,15 +77,14 @@
                              :options="videoTags"
                     />
                     <div>
-                        <a
-                            :href="video.src"
-                            download
-                            without-loader
-
+                        <FButton
+                            type="button"
                             class="inline-block px-8 py-2 leading-none fabriq-btn btn-outline-royal"
+                            spinner-color="text-royal-500"
+                            :click="downloadFile"
                         >
                             Ladda ner
-                        </a>
+                        </FButton>
                     </div>
                     <button class="hidden" />
                 </form>
@@ -111,6 +110,7 @@
     </FModal>
 </template>
 <script>
+import Download from '~/models/Download'
 import Video from '~/models/Video'
 import Tag from '~/models/Tag'
 export default {
@@ -208,6 +208,15 @@ export default {
                 this.$toast.error({ title: 'Kunde inte radera videon' })
                 console.error(error)
             }
+        },
+        async downloadFile () {
+            const payload = {
+                params: {
+                    type: 'videos'
+                }
+            }
+            const { data, headers } = await Download.show(this.video.id, payload)
+            await Download.handleBlobDownload(data, headers)
         }
     }
 }

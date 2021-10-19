@@ -75,15 +75,14 @@
                              :options="fileTags"
                     />
                     <div>
-                        <a
-                            :href="file.src"
-                            download
-                            without-loader
-
+                        <FButton
+                            type="button"
                             class="inline-block px-8 py-2 leading-none fabriq-btn btn-outline-royal"
+                            spinner-color="text-royal-500"
+                            :click="downloadFile"
                         >
                             Ladda ner
-                        </a>
+                        </FButton>
                     </div>
                     <button class="hidden" />
                 </form>
@@ -107,6 +106,7 @@
     </FModal>
 </template>
 <script>
+import Download from '~/models/Download'
 import File from '~/models/File'
 import Tag from '~/models/Tag'
 export default {
@@ -204,6 +204,15 @@ export default {
                 this.$toast.error({ title: 'Kunde inte radera filen' })
                 console.error(error)
             }
+        },
+        async downloadFile () {
+            const payload = {
+                params: {
+                    type: 'files'
+                }
+            }
+            const { data, headers } = await Download.show(this.file.id, payload)
+            await Download.handleBlobDownload(data, headers)
         }
     }
 }
