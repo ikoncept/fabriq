@@ -90,7 +90,6 @@ class Page extends Model implements HasMedia
                 'meta_og_image' => 'getImages',
                 'logo_image' => 'getImages',
                 'repeater' => 'getRepeater',
-                'buttons' => 'getButtons',
                 'file' => 'getFiles',
                 'video' => 'getVideos',
                 'button' => 'getButton',
