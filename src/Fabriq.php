@@ -48,7 +48,13 @@ class Fabriq
         return new $class($arguments);
     }
 
-    public static function getFqnModel(string $key) : mixed
+    /**
+     * Return the fully qualified model name
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public static function getFqnModel(string $key)
     {
         $class = config('fabriq.models.' . $key);
         if(! $class) {

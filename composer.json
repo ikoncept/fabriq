@@ -35,7 +35,8 @@
         "infab/translatable-revisions": "^1.0",
         "laravel/fortify": "^1.8",
         "dyrynda/laravel-make-user": "^7.3",
-        "php-ffmpeg/php-ffmpeg": "^0.18.0"
+        "php-ffmpeg/php-ffmpeg": "^0.18.0",
+        "spatie/pdf-to-image": "^2.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.3.3",
