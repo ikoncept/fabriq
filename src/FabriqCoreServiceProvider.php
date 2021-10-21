@@ -123,7 +123,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
         ]);
 
         $this->app->singleton(PageRepositoryInterface::class, function () {
-            $baseRepo = new EloquentPageRepository(Fabriq::getModelClass('page'), Fabriq::getModelClass('slug'));
+            $baseRepo = new EloquentPageRepository(Fabriq::getModelClass('slug'));
             $cachingRepo = new CachingPageRepository($baseRepo, $this->app['cache.store']);
             return $cachingRepo;
         });
