@@ -28,7 +28,8 @@ class PagesController extends ApiController
     public function index(Request $request)
     {
         $eagerLoad = $this->getEagerLoad(Page::RELATIONSHIPS);
-        $pages = QueryBuilder::for(Page::with($eagerLoad))
+        $pages = QueryBuilder::for(Fabriq::getFqnModel('page'))
+            ->with($eagerLoad)
             ->allowedSorts('name', 'slug', 'id', 'created_at', 'updated_at')
             ->allowedFilters([
                 AllowedFilter::scope('search')
@@ -49,7 +50,9 @@ class PagesController extends ApiController
     {
         $eagerLoad = $this->getEagerLoad(Page::RELATIONSHIPS);
 
-        $page = QueryBuilder::for(Page::where('id', $id)->with($eagerLoad))
+        $page = QueryBuilder::for(Fabriq::getFqnModel('page'))
+            ->where('id', $id)
+            ->with($eagerLoad)
             ->allowedAppends(['paths'])
             ->firstOrFail();
 
