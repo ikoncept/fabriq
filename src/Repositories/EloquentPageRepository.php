@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Repositories;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Models\Slug;
 use Ikoncept\Fabriq\Repositories\Interfaces\PageRepositoryInterface;
@@ -15,9 +16,9 @@ class EloquentPageRepository implements PageRepositoryInterface
      */
     private $model;
 
-    public function __construct(Page $model, Slug $slugModel)
+    public function __construct(Slug $slugModel)
     {
-        $this->model = $model;
+        $this->model = Fabriq::getModelClass('page');
         $this->slugModel = $slugModel;
     }
 
