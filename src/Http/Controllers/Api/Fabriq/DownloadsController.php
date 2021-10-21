@@ -59,7 +59,7 @@ class DownloadsController extends ApiController
      * @param integer $id
      * @return mixed BinaryFileResponse | StreamedResponse
      */
-    public function show(Request $request, int $id) : mixed
+    public function show(Request $request, int $id)
     {
         $type = self::DOWNLOADABLE_TYPES[$request->type];
         $item = $type::where('id', $id)->firstOrFail();
