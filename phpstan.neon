@@ -19,12 +19,6 @@ parameters:
             path: ./src/Http/Controllers/Api/Fabriq/MenuItemTreeController.php
         -
             message: '#Call to an undefined method#'
-            path: ./src/Http/Controllers/Api/Fabriq/PageTreeController.php
-        -
-            message: '#Call to an undefined static method#'
-            path: ./src/Http/Controllers/Api/Fabriq/PageTreeController.php
-        -
-            message: '#Call to an undefined method#'
             path: ./src/Services/ResponsiveImageGenerator.php
         -
             message: '#Parameter#'
