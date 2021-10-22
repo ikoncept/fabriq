@@ -17,7 +17,8 @@
         </UiSectionHeader>
         <UiCard :padding="false">
             <div class="">
-                <VCalendar
+                <!-- eslint-disable-next-line -->
+                <v-calendar
                     class="max-w-full lg-cal"
                     :masks="masks"
                     :attributes="events"
@@ -108,7 +109,7 @@
                             </UiPopover>
                         </div>
                     </template>
-                </VCalendar>
+                </v-calendar>
             </div>
         </UiCard>
     </div>

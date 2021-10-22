@@ -13,6 +13,7 @@
             :select-attribute="selectAttribute"
             :is-range="isRange"
             :mode="mode"
+            :attributes="attributes"
             is24hr
             @input="updateValue"
         >
@@ -170,11 +171,19 @@ export default {
                 end: new Date(2020, 0, 23)
             },
             localTimezone: 'UTC',
-            // timezone: 'UTC',
-            // masks: {
-            //     input: 'YYYY-MM-DD',
-            //     output: 'YYYY-MM-DD 00:00:00'
-            // },
+            attributes: [
+                {
+                    key: 'today',
+                    highlight: false,
+                    dot: {
+                        style: {
+                            'background-color': '#bd9b66'
+                        }
+                    },
+
+                    dates: new Date()
+                }
+            ],
             selectAttribute: {
             }
         }
