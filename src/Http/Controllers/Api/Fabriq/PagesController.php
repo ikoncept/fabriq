@@ -29,11 +29,11 @@ class PagesController extends ApiController
     {
         $eagerLoad = $this->getEagerLoad(Page::RELATIONSHIPS);
         $pages = QueryBuilder::for(Fabriq::getFqnModel('page'))
-            ->with($eagerLoad)
             ->allowedSorts('name', 'slug', 'id', 'created_at', 'updated_at')
             ->allowedFilters([
                 AllowedFilter::scope('search')
             ])
+            ->with($eagerLoad)
             ->paginate($this->number);
 
         return $this->respondWithPaginator($pages, new PageTransformer());
@@ -51,9 +51,9 @@ class PagesController extends ApiController
         $eagerLoad = $this->getEagerLoad(Page::RELATIONSHIPS);
 
         $page = QueryBuilder::for(Fabriq::getFqnModel('page'))
+            ->allowedAppends(['paths'])
             ->where('id', $id)
             ->with($eagerLoad)
-            ->allowedAppends(['paths'])
             ->firstOrFail();
 
         return $this->respondWithItem($page, new PageTransformer);

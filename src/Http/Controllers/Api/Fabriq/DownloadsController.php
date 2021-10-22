@@ -47,7 +47,10 @@ class DownloadsController extends ApiController
         $path = Storage::putFileAs('downloads', (string) $tempFile, $filename);
         unlink((string)$tempFile);
 
-        return response()->download(storage_path('app/' . $path), $filename)
+        $headers = [
+            'X-FILENAME' => $filename
+        ];
+        return response()->download(storage_path('app/' . $path), $filename, $headers)
             ->deleteFileAfterSend();
     }
 
@@ -67,7 +70,7 @@ class DownloadsController extends ApiController
         $mediaFile = $item->getFirstMedia($request->type);
         $disk = $mediaFile->disk;
         $headers = [
-            'X-Filename' => $mediaFile->file_name
+            'X-FILENAME' => $mediaFile->file_name
         ];
 
         if($disk === 'public') {

@@ -350,8 +350,8 @@ export default {
                         type: 'images'
                     }
                 }
-                const data = await Download.index(payload)
-                Download.handleBlobDownload(data)
+                const { data, headers } = await Download.index(payload)
+                Download.handleBlobDownload(data, headers)
             } catch (error) {
                 console.error(error)
             }

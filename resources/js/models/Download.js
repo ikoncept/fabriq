@@ -8,9 +8,8 @@ export default {
             responseType: 'blob',
             ...payload
         }
-        const { data } = await axios.get(this.endpoint, localPayload)
 
-        return data
+        return await axios.get(this.endpoint, localPayload)
     },
 
     async show (id, payload) {
