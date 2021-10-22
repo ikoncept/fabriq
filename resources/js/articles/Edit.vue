@@ -88,7 +88,7 @@
                              v-model="content.image"
                              label="Bild"
                              name="image"
-                             class="col-span-1 row-span-2"
+                             class="row-span-2 xl:col-span-1 col-span2 max-w-96"
                              :model-id="article.id"
                 />
                 <FInput v-model="content.preamble"
