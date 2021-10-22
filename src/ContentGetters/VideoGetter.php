@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\ContentGetters;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Video;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 
@@ -22,7 +23,9 @@ class VideoGetter
             ];
         }
 
-        $video = Video::whereIn('id', (array) $meta->meta_value)->first();
+        $video = Fabriq::getModelClass('video')
+            ->whereIn('id', (array) $meta->meta_value)->first();
+
         if(! $video) {
             return null;
         }

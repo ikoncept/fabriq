@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\ContentGetters;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Image;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 
@@ -22,7 +23,8 @@ class ImageGetter
             ];
         }
 
-        $image = Image::whereIn('id', (array) $meta->meta_value)->first();
+        $image = Fabriq::getModelClass('image')
+            ->whereIn('id', (array) $meta->meta_value)->first();
         if(! $image) {
             return null;
         }

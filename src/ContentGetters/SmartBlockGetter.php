@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\ContentGetters;
 
-use Ikoncept\Fabriq\Models\SmartBlock;
+use Ikoncept\Fabriq\Fabriq;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 
 class SmartBlockGetter
@@ -22,7 +22,8 @@ class SmartBlockGetter
             ];
         }
 
-        $smartBlock = SmartBlock::whereIn('id', (array) $meta->meta_value)->first();
+        $smartBlock = Fabriq::getModelClass('smartBlock')
+            ->whereIn('id', (array) $meta->meta_value)->first();
 
         if(! $smartBlock) {
             return null;

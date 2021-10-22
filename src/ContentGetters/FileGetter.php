@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\ContentGetters;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\File;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 
@@ -22,7 +23,9 @@ class FileGetter
             ];
         }
 
-        $file = File::whereIn('id', (array) $meta->meta_value)->first();
+        $file = Fabriq::getModelClass('file')
+            ->whereIn('id', (array) $meta->meta_value)->first();
+
         if(! $file) {
             return null;
         }
