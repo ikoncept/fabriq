@@ -2,19 +2,88 @@
 
 
 return [
+    /**
+     * Modules
+     * These are menu items in the sidebar menu
+     */
     'modules' => [
-        'dashboard' => [
+        [
             'title' => 'Dashboard',
-            'enabled' => env('FABRIQ_ANALYTICS', false),
+            'enabled' => env('FABRIQ_ANALYTICS', true),
             'roles' => ['admin'],
-            'route_name' => 'dashboard.index',
+            'icon' => 'DashboardIcon',
+            'route' => 'home.index',
         ],
-        'pages' => [
+        [
             'title' => 'Sidor',
             'enabled' => env('FABRIQ_PAGES', true),
             'roles' => ['admin'],
-            'route_name' => 'page.index',
+            'icon' => 'BrowsersIcon',
+            'route' => 'pages.index',
         ],
+        [
+            'title' => 'Smarta block',
+            'route' => 'smartBlocks.index',
+            'enabled' => env('FABRIQ_SMART_BLOCKS', true),
+            'icon' => 'BrushFineIcon',
+            'roles' => ['admin']
+        ],
+        [
+            'title' => 'Nyheter',
+            'route' => 'articles.index',
+            'enabled' => env('FABRIQ_ARTICLES', true),
+            'icon' => 'NewspaperIcon',
+            'roles' => ['admin']
+        ],
+        [
+            'title' => 'Kontakter',
+            'route' => 'contacts.index',
+            'enabled' => env('FABRIQ_CONTACTS', true),
+            'icon' => 'UsersCrownIcon',
+            'roles' => ['admin']
+        ],
+        [
+            'title' => 'Kalender',
+            'route' => 'calendar.index',
+            'enabled' => env('FABRIQ_EVENTS', true),
+            'icon' => 'CalendarIcon',
+            'roles' => ['admin']
+        ],
+        [
+            'title' => 'Användare',
+            'route' => 'users.index',
+            'enabled' => env('FABRIQ_USERS', true),
+            'icon' => 'UsersGearIcon',
+            'roles' => ['admin']
+        ],
+        [
+            'title' => 'Menyer',
+            'route' => 'menus.index',
+            'enabled' => env('FABRIQ_MENUS', true),
+            'icon' => 'ListTreeIcon',
+            'roles' => ['admin']
+        ],
+        [
+            'title' => 'Bilder',
+            'route' => 'images.index',
+            'enabled' => env('FABRIQ_IMAGES', true),
+            'icon' => 'ImagesIcon',
+            'roles' => ['admin']
+        ],
+        [
+            'title' => 'Videos',
+            'route' => 'videos.index',
+            'enabled' => env('FABRIQ_VIDEOS', true),
+            'icon' => 'CameraMovieIcon',
+            'roles' => ['admin']
+        ],
+        [
+            'title' => 'Filer',
+            'route' => 'files.index',
+            'enabled' => env('FABRIQ_FILES', true),
+            'icon' => 'FilesIcon',
+            'roles' => ['admin']
+        ]
     ],
     'front_end_domain' => env('FABRIQ_FRONT_END_DOMAIN', 'http://localhost:3000'),
     'bucket_prefix' => env('BUCKET_PREFIX', 'fabriq-dev'),

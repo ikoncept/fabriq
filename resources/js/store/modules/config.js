@@ -39,9 +39,10 @@ export const mutations = {
 }
 
 export const actions = {
-    async index ({ commit }) {
+    async index ({ context, commit, rootState }) {
         const { data } = await axios.get('/api/config')
         commit(types.SET_CONFIG, data.data)
+        commit('menu/' + types.SET_SIDEBAR_ITEMS, data.data.modules, { root: true })
     }
 }
 

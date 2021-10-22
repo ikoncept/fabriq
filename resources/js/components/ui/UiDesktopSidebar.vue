@@ -24,7 +24,7 @@
                         >
                             <Component
                                 :is="item.icon"
-                                :thin="item.thin"
+                                :thin="true"
                                 class="w-6 h-6 mr-3 text-gray-800 group-hover:text-gray-500"
                             />
                             {{ item.title }}

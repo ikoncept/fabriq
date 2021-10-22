@@ -14,3 +14,6 @@ export const SET_ACTIVE_LOCALE = 'SET_ACTIVE_LOCALE'
 
 // Route history
 export const SET_FROM_ROUTE = 'SET_FROM_ROUTE'
+
+// Sidebar
+export const SET_SIDEBAR_ITEMS = 'SET_SIDEBAR_ITEMS'
