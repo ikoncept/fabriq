@@ -145,13 +145,19 @@
                     </template>
                     <template #default="{ row: item, prop }">
                         <span v-if="prop == 'file'"
-                              class="block w-20"
+                              class="block"
                               @click="$vfm.show('file-modal', {id: item.id})"
                         >
-                            <UiImagePresenter :image="item"
+                            <UiImagePresenter v-if="item.thumb_src"
+                                              :image="item"
                                               thumbnail
                                               class="cursor-pointer max-h-16"
                             />
+                            <div v-else>
+                                <span class=" items-center justify-center h-8 px-1 font-semibold font-mono text-xs rounded-full min-w-[2rem] bg-royal-500 text-gold-300 inline-flex">
+                                    {{ item.extension }}
+                                </span>
+                            </div>
                         </span>
                         <span v-else-if="prop == 'created_at'">
                             {{ item.created_at | localTime }}
@@ -212,7 +218,9 @@ export default {
             columns: [
                 {
                     key: 'file',
-                    title: ''
+                    title: '',
+                    thClasses: 'w-5',
+                    tdClasses: 'w-5'
                 },
                 {
                     key: 'file_name',

@@ -494,6 +494,11 @@
                 v-html="value"
             />
         </div>
+        <p
+            v-if="helpText"
+            class="mt-2 font-sans text-xs italic text-gray-600"
+            v-text="helpText"
+        />
         <FMediaPicker :open="pickerOpen"
                       media-type="image"
                       @close="pickerOpen = false"
@@ -591,6 +596,10 @@ export default {
         name: {
             type: String,
             default: 'name'
+        },
+        helpText: {
+            type: String,
+            default: ''
         }
     },
     data () {
