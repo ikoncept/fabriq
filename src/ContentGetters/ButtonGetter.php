@@ -39,7 +39,7 @@ class ButtonGetter
                 return $value;
             }
 
-            $page = Page::find($value['page_id']);
+            $page = Fabriq::getFqnModel('page')::find($value['page_id']);
             if(! $page) {
                 return $value;
             }

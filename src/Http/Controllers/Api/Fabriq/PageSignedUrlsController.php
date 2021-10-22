@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\Page;
 use Illuminate\Http\JsonResponse;
@@ -15,7 +16,7 @@ class PageSignedUrlsController extends ApiController
 
     public function show(Request $request, int $id) : JsonResponse
     {
-        $page = Page::findOrFail($id);
+        $page = Fabriq::getModelClass('page')->findOrFail($id);
 
         $signedURL = URL::signedRoute('pages.show.preview', ['slug' => $page->slugs->first()->slug]);
 

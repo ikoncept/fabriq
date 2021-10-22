@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Transformers\PageTreeOptionTransformer;
@@ -16,9 +17,11 @@ class PageTreeController extends ApiController
 
     public function index(Request $request) : JsonResponse
     {
-        $pageRoot = Page::whereNull('parent_id')->first();
 
-        $tree = Page::orderBy('sortindex')
+        $pageRoot = Fabriq::getModelClass('page')
+            ->whereNull('parent_id')->first();
+
+        $tree = Fabriq::getModelClass('page')->orderBy('sortindex')
             ->with('template')
             ->descendantsOf($pageRoot->id)
             ->toTree();
@@ -36,10 +39,11 @@ class PageTreeController extends ApiController
 
     public function update(Request $request) : JsonResponse
     {
-        $pageRoot = Page::whereNull('parent_id')->first();
+        $pageRoot = Fabriq::getModelClass('page')->whereNull('parent_id')
+            ->first();
 
         $treeData = $request->tree;
-        Page::rebuildSubtree($pageRoot, $treeData);
+        Fabriq::getModelClass('page')->rebuildSubtree($pageRoot, $treeData);
 
         return $this->respondWithSuccess('Tree updated successfully');
     }

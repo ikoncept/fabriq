@@ -27,7 +27,7 @@ class PagesController extends ApiController
      */
     public function index(Request $request)
     {
-        $eagerLoad = $this->getEagerLoad(Page::RELATIONSHIPS);
+        $eagerLoad = $this->getEagerLoad(Fabriq::getModelClass('page')::RELATIONSHIPS);
         $pages = QueryBuilder::for(Fabriq::getFqnModel('page'))
             ->allowedSorts('name', 'slug', 'id', 'created_at', 'updated_at')
             ->allowedFilters([
@@ -48,7 +48,7 @@ class PagesController extends ApiController
      */
     public function show(Request $request, $id)
     {
-        $eagerLoad = $this->getEagerLoad(Page::RELATIONSHIPS);
+        $eagerLoad = $this->getEagerLoad(Fabriq::getModelClass('page')::RELATIONSHIPS);
 
         $page = QueryBuilder::for(Fabriq::getFqnModel('page'))
             ->allowedAppends(['paths'])
@@ -68,9 +68,9 @@ class PagesController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        $eagerLoad = $this->getEagerLoad(Page::RELATIONSHIPS);
+        $eagerLoad = $this->getEagerLoad(Fabriq::getModelClass('page')::RELATIONSHIPS);
 
-        $page = Page::where('id', $id)
+        $page = Fabriq::getModelClass('page')->where('id', $id)
             ->with($eagerLoad)
             ->firstOrFail();
         $page->name = $request->name;
@@ -90,7 +90,7 @@ class PagesController extends ApiController
      */
     public function store(CreatePageRequest $request)
     {
-        $pageRoot = Page::whereNull('parent_id')
+        $pageRoot = Fabriq::getModelClass('page')->whereNull('parent_id')
             ->select('id')
             ->first();
 
@@ -120,7 +120,7 @@ class PagesController extends ApiController
      */
     public function destroy($id)
     {
-        $page = Page::where('id', $id)->firstOrFail();
+        $page = Fabriq::getModelClass('page')->where('id', $id)->firstOrFail();
 
         $page->delete();
 
