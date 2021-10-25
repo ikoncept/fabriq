@@ -28,6 +28,9 @@ export default function setup (vm) {
             if (status === 404) {
                 vm.$toast.warning({ title: 'Hmm!', message: 'Kunde inte hitta det du letade efter' })
             }
+            if (status === 405) {
+                vm.$toast.warning({ title: 'Oj!', message: 'Det var ingen tillåten handling' })
+            }
             if (status === 403) {
                 vm.$toast.error({ title: 'Stopp!', message: 'Du saknar behörighet för att göra detta.' })
             }
