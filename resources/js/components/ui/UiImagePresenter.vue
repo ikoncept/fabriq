@@ -4,6 +4,7 @@
         :id="image.id"
         ref="image"
         :alt="image.alt"
+        loading="lazy"
         :src="image.src"
         :srcset="image.srcset"
         :title="image.caption"
@@ -12,6 +13,7 @@
     <img v-else
          :id="image.id"
          :alt="image.alt"
+         loading="lazy"
          :src="imageSrc"
          :class="imageClasses"
          class="bg-checkered-sm"
