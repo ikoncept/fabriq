@@ -1,10 +1,11 @@
 <template>
     <Transition
-        enter-active-class="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
-        enter-class="transition duration-200 ease-out transform"
+        enter-active-class="transition ease-out transform duration-600"
+        enter-class="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-3"
         enter-to-class="translate-y-0 opacity-100 sm:translate-x-0"
-        leave-active-class="translate-x-2 opacity-0"
-        leave-class="transition duration-100 ease-in transform"
+        leave-active-class="duration-100 ease-in transform"
+        leave-class="translate-y-0 opacity-100 sm:translate-x-0"
+        leave-to-class="translate-y-1 opacity-0 sm:translate-x-3 sm:translate-y-0"
     >
         <div
             v-show="isActive"
@@ -153,6 +154,10 @@ export default {
         emoji () {
             if (!this.type && !this.icon) {
                 return null
+            }
+
+            if (config.toasts[this.type].icons) {
+                return config.toasts[this.type].icons[Math.floor(Math.random() * config.toasts[this.type].icons.length)]
             }
 
             if (!this.icon && this.type !== 'default') {

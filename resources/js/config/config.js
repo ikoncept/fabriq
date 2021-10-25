@@ -4,7 +4,8 @@ export default {
             icon: null
         },
         success: {
-            icon: '👍'
+            icon: '👍',
+            icons: ['👍', '👐', '🙌', '👌', '✌', '💪', '✊', '👏']
         },
         info: {
             icon: '👋'
