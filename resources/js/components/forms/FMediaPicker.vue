@@ -110,7 +110,7 @@
                                                     <FSearchInput v-model="queryParams['filter[search]']"
                                                                   placeholder="Sök…"
                                                                   class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
-                                                                  @perform-search="fetchItems"
+                                                                  @perform-search="setPageAndFetchItems"
                                                                   @clear-search="resetSearch"
                                                     />
                                                 </div>
@@ -310,6 +310,10 @@ export default {
         resetSearch () {
             this.search = ''
             this.queryParams['filter[search]'] = ''
+            this.queryParams.page = 1
+            this.fetchItems()
+        },
+        setPageAndFetchItems () {
             this.queryParams.page = 1
             this.fetchItems()
         }
