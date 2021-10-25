@@ -65,10 +65,9 @@
                     <button
                         v-for="(number, index) in numberBoxes"
                         :key="'nm'+index"
-                        :class="{'font-bold': pagination.current_page === number }"
+                        :class="pagination.current_page === number ? 'font-bold' : 'font-medium'"
                         :disabled=" ! Number.isInteger(number)"
-                        class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 focus:outline-none hover:bg-gray-50"
-                        href
+                        class="relative inline-flex items-center px-4 py-2 text-sm text-gray-700 bg-white border border-gray-300 focus:outline-none hover:bg-gray-50"
                         @click="changePage(number)"
                     >
                         {{ number }}
