@@ -48,6 +48,12 @@ class Image extends Model implements HasMedia
               ->nonQueued()
               ->crop(Manipulations::CROP_CENTER, 480, 320)
               ->quality(80);
+
+        if(config('fabriq.enable_webp')) {
+            $this->addMediaConversion('webp')
+                ->format('webp')
+                ->quality(80);
+        }
     }
 
     /**

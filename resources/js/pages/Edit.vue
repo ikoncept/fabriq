@@ -363,6 +363,7 @@ export default {
                     localizedContent: { ...this.localizedContent }
                 }
                 await Page.update(this.id, payload)
+                this.$toast.success({ title: 'Utkastet har sparats' })
             } catch (error) {
                 console.error(error)
             }

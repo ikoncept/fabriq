@@ -43,6 +43,7 @@ class ImageTransformer extends TransformerAbstract
             'extension' => Str::afterLast($media->file_name, '.'),
             'file_name' => $media->file_name,
             'thumb_src' => $media->getUrl('thumb'),
+            'webp_src' => (string) ($media->hasGeneratedConversion('webp')) ? $media->getUrl('webp') : '',
             'src' => $media->getUrl(),
             'srcset' => $media->getSrcSet(),
             'alt_text' => $image->alt_text,
