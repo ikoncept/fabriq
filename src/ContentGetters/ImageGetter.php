@@ -38,6 +38,7 @@ class ImageGetter
             'file_name' => $media->file_name,
             'src' => $media->getUrl(),
             'thumb_src' => $media->getUrl('thumb'),
+            'webp_src' => (string) ($media->hasGeneratedConversion('webp')) ? $media->getUrl('webp') : '',
             'srcset' => $media->getSrcSet(),
             'alt_text' => $image->alt_text,
             'caption' => $image->caption,
