@@ -9,8 +9,7 @@ parameters:
     # The level 8 is the highest level
     level: 7
 
-    parameters:
-        noModelMake: false
+    noModelMake: false
 
     ignoreErrors:
         - '#Access to an undefined property#'
