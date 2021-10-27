@@ -10,17 +10,17 @@
         <div class="text-sm font-semibold text-gray-400 div-b">
             <slot name="subtitle" />
         </div>
-        <Transition name="fade">
+        <Transition name="fade" v-if="hasToolsSlot">
             <div v-if="!showFixedTools"
-                 key="fixedTools"
+                    key="fixedTools"
 
-                 class="ml-auto div-c"
+                    class="ml-auto div-c"
             >
                 <slot name="tools" />
             </div>
             <div v-else
-                 key="nonfixedTools"
-                 class="fixed z-50 p-2.5 ml-auto bg-white rounded shadow-md right-8 div-c fixed-tools"
+                    key="nonfixedTools"
+                    class="fixed z-50 p-2.5 ml-auto bg-white rounded shadow-md right-8 div-c fixed-tools"
             >
                 <slot name="tools" />
             </div>
@@ -39,6 +39,9 @@ export default {
     computed: {
         hasItemSlot () {
             return !!this.$slots.item
+        },
+        hasToolsSlot () {
+            return !!this.$slots.tools
         }
     },
     mounted () {
