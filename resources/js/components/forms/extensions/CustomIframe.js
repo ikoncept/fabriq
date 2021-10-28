@@ -1,4 +1,4 @@
-import { mergeAttributes, Node, nodeInputRule } from '@tiptap/core'
+import { mergeAttributes, Node } from '@tiptap/core'
 
 const inputRegex = /!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\)/
 
@@ -65,16 +65,16 @@ export default Node.create({
                 return true
             }
         }
-    },
-    addInputRules () {
-        return [
-            nodeInputRule(inputRegex, this.type, match => {
-                const [, alt, source, title, height, width, onload, sizes] = match
-
-                return { src: source, alt, title, height, width, onload, sizes }
-            })
-        ]
     }
+    // addInputRules () {
+    //     return [
+    //         nodeInputRule(inputRegex, this.type, match => {
+    //             const [, alt, source, title, height, width, onload, sizes] = match
+
+    //             return { src: source, alt, title, height, width, onload, sizes }
+    //         })
+    //     ]
+    // }
     // addInputRules() {
     //     return [
     //       nodeInputRule(inputRegex, this.type, match => {
