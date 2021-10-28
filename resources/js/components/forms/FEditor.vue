@@ -520,11 +520,6 @@ import TextAlign from '@tiptap/extension-text-align'
 import Typography from '@tiptap/extension-typography'
 import CustomIframe from '~/components/forms/extensions/CustomIframe'
 import ImageAPI from '~/models/Image'
-import {
-    nodeInputRule
-} from '@tiptap/core'
-
-const inputRegex = /!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\)/
 
 const CustomImage = Image.extend({
     addAttributes () {
@@ -554,21 +549,7 @@ const CustomImage = Image.extend({
                 default: null
             }
         }
-    },
-    addInputRules () {
-        return [
-            nodeInputRule(inputRegex, this.type, match => {
-                const [, alt, source, title, height, width, srcset, onload, sizes] = match
-
-                return { src: source, alt, title, height, width, srcset, onload, sizes }
-            })
-        ]
     }
-    // addKeyboardShortcuts () {
-    //     return {
-    //         'Mod-l': () => this.editor.commands.toggleBulletList()
-    //     }
-    // }
 })
 
 export default {
@@ -631,18 +612,14 @@ export default {
                 TableHeader,
                 TableCell,
                 Link,
-                CustomImage,
                 TextAlign,
                 Typography,
+                CustomImage,
                 CustomIframe
             ]
-            // onUpdate: ({ getHTML }) => {
-            //     this.$emit('input', getHTML())
-            // }
         })
         this.editor.on('update', () => {
             this.$emit('input', this.editor.getHTML())
-            //   this.html = this.editor.getHTML()
         })
         this.editor.commands.setContent(this.value)
     },
