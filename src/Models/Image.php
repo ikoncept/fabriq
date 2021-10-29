@@ -25,7 +25,7 @@ class Image extends Model implements HasMedia
      */
     public $morphClass = 'image';
 
-    protected $fillable = ['alt_text', 'caption', 'custom_crop', 'x_position', 'y_position', 'tags'];
+    protected $fillable = ['alt_text', 'caption', 'custom_crop', 'x_position', 'y_position'];
 
     /**
      * Create a new factory

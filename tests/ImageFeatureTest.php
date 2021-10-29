@@ -201,7 +201,10 @@ class ImageFeatureTest extends AdminUserTestCase
         $response = $this->json('PATCH', '/images/' . $image->id, [
             'name' => 'Nytt bildnamn',
             'alt_text' => 'Beskriver bilden',
-            'caption' => 'Fotograf: Arp'
+            'caption' => 'Fotograf: Arp',
+            'custom_crop' => false,
+            'x_position' => '50%',
+            'y_position' => '50%',
         ]);
 
         // Assert
@@ -251,6 +254,9 @@ class ImageFeatureTest extends AdminUserTestCase
         // Act
         $response = $this->json('PATCH', '/images/' . $image->id, [
             'name' => 'Wow',
+            'custom_crop' => true,
+            'x_position' => '40%',
+            'y_position' => '100%',
             'tags' => [
                 'Logo', 'Administration'
             ]

@@ -64,6 +64,7 @@ class ImagesController extends ApiController
     {
         $image = Image::findOrFail($id);
         $image->fill($request->validated());
+        $image->imageTags = $request->validated()['tags'] ?? [];
         $media = $image->getFirstmedia('images');
         $media->name = $request->name;
         $media->save();

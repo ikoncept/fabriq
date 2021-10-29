@@ -32,15 +32,17 @@ class AddCropColumnsToImagesAndVideosTable extends Migration
      */
     public function down()
     {
-        Schema::table('images', function (Blueprint $table) {
-            $table->dropColumn('custom_crop');
-            $table->dropColumn('y_position');
-            $table->dropColumn('x_position');
-        });
-        Schema::table('videos', function (Blueprint $table) {
-            $table->dropColumn('custom_crop');
-            $table->dropColumn('y_position');
-            $table->dropColumn('x_position');
-        });
+        if(config('app.env') !== 'testing') {
+            Schema::table('images', function (Blueprint $table) {
+                $table->dropColumn('custom_crop');
+                $table->dropColumn('y_position');
+                $table->dropColumn('x_position');
+            });
+            Schema::table('videos', function (Blueprint $table) {
+                $table->dropColumn('custom_crop');
+                $table->dropColumn('y_position');
+                $table->dropColumn('x_position');
+            });
+        }
     }
 }
