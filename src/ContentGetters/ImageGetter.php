@@ -46,6 +46,9 @@ class ImageGetter
             'size' => $media->size,
             'width' => ($media->responsiveImages()->files->first()) ? $media->responsiveImages()->files->first()->width() : null,
             'height' => ($media->responsiveImages()->files->first()) ? $media->responsiveImages()->files->first()->height() : null,
+            'custom_crop' => (bool) $image->custom_crop,
+            'x_position' => (string) $image->x_position,
+            'y_position' => (string) $image->y_position,
             'meta_id' => $meta->id
         ];
     }

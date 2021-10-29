@@ -27,6 +27,9 @@ class UpdateImageRequest extends FormRequest
             'name' => 'required|max:250',
             'caption' => 'nullable|max:255',
             'alt_text' => 'nullable|max:255',
+            'x_position' => 'required|max:4|string',
+            'y_position' => 'required|max:4|string',
+            'custom_crop' => 'required|boolean',
             'tags' => 'array'
         ];
     }

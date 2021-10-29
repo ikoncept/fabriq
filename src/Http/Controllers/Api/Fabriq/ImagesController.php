@@ -63,10 +63,7 @@ class ImagesController extends ApiController
     public function update(UpdateImageRequest $request, int $id) : JsonResponse
     {
         $image = Image::findOrFail($id);
-
-        $image->alt_text = $request->alt_text;
-        $image->caption = $request->caption;
-        $image->imageTags = $request->tags;
+        $image->fill($request->validated());
         $media = $image->getFirstmedia('images');
         $media->name = $request->name;
         $media->save();

@@ -8,6 +8,7 @@
         :src="image.src"
         :srcset="image.srcset"
         :title="image.caption"
+        :style="[customCrop]"
         sizes="1px"
     >
     <img v-else
@@ -41,6 +42,10 @@ export default {
         thumbnail: {
             type: Boolean,
             default: false
+        },
+        disableCustomCrop: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
@@ -49,9 +54,16 @@ export default {
                 return this.image.src
             }
             return this.image.thumb_src
+        },
+        customCrop () {
+            if (!this.image.custom_crop || this.disableCustomCrop) {
+                return ''
+            }
+
+            return {
+                objectPosition: `${this.image.x_position} ${this.image.y_position}`
+            }
         }
-    },
-    created () {
     },
     mounted () {
         if (this.thumbnail) {
