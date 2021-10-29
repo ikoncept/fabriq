@@ -9,17 +9,6 @@
 
 ## Fabriq CMS
 
-#### Dependencies and requirements
-    spatie/laravel-permission
-    infab/core
-    spatie/laravel-query-builder,
-    spatie/laravel-medialibrary,
-    kalnoy/nestedset,
-    spatie/laravel-tags
-    spatie/laravel-sluggable
-    infab/translatable-revisions
-    laravel/fortify
-
 ## Installation instructions 💻
 
 ```
@@ -113,6 +102,13 @@ Register the routes that makes sense for your app. See below examples
 // routes/api.php
 
 Fabriq::routes(function($router) {
+    $router->forDevProtected();
+},[
+    'middleware' => ['auth:sanctum', 'role:dev', 'verified'],
+    'prefix' => 'dev'
+]);
+
+Fabriq::routes(function($router) {
     $router->forApiAdminProtected();
 },[
     'middleware' => ['auth:sanctum', 'role:admin', 'verified'],
@@ -126,11 +122,8 @@ Fabriq::routes(function($router) {
 ]);
 
 Fabriq::routes(function($router) {
-    $router->forApiProtected();
-},[
-    'middleware' => ['auth:sanctum', 'role:dev', 'verified'],
-    'prefix' => 'dev'
-]);
+    $router->forPublicApi();
+});
 
 ```
 
