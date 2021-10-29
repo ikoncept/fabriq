@@ -167,6 +167,7 @@ class RouteRegistrar
 
     public function forImages() : void
     {
+        Route::get('images/{id}/src-set', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ImageSourceSetController::class, 'show']);
         Route::get('/{model}/{id}/images', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ImageablesController::class, 'index']);
         Route::post('/images/{id}/{model}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ImageablesController::class, 'store']);
         Route::get('images', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ImagesController::class, 'index']);
