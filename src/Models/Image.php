@@ -49,6 +49,7 @@ class Image extends Model implements HasMedia
         $this->addMediaConversion('thumb')
               ->nonQueued()
               ->crop(Manipulations::CROP_CENTER, 480, 320)
+              ->format(config('fabriq.enable_webp') ? 'webp' : 'jpg')
               ->quality(80);
 
         if(config('fabriq.enable_webp')) {
