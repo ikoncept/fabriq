@@ -30,6 +30,7 @@ class UploadFeatureTest extends AdminUserTestCase
         ]);
     }
 
+
     /** @test **/
     public function it_can_upload_a_file_and_persist_it()
     {
