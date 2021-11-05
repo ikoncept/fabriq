@@ -20,11 +20,15 @@ class LocaleContentTransformer extends TransformerAbstract
     /**
      * The content model
      *
-     * @var object
+     * @var mixed
      */
     protected $contentModel;
 
-    public function __construct(object $contentModel)
+    /**
+     *
+     * @param mixed $contentModel
+     */
+    public function __construct($contentModel)
     {
         $this->contentModel = $contentModel;
     }

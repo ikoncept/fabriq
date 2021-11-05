@@ -11,7 +11,7 @@ class CalendarService
     /**
      * Get daily intervals
      *
-     * @param object $events
+     * @param mixed $events
      * @param CarbonImmutable $endDate
      * @return Collection
      */

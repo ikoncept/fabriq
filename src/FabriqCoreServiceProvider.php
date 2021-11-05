@@ -101,8 +101,8 @@ class FabriqCoreServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(FortifyServiceProvider::class);
 
-        $this->app['config']->set('media-library',
-            array_merge($this->app['config']->get('media-library'), $this->app['config']->get('fabriq.media-library'))
+        $this->app->get('config')->set('media-library',
+            array_merge($this->app->get('config')->get('media-library'), $this->app->get('config')->get('fabriq.media-library'))
         );
 
         $this->commands([
@@ -125,13 +125,13 @@ class FabriqCoreServiceProvider extends ServiceProvider
 
         $this->app->singleton(PageRepositoryInterface::class, function () {
             $baseRepo = new EloquentPageRepository(Fabriq::getModelClass('slug'));
-            $cachingRepo = new CachingPageRepository($baseRepo, $this->app['cache.store']);
+            $cachingRepo = new CachingPageRepository($baseRepo, $this->app->get('cache.store'));
             return $cachingRepo;
         });
 
         $this->app->singleton('Ikoncept\Fabriq\Repositories\Interfaces\MenuRepositoryInterface', function () {
             $baseRepo = new EloquentMenuRepository(new Manager(), Fabriq::getModelClass('menuItem'), Fabriq::getModelClass('menu'));
-            $cachingRepo = new CachingMenuRepository($baseRepo, $this->app['cache.store']);
+            $cachingRepo = new CachingMenuRepository($baseRepo, $this->app->get('cache.store'));
             return $cachingRepo;
         });
     }
