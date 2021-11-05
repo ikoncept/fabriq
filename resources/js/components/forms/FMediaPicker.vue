@@ -131,6 +131,9 @@
                                             >
                                                 Lägg till alt-text
                                             </span>
+                                            <span v-else-if="prop == 'c_name'">
+                                                <span v-text="item.c_name.length > 40 ? item.c_name.substring(0,40) + '...' : item.c_name" />
+                                            </span>
                                             <span v-else-if="prop == 'size'">
                                                 {{ item.size | filesize }}
                                             </span>
