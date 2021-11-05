@@ -46,7 +46,13 @@ export default {
     },
 
     async srcSet (id, payload = {}) {
-        const { data } = await axios.get('/api/images/' + id + '/src-set', payload)
+        const { data } = await axios.get('/api/admin/images/' + id + '/src-set', payload)
+
+        return data
+    },
+
+    async store (payload) {
+        const { data } = await axios.post('/api/admin/uploads/images/', payload)
 
         return data
     }

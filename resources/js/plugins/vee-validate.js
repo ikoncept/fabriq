@@ -1,13 +1,9 @@
-import Vue from 'vue'
-import { ValidationProvider, ValidationObserver, extend, configure, localize } from 'vee-validate'
-
+import { isAfter, isValid, parse } from 'date-fns'
+import { configure, extend, localize, ValidationObserver, ValidationProvider } from 'vee-validate'
 // setInteractionMode('eager');
-
 import sv from 'vee-validate/dist/locale/sv.json'
-
-import { required, email, min } from 'vee-validate/dist/rules'
-
-import { parse, isValid, isAfter } from 'date-fns'
+import { email, min, required } from 'vee-validate/dist/rules'
+import Vue from 'vue'
 
 configure({
     classes: {
@@ -54,6 +50,17 @@ localize('sv')
 extend('email', email)
 extend('min', min)
 extend('required', required)
+
+extend('url', {
+    validate (value, { other }) {
+        if (value) {
+            return /^(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))?$/.test(value)
+        }
+
+        return false
+    },
+    message: 'Angiven URL är inte giltig'
+})
 extend('after', {
     validate (value, { other }) {
         if (!isValid(value)) {

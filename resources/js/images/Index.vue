@@ -44,22 +44,35 @@
         <UiSectionHeader class="mb-4">
             Bilder
             <template #tools>
-                <FUpload
-                    v-if="uploadInit"
-                    class="mr-10"
-                    endpoint="/api/admin/uploads/images"
-                    types="image/*"
-                    upload-name="image"
-                    @upload-queue-complete="fetchImages"
-                >
-                    <template #button>
+                <div class="flex flex-col items-end space-y-2">
+                    <FUpload
+                        v-if="uploadInit"
+                        class=""
+                        endpoint="/api/admin/uploads/images"
+                        types="image/*"
+                        upload-name="image"
+                        @upload-queue-complete="fetchImages"
+                    >
+                        <template #button>
+                            <button type="button"
+                                    class="fabriq-btn  btn-royal py-2.5 px-4 inline-flex items-center"
+                            >
+                                Ladda upp bilder
+                            </button>
+                        </template>
+                    </FUpload>
+                    <div>
+                        <AddImageFromUrlModal name="addFromUrlModal"
+                                              @image-added="fetchImages"
+                        />
                         <button type="button"
-                                class="fabriq-btn ml-10 -mr-5 btn-royal py-2.5 px-4 inline-flex items-center"
+                                class="inline-flex items-center px-2 py-1 text-xs fabriq-btn btn-gold"
+                                @click="$vfm.show('addFromUrlModal')"
                         >
-                            Ladda upp bilder
+                            Lägg till från URL
                         </button>
-                    </template>
-                </FUpload>
+                    </div>
+                </div>
             </template>
         </UiSectionHeader>
         <UiCard :padding="false"
@@ -196,8 +209,10 @@
 import Tag from '~/models/Tag'
 import Image from '~/models/Image'
 import Download from '~/models/Download'
+import AddImageFromUrlModal from '~/images/AddImageFromUrlModal'
 export default {
     name: 'ImagesIndex',
+    components: { AddImageFromUrlModal },
     beforeRouteLeave (from, to, next) {
         this.$eventBus.$off('image-updated', this.fetchImages)
         this.uploadInit = false
@@ -211,6 +226,8 @@ export default {
             checkedRows: [],
             suppressToast: false,
             showTagsModal: false,
+            showUrlModal: false,
+            imageUrl: '',
             columns: [
                 {
                     key: 'image',
