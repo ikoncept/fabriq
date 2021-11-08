@@ -109,7 +109,7 @@ export default {
                             class: 'mention'
                         },
                         suggestion: {
-                            items: query => {
+                            items: ({ query }) => {
                                 return this.userNames.filter(item => item.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
                             },
                             render: () => {
