@@ -77,18 +77,13 @@ export default {
         }
     },
     mounted () {
-        const vm = this
-        this.$refs.comments.addEventListener('keydown', function (event) {
-            if (!(event.keyCode === 13 && event.metaKey)) return
-            vm.postComment()
-        })
-
         this.fetchComments()
+        this.$refs.comments.addEventListener('keydown', this.listenForMetaPlusEnter)
         this.$eventBus.$on('open-comment-section', this.openCommentSection)
     },
     beforeDestroy () {
         this.$eventBus.$off('open-comment-section', this.openCommentSection)
-        this.$refs.comments.removeEventListener('keydown')
+        this.$refs.comments.removeEventListener('keydown', this.listenForMetaPlusEnter)
     },
     methods: {
         openCommentSection () {
@@ -101,6 +96,11 @@ export default {
                 container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' })
             }, 150)
             // console.log(container.scrollTop)
+        },
+        listenForMetaPlusEnter (event) {
+            const vm = this
+            if (!(event.keyCode === 13 && event.metaKey)) return
+            vm.postComment()
         },
         async postComment () {
             try {
