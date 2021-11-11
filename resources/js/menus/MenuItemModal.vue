@@ -226,7 +226,7 @@ export default {
                 }
                 const payload = {
                     item: this.mItem,
-                    content: this.content
+                    content: { ...this.content }
                 }
                 await MenuItem.store(this.$route.params.id, payload)
                 this.$toast.success({ title: 'Menypunkten har skapats!' })
