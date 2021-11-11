@@ -60,7 +60,7 @@ class MakeRevisionField extends Command
         $fieldKey =  $this->ask('Enter a key for the field');
         $translated =  $this->choice('Is the field translated?', ['Yes', 'No'], 0);
         $repeater =  $this->choice('Is the field a repeater?', ['Yes', 'No'], 1);
-        $fieldType =  $this->choice('Choose field type', ['text', 'textarea', 'image', 'html', 'date_time', 'video', 'date'], 0);
+        $fieldType =  $this->choice('Choose field type', ['text', 'textarea', 'image', 'html', 'date_time', 'video', 'date', 'switch'], 0);
 
 
         $newField = new RevisionTemplateField();
