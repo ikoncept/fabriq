@@ -33,6 +33,7 @@ class UserTransformer extends TransformerAbstract
             'name' => $user->name,
             'email' => $user->email,
             'role_list' => $this->getRoles($user),
+            'timezone' => 'Europe/Stockholm',
             'email_verified_at' => ($user->email_verified_at) ? $user->email_verified_at->toISOString()  : false,
             'updated_at' => $user->updated_at
         ];

@@ -248,7 +248,7 @@ class RouteRegistrar
     public function forAuthenticatedUsers() : void
     {
         Route::get('user', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AuthenticatedUserController::class, 'index']);
-        Route::patch('userrr', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AuthenticatedUserController::class, 'update']);
+        Route::patch('user', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AuthenticatedUserController::class, 'update']);
         Route::patch('user/self', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AuthenticatedUserController::class, 'update']);
         Route::post('user/send-email-verification', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\EmailVerificationsController::class, 'store']);
     }

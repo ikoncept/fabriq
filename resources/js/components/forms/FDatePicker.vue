@@ -135,10 +135,6 @@ export default {
             type: String,
             default: 'date'
         },
-        timezone: {
-            type: String,
-            default: 'Europe/Stockholm'
-        },
         placeholder: {
             type: String,
             default: ''
@@ -191,6 +187,9 @@ export default {
     computed: {
         hasRuleRequired () {
             return this.rules.includes('required')
+        },
+        timezone () {
+            return this.$store.getters['user/timezone']
         }
     },
     mounted () {

@@ -8,7 +8,8 @@ export const state = {
         email: '',
         created_at: '',
         updated_at: '',
-        role_list: []
+        role_list: [],
+        timezone: 'Europe/Stockholm'
     },
     notifications: []
 }
@@ -21,6 +22,9 @@ export const getters = {
     },
     isDev: (getters) => {
         return getters.user.role_list.includes('dev')
+    },
+    timezone: (getters) => {
+        return getters.user.timezone
     }
 }
 

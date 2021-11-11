@@ -101,7 +101,8 @@ class Article extends Model
      */
     public function setPublishesAtAttribute($value) : void
     {
-        ($value) ? $this->attributes['publishes_at'] = Carbon::parse($value)->toDateTimeString() : $this->attributes['publishes_at'] = null;
+        $timeZone = request()->header('X-TIMEZONE', 'Europe/Stockholm');
+        ($value) ? $this->attributes['publishes_at'] = Carbon::parse($value, $timeZone)->shiftTimezone('UTC')->toDateTimeString() : $this->attributes['publishes_at'] = null;
     }
 
 
@@ -113,7 +114,8 @@ class Article extends Model
      */
     public function setUnPublishesAtAttribute($value) : void
     {
-        ($value) ? $this->attributes['unpublishes_at'] = Carbon::parse($value)->toDateTimeString() : $this->attributes['unpublishes_at'] = null;
+        $timeZone = request()->header('X-TIMEZONE', 'Europe/Stockholm');
+        ($value) ? $this->attributes['unpublishes_at'] = Carbon::parse($value, $timeZone)->shiftTimezone('UTC')->toDateTimeString() : $this->attributes['unpublishes_at'] = null;
     }
 
     /**
