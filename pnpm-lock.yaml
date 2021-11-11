@@ -15,7 +15,7 @@ specifiers:
   '@tiptap/extension-table-cell': ^2.0.0-beta.11
   '@tiptap/extension-table-header': ^2.0.0-beta.13
   '@tiptap/extension-table-row': ^2.0.0-beta.11
-  '@tiptap/extension-text-align': ^2.0.0-beta.14
+  '@tiptap/extension-text-align': ^2.0.0-beta.28
   '@tiptap/extension-typography': ^2.0.0-beta.10
   '@tiptap/extension-underline': ^2.0.0-beta.12
   '@tiptap/starter-kit': ^2.0.0-beta.51
@@ -75,7 +75,7 @@ dependencies:
   '@tiptap/extension-table-cell': 2.0.0-beta.16_@tiptap+core@2.0.0-beta.129
   '@tiptap/extension-table-header': 2.0.0-beta.18_@tiptap+core@2.0.0-beta.129
   '@tiptap/extension-table-row': 2.0.0-beta.15_@tiptap+core@2.0.0-beta.129
-  '@tiptap/extension-text-align': 2.0.0-beta.24_@tiptap+core@2.0.0-beta.129
+  '@tiptap/extension-text-align': 2.0.0-beta.28_@tiptap+core@2.0.0-beta.129
   '@tiptap/extension-typography': 2.0.0-beta.17_@tiptap+core@2.0.0-beta.129
   '@tiptap/extension-underline': 2.0.0-beta.17_@tiptap+core@2.0.0-beta.129
   '@tiptap/starter-kit': 2.0.0-beta.131
@@ -1681,8 +1681,8 @@ packages:
       prosemirror-view: 1.20.3
     dev: false
 
-  /@tiptap/extension-text-align/2.0.0-beta.24_@tiptap+core@2.0.0-beta.129:
-    resolution: {integrity: sha512-FZnpjEZnLZXGcQQWg/FB1K49OU0FseVgpZ2cXPJ8EPw7673+9mrBUxYtKlnq5MZR9G9TbmyoQoZiyGgWA8APnw==}
+  /@tiptap/extension-text-align/2.0.0-beta.28_@tiptap+core@2.0.0-beta.129:
+    resolution: {integrity: sha512-Pv5htzDDxPmH0juRLELa6yZ3nhjRc7VzYEQYmStDsF/4etDgaciGlnYCvIJw7+6EUSaSzY28OizQSVpa9N5r9g==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:

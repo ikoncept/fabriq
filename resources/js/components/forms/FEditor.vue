@@ -612,7 +612,9 @@ export default {
                 TableHeader,
                 TableCell,
                 Link,
-                TextAlign,
+                TextAlign.configure({
+                    types: ['paragraph', 'heading']
+                }),
                 Typography,
                 CustomImage,
                 CustomIframe
