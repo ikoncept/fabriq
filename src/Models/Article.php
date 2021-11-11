@@ -93,6 +93,16 @@ class Article extends Model
         return false;
     }
 
+    protected function getTimeZone() : string
+    {
+        $header = request()->header('X-TIMEZONE', 'Europe/Stockholm');
+        if(is_array($header)) {
+            return 'Europe/Stockholm';
+        }
+
+        return $header;
+    }
+
     /**
      * Set publishes at attribute
      *
@@ -101,8 +111,7 @@ class Article extends Model
      */
     public function setPublishesAtAttribute($value) : void
     {
-        $timeZone = request()->header('X-TIMEZONE', 'Europe/Stockholm');
-        ($value) ? $this->attributes['publishes_at'] = Carbon::parse($value, $timeZone)->shiftTimezone('UTC')->toDateTimeString() : $this->attributes['publishes_at'] = null;
+        ($value) ? $this->attributes['publishes_at'] = Carbon::parse($value, $this->getTimeZone())->shiftTimezone('UTC')->toDateTimeString() : $this->attributes['publishes_at'] = null;
     }
 
 
@@ -114,8 +123,7 @@ class Article extends Model
      */
     public function setUnPublishesAtAttribute($value) : void
     {
-        $timeZone = request()->header('X-TIMEZONE', 'Europe/Stockholm');
-        ($value) ? $this->attributes['unpublishes_at'] = Carbon::parse($value, $timeZone)->shiftTimezone('UTC')->toDateTimeString() : $this->attributes['unpublishes_at'] = null;
+        ($value) ? $this->attributes['unpublishes_at'] = Carbon::parse($value, $this->getTimeZone())->shiftTimezone('UTC')->toDateTimeString() : $this->attributes['unpublishes_at'] = null;
     }
 
     /**
