@@ -6,8 +6,10 @@ use Ikoncept\Fabriq\Actions\Fortify\CreateNewUser;
 use Ikoncept\Fabriq\Actions\Fortify\ResetUserPassword;
 use Ikoncept\Fabriq\Actions\Fortify\UpdateUserPassword;
 use Ikoncept\Fabriq\Actions\Fortify\UpdateUserProfileInformation;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 
@@ -42,11 +44,10 @@ class FortifyServiceProvider extends ServiceProvider
         //     return view('auth.reset-password', ['request' => $request]);
         // });
 
+
         Fortify::authenticateUsing(function (Request $request) {
             $user = config('fabriq.models.user')::where('email', $request->email)->first();
 
-            // Cookie::queue('x-bajs', json_encode(['admin', 'apa']), 2000, '.fabriq-cms.test', false, false);
-            // 'name', 'value', $minutes, $path, $domain, $secure, $httpOnly
             if ($user &&
                 Hash::check($request->password, $user->password)) {
                 return $user;
@@ -65,5 +66,12 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
+
+        RateLimiter::for('login', function (Request $request) {
+            return Limit::perMinutes(10, 5)->by($request->ip());
+        });
+        RateLimiter::for('forgot-password', function (Request $request) {
+            return Limit::perMinutes(10, 5)->by($request->ip());
+        });
     }
 }
