@@ -4,18 +4,16 @@ namespace Ikoncept\Fabriq\ContentGetters;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Image;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
+use Ikoncept\Fabriq\ContentGetters\BaseGetter;
 
-class ImageGetter
+class ImageGetter extends BaseGetter implements GetterInterface
 {
-    /**
-     * Return a representation of an image
-     *
-     * @param RevisionMeta $meta
-     * @param boolean $publishing
-     * @return mixed
-     */
-    public static function get(RevisionMeta $meta, $publishing = false)
+    public static function get(RevisionMeta $meta, bool $publishing = false) : array|null
     {
         if(empty($meta->toArray())) {
             return [
@@ -24,7 +22,10 @@ class ImageGetter
         }
 
         $image = Fabriq::getModelClass('image')
-            ->whereIn('id', (array) $meta->meta_value)->first();
+            ->whereIn('id', (array) $meta->meta_value);
+
+         $image = self::getObjectOnce(self::getHash($image), $image);
+
         if(! $image) {
             return null;
         }
@@ -52,4 +53,5 @@ class ImageGetter
             'meta_id' => $meta->id
         ];
     }
+
 }
