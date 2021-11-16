@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class BaseGetter
 {
-    protected static function getHash(Builder $query)
+    protected static function getHash(Builder $query) : string
     {
         $bindings = json_encode($query->getBindings());
         $sql = json_encode($query->toSql());

@@ -32,6 +32,9 @@ class ImageGetter extends BaseGetter implements GetterInterface
         if($publishing) {
             return [$image->id];
         }
+
+
+        /** @var Image $image **/
         $media = $image->getFirstMedia('images');
 
         return [

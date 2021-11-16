@@ -28,6 +28,9 @@ parameters:
         -
             message: '#getSlugString#'
             path: ./src/Models/Page.php
+        -
+            message: '#unused use#'
+            path: ./src/ContentGetters/BaseGetter.php
         # -
         #     message: '#$view of function view expects view-string#'
         #     path: ./src/Http/Controllers/Api/Fabriq/ImageSourceSetController.php
