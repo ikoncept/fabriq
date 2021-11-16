@@ -13,7 +13,10 @@ use Ikoncept\Fabriq\ContentGetters\BaseGetter;
 
 class ImageGetter extends BaseGetter implements GetterInterface
 {
-    public static function get(RevisionMeta $meta, bool $publishing = false) : array|null
+    /**
+     * @return array|null
+     */
+    public static function get(RevisionMeta $meta, bool $publishing = false)
     {
         if(empty($meta->toArray())) {
             return [

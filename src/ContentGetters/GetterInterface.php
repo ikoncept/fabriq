@@ -7,5 +7,10 @@ use Infab\TranslatableRevisions\Models\RevisionMeta;
 
 interface GetterInterface
 {
-    public static function get(RevisionMeta $meta, bool $isPublishing) : array|null;
+    /**
+     * Get transformed data
+     *
+     * @return array|null
+     */
+    public static function get(RevisionMeta $meta, bool $isPublishing);
 }

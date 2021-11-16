@@ -15,7 +15,10 @@ class BaseGetter
         return $hash;
     }
 
-    public static function getObjectOnce(string $hash, Builder $builder) : object|null
+    /**
+     * @return object|null
+     */
+    public static function getObjectOnce(string $hash, Builder $builder)
     {
         return once(function () use ($hash, $builder) {
             return $builder->first();
