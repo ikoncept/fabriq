@@ -15,6 +15,7 @@
     <meta name="msapplication-TileColor" content="#0b3b5b">
     <meta name="msapplication-config" content="/dist/images/browserconfig.xml">
     <meta name="theme-color" content="#0b3b5b">
+    <meta name="og:image" content="https://media.fabriq-cms.se/public/fabriq-og-image-1200.jpg">
     <script>
         window.fabriqCms = {
             csrfToken: "{{ csrf_token() }}",

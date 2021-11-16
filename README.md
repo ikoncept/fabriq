@@ -1,11 +1,10 @@
-
 [![Latest Stable Version](http://poser.pugx.org/ikoncept/fabriq/v)](https://packagist.org/packages/ikoncept/fabriq)
 [![tests](https://github.com/ikoncept/fabriq/actions/workflows/phpunit.yml/badge.svg)](https://github.com/ikoncept/fabriq/actions/workflows/phpunit.yml)
 [![PHPStanLevel7](https://github.com/ikoncept/fabriq/actions/workflows/phpStan.yml/badge.svg)](https://github.com/ikoncept/fabriq/actions/workflows/phpStan.yml)
 [![PHP Version Require](http://poser.pugx.org/ikoncept/fabriq/require/php)](https://packagist.org/packages/ikoncept/fabriq)
 
 
-
+![Fabriq CMS logo](https://media.fabriq-cms.se/public/fabriq-og-image-1200.jpg)
 
 ## Fabriq CMS
 

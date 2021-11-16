@@ -157,15 +157,6 @@
                                                 class="col-span-12 lg:col-span-8"
                                             />
                                         </div>
-                                        <div v-else-if="field.type == 'switch'"
-                                             class="mb-6"
-                                        >
-                                            <FSwitch v-model="localizedContent[lIndex][field.key]"
-                                                     name="field.key"
-                                            >
-                                                {{ field.name }}
-                                            </FSwitch>
-                                        </div>
                                     </div>
                                 </div>
                             </UiCard>

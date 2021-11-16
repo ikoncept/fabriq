@@ -58,7 +58,7 @@
                     <div class="flex items-center flex-shrink-0 px-4">
                         <img
                             alt="Fabriq CMS Logotyp"
-                            class="w-full px-16"
+                            class="w-full px-12"
                             src="/dist/images/fabriq-cms-logo.svg"
                         >
                     </div>

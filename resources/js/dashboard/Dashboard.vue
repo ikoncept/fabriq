@@ -18,7 +18,6 @@
                     :open="true"
                 >
                     <!-- This will be the popover target (for the events and position) -->
-                    baaaajskorv
 
                     <!-- This will be the content of the popover -->
                     <template slot="popover">
