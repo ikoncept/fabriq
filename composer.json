@@ -37,7 +37,7 @@
         "dyrynda/laravel-make-user": "^7.3",
         "php-ffmpeg/php-ffmpeg": "^0.18.0",
         "spatie/pdf-to-image": "^2.1",
-        "spatie/once": "^3.0"
+        "spatie/once": "^2.0|^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.3.3",
