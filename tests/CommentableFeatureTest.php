@@ -111,12 +111,14 @@ class CommentableFeatureTest extends AdminUserTestCase
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $user = \Ikoncept\Fabriq\Models\User::factory()->create();
         $otherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
-            'name' => 'Roger Pontare'
+            'name' => 'Roger Pontare',
+            'email' => 'roger@pontare.se'
         ]);
         $anotherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
-            'name' => 'Sven'
+            'name' => 'Sven',
+            'email' => 'sven@pontare.se'
         ]);
-        $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-id="Roger Pontare">@Roger Pontare</span> <span data-mention="" class="mention" data-id="Sven">@Sven</span><p>');
+        $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-email="Roger Pontare">@Roger Pontare</span> <span data-mention="" class="mention" data-email="Sven">@Sven</span><p>');
 
         $this->actingAs($user);
 
@@ -217,16 +219,18 @@ class CommentableFeatureTest extends AdminUserTestCase
         // Arrange
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $otherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
-            'name' => 'Roger Pontare'
+            'name' => 'Roger Pontare',
+            'email' => 'roger@pontare.se'
         ]);
         $anotherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
-            'name' => 'Sven'
+            'name' => 'Sven',
+            'email' => 'sven@pontare.se'
         ]);
         $user = \Ikoncept\Fabriq\Models\User::factory()->create();
-        $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-id="Roger Pontare">@Roger Pontare</span> <span data-mention="" class="mention" data-id="Sven">@Sven</span><p>');
+        $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-email="roger@pontare.se">@Roger Pontare</span> <span data-mention="" class="mention" data-email="sven@pontare.se">@Sven</span><p>');
 
         $this->assertDatabaseHas('comments', [
-            'comment' => '<p>This is my special comment! <span data-mention="" class="mention" data-id="Roger Pontare">@Roger Pontare</span> <span data-mention="" class="mention" data-id="Sven">@Sven</span><p>',
+            'comment' => '<p>This is my special comment! <span data-mention="" class="mention" data-email="roger@pontare.se">@Roger Pontare</span> <span data-mention="" class="mention" data-email="sven@pontare.se">@Sven</span><p>',
             'user_id' => $user->id,
         ]);
         $this->assertDatabaseHas('notifications', [

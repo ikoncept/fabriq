@@ -23,6 +23,19 @@ import Mention from '@tiptap/extension-mention'
 import MentionList from '~/components/forms/extensions/MentionList'
 import User from '~/models/User'
 
+const CustomMention = Mention.extend({
+    addAttributes () {
+        return {
+            id: {
+                default: ''
+            },
+            'data-email': {
+                default: ''
+            }
+        }
+    }
+})
+
 export default {
     name: 'FCommentEditor',
     components: {
@@ -68,7 +81,7 @@ export default {
     computed: {
         userNames () {
             return this.users.map(item => {
-                return item.name
+                return { name: item.name, email: item.email }
             })
         }
     },
@@ -104,13 +117,14 @@ export default {
                     Placeholder.configure({
                         placeholder: this.placeholder
                     }),
-                    Mention.configure({
+                    CustomMention.configure({
                         HTMLAttributes: {
-                            class: 'mention'
+                            class: 'mention',
+                            'data-email': ''
                         },
                         suggestion: {
                             items: ({ query }) => {
-                                return this.userNames.filter(item => item.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
+                                return this.userNames.filter(item => item.name.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
                             },
                             render: () => {
                                 let component

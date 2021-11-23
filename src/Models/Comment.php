@@ -36,11 +36,11 @@ class Comment extends Model
             $doc = new \DOMDocument;
             $doc->loadHTML($model->comment);
             $xpath = new \DOMXpath($doc);
-            $filtered = $xpath->query("//span[@data-id]");
+            $filtered = $xpath->query("//span[@data-email]");
             if($filtered) {
                 foreach($filtered as $filter) {
-                    $name = $filter->getAttribute('data-id');
-                    $user = User::where('name', $name)->first();
+                    $email = $filter->getAttribute('data-email');
+                    $user = User::whereEmail($email)->first();
                     if($user) {
                         $model->notifications()->create([
                             'user_id' => $user->id,

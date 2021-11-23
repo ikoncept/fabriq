@@ -7,7 +7,7 @@
             :class="{ 'is-selected': index === selectedIndex }"
             @click="selectItem(index)"
         >
-            {{ item }}
+            {{ item.name }}
         </button>
     </div>
 </template>
@@ -74,7 +74,7 @@ export default {
             const item = this.items[index]
 
             if (item) {
-                this.command({ id: item })
+                this.command({ id: item.name, 'data-email': item.email })
             }
         }
     }

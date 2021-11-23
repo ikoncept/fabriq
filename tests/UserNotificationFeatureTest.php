@@ -18,7 +18,7 @@ class UserNotificationFeatureTest extends AdminUserTestCase
         $this->withoutExceptionHandling();
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $user = \Ikoncept\Fabriq\Models\User::factory()->create();
-        $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-id="Roger Pontare">@Roger Pontare</span> <span data-mention="" class="mention" data-id="'.$user->name.'">@'.$user->name.'</span><p>');
+        $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-email="roger@pontare.se">@Roger Pontare</span> <span data-mention="" class="mention" data-email="'.$user->email.'">@'.$user->name.'</span><p>');
 
         // Act
         $response = $this->actingAs($user)->json('GET', '/user/notifications?include=notifiable');
@@ -42,7 +42,7 @@ class UserNotificationFeatureTest extends AdminUserTestCase
         $this->withoutExceptionHandling();
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $user = \Ikoncept\Fabriq\Models\User::factory()->create();
-        $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-id="Roger Pontare">@Roger Pontare</span> <span data-mention="" class="mention" data-id="'.$user->name.'">@'.$user->name.'</span><p>');
+        $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-email="roger@pontare.se">@Roger Pontare</span> <span data-mention="" class="mention" data-email="'.$user->email.'">@'.$user->name.'</span><p>');
 
         // Act
         $response = $this->actingAs($user)->json('PATCH', '/user/notifications/' . 1, [
