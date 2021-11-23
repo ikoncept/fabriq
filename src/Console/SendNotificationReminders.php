@@ -48,6 +48,7 @@ class SendNotificationReminders extends Command
         foreach($users as $user) {
             $user->notify(new NotifyAboutNotification($user->notificationsToBeNotified->count(), $user));
             $this->clearNotifications($user->notificationsToBeNotified);
+            $this->info('Sending notification to ' . $user->email);
         }
 
         return 0;
