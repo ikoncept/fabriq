@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Console;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Notifications\NotifyAboutNotification;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
@@ -40,7 +41,7 @@ class SendNotificationReminders extends Command
      */
     public function handle()
     {
-        $users = config('fabriq.models.user')::whereHas('notifications', function(Builder $query) {
+        $users = Fabriq::getModelClass('user')->whereHas('fabriqNotifications', function(Builder $query) {
             return $query->whereNull('cleared_at')
                 ->whereNull('notified_at');
         })->withCount('notificationsToBeNotified')->with('notificationsToBeNotified')->get();
