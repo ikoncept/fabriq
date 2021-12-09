@@ -46,7 +46,7 @@ class ImageGetter extends BaseGetter implements GetterInterface
             'src' => $media->getUrl(),
             'thumb_src' => $media->getUrl('thumb'),
             'webp_src' => (string) ($media->hasGeneratedConversion('webp')) ? $media->getUrl('webp') : '',
-            'srcset' => $media->getSrcSet() ?? null,
+            'srcset' => ($media->getSrcSet()) ? $media->getSrcset() : null,
             'alt_text' => (string) $image->alt_text,
             'caption' => $image->caption,
             'mime_type' => $media->mime_type,
