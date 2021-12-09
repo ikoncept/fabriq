@@ -253,13 +253,6 @@
                     >
                         <ImageIcon class="w-4 h-4" />
                     </button>
-                    <button v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Infoga fil' }"
-                            class="menubar__button"
-                            tabindex="-1"
-                            @click="addFile"
-                    >
-                        <FileIcon class="w-4 h-4" />
-                    </button>
                     <UiDropdown ref="iframedropdown"
                                 margin-classes="mt-0"
                     >
