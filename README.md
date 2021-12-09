@@ -19,9 +19,15 @@ If you're planning on using AWS s3:
 composer require --with-all-dependencies league/flysystem-aws-s3-v3 "^1.0"
 ```
 
-You probably want to install [Laravel Sanctum](https://github.com/laravel/sanctum) as well for authentication
+Install [Laravel Sanctum](https://github.com/laravel/sanctum) as well for authentication
 ```
 composer require laravel/sanctum
+```
+
+Add the domain to the `.env` file:
+```
+SANCTUM_STATEFUL_DOMAINS=your-domain.test
+SESSION_DOMAIN=your-domain.test
 ```
 
 Publish the configurations:
