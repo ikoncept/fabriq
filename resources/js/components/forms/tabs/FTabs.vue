@@ -31,12 +31,16 @@ export default {
         hideTabs: {
             type: Boolean,
             default: false
+        },
+        identifier: {
+            type: String,
+            default: Math.random().toString(20).substr(2, 6)
         }
     },
     data () {
         return {
             selectedIndex: 0, // the index of the selected tab,
-            tabs: [] // all of the tabs
+            tabs: [] // all of the tabs,
         }
     },
     computed: {
@@ -57,8 +61,18 @@ export default {
     },
     mounted () {
         this.selectTab(0)
+        this.$eventBus.$on('set-active-tab', this.handleActiveTabEvent)
+    },
+    beforeDestroy () {
+        this.$eventBus.$off('set-active-tab', this.handleActiveTabEvent)
     },
     methods: {
+        handleActiveTabEvent (payload) {
+            if (payload.identifier !== this.identifier) {
+                return
+            }
+            this.selectTab(payload.index)
+        },
         selectTab (index_) {
             this.selectedIndex = index_
 

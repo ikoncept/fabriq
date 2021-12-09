@@ -148,7 +148,7 @@
                                                 <!-- <button class="px-4 py-2 btn-ghost fabriq-btn">Redigera</button> -->
                                                 <button
                                                     class="px-4 py-2 text-sm font-semibold leading-none fabriq-btn btn-ghost"
-                                                    @click="pickItem(item.id)"
+                                                    type="button"
                                                 >
                                                     Välj
                                                 </button>

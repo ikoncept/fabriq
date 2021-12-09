@@ -54,19 +54,43 @@
                                 :class="{ 'is-active': editor.isActive('link') }"
                                 tabindex="-1"
                                 margin-classes="mt-0"
-                                @open="getLinkUrl(editor.getMarkAttributes('link'))"
+                                @open="getLinkUrl(editor.getAttributes('link'))"
                     >
                         <template #dropdown>
-                            <div class="px-4 pt-4">
-                                <FInput
-                                    v-model="linkUrl"
-                                    class="w-64 mb-4 "
-                                    label="Ange länk"
-                                    name="link"
-                                    placeholder="https://"
-                                    type="url"
-                                    @keyup.enter="updateLink()"
-                                />
+                            <div class="px-4">
+                                <FTabs :identifier="tabIdentifier"
+                                       @change="setLinkType"
+                                >
+                                    <FTab title="URL"
+                                          class="py-4"
+                                          value-key="link"
+                                    >
+                                        <FInput
+                                            v-model="linkUrl"
+                                            class="w-64 mb-4 "
+                                            label="Ange länk"
+                                            name="link"
+                                            placeholder="https://"
+                                            type="url"
+                                            @keyup.enter="updateLink()"
+                                        />
+                                    </FTab>
+                                    <FTab title="Fil"
+                                          value-key="file"
+                                          class="py-4"
+                                    >
+                                        <button
+                                            type="button"
+                                            class="block w-64 text-white fabriq-btn btn-royal"
+                                            @click="addFile"
+                                        >
+                                            <span class="text-white">Välj fil</span>
+                                        </button>
+                                        <small v-if="linkType === 'file' && attachedFileName"
+                                               class="block mt-1"
+                                        >Länkad fil: {{ attachedFileName }}</small>
+                                    </FTab>
+                                </FTabs>
                                 <FSwitch v-model="linkOpenNewTab"
                                          class="flex justify-between mb-4"
                                 >
@@ -228,6 +252,13 @@
                             @click="addImage"
                     >
                         <ImageIcon class="w-4 h-4" />
+                    </button>
+                    <button v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Infoga fil' }"
+                            class="menubar__button"
+                            tabindex="-1"
+                            @click="addFile"
+                    >
+                        <FileIcon class="w-4 h-4" />
                     </button>
                     <UiDropdown ref="iframedropdown"
                                 margin-classes="mt-0"
@@ -500,9 +531,9 @@
             v-text="helpText"
         />
         <FMediaPicker :open="pickerOpen"
-                      media-type="image"
+                      :media-type="pickerType"
                       @close="pickerOpen = false"
-                      @item-picked="pickImage"
+                      @item-picked="pickItem"
         />
     </div>
 </template>
@@ -520,6 +551,7 @@ import TextAlign from '@tiptap/extension-text-align'
 import Typography from '@tiptap/extension-typography'
 import CustomIframe from '~/components/forms/extensions/CustomIframe'
 import ImageAPI from '~/models/Image'
+import FileAPI from '~/models/File'
 
 const CustomImage = Image.extend({
     addAttributes () {
@@ -547,6 +579,34 @@ const CustomImage = Image.extend({
             },
             sizes: {
                 default: null
+            }
+        }
+    }
+})
+
+const CustomLink = Link.extend({
+    addAttributes () {
+        return {
+            href: {
+                default: ''
+            },
+            src: {
+                default: null
+            },
+            alt: {
+                default: null
+            },
+            title: {
+                default: null
+            },
+            'data-filename': {
+                default: 'hehe'
+            },
+            'data-type': {
+                default: ''
+            },
+            download: {
+                default: ''
             }
         }
     }
@@ -596,7 +656,11 @@ export default {
             linkOpenNewTab: false,
             pop: false,
             isEditing: false,
-            pickerOpen: false
+            pickerOpen: false,
+            pickerType: 'image',
+            attachedFileName: '',
+            linkType: 'link',
+            tabIdentifier: Math.random().toString(20).substr(2, 6)
         }
     },
     mounted () {
@@ -611,13 +675,14 @@ export default {
                 TableRow,
                 TableHeader,
                 TableCell,
-                Link,
+                CustomLink,
                 TextAlign.configure({
                     types: ['paragraph', 'heading']
                 }),
                 Typography,
                 CustomImage,
                 CustomIframe
+
             ]
         })
         this.editor.on('update', () => {
@@ -629,17 +694,33 @@ export default {
         this.editor.destroy()
     },
     methods: {
+        setLinkType (type) {
+            this.linkType = type
+        },
         getLinkUrl (attributes) {
             this.linkUrl = attributes.href
             this.linkOpenNewTab = attributes.target !== '_self'
+            this.linkType = attributes.download ? 'file' : 'link'
+            this.attachedFileName = attributes['data-filename']
             this.linkMenuIsActive = true
+            this.$eventBus.$emit('set-active-tab', {
+                identifier: this.tabIdentifier,
+                index: this.linkType === 'link' ? 0 : 1
+            })
         },
         updateLink (remove = false) {
             if (remove) {
                 this.linkUrl = null
                 this.editor.chain().focus().unsetLink().run()
             } else {
-                this.editor.chain().focus().setLink({ href: this.linkUrl, target: this.linkOpenNewTab ? '_blank' : '_self' }).run()
+                const linkObject = {
+                    href: this.linkUrl,
+                    target: this.linkOpenNewTab ? '_blank' : '_self',
+                    'data-filename': '',
+                    'data-type': '',
+                    download: false
+                }
+                this.editor.chain().focus().setLink(linkObject).run()
             }
             this.$refs.linkdropdown.close()
         },
@@ -648,8 +729,28 @@ export default {
             this.linkMenuIsActive = false
         },
         addImage () {
+            this.pickerType = 'image'
             this.pickerOpen = true
-            // const url = window.prompt('URL')
+        },
+        addFile () {
+            this.pickerType = 'file'
+            this.pickerOpen = true
+        },
+        pickItem (itemId) {
+            this.pickerType === 'image' ? this.pickImage(itemId) : this.pickFile(itemId)
+        },
+        async pickFile (fileId) {
+            const { data } = await FileAPI.show(fileId, {})
+            const fileObject = {
+                href: data.src,
+                target: this.linkOpenNewTab ? '_blank' : '_self',
+                'data-filename': data.file_name,
+                'data-type': data.mime_type,
+                download: data.file_name
+            }
+            this.editor.chain().focus().setLink(fileObject).run()
+            this.$toast.success({ title: 'Filen har blivit länkad' })
+            this.pickerOpen = false
         },
         async pickImage (imageId) {
             try {
