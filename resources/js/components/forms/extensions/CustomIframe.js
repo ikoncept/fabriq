@@ -5,7 +5,7 @@ const inputRegex = /!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\)/
 export default Node.create({
     name: 'iframe',
 
-    defaultOptions: {
+    addOptions: {
         HTMLAttributes: {
             frameborder: 0,
             allowfullscreen: true,
