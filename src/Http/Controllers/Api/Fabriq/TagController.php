@@ -13,7 +13,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\Tags\Tag;
 
-class TagsController extends ApiController
+class TagController extends ApiController
 {
     use ApiControllerTrait;
 

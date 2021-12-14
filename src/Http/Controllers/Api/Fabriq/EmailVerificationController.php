@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
 
-class EmailVerificationsController extends ApiController
+class EmailVerificationController extends ApiController
 {
     use ApiControllerTrait;
 

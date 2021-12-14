@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
 
-class ImageUploadsController extends ApiController
+class ImageUploadController extends ApiController
 {
     use ApiControllerTrait;
 

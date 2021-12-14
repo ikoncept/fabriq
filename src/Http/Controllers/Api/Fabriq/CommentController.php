@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
 
-class CommentsController extends ApiController
+class CommentController extends ApiController
 {
     use ApiControllerTrait;
 

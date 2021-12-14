@@ -15,7 +15,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Str;
 use Spatie\QueryBuilder\AllowedFilter;
 
-class UsersController extends ApiController
+class UserController extends ApiController
 {
 
     use ApiControllerTrait;

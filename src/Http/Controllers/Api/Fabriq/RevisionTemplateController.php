@@ -11,7 +11,7 @@ use Infab\TranslatableRevisions\Models\RevisionTemplate;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class RevisionTemplatesController extends ApiController
+class RevisionTemplateController extends ApiController
 {
     use ApiControllerTrait;
 

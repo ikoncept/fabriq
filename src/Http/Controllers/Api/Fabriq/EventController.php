@@ -16,7 +16,7 @@ use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class EventsController extends ApiController
+class EventController extends ApiController
 {
     use ApiControllerTrait;
 

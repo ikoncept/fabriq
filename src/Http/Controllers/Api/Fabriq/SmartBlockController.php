@@ -13,7 +13,7 @@ use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class SmartBlocksController extends ApiController
+class SmartBlockController extends ApiController
 {
 
     use ApiControllerTrait;

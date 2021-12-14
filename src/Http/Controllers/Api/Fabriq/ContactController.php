@@ -14,7 +14,7 @@ use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class ContactsController extends ApiController
+class ContactController extends ApiController
 {
 
     use ApiControllerTrait;

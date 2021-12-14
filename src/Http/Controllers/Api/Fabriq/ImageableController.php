@@ -13,7 +13,7 @@ use Infab\Core\Traits\ApiControllerTrait;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 
-class ImageablesController extends ApiController
+class ImageableController extends ApiController
 {
 
     use ApiControllerTrait;

@@ -13,7 +13,7 @@ use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class NotificationsController extends ApiController
+class NotificationController extends ApiController
 {
     use ApiControllerTrait;
 

@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
 
-class MenuItemsController extends ApiController
+class MenuItemController extends ApiController
 {
 
     use ApiControllerTrait;
