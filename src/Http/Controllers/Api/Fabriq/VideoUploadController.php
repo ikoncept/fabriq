@@ -3,27 +3,28 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Infab\Core\Http\Controllers\Api\ApiController;
-use Ikoncept\Fabriq\Models\File;
+use Ikoncept\Fabriq\Models\Video;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
 
-class FileUploadsController extends ApiController
+class VideoUploadController extends ApiController
 {
     use ApiControllerTrait;
 
+
     public function store(Request $request) : JsonResponse
     {
-        $file = new File();
-        $file->save();
+        $video = new Video();
+        $video->save();
         try {
-            $file->addMediaFromRequest('file')
-                ->toMediaCollection('files');
+            $video->addMediaFromRequest('video')
+                ->toMediaCollection('videos');
         } catch (\Throwable $exception) {
-            $file->delete();
+            $video->delete();
             throw $exception;
         }
 
-        return $this->respondWithArray($file->toArray());
+        return $this->respondWithArray($video->toArray());
     }
 }

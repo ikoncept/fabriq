@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
 
-class MenusController extends ApiController
+class MenuController extends ApiController
 {
 
     use ApiControllerTrait;

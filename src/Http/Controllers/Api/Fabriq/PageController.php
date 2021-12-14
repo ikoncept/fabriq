@@ -14,7 +14,7 @@ use Infab\TranslatableRevisions\Models\I18nLocale;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class PagesController extends ApiController
+class PageController extends ApiController
 {
 
     use ApiControllerTrait;

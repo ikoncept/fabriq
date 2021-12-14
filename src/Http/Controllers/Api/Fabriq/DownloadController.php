@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use ZipArchive;
 
-class DownloadsController extends ApiController
+class DownloadController extends ApiController
 {
 
     use ApiControllerTrait;

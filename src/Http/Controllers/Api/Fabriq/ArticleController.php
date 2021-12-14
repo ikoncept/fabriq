@@ -14,7 +14,7 @@ use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class ArticlesController extends Controller
+class ArticleController extends Controller
 {
 
     use ApiControllerTrait;

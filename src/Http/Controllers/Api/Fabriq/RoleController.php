@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
 
-class RolesController extends ApiController
+class RoleController extends ApiController
 {
 
     use ApiControllerTrait;

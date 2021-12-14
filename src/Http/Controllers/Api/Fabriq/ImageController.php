@@ -15,7 +15,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class ImagesController extends ApiController
+class ImageController extends ApiController
 {
 
     use ApiControllerTrait;

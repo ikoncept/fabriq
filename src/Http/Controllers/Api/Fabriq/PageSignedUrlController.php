@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Infab\Core\Traits\ApiControllerTrait;
 
-class PageSignedUrlsController extends ApiController
+class PageSignedUrlController extends ApiController
 {
     use ApiControllerTrait;
 

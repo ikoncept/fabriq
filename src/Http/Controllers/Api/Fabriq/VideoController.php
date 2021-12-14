@@ -14,7 +14,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class VideosController extends ApiController
+class VideoController extends ApiController
 {
 
     use ApiControllerTrait;

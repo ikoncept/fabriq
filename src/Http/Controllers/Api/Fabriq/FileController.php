@@ -14,7 +14,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class FilesController extends ApiController
+class FileController extends ApiController
 {
 
     use ApiControllerTrait;
