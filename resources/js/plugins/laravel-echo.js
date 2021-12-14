@@ -7,7 +7,7 @@ const echo = {
     install (Vue, options) {
         Vue.prototype.$echo = new Echo({
             broadcaster: 'pusher',
-            key: window.fabriqCms.pusher.key,
+            key: process.env.MIX_PUSHER_APP_KEY,
             wsHost: 'ws.ikoncept.io',
             wsPort: 6001,
             enabledTransports: ['ws', 'wss'],

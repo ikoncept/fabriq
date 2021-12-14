@@ -22,7 +22,7 @@ export default {
     },
     computed: {
         fallbackUrl () {
-            return `https://eu.ui-avatars.com/api/?background=e2d3bb&color=0b3b5b&name=${this.user.name}&format=svg&bold=false`
+            return encodeURIComponent(`https://eu.ui-avatars.com/api?name=${this.user.name}&format=svg&bold=true&background=e2d3bb&color=0b3b5b`)
         }
     }
 }
