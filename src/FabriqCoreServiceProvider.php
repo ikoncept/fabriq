@@ -91,6 +91,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/fabriq.php', 'fabriq');
         $this->mergeConfigFrom(__DIR__.'/../config/fortify.php', 'fortify');
 
+        $this->app->register(BroadcastServiceProvider::class);
         $this->app->register(EventServiceProvider::class);
         $this->app->register(TranslatableRevisionsServiceProvider::class);
         $this->app->register(CoreServiceProvider::class);
@@ -134,5 +135,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
             $cachingRepo = new CachingMenuRepository($baseRepo, $this->app->get('cache.store'));
             return $cachingRepo;
         });
+
+        $this->loadRoutesFrom(__DIR__.'/../routes/channels.php');
     }
 }

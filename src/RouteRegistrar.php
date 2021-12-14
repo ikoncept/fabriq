@@ -4,6 +4,7 @@ namespace Ikoncept\Fabriq;
 
 
 use Illuminate\Contracts\Routing\Registrar as Router;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 class RouteRegistrar
@@ -49,9 +50,6 @@ class RouteRegistrar
             return 'ok';
             return back()->with('message', 'Verification link sent!');
         })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-        // Route::get('login/infab',  [InfabAuthController::class, 'redirectToProvider']);
-        // Route::get('login/infab/callback', [InfabAuthController::class, 'handleProviderCallback']);
 
         Route::get('/', [\Ikoncept\Fabriq\Http\Controllers\SpaController::class, 'index'])->middleware('auth');
         Route::get('/{any}', [\Ikoncept\Fabriq\Http\Controllers\SpaController::class, 'index'])->where('any', '.*')->middleware('auth');

@@ -18,7 +18,10 @@
     <meta name="og:image" content="https://media.fabriq-cms.se/public/fabriq-og-image-1200.jpg">
     <script>
         window.fabriqCms = {
-            csrfToken: "{{ csrf_token() }}",
+            pusher: {
+                appId: "{{ config('broadcasting.connections.pusher.app_id') }}",
+                key: "{{ config('broadcasting.connections.pusher.key') }}"
+            },
             @if(Auth::check())
             userRoles: @json(auth()->user()->roles->pluck('name')),
             @endif
