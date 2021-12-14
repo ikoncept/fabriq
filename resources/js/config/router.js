@@ -30,11 +30,13 @@ function createRouter () {
 function afterEach (to, from) {
     store.commit('ui/CLOSE_MENU')
     const Echo = router.app.$echo
-    const id = from.params.id
-    const roomName = from.name
-    const identifier = roomName + '.' + id
-    const pusherAppId = window.fabriqCms.pusher.appId
-    Echo.leave(pusherAppId + '.presence.' + identifier)
+    if (Echo) {
+        const id = from.params.id
+        const roomName = from.name
+        const identifier = roomName + '.' + id
+        const pusherAppId = window.fabriqCms.pusher.appId
+        Echo.leave(pusherAppId + '.presence.' + identifier)
+    }
 }
 
 function beforeEach (to, from, next) {
