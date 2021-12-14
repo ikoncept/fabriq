@@ -25,6 +25,7 @@ import FTabs from '~/components/forms/tabs/FTabs'
 import UiLogo from '~/components/Logo'
 import CreateModal from '~/components/modals/CreateModal'
 import FTable from '~/components/table/FTable'
+import PresenceInfo from '~/components/ui/PresenceInfo'
 import UiAvatar from '~/components/ui/UiAvatar'
 import UiBadge from '~/components/ui/UiBadge'
 import UiCard from '~/components/ui/UiCard'
@@ -68,7 +69,8 @@ import UiStatsCard from '~/components/ui/UiStatsCard'
     FVideoInput,
     CreateModal,
     UiDashedBox,
-    UiAvatar
+    UiAvatar,
+    PresenceInfo
 ].forEach(Component => {
     Vue.component(Component.name, Component)
 })

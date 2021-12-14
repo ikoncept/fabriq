@@ -17,3 +17,8 @@ export const SET_FROM_ROUTE = 'SET_FROM_ROUTE'
 
 // Sidebar
 export const SET_SIDEBAR_ITEMS = 'SET_SIDEBAR_ITEMS'
+
+// Echo
+export const USER_JOINING = 'USER_JOINING'
+export const USER_LEAVING = 'USER_LEAVING'
+export const SET_USERS_HERE = 'SET_USERS_HERE'

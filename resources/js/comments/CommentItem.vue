@@ -6,8 +6,8 @@
         />
         <div class="relative flex items-start space-x-3">
             <div class="relative">
-                <UiAvatar :email="comment.user.data.email"
-                          class="flex items-center justify-center w-10 h-10 bg-gray-400 rounded-full ring-1 ring-gold-500"
+                <UiAvatar :user="comment.user.data"
+                          class="flex items-center justify-center w-10 h-10 bg-gray-400 rounded-full ring-1 ring-royal-500"
                 />
             </div>
             <div class="flex-1 min-w-0">

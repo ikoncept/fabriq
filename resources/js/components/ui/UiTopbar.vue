@@ -64,7 +64,7 @@
                             @click="showDropdown = ! showDropdown"
                         >
                             <span class="sr-only">Open user menu</span>
-                            <UiAvatar :email="user.email"
+                            <UiAvatar :user="user"
                                       class="w-8 h-8 rounded-lg"
                             />
                         </button>

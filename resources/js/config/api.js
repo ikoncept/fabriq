@@ -10,7 +10,7 @@ export default function setup (vm) {
 
     axios.interceptors.response.use(response => {
         return response
-    }, error => {
+    }, async error => {
         if (error.response) {
             const { status, data } = error.response
             if (status >= 500) {
@@ -34,6 +34,14 @@ export default function setup (vm) {
             }
             if (status === 403) {
                 vm.$toast.error({ title: 'Stopp!', message: 'Du saknar behörighet för att göra detta.' })
+            }
+            if (status === 419) {
+                // Refresh our session token
+                await axios.get('/csrf-token')
+
+                // Return a new request using the original request's configuration
+                console.log('getting new stuff')
+                return axios(error.response.config)
             }
         }
         return Promise.reject(error)

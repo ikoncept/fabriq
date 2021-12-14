@@ -1,23 +1,28 @@
 <template>
     <img
-        :src="`https://unavatar.now.sh/${email}?fallback=https://source.boringavatars.com/beam/120/${email}?colors=bd9b66,0b3b5b`"
-        :alt="`Profilbild för ${email}`"
+        class="rounded-full bg-royal-500 text-royal-500"
+        :src="`https://unavatar.now.sh/${user.email}?fallback=${fallbackUrl}`"
+        :alt="`Profilbild för ${user.name}`"
     >
 </template>
-<script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-
-})
-</script>
 <script>
 export default {
     name: 'UiAvatar',
     props: {
-        email: {
-            type: String,
-            default: '',
+        user: {
+            type: Object,
+            default: () => {
+                return {
+                    name: '',
+                    email: ''
+                }
+            },
             required: true
+        }
+    },
+    computed: {
+        fallbackUrl () {
+            return `https://eu.ui-avatars.com/api/?background=e2d3bb&color=0b3b5b&name=${this.user.name}&format=svg&bold=false`
         }
     }
 }

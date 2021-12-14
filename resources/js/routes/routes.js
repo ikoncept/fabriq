@@ -10,7 +10,8 @@ import Home from '~/Home'
 import ImagesIndex from '~/images/Index'
 import MenusEdit from '~/menus/Edit'
 import MenusIndex from '~/menus/Index'
-import roles from '~/middleware/roles-middleware'
+import PresenceMiddleware from '~/middleware/presence-middleware'
+import RolesMiddleware from '~/middleware/roles-middleware'
 import NotificationIndex from '~/notifications/Index'
 import PagesEdit from '~/pages/Edit'
 import PagesIndex from '~/pages/Index'
@@ -31,7 +32,7 @@ export default [
         name: 'home.index',
         component: Home,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['*', 'restaurant']
         }
     },
@@ -40,7 +41,7 @@ export default [
         name: 'profile.settings',
         component: ProfileSettings,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['*']
         }
     },
@@ -49,7 +50,7 @@ export default [
         name: 'dashboard.index',
         component: Dashboard,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -58,7 +59,7 @@ export default [
         name: 'pages.index',
         component: PagesIndex,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -67,7 +68,7 @@ export default [
         name: 'pages.edit',
         component: PagesEdit,
         meta: {
-            middleware: roles,
+            middleware: [RolesMiddleware, PresenceMiddleware],
             roles: ['admin'],
             commentable: true
         }
@@ -77,7 +78,7 @@ export default [
         name: 'users.index',
         component: UsersIndex,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -86,7 +87,7 @@ export default [
         name: 'users.edit',
         component: UsersEdit,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -95,7 +96,7 @@ export default [
         name: 'notifications.index',
         component: NotificationIndex,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -104,7 +105,7 @@ export default [
         name: 'menus.index',
         component: MenusIndex,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -113,7 +114,7 @@ export default [
         name: 'menus.edit',
         component: MenusEdit,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -122,7 +123,7 @@ export default [
         name: 'images.index',
         component: ImagesIndex,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -131,7 +132,7 @@ export default [
         name: 'articles.index',
         component: ArticlesIndex,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -140,7 +141,7 @@ export default [
         name: 'articles.edit',
         component: ArticlesEdit,
         meta: {
-            middleware: roles,
+            middleware: [RolesMiddleware, PresenceMiddleware],
             roles: ['admin']
         }
     },
@@ -149,7 +150,7 @@ export default [
         name: 'calendar.index',
         component: CalendarIndex,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -158,7 +159,7 @@ export default [
         name: 'contacts.index',
         component: ContactIndex,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -167,7 +168,7 @@ export default [
         name: 'contacts.edit',
         component: ContactEdit,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -176,7 +177,7 @@ export default [
         name: 'files.index',
         component: FilesIndex,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -185,7 +186,7 @@ export default [
         name: 'videos.index',
         component: VideosIndex,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -194,7 +195,7 @@ export default [
         name: 'smartBlocks.index',
         component: SmartBlocksIndex,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },
@@ -203,7 +204,7 @@ export default [
         name: 'smartBlocks.edit',
         component: SmartBlocksEdit,
         meta: {
-            middleware: roles,
+            middleware: RolesMiddleware,
             roles: ['admin']
         }
     },

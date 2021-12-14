@@ -38,6 +38,7 @@
 
 <script>
 import Dropzone from 'dropzone'
+import Cookies from 'js-cookie'
 export default {
     name: 'FUpload',
     props: {
@@ -150,9 +151,11 @@ export default {
                 clickable: this.buttonElement,
                 previewsContainer: false,
                 params: this.payload,
-                headers: {
-                    'X-CSRF-TOKEN': window.fabriqCms.csrfToken
-                }
+                withCredentials: true,
+                headers: { 'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN') }
+                // headers: {
+                // 'X-CSRF-TOKEN': window.fabriqCms.csrfToken
+                // }
             })
             this.UploadDropzone.on('addedfile', (file) => {
                 this.numUploads++

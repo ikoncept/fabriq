@@ -16,7 +16,7 @@
   background: theme('colors.royal.800');
   color: theme('colors.white');
   border-radius: 4px;
-  @apply px-2 py-1.5 text-sm;
+  @apply px-2 py-1.5 text-xs;
   /* padding: 5px 10px 4px; */
 }
 

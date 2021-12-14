@@ -23,7 +23,10 @@
         </UiSectionHeader>
         <UiCard v-if="article.id">
             <template #header>
-                Generell information
+                <div class="flex justify-between">
+                    <span>Generell information</span>
+                    <PresenceInfo />
+                </div>
             </template>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6">
                 <!-- <div class="col-span-3"> -->
@@ -124,7 +127,8 @@ export default {
             },
             queryParams: {
                 include: 'content,template,template.groupedFields'
-            }
+            },
+            usersIdle: []
         }
     },
     activated () {

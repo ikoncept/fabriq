@@ -37,11 +37,14 @@ specifiers:
   eslint-plugin-vue: ^7.4.1
   filesize: ^6.1.0
   imagemin-webpack-plugin: ^2.4.2
+  js-cookie: ^3.0.1
+  laravel-echo: ^1.11.3
   laravel-mix: ^6.0.10
   laravel-mix-bundle-analyzer: ^1.0.5
   laravel-mix-tailwind: ^0.1.1
   portal-vue: ^2.1.7
   postcss: ^8.1.8
+  pusher-js: ^7.0.3
   tailwindcss: ^2.1.0
   tippy.js: ^6.3.1
   v-calendar: ^2.2.0
@@ -85,7 +88,10 @@ dependencies:
   date-fns: 2.25.0
   dropzone: 5.9.3
   filesize: 6.4.0
+  js-cookie: 3.0.1
+  laravel-echo: 1.11.3
   portal-vue: 2.1.7_vue@2.6.14
+  pusher-js: 7.0.3
   tailwindcss: 2.2.17_fa866e6aa6eb85ed70431566fb699b34
   tippy.js: 6.3.2
   v-calendar: 2.3.4_vue@2.6.14
@@ -6244,6 +6250,11 @@ packages:
       logalot: 2.1.0
     dev: true
 
+  /js-cookie/3.0.1:
+    resolution: {integrity: sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==}
+    engines: {node: '>=12'}
+    dev: false
+
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -6350,6 +6361,11 @@ packages:
     resolution: {integrity: sha512-pJiBpiXMbt7dkzXe8Ghj/u4FfXOOa98fPW+bihOJ4SjnoijweJrNThJfd3ifXpXhREjpoF2mZVH1GfS9LV3kHQ==}
     engines: {node: '>= 8'}
     dev: true
+
+  /laravel-echo/1.11.3:
+    resolution: {integrity: sha512-VNTnnoF8gK29ovxslnrFDt3xgrKiKKW1kTnKKO1A4kYVj4UCKmNO4x2ehRlfg2UTrG/oggwk95p+S9ftQYjXdw==}
+    engines: {node: '>=10'}
+    dev: false
 
   /laravel-mix-bundle-analyzer/1.0.5_laravel-mix@6.0.34:
     resolution: {integrity: sha512-Oeq1mW6oDaZZhjs1Yga/xZpj5kfH2TonKbqzSPW5BJiI8WomvMBGUmq9yHzy/Zh2fw0R/133U9/hFANTTrgjfQ==}
@@ -8286,6 +8302,12 @@ packages:
       postcss-selector-parser: 6.0.6
     dev: false
 
+  /pusher-js/7.0.3:
+    resolution: {integrity: sha512-HIfCvt00CAqgO4W0BrdpPsDcAwy51rB6DN0VMC+JeVRRbo8mn3XTeUeIFjmmlRLZLX8rPhUtLRo7vPag6b8GCw==}
+    dependencies:
+      tweetnacl: 1.0.3
+    dev: false
+
   /q/1.5.1:
     resolution: {integrity: sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=}
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
@@ -9623,6 +9645,10 @@ packages:
     dependencies:
       safe-buffer: 5.2.1
     dev: true
+
+  /tweetnacl/1.0.3:
+    resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
+    dev: false
 
   /type-check/0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
