@@ -135,7 +135,5 @@ class FabriqCoreServiceProvider extends ServiceProvider
             $cachingRepo = new CachingMenuRepository($baseRepo, $this->app->get('cache.store'));
             return $cachingRepo;
         });
-
-        $this->loadRoutesFrom(__DIR__.'/../routes/channels.php');
     }
 }
