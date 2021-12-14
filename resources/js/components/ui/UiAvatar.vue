@@ -1,6 +1,6 @@
 <template>
     <img
-        class="rounded-full bg-royal-500 text-royal-500"
+        class="rounded-full"
         :src="`https://unavatar.now.sh/${user.email}?fallback=${fallbackUrl}`"
         :alt="`Profilbild för ${user.name}`"
     >
