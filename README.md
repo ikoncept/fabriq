@@ -167,6 +167,40 @@ $ php artisan vendor:publish --provider="Ikoncept\Fabriq\FabriqCoreServiceProvid
 
 **Note** _Above tags have been published when the `fabriq:install` was run_
 
+### Broadcasting 📢
+Fabriq leverages [laravel/echo](https://github.com/laravel/echo) as a front end dependency to communicate with a pusher server. This package is preconfigured to use Ikoncept's own websocket server, but a pusher implementation can be swapped in.
+
+To enable semi automatic prescense broadcasting go to the `/resources/js/plugins/index.js` and un-comment the the line for Laravel Echo:
+```js
+// import '~/plugins/laravel-echo'
+import '~/plugins/toast'
+import '~/plugins/v-calendar'
+import '~/plugins/v-mask'
+// ...
+```
+
+If the Laravel Echo plugin isn't imported it will not be enabled.
+
+Don't forget to add the proper `.env` variables:
+
+```
+PUSHER_APP_KEY=your-app-key
+PUSHER_APP_SECRET=the-secret-key
+```
+
+If you want to have a presence channel for a specific page, simply add it to the route:
+```js
+    {
+        path: '/articles/:id/edit',
+        name: 'articles.edit',
+        component: ArticlesEdit,
+        meta: {
+            middleware: [RolesMiddleware, PresenceMiddleware], // <- Added here (PresenceMiddleware)
+            roles: ['admin']
+        }
+    },
+```
+
 ### Done? 🎉
 That should be it, serve the app and login at `/login`
 
