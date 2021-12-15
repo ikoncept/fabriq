@@ -26,6 +26,10 @@ class FlushTagCacheListener
     {
         $tagsToFlush = $event->model->getRevisionOptions()->cacheTagsToFlush;
 
+        if(!$tagsToFlush) {
+            return;
+        }
+
         Cache::tags($tagsToFlush)->flush();
     }
 }
