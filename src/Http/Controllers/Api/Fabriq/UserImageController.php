@@ -34,7 +34,7 @@ class UserImageController extends Controller
         return $this->respondWithItem($request->user(), new UserTransformer);
     }
 
-    public function delete(Request $request)
+    public function destroy(Request $request) : JsonResponse
     {
         $user = $request->user();
         $user->image->delete();
