@@ -45,9 +45,11 @@
                     </FLabel>
 
                     <div class="flex items-center">
-                        <FUpload v-model="localUser.image_id"
+
+                        <FUpload :ref="fileUploadRef"
                                  endpoint="/api/user/image"
-                                 button-text="Välj profilbild"
+                                 :button-text="imageUrl ? 'Byt profilbild' : 'Välj profilbild'"
+                                 types="image/*"
                                  class="flex-col w-auto"
                                  upload-name="image"
                                  without-loader
@@ -55,13 +57,13 @@
                                  @upload-complete="userImageSaved()"
                         />
 
-                        <img v-if="localUser.image.data.thumb_src"
-                             :src="localUser.image.data.thumb_src"
+                        <img v-if="imageUrl"
+                             :src="imageUrl"
                              alt=""
                              class="inline-block rounded-lg h-9 w-9 ml-4 border"
                         >
 
-                        <button v-if="localUser.image.data.thumb_src"
+                        <button v-if="imageUrl"
                                 class="mt-auto leading-none fabriq-btn btn-link ml-2 text-xs"
                                 @click="deleteUserImage()"
                         >
@@ -104,7 +106,9 @@ import FButton from '~/components/forms/FButton'
 
 export default {
     name: 'ProfileSettings',
+
     components: { FButton, FLabel, FUpload },
+
     data () {
         return {
             localUser: {
@@ -116,12 +120,16 @@ export default {
                 password: '',
                 password_confirmation: '',
                 current_password: ''
-            }
+            },
+            fileUploadRef: 'file-upload'
         }
     },
     computed: {
         user () {
             return this.$store.getters['user/user']
+        },
+        imageUrl () {
+            return this.localUser.image.data.thumb_src
         }
     },
     activated () {
@@ -164,6 +172,8 @@ export default {
             this.fetchUser().then(() => {
                 this.$toast.success({ title: 'Profilbild uppdaterad' })
             })
+
+            this.$refs[this.fileUploadRef].UploadDropzone.removeAllFiles()
         }
     }
 }
