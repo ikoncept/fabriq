@@ -109,6 +109,11 @@ export default {
 
     components: { FButton, FLabel, FUpload },
 
+    beforeRouteLeave (from, to, next) {
+        this.$destroy()
+        next()
+    },
+
     data () {
         return {
             localUser: {
