@@ -5,3 +5,4 @@ composer.lock
 .phpunit.result.cache
 tests/_output
 node_modules
+.idea

@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-center w-full">
         <Transition name="fade">
-            <div v-show="isUploading"
+            <div v-show="isUploading && ! withoutLoader"
                  class="flex items-center text-sm"
             >
                 <div>
@@ -29,7 +29,7 @@
                 <button
                     class="px-6 leading-none py-2.5 text-sm font-semibold fabriq-btn btn-royal"
                 >
-                    Ladda upp
+                    {{ buttonText }}
                 </button>
             </slot>
         </div>
@@ -78,6 +78,10 @@ export default {
             type: Boolean,
             default: false
         },
+        withoutLoader: {
+            type: Boolean,
+            default: false
+        },
         dropRef: {
             type: String,
             default: ''
@@ -85,6 +89,10 @@ export default {
         buttonRef: {
             type: String,
             default: ''
+        },
+        buttonText: {
+            type: String,
+            default: 'Ladda upp'
         }
     },
     data () {

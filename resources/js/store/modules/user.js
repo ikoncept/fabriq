@@ -9,6 +9,9 @@ export const state = {
         created_at: '',
         updated_at: '',
         role_list: [],
+        image: {
+            data: {}
+        },
         timezone: 'Europe/Stockholm'
     },
     notifications: []

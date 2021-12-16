@@ -6,6 +6,7 @@ use Ikoncept\Fabriq\Database\Factories\ImageFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
@@ -59,6 +60,12 @@ class Image extends Model implements HasMedia
         }
     }
 
+    public function mediaImages(): MorphMany
+    {
+        return $this->morphMany(config('media-library.media_model'), 'model')
+            ->where('collection_name', 'images');
+    }
+
     /**
      * Search for an image
      *
@@ -92,16 +99,16 @@ class Image extends Model implements HasMedia
         }
     }
 
-    public function saveMedia(bool $fromUrl = false) : void
+    public function saveMedia(bool $fromUrl = false, string $collection = 'images') : void
     {
         if($fromUrl) {
             $this->addMediaFromUrl(request()->url)
                 ->withResponsiveImages()
-                ->toMediaCollection('images');
+                ->toMediaCollection($collection);
             return;
         }
         $this->addMediaFromRequest('image')
             ->withResponsiveImages()
-            ->toMediaCollection('images');
+            ->toMediaCollection($collection);
     }
 }

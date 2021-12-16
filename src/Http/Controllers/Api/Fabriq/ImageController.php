@@ -38,6 +38,7 @@ class ImageController extends ApiController
             ->allowedFilters([
                 AllowedFilter::scope('search')
             ])
+            ->has('mediaImages')
             ->with($eagerLoad)
             ->paginate($this->number);
 

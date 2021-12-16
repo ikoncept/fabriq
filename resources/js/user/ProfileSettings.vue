@@ -38,38 +38,36 @@
                             rules="required|email"
                     />
                 </div>
-                <div v-if="localUser.email_verified_at"
-                     class="col-span-4"
-                >
+                <div class="col-span-4 flex flex-col justify-center">
+
                     <FLabel>
-                        <div>
-                            E-postadressen är bekräftad
-                        </div>
+                        Ändra profilbild
                     </FLabel>
+
                     <div class="flex items-center">
-                        <CheckIcon thin
-                                   class="w-6 h-6 mr-2"
+                        <FUpload v-model="localUser.image_id"
+                                 endpoint="/api/user/image"
+                                 button-text="Välj profilbild"
+                                 class="flex-col w-auto"
+                                 upload-name="image"
+                                 without-loader
+                                 :max-items="1"
+                                 @upload-complete="userImageSaved()"
                         />
-                        <div class="text-sm text-gray-400">
-                            {{ localUser.email_verified_at | localTime }}
-                        </div>
+
+                        <img v-if="localUser.image.data.thumb_src"
+                             :src="localUser.image.data.thumb_src"
+                             alt=""
+                             class="inline-block rounded-lg h-9 w-9 ml-4 border"
+                        >
+
+                        <button v-if="localUser.image.data.thumb_src"
+                                class="mt-auto leading-none fabriq-btn btn-link ml-2 text-xs"
+                                @click="deleteUserImage()"
+                        >
+                            Ta bort
+                        </button>
                     </div>
-                </div>
-                <div v-else
-                     class="col-span-4"
-                >
-                    <FLabel>
-                        <div>
-                            <div class="flex items-center">
-                                E-postadressen är inte verifierad
-                            </div>
-                        </div>
-                    </FLabel>
-                    <FButton class="py-2.5 px-6 fabriq-btn btn-royal"
-                             :click="sendVerificationRequest"
-                    >
-                        Skicka verifieringsförfrågan
-                    </FButton>
                 </div>
                 <hr class="w-full h-px col-span-12">
                 <h3 class="col-span-12 text-lg text-gray-500">
@@ -100,12 +98,20 @@
 </template>
 <script>
 import AuthenticatedUser from '~/models/AuthenticatedUser'
+import FUpload from '~/components/forms/FUpload'
+import FLabel from '~/components/forms/FLabel'
+import FButton from '~/components/forms/FButton'
 
 export default {
     name: 'ProfileSettings',
+    components: { FButton, FLabel, FUpload },
     data () {
         return {
-            localUser: {},
+            localUser: {
+                image: {
+                    data: {}
+                }
+            },
             passwordFields: {
                 password: '',
                 password_confirmation: '',
@@ -126,6 +132,7 @@ export default {
             try {
                 const { data } = await AuthenticatedUser.index()
                 this.localUser = data
+                this.$store.commit('user/SET_USER', this.localUser)
             } catch (error) {
                 console.error(error)
             }
@@ -146,6 +153,17 @@ export default {
             } catch (error) {
                 console.error(error)
             }
+        },
+        async deleteUserImage () {
+            await AuthenticatedUser.deleteImage()
+            this.fetchUser().then(() => {
+                this.$toast.success({ title: 'Profilbild borttagen' })
+            })
+        },
+        userImageSaved () {
+            this.fetchUser().then(() => {
+                this.$toast.success({ title: 'Profilbild uppdaterad' })
+            })
         }
     }
 }
