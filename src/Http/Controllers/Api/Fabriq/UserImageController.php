@@ -40,5 +40,6 @@ class UserImageController extends Controller
         $user->image->delete();
         $user->image_id = null;
         $user->save();
+        $this->respondWithSuccess('Image was deleted successfully');
     }
 }
