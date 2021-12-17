@@ -18,7 +18,7 @@ class UserImageFeatureTest extends AdminUserTestCase
         $route = route('user.image.store');
 
         $response = $this->json('POST', $route, [
-            'image' => UploadedFile::fake()->image('new-image.png', 230, 120)->size(300)
+            'image' => UploadedFile::fake()->image('new-image.png', 230, 120)->size(100)
         ]);
 
         $response->assertSuccessful();
