@@ -166,6 +166,6 @@ class Article extends Model
     {
         $prefix = config('broadcasting.connections.pusher.key');
 
-        return [new Channel($prefix.'-article'), new Channel('article.' . $this->id)];
+        return [new Channel($prefix.'-article'), new Channel($prefix. '-article.' . $this->id)];
     }
 }

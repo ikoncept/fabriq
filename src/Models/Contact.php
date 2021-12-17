@@ -142,6 +142,6 @@ class Contact extends Model
     {
         $prefix = config('broadcasting.connections.pusher.key');
 
-        return [new Channel($prefix.'-contact'), new Channel('contact.' . $this->id)];
+        return [new Channel($prefix.'-contact'), new Channel($prefix. '-contact.' . $this->id)];
     }
 }
