@@ -18,8 +18,8 @@
                     <FConfirmDropdown confirm-question="Vill du ta bort bilden?"
                                       @confirmed="deleteVideo"
                     >
-                        <TrashIcon thin
-                                   class="w-6 h-6 mt-1 text-gray-800 transition-colors duration-150 hover:text-red-500"
+                        <TrashIcon class="w-6 h-6 mt-1 text-gray-800 transition-colors duration-150 hover:text-red-500"
+                                   thin
                         />
                     </FConfirmDropdown>
                 </button>
@@ -120,7 +120,6 @@ export default {
             type: Object,
             default: () => {}
         }
-
     },
     data () {
         return {

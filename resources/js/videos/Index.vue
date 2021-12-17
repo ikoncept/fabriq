@@ -270,7 +270,6 @@ export default {
         this.uploadInit = true
         this.$eventBus.$on('video-updated', this.fetchVideos)
     },
-
     methods: {
         resetSearch () {
             this.search = ''
