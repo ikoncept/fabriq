@@ -237,6 +237,9 @@ export default {
 
 This mixin contains an event listener for the event above (`model-refresh`) and informs the parent component to fetch new data.
 
+### Updating ♻️
+You can publish new front end assets with the `php artisan fabriq:update` command. This command will publish new front end assets and run migrations.
+
 ### Done? 🎉
 That should be it, serve the app and login at `/login`
 

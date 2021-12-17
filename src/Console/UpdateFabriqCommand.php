@@ -6,21 +6,21 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Artisan;
 
-class InstallFabriqCommand extends Command
+class UpdateFabriqCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'fabriq:install';
+    protected $signature = 'fabriq:update';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Installs Fabriq CMS into the Laravel project';
+    protected $description = 'Updates Fabriq CMS';
 
     /**
      * Create a new command instance.
@@ -39,10 +39,21 @@ class InstallFabriqCommand extends Command
      */
     public function handle()
     {
-        $this->info('Installing front end assets');
+        $this->info('Updating front end assets');
+        $this->info('Checking if working directory is clean');
+        $result = exec('git status --short');
+
+        if(!! $result) {
+            $answer = $this->ask('Working directory not clean, continue anyways?', 'yes', ['yes', 'no']);
+            if($answer == 'no') {
+                $this->info('Okay, exiting');
+                return 0;
+            }
+        }
+
         $this->call('vendor:publish', [
             '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
-            '--tag' => 'fabriq-frontend-install-assets',
+            '--tag' => 'fabriq-frontend-assets',
             '--force' => true
         ]);
 
@@ -54,33 +65,11 @@ class InstallFabriqCommand extends Command
 
         $this->info('Front end assets has been installed');
 
-        $this->info('Installing translations');
-        $this->call('vendor:publish', [
-            '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
-            '--tag' => 'fabriq-translations',
-        ]);
-
-        $this->info('Translations has been installed');
-
         $this->info('Migrating...');
         $this->call('migrate');
 
-        $this->info('Creating page root');
 
-        if (config('app.env') != 'testing') {
-            $this->call('fabriq:create-page-root', [
-                '--silent' => true
-            ]);
-            $answer = $this->ask('Do you want to create a new user?', 'yes');
-
-            if($answer === 'yes') {
-                $this->call('make:user');
-                $this->call('fabriq:add-role-to-user');
-            }
-        }
-
-
-        $this->info('Fabriq has been installed');
+        $this->info('Fabriq has been updated');
 
         return 0;
     }
