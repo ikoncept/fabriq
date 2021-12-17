@@ -29,7 +29,7 @@
                 <button
                     class="px-6 leading-none py-2.5 text-sm font-semibold fabriq-btn btn-royal"
                 >
-                    {{ buttonText }}
+                    Ladda upp
                 </button>
             </slot>
         </div>
@@ -89,10 +89,6 @@ export default {
         buttonRef: {
             type: String,
             default: ''
-        },
-        buttonText: {
-            type: String,
-            default: 'Ladda upp'
         }
     },
     data () {

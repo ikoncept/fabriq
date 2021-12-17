@@ -14,7 +14,7 @@ class AddImageIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('image_id')->nullable()->after('password');
+            $table->unsignedBigInteger('image_id')->nullable()->after('email');
         });
     }
 

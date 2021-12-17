@@ -38,33 +38,35 @@
                             rules="required|email"
                     />
                 </div>
-                <div class="col-span-4 flex flex-col justify-center">
-
+                <div class="flex flex-col justify-center col-span-4">
                     <FLabel>
                         Ändra profilbild
                     </FLabel>
 
                     <div class="flex items-center">
-
                         <FUpload :ref="fileUploadRef"
                                  endpoint="/api/user/image"
-                                 :button-text="imageUrl ? 'Byt profilbild' : 'Välj profilbild'"
                                  types="image/*"
                                  class="flex-col w-auto"
                                  upload-name="image"
                                  without-loader
                                  :max-items="1"
                                  @upload-complete="userImageSaved()"
-                        />
+                        >
+                            <button
+                                class="px-6 leading-none py-2.5 text-sm font-semibold fabriq-btn btn-royal"
+                                v-text="imageUrl ? 'Byt profilbild' : 'Välj profilbild'"
+                            />
+                        </FUpload>
 
                         <img v-if="imageUrl"
                              :src="imageUrl"
                              alt=""
-                             class="inline-block rounded-lg h-9 w-9 ml-4 border"
+                             class="inline-block ml-4 border rounded-lg h-9 w-9"
                         >
 
                         <button v-if="imageUrl"
-                                class="mt-auto leading-none fabriq-btn btn-link ml-2 text-xs"
+                                class="mt-auto ml-2 text-xs leading-none fabriq-btn btn-link"
                                 @click="deleteUserImage()"
                         >
                             Ta bort
