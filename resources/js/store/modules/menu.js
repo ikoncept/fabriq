@@ -1,4 +1,4 @@
-import SidebarItems from '~/config/sidebar-items'
+import SidebarItems from '~/routes/sidebar-items'
 import * as types from '~/store/mutation-types'
 
 export const state = {

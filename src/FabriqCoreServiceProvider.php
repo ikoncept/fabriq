@@ -13,6 +13,7 @@ use Ikoncept\Fabriq\Console\PublishNotification;
 use Ikoncept\Fabriq\Console\ResourceMakeCommand;
 use Ikoncept\Fabriq\Console\SendNotificationReminders;
 use Ikoncept\Fabriq\Console\TransformerMakeCommand;
+use Ikoncept\Fabriq\Console\UpdateFabriqCommand;
 use Ikoncept\Fabriq\Console\VueApiModelMakeCommand;
 use Ikoncept\Fabriq\Console\VueEditTemplateMakeCommand;
 use Ikoncept\Fabriq\Console\VueIndexTemplateMakeCommand;
@@ -29,6 +30,7 @@ use League\Fractal\Manager;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
 use Spatie\QueryBuilder\QueryBuilderServiceProvider;
+use Illuminate\Support\Str;
 
 class FabriqCoreServiceProvider extends ServiceProvider
 {
@@ -40,6 +42,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
+
             $this->publishes([
                 __DIR__.'/../config/fabriq.php' => config_path('fabriq.php'),
             ], 'config');
@@ -58,20 +61,11 @@ class FabriqCoreServiceProvider extends ServiceProvider
                 __DIR__.'/../stubs' => base_path('stubs'),
             ], 'fabriq-stubs');
 
-            $this->publishes([
-                __DIR__.'/../resources/js' => resource_path('js'),
-                __DIR__.'/../resources/images' => resource_path('images'),
-                __DIR__.'/../resources/css' => resource_path('css'),
-                __DIR__.'/../tailwind.config.js' => 'tailwind.config.js',
-                __DIR__.'/../webpack.mix.js' => 'webpack.mix.js',
-                __DIR__.'/../package.json' => 'package.json',
-                __DIR__.'/../jsconfig.json' => 'jsconfig.json',
-                __DIR__.'/../.eslintrc' => '.eslintrc',
-                __DIR__.'/../.babelrc' => '.babelrc',
-                __DIR__.'/../.styleci.yml' => '.styleci.yml',
-                __DIR__.'/../pnpm-lock.yaml' => 'pnpm-lock.yaml',
-                __DIR__.'/../.npmrc' => '.npmrc',
-            ], 'fabriq-frontend-assets');
+            // Used for updates, exludes user routes files
+            $this->publishes($this->updatePaths(), 'fabriq-frontend-assets');
+
+            // Used for fresh installs
+            $this->publishes($this->installPaths(), 'fabriq-frontend-install-assets');
 
             $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views'),
@@ -121,7 +115,8 @@ class FabriqCoreServiceProvider extends ServiceProvider
             VueEditTemplateMakeCommand::class,
             VueIndexTemplateMakeCommand::class,
             VueResourceMakeCommand::class,
-            MakeUser::class
+            MakeUser::class,
+            UpdateFabriqCommand::class
         ]);
 
         $this->app->singleton(PageRepositoryInterface::class, function () {
@@ -135,5 +130,57 @@ class FabriqCoreServiceProvider extends ServiceProvider
             $cachingRepo = new CachingMenuRepository($baseRepo, $this->app->get('cache.store'));
             return $cachingRepo;
         });
+    }
+
+    protected function updatePaths() : array
+    {
+        list($updatePaths, $installPaths) = $this->resourceDirectories();
+
+        $merged = array_merge($updatePaths->toArray(), [
+            __DIR__.'/../resources/js/routes/fabriq-routes.js' => resource_path('js/routes/fabriq-routes.js'),
+            __DIR__.'/../resources/js/routes/router.js' => resource_path('js/routes/router.js')
+        ]);
+
+        return  array_merge($merged, $this->standardPaths());
+    }
+
+    protected function installPaths() : array
+    {
+        list($updatePaths, $installPaths) = $this->resourceDirectories();
+
+        $merged = array_merge($updatePaths->toArray(), $installPaths->toArray());
+        return array_merge($merged, $this->standardPaths());
+    }
+
+    protected function resourceDirectories() : array
+    {
+        $resourceDirectories = glob(__DIR__.'/../resources/js/*');
+
+        list($updateFolders, $installFolders) = collect($resourceDirectories)->mapWithKeys(function($item) {
+                $path = pathinfo((string)$item, PATHINFO_BASENAME);
+
+                return [__DIR__.'/../resources/js/' . $path => resource_path('js/' . $path)];
+            })
+            ->partition(function($item, $key) {
+                return ! Str::contains((string) $key, 'routes');
+            });
+        return [$updateFolders, $installFolders];
+    }
+
+    protected function standardPaths() : array
+    {
+       return [
+            __DIR__.'/../resources/images' => resource_path('images'),
+            __DIR__.'/../resources/css' => resource_path('css'),
+            __DIR__.'/../tailwind.config.js' => 'tailwind.config.js',
+            __DIR__.'/../webpack.mix.js' => 'webpack.mix.js',
+            __DIR__.'/../package.json' => 'package.json',
+            __DIR__.'/../jsconfig.json' => 'jsconfig.json',
+            __DIR__.'/../.eslintrc' => '.eslintrc',
+            __DIR__.'/../.babelrc' => '.babelrc',
+            __DIR__.'/../.styleci.yml' => '.styleci.yml',
+            __DIR__.'/../pnpm-lock.yaml' => 'pnpm-lock.yaml',
+            __DIR__.'/../.npmrc' => '.npmrc',
+       ];
     }
 }

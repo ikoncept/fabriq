@@ -115,6 +115,7 @@ class RouteRegistrar
     {
         $this->forPageSlugs();
         $this->forImageSrcSet();
+        Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
     }
 
     public function forDevProtected()

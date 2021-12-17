@@ -6,6 +6,8 @@ use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Carbon\Carbon;
 use Ikoncept\Fabriq\Database\Factories\ArticleFactory;
 use Ikoncept\Fabriq\Fabriq;
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +18,7 @@ use Infab\TranslatableRevisions\Traits\RevisionOptions;
 
 class Article extends Model
 {
-    use HasFactory, HasTranslatedRevisions;
+    use HasFactory, HasTranslatedRevisions, BroadcastsEvents;
 
     const RELATIONSHIPS = ['template', 'template.fields', 'slugs'];
 
@@ -152,5 +154,18 @@ class Article extends Model
                     ->orWhereNull('unpublishes_at');
             })
             ->orderBy('publishes_at', 'DESC');
+    }
+
+    /**
+     * Get the channels that model events should broadcast on.
+     *
+     * @param  string  $event
+     * @return \Illuminate\Broadcasting\Channel|array
+     */
+    public function broadcastOn($event)
+    {
+        $prefix = config('broadcasting.connections.pusher.key');
+
+        return [new Channel($prefix.'-article'), new Channel('article.' . $this->id)];
     }
 }
