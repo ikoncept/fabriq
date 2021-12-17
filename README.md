@@ -196,10 +196,46 @@ If you want to have a presence channel for a specific page, simply add it to the
         component: ArticlesEdit,
         meta: {
             middleware: [RolesMiddleware, PresenceMiddleware], // <- Added here (PresenceMiddleware)
-            roles: ['admin']
+            roles: ['admin'],
         }
     },
 ```
+
+If you want to have a broadcast channel for a specific page, simply add it to the route:
+```js
+    {
+        path: '/articles/:id/edit',
+        name: 'articles.edit',
+        component: ArticlesEdit,
+        meta: {
+            middleware: [RolesMiddleware, BroadcastMiddleware], // <- Added here (PresenceMiddleware)
+            roles: ['admin'],
+            broadcastName: 'article'
+        }
+    },
+```
+When the broadcast middleware is applied it will listen to `updated`, `created` and `deleted` events. Which is useful for index views when live updates are needed.
+
+It will also listen to `updated` events for specific items, such as an article with the id of 1 and then emit an event.
+
+```js
+Echo.channel(`${broadcastName}.${to.params.id}`)
+    .listen(`.${capitializedBroadcastName}Updated`, event => {
+        // Emit refresh
+        router.app.$eventBus.$emit('model-refresh', to.path)
+    })
+```
+
+If using the BroadcastMiddleware the BroadcastMixin can be used:
+```javascript
+import BroadcastMixin from '~/mixins/BroadcastMixin'
+
+export default {
+    mixins: [BroadcastMixin]
+}
+```
+
+This mixin contains an event listener for the event above (`model-refresh`) and informs the parent component to fetch new data.
 
 ### Done? 🎉
 That should be it, serve the app and login at `/login`

@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\Broadcast;
 | used to check if an authenticated user can listen to the channel.
 |
 */
+Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+});
 
-Broadcast::channel(config('broadcasting.connections.pusher.app_id') . '.presence.*.*.*', function ($user) {
-    return ['id' => $user->id, 'name' => $user->name, 'email' => $user->email];
+Broadcast::channel(config('broadcasting.connections.pusher.key') . '.presence.*.*.*', function ($user) {
+    return ['id' => $user->id, 'name' => $user->name, 'email' => $user->email, 'timestamp' => round(microtime(true) * 1000)];
 });

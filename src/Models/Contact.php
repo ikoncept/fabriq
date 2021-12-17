@@ -5,6 +5,8 @@ namespace Ikoncept\Fabriq\Models;
 use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Ikoncept\Fabriq\Database\Factories\ContactFactory;
 use Ikoncept\Fabriq\Fabriq;
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +17,7 @@ use Spatie\Tags\HasTags;
 
 class Contact extends Model
 {
-    use HasFactory, HasTranslatedRevisions, HasTags;
+    use HasFactory, HasTranslatedRevisions, HasTags, BroadcastsEvents;
 
     const RELATIONSHIPS = ['images', 'tags'];
 
@@ -130,5 +132,16 @@ class Contact extends Model
         return $this->getImages($meta);
     }
 
+    /**
+     * Get the channels that model events should broadcast on.
+     *
+     * @param  string  $event
+     * @return \Illuminate\Broadcasting\Channel|array
+     */
+    public function broadcastOn($event)
+    {
+        $prefix = config('broadcasting.connections.pusher.key');
 
+        return [new Channel($prefix.'-contact'), new Channel('contact.' . $this->id)];
+    }
 }
