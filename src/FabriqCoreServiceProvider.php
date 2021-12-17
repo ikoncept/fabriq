@@ -157,12 +157,12 @@ class FabriqCoreServiceProvider extends ServiceProvider
         $resourceDirectories = glob(__DIR__.'/../resources/js/*');
 
         list($updateFolders, $installFolders) = collect($resourceDirectories)->mapWithKeys(function($item) {
-                $path = pathinfo($item, PATHINFO_BASENAME);
+                $path = pathinfo((string)$item, PATHINFO_BASENAME);
 
                 return [__DIR__.'/../resources/js/' . $path => resource_path('js/' . $path)];
             })
             ->partition(function($item, $key) {
-                return ! Str::contains($key, 'routes');
+                return ! Str::contains((string) $key, 'routes');
             });
         return [$updateFolders, $installFolders];
     }
