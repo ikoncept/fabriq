@@ -142,6 +142,25 @@ class ImageFeatureTest extends AdminUserTestCase
     }
 
     /** @test **/
+    public function it_will_get_only_the_correct_image_collection()
+    {
+        // Arrange
+        \Ikoncept\Fabriq\Models\Image::factory()->count(2)->create();
+        $images = \Ikoncept\Fabriq\Models\Image::factory()->count(2)->make();
+        $images->each(function (\Ikoncept\Fabriq\Models\Image $image) {
+            $image->addMediaFromString('A nice media')
+                ->toMediaCollection('profile_image');
+            $image->save();
+        });
+
+        // Act
+        $response = $this->json('GET', '/images');
+
+        // Assert
+        $response->assertJsonCount(2, 'data');
+    }
+
+    /** @test **/
     public function it_can_sort_an_index_of_images()
     {
         // Arrange

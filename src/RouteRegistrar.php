@@ -247,8 +247,8 @@ class RouteRegistrar
     {
         Route::get('user', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AuthenticatedUserController::class, 'index']);
         Route::patch('user', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AuthenticatedUserController::class, 'update']);
-        Route::post('user/image', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\UserImageController::class, 'store']);
-        Route::delete('user/image', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\UserImageController::class, 'destroy']);
+        Route::post('user/image', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\UserImageController::class, 'store'])->name('user.image.store');
+        Route::delete('user/image', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\UserImageController::class, 'destroy'])->name('user.image.destroy');
         Route::patch('user/self', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AuthenticatedUserController::class, 'update']);
         Route::post('user/send-email-verification', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\EmailVerificationController::class, 'store']);
     }
