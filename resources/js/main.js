@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import axiosSetup from '~/config/api'
 
-import router from '~/config/router'
+import router from '~/routes/router'
 import store from '~/store'
 
 import App from '~/App'

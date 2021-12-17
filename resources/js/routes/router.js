@@ -6,7 +6,6 @@ import * as types from '~/store/mutation-types'
 
 Vue.use(VueRouter)
 const router = createRouter()
-const vm = Vue
 
 export default router
 
