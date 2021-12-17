@@ -1,7 +1,5 @@
 import { mergeAttributes, Node } from '@tiptap/core'
 
-const inputRegex = /!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\)/
-
 export default Node.create({
     name: 'iframe',
 
