@@ -7,6 +7,7 @@ use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -108,6 +109,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Fabriq::getFqnModel('notification'))
             ->whereNull('cleared_at')
             ->whereNull('notified_at');
+    }
+
+    public function image(): BelongsTo
+    {
+        return $this->belongsTo(Image::class);
     }
 
     /**

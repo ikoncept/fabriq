@@ -1,7 +1,7 @@
 <template>
     <img
         class="rounded-full"
-        :src="`https://unavatar.now.sh/${user.email}?fallback=${fallbackUrl}`"
+        :src="src"
         :alt="`Profilbild för ${user.name}`"
     >
 </template>
@@ -14,7 +14,10 @@ export default {
             default: () => {
                 return {
                     name: '',
-                    email: ''
+                    email: '',
+                    image: {
+                        data: {}
+                    }
                 }
             },
             required: true
@@ -23,6 +26,10 @@ export default {
     computed: {
         fallbackUrl () {
             return encodeURIComponent(`https://eu.ui-avatars.com/api?name=${this.user.name}&format=svg&bold=true&background=e2d3bb&color=0b3b5b`)
+        },
+
+        src () {
+            return this.user.image.data.thumb_src ?? `https://unavatar.now.sh/${this.user.email}?fallback=${this.fallbackUrl}`
         }
     }
 }

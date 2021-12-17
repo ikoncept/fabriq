@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-center w-full">
         <Transition name="fade">
-            <div v-show="isUploading"
+            <div v-show="isUploading && ! withoutLoader"
                  class="flex items-center text-sm"
             >
                 <div>
@@ -75,6 +75,10 @@ export default {
             }
         },
         withoutButton: {
+            type: Boolean,
+            default: false
+        },
+        withoutLoader: {
             type: Boolean,
             default: false
         },
@@ -160,6 +164,7 @@ export default {
             this.UploadDropzone.on('addedfile', (file) => {
                 this.numUploads++
                 this.isUploading = true
+                this.$emit('added-file')
             })
             this.UploadDropzone.on('totaluploadprogress', (progress) => {
                 this.progress = progress
@@ -177,6 +182,8 @@ export default {
             })
             this.UploadDropzone.on('error', (file, errorMessage) => {
                 this.$toast.warning({ title: 'Kunde inte ladda upp filen', message: errorMessage })
+                this.$emit('error', errorMessage)
+                this.UploadDropzone.removeAllFiles()
                 console.error(file, errorMessage)
             })
             this.UploadDropzone.on('success', (file, response) => {
