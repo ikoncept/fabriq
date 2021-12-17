@@ -51,6 +51,8 @@
                                  upload-name="image"
                                  without-loader
                                  :max-items="1"
+                                 @error="handleImageUploadError($event)"
+                                 @added-file="imageUploadError = null"
                                  @upload-complete="userImageSaved()"
                         >
                             <button
@@ -72,6 +74,13 @@
                             Ta bort
                         </button>
                     </div>
+
+                    <span v-if="imageUploadError" class="font-sans text-xs text-red-500">
+                        <span class="inline-flex items-center mt-2 leading-none">
+                            <CircleExclamationIcon class="w-5 h-5 mr-2" />
+                            {{ imageUploadError }}
+                        </span>
+                    </span>
                 </div>
                 <hr class="w-full h-px col-span-12">
                 <h3 class="col-span-12 text-lg text-gray-500">
@@ -105,11 +114,12 @@ import AuthenticatedUser from '~/models/AuthenticatedUser'
 import FUpload from '~/components/forms/FUpload'
 import FLabel from '~/components/forms/FLabel'
 import FButton from '~/components/forms/FButton'
+import CircleExclamationIcon from "~/icons/CircleExclamationIcon";
 
 export default {
     name: 'ProfileSettings',
 
-    components: { FButton, FLabel, FUpload },
+    components: {CircleExclamationIcon, FButton, FLabel, FUpload },
 
     beforeRouteLeave (from, to, next) {
         this.$destroy()
@@ -128,7 +138,8 @@ export default {
                 password_confirmation: '',
                 current_password: ''
             },
-            fileUploadRef: 'file-upload'
+            fileUploadRef: 'file-upload',
+            imageUploadError: null
         }
     },
     computed: {
@@ -143,6 +154,9 @@ export default {
         this.fetchUser()
     },
     methods: {
+        handleImageUploadError (event) {
+            this.imageUploadError = event.errors.image[0]
+        },
         async fetchUser () {
             try {
                 const { data } = await AuthenticatedUser.index()

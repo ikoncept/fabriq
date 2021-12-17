@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Http\Controllers\Controller;
+use Ikoncept\Fabriq\Http\Requests\CreateUserImageRequest;
 use Ikoncept\Fabriq\Models\Image;
 use Ikoncept\Fabriq\Transformers\UserTransformer;
 use Illuminate\Http\JsonResponse;
@@ -13,7 +14,7 @@ class UserImageController extends Controller
 {
     use ApiControllerTrait;
 
-    public function store(Request $request) : JsonResponse
+    public function store(CreateUserImageRequest $request) : JsonResponse
     {
         $image = new Image();
         $image->save();
