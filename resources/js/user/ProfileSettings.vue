@@ -75,7 +75,9 @@
                         </button>
                     </div>
 
-                    <span v-if="imageUploadError" class="font-sans text-xs text-red-500">
+                    <span v-if="imageUploadError"
+                          class="font-sans text-xs text-red-500"
+                    >
                         <span class="inline-flex items-center mt-2 leading-none">
                             <CircleExclamationIcon class="w-5 h-5 mr-2" />
                             {{ imageUploadError }}
@@ -111,16 +113,9 @@
 </template>
 <script>
 import AuthenticatedUser from '~/models/AuthenticatedUser'
-import FUpload from '~/components/forms/FUpload'
-import FLabel from '~/components/forms/FLabel'
-import FButton from '~/components/forms/FButton'
-import CircleExclamationIcon from "~/icons/CircleExclamationIcon";
 
 export default {
     name: 'ProfileSettings',
-
-    components: {CircleExclamationIcon, FButton, FLabel, FUpload },
-
     beforeRouteLeave (from, to, next) {
         this.$destroy()
         next()
