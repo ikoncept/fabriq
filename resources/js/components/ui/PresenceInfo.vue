@@ -14,8 +14,6 @@
                     <UiAvatar :user="user"
                               class="w-7 h-7"
                     />
-                    <!-- {{ user }} -->
-                    <!-- <pre>{{ user }}</pre> -->
                 </div>
             </TransitionGroup>
         </div>
@@ -33,7 +31,6 @@ export default {
         },
         usersIdleWithoutKey () {
             if (Object.values(this.usersIdle).length > 0) {
-                console.log('ok')
                 return Object.values(this.usersIdle)[0]
             }
             return []
