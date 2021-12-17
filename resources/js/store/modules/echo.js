@@ -1,11 +1,19 @@
 import * as types from '~/store/mutation-types'
 
 export const state = {
-    usersIdle: {}
+    usersIdle: {
+        channel: []
+    }
 }
 
 export const getters = {
-    usersIdle: state => state.usersIdle
+    // usersIdle: state => state.usersIdle
+    usersIdle: (state) => {
+        // return state.usersIdle
+        return Object.assign(...Object.keys(state.usersIdle).map(key => {
+            return { [key]: state.usersIdle[key].sort((a, b) => (a.timestamp - b.timestamp)) }
+        }))
+    }
 }
 
 export const mutations = {

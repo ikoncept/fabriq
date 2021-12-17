@@ -14,6 +14,8 @@
                     <UiAvatar :user="user"
                               class="w-7 h-7"
                     />
+                    <!-- {{ user }} -->
+                    <!-- <pre>{{ user }}</pre> -->
                 </div>
             </TransitionGroup>
         </div>
@@ -30,7 +32,11 @@ export default {
             return this.$store.getters['echo/usersIdle']
         },
         usersIdleWithoutKey () {
-            return Object.values(this.usersIdle)[0]
+            if (Object.values(this.usersIdle).length > 0) {
+                console.log('ok')
+                return Object.values(this.usersIdle)[0]
+            }
+            return []
         },
         moreThanOne () {
             // return this.usersIdleWithoutKey.length > 1

@@ -17,5 +17,17 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 
 Broadcast::channel(config('broadcasting.connections.pusher.key') . '.presence.*.*.*', function ($user) {
-    return ['id' => $user->id, 'name' => $user->name, 'email' => $user->email, 'timestamp' => round(microtime(true) * 1000)];
+    return [
+            'id' => $user->id,
+            'name'=> $user->name,
+            'email' => $user->email,
+            'timestamp' => round(microtime(true) * 1000),
+            'data' => [
+                'id' => 0,
+                'thumb_src' => ''
+                // 'webp_src' => (string) ($media->hasGeneratedConversion('webp')) ? $media->getUrl('webp') : '',
+                // 'src' => $media->getUrl(),
+                // 'srcset' => $media->getSrcSet(),
+            ]
+        ];
 });

@@ -1,4 +1,4 @@
-export default function PresenceMiddleware ({ next, to, router, store }) {
+export default function BroadcastMiddleware ({ next, to, router, store }) {
     // Check if Echo is enabled
     if (!router.app.$echo) {
         return next()

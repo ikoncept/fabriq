@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import routes from '~/routes/routes'
+import routes from '~/routes/fabriq-routes'
 import store from '~/store'
 import * as types from '~/store/mutation-types'
 
@@ -33,8 +33,8 @@ function afterEach (to, from) {
         const id = from.params.id
         const roomName = from.name
         const identifier = roomName + '.' + id
-        const pusherAppId = window.fabriqCms.pusher.appId
-        Echo.leave(pusherAppId + '.presence.' + identifier)
+        const pusherKey = window.fabriqCms.pusher.key
+        Echo.leave(pusherKey + '.presence.' + identifier)
     }
 }
 

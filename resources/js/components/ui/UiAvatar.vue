@@ -29,7 +29,7 @@ export default {
         },
 
         src () {
-            return this.user.image.data.thumb_src ?? `https://unavatar.now.sh/${this.user.email}?fallback=${this.fallbackUrl}`
+            return `https://unavatar.now.sh/${this.user.email}?fallback=${this.fallbackUrl}`
         }
     }
 }
