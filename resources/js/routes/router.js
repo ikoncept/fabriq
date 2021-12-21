@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import routes from '~/routes/routes'
+import routes from '~/routes/fabriq-routes'
 import store from '~/store'
 import * as types from '~/store/mutation-types'
 
