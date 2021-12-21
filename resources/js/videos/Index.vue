@@ -158,7 +158,7 @@
                             {{ item.created_at | localTime }}
                         </span>
                         <span v-else-if="prop == 'file_name'">
-                            <div class="truncate overflow-ellipsis max-w-64">
+                            <div class="truncate text-ellipsis max-w-64">
                                 {{ item.c_name }}
                             </div>
                         </span>
@@ -270,6 +270,7 @@ export default {
         this.uploadInit = true
         this.$eventBus.$on('video-updated', this.fetchVideos)
     },
+
     methods: {
         resetSearch () {
             this.search = ''

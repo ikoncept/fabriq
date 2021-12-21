@@ -33,8 +33,8 @@ function afterEach (to, from) {
         const id = from.params.id
         const roomName = from.name
         const identifier = roomName + '.' + id
-        const pusherKey = window.fabriqCms.pusher.key
-        Echo.leave(pusherKey + '.presence.' + identifier)
+        const pusherAppId = window.fabriqCms.pusher.appId
+        Echo.leave(pusherAppId + '.presence.' + identifier)
     }
 }
 

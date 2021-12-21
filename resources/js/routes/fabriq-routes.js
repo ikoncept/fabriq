@@ -142,8 +142,7 @@ export default [
         component: ArticlesEdit,
         meta: {
             middleware: [RolesMiddleware, PresenceMiddleware],
-            roles: ['admin'],
-            broadcastName: 'article'
+            roles: ['admin']
         }
     },
     {
