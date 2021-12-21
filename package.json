@@ -10,9 +10,6 @@
         "fetch": "bin/fetch"
     },
     "dependencies": {
-        "@tailwindcss/aspect-ratio": "^0.3.0",
-        "@tailwindcss/forms": "^0.2.1",
-        "@tailwindcss/typography": "^0.3.1",
         "@tiptap/core": "^2.0.0-beta.54",
         "@tiptap/extension-image": "^2.0.0-beta.11",
         "@tiptap/extension-link": "^2.0.0-beta.15",
@@ -36,7 +33,6 @@
         "laravel-echo": "^1.11.3",
         "portal-vue": "^2.1.7",
         "pusher-js": "^7.0.3",
-        "tailwindcss": "^2.1.0",
         "tippy.js": "^6.3.1",
         "v-calendar": "^2.2.0",
         "v-clipboard": "^2.2.3",
@@ -57,7 +53,9 @@
     "devDependencies": {
         "@babel/eslint-parser": "^7.12.1",
         "@babel/eslint-plugin": "^7.11.5",
-        "autoprefixer": "^10.0.2",
+        "@tailwindcss/aspect-ratio": "^0.4.0",
+        "@tailwindcss/typography": "^0.5.0",
+        "autoprefixer": "^10.4.0",
         "copy-webpack-plugin": "^6.3.2",
         "cross-env": "^7.0",
         "eslint": "^7.10.0",
@@ -65,14 +63,14 @@
         "eslint-plugin-import": "^2.22.1",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^4.2.1",
-        "eslint-plugin-standard": "^5.0.0",
         "eslint-plugin-unicorn": "^25.0.1",
         "eslint-plugin-vue": "^7.4.1",
         "imagemin-webpack-plugin": "^2.4.2",
         "laravel-mix": "^6.0.10",
         "laravel-mix-bundle-analyzer": "^1.0.5",
         "laravel-mix-tailwind": "^0.1.1",
-        "postcss": "^8.1.8",
+        "postcss": "^8.4.5",
+        "tailwindcss": "^3.0.7",
         "vue-loader": "^15.9.5",
         "vue-template-compiler": "^2.6.12"
     }

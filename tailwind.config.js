@@ -1,13 +1,10 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
 module.exports = {
-    mode: 'jit',
-    purge: [
-        'resources/js/**/*.vue',
-        'resources/js/**/*.js',
+    content: [
+        'resources/js/**/*.{js,vue}',
         'resources/views/**/*.blade.php'
     ],
-    darkMode: false, // or 'media' or 'class'
     theme: {
         ringColor: {
             gray: colors.trueGray,
@@ -113,11 +110,6 @@ module.exports = {
                 '8xl': '90rem',
                 '10xl': '100rem'
             })
-        }
-    },
-    variants: {
-        extend: {
-
         }
     },
     plugins: [
