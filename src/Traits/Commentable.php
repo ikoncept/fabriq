@@ -14,12 +14,12 @@ trait Commentable
         return $this->morphMany(Comment::class, 'commentable');
     }
 
-    public function comment(string $comment): Comment
+    public function comment(string $comment): Model
     {
         return $this->newComment(['comment' => $comment]);
     }
 
-    public function commentAs(Model $user, string $comment): Comment
+    public function commentAs(Model $user, string $comment): Model
     {
         return $this->newComment([
             'comment' => $comment,
@@ -27,7 +27,7 @@ trait Commentable
         ]);
     }
 
-    private function newComment(array $data) : Comment
+    private function newComment(array $data) : Model
     {
         return $this->comments()->create(array_merge(
             $data,
