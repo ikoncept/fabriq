@@ -1,7 +1,166 @@
 @tailwind base;
 @tailwind components;
-
-@import './main.css';
-
-
 @tailwind utilities;
+
+@layer components {
+    body {
+        @apply antialiased text-gray-800;
+    }
+
+
+    a, .link {
+        @apply font-semibold transition-colors duration-200 rounded text-royal-500 hover:text-royal-700 focus:outline-none;
+    }
+
+    .fabriq-input {
+        @apply relative flex-1 block w-full px-4 py-2.5 text-sm antialiased text-gray-800 transition duration-200 ease-out rounded appearance-none ring-1 ring-gray-300;
+    }
+    .fabriq-input:disabled {
+        @apply text-gray-800 cursor-not-allowed;
+    }
+
+    .fabriq-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .fabriq-input:focus {
+        @apply outline-none ring-gray-800;
+    }
+
+    .is-invalid .fabriq-input,
+    .is-invalid.fabriq-input {
+        @apply ring-1 ring-red-300;
+    }
+
+    .is-valid .fabriq-input,
+    .is-valid.fabriq-input {
+        background-repeat: no-repeat;
+        background-position: 95% center;
+    }
+
+    .is-invalid .fabriq-input:focus,
+    .is-invalid .fabriq-input:focus {
+        @apply ring-2 ring-red-300;
+    }
+
+    .fabriq-btn:disabled {
+        @apply bg-gray-200 text-white cursor-not-allowed border-gray-200 !important;
+    }
+
+    .fabriq-btn {
+        @apply text-sm font-semibold leading-none transition-colors duration-300 border-2 rounded focus:outline-none focus:ring-2;
+    }
+
+    .btn-outline-royal {
+        @apply text-royal-500 border-royal-500 hover:bg-royal-50 focus:ring-royal-200;
+    }
+
+    .btn-outline-red {
+        @apply text-red-500 border-red-500 hover:text-white hover:bg-red-500 focus:ring-red-200;
+    }
+
+    .btn-royal {
+        @apply text-white focus:ring-royal-200 hover:text-gray-100 bg-royal-500 hover:bg-royal-800 border-royal-500 hover:border-royal-800;
+    }
+
+    .bg-ff {
+        @apply bg-royal-500;
+    }
+
+    .btn-gold {
+        @apply text-white bg-gold-500 focus:ring-gold-300 hover:bg-gold-700 border-gold-500 hover:border-gold-700;
+    }
+
+    .btn-outline-gold {
+        @apply text-gold-500 border-gold-500 hover:text-white hover:bg-gold-500 focus:ring-gold-300;
+    }
+
+    .btn-red {
+        @apply text-white bg-red-500 border-red-500 focus:ring-red-200 hover:bg-red-800 hover:border-red-800;
+    }
+
+    .btn-gray {
+        @apply text-white bg-gray-400 border-gray-400 focus:ring-gray-200 hover:bg-gray-500 hover:border-gray-500 hover:text-white;
+    }
+
+    .btn-link, .btn-ghost {
+        @apply text-gray-800 border-transparent border-none hover:text-royal-700 focus:bg-gray-200 focus:ring-gray-400 focus:ring-0;
+    }
+
+
+    .btn-outline-white {
+        @apply text-white border-white hover:text-gray-50 hover:border-gray-50 focus:ring-royal-300 focus:ring-2;
+    }
+
+    pre {
+        @apply p-4 overflow-x-auto font-mono text-sm subpixel-antialiased font-semibold text-left rounded bg-royal-700 text-gold-400 !important;
+    }
+    code {
+        @apply px-1.5 py-0.5 mx-1 font-mono subpixel-antialiased font-semibold  text-sm rounded bg-royal-700 text-gold-400 !important;
+    }
+
+    .sidebar-item {
+        @apply flex items-center px-2 py-2 text-sm font-normal text-gray-600 rounded-md;
+    }
+    .sidebar-item:hover {
+        @apply text-gray-900 bg-gray-50
+    }
+    .sidebar-item.router-link-active {
+        @apply text-gray-700 bg-gray-100;
+    }
+
+    .fabriq-input .vs__selected-options {
+        @apply space-x-2;
+    }
+    .fabriq-input .vs__selected {
+        @apply pl-2 pr-1 text-sm font-bold text-white rounded-full bg-gold-500;
+    }
+    .fabriq-input .vs__selected button svg {
+        @apply hidden;
+    }
+
+
+    .fabriq-input.v-select.vs--open {
+        /* @apply ring-gray-800 ring-1 rounded-b-none !important; */
+    }
+
+
+    .f-menu-bar button {
+        @apply focus:outline-none;
+    }
+
+    .form-checkbox:disabled {
+        @apply  cursor-not-allowed opacity-30;
+    }
+
+    .form-checkbox:checked {
+
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%230b3b5b' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+        border-color: #d1d5db;
+        background-color: #fff;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .form-checkbox:indeterminate {
+        border-color: #d1d5db;
+        background-color: #fff;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='%230b3b5b' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='8' height='2' x='4' y='7' rx='1'/%3E%3C/svg%3E");
+    }
+
+    .form-checkbox {
+        appearance: none;
+        color-adjust: exact;
+        user-select: none;
+        flex-shrink: 0;
+        @apply border border-gray-400 rounded-sm;
+        border-width: 1px;
+        background-origin: border-box;
+        background-size: 50% 50%;
+        transition: background-size .08s ease;
+    }
+}
