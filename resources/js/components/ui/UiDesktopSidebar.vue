@@ -59,7 +59,7 @@
                                  class="absolute top-0 right-0 w-3 h-3 -mt-1 -mr-1 bg-red-400 rounded-full dot"
                             />
                             <UiAvatar :user="user"
-                                      class="inline-block rounded-lg h-9 w-9"
+                                      class="inline-block object-cover rounded-lg h-9 w-9"
                             />
                         </RouterLink>
                         <div>

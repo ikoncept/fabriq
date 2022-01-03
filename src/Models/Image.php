@@ -53,6 +53,12 @@ class Image extends Model implements HasMedia
               ->format(config('fabriq.enable_webp') ? 'webp' : 'jpg')
               ->quality(80);
 
+        $this->addMediaConversion('mini')
+              ->nonQueued()
+              ->width(150)
+              ->format(config('fabriq.enable_webp') ? 'webp' : 'jpg')
+              ->quality(90);
+
         if(config('fabriq.enable_webp')) {
             $this->addMediaConversion('webp')
                 ->format('webp')

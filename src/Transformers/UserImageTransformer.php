@@ -30,9 +30,10 @@ class UserImageTransformer extends TransformerAbstract
 
         return [
             'file_name' => $media->file_name,
-            'thumb_src' => $media->getUrl('thumb'),
+            'thumb_src' => $media->getUrl('mini'),
             'webp_src' => (string) ($media->hasGeneratedConversion('webp')) ? $media->getUrl('webp') : '',
             'src' => $media->getUrl(),
+            'mime_type' => $media->mime_type,
             'srcset' => $media->getSrcSet(),
         ];
     }

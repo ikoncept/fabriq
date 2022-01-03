@@ -52,7 +52,7 @@
                                  without-loader
                                  :max-items="1"
                                  @error="handleImageUploadError($event)"
-                                 @added-file="imageUploadError = null"
+                                 @added-file="fileAdded"
                                  @upload-complete="userImageSaved()"
                         >
                             <button
@@ -64,15 +64,19 @@
                         <img v-if="imageUrl"
                              :src="imageUrl"
                              alt=""
-                             class="inline-block ml-4 border rounded-lg h-9 w-9"
+                             class="inline-block object-cover ml-4 border rounded-lg h-9 w-9"
                         >
 
-                        <button v-if="imageUrl"
+                        <button v-if="imageUrl && !isUploading"
                                 class="mt-auto ml-2 text-xs leading-none fabriq-btn btn-link"
                                 @click="deleteUserImage()"
                         >
                             Ta bort
                         </button>
+                        <div v-else-if="isUploading"
+                             class="mt-auto ml-2 text-xs leading-none fabriq-btn btn-link animate-pulse"
+                             v-text="'Laddar upp...'"
+                        />
                     </div>
 
                     <span v-if="imageUploadError"
@@ -134,7 +138,8 @@ export default {
                 current_password: ''
             },
             fileUploadRef: 'file-upload',
-            imageUploadError: null
+            imageUploadError: null,
+            isUploading: false
         }
     },
     computed: {
@@ -150,6 +155,7 @@ export default {
     },
     methods: {
         handleImageUploadError (event) {
+            this.isUploading = false
             this.imageUploadError = event.errors.image[0]
         },
         async fetchUser () {
@@ -185,11 +191,16 @@ export default {
             })
         },
         userImageSaved () {
+            this.isUploading = false
             this.fetchUser().then(() => {
                 this.$toast.success({ title: 'Profilbild uppdaterad' })
             })
 
             this.$refs[this.fileUploadRef].UploadDropzone.removeAllFiles()
+        },
+        fileAdded () {
+            this.isUploading = true
+            this.imageUploadError = null
         }
     }
 }

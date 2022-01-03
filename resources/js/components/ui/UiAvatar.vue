@@ -1,9 +1,7 @@
 <template>
-    <img
-        class="rounded-full"
-        :src="src"
-        :alt="`Profilbild för ${user.name}`"
-    >
+    <UiImagePresenter thumbnail
+                      :image="imageObject"
+    />
 </template>
 <script>
 export default {
@@ -16,7 +14,9 @@ export default {
                     name: '',
                     email: '',
                     image: {
-                        data: {}
+                        data: {
+                            mime_type: 'image/webp'
+                        }
                     }
                 }
             },
@@ -24,10 +24,16 @@ export default {
         }
     },
     computed: {
+        imageObject () {
+            return {
+                thumb_src: this.src,
+                alt_text: `Profilbild för ${this.user.name}`,
+                mime_type: 'image/webp'
+            }
+        },
         fallbackUrl () {
             return encodeURIComponent(`https://eu.ui-avatars.com/api?name=${this.user.name}&format=svg&bold=true&background=e2d3bb&color=0b3b5b`)
         },
-
         src () {
             return this.user.image.data.thumb_src ?? `https://unavatar.now.sh/${this.user.email}?fallback=${this.fallbackUrl}`
         }
