@@ -47,20 +47,33 @@ class CreateI18nTables extends Migration
             $table->index(['term_id','locale']);
         });
 
+
         DB::table($prefix . 'i18n_locales')->insert([
             'name' => 'English',
             'native' => 'English',
             'iso_code' => 'en',
             'regional' => 'en_GB',
-            'enabled' => true
+            'enabled' => true,
+            'sort_index' => 20
         ]);
 
         DB::table($prefix . 'i18n_locales')->insert([
             'name' => 'Swedish',
-            'native' => 'Svensk',
+            'native' => 'Svenska',
             'iso_code' => 'sv',
             'regional' => 'sv_SE',
-            'enabled' => true
+            'enabled' => true,
+            'sort_index' => 10
+        ]);
+
+
+        DB::table($prefix . 'i18n_locales')->insert([
+            'name' => 'Danish',
+            'native' => 'Dansk',
+            'iso_code' => 'dk',
+            'regional' => 'da_DK',
+            'enabled' => true,
+            'sort_index' => 30
         ]);
     }
 
