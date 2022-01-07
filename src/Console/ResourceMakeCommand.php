@@ -122,7 +122,7 @@ class ResourceMakeCommand extends GeneratorCommand
      */
     protected function createController()
     {
-        $model = Str::pluralStudly($this->argument('name'));
+        $model = Str::studly($this->argument('name'));
 
         $this->call('make:fabriq-controller', [
             'name' => "{$model}Controller",
