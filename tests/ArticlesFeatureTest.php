@@ -226,6 +226,9 @@ class ArticlesFeatureTest extends AdminUserTestCase
         // Assert
         $response->assertOk();
         $response->assertJsonCount(1, 'data');
+        $response->assertJsonFragment([
+            'publishes_at_date' => now()->subYear()->toDateString()
+        ]);
     }
 
     /** @test **/

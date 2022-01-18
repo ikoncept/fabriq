@@ -34,6 +34,7 @@ class ArticleTransformer extends TransformerAbstract
             'slug' => (string) $article->slug,
             'is_published' => (bool) $article->is_published,
             'publishes_at' => (string) ($article->publishes_at) ? $article->publishes_at->toISOString() : '',
+            'publishes_at_date' => (string) ($article->publishes_at) ? $article->publishes_at->toDateString() : '',
             'unpublishes_at' => (string) ($article->unpublishes_at) ? $article->unpublishes_at->toISOString() : '',
             'has_unpublished_time' => (bool) $article->has_unpublished_time,
             'updated_at' => (string) $article->updated_at->toISOString(),
