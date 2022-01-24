@@ -40,7 +40,7 @@ export default {
                     'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN')
                 }
             }
-            await axios.post('logout', payload)
+            await axios.post('/logout', payload)
             window.location.reload()
         }
     }
