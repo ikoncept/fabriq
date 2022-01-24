@@ -19,11 +19,11 @@
         <SlideUpDown
             ref="monkey"
             :active="commentSectionOpen"
-            :duration="0"
+            :duration="5"
             @open-start="scrollToLatestComment"
         >
             <div>
-                <div ref="comments"
+                <div ref="flow"
                      class="flow-root overflow-y-auto h-96"
                 >
                     <ul
@@ -90,12 +90,10 @@ export default {
             this.commentSectionOpen = true
         },
         scrollToLatestComment () {
+            const container = this.$refs.flow
             setTimeout(() => {
-                const container = this.$refs.comments
-                // container.scrollTop = container.scrollHeight
                 container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' })
             }, 150)
-            // console.log(container.scrollTop)
         },
         listenForMetaPlusEnter (event) {
             const vm = this

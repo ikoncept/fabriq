@@ -599,7 +599,7 @@ const CustomLink = Link.extend({
                 default: ''
             },
             download: {
-                default: ''
+                default: null
             }
         }
     }
@@ -711,7 +711,7 @@ export default {
                     target: this.linkOpenNewTab ? '_blank' : '_self',
                     'data-filename': '',
                     'data-type': '',
-                    download: false
+                    download: null
                 }
                 this.editor.chain().focus().setLink(linkObject).run()
             }
