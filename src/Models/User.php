@@ -95,8 +95,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function scopeSearch(Builder $query, string $search) : Builder
     {
-        return $query->where('name', 'LIKE', '%' . $search . '%')
-            ->orWhere('email', 'LIKE', '%' . $search . '%');
+        return $query->whereLike(['name', 'email'], $search);
     }
 
     public function fabriqNotifications() : HasMany
