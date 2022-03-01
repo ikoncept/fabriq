@@ -27,7 +27,7 @@
                     <p class="mt-0.5 " />
                 </div>
                 <div class="pr-4 mt-2 text-sm text-gray-700 ">
-                    <div class="prose-sm prose transform scale-95"
+                    <div class="prose-sm prose origin-left transform scale-95"
                          v-html="comment.comment"
                     />
                 </div>
