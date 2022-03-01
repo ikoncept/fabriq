@@ -58,11 +58,11 @@ class NotifyAboutNotification extends Notification
     {
         $countString = 'Du har en oläst notis i Fabriq CMS. Klicka på knappen nedan för att komma till notisen';
         if($this->count > 1) {
-            $countString = 'Du har ' . $this->count . ' olästa notiser i Fabriq CMS. Klicka på knappen nedan för att läsa notiserna';
+            $countString = 'Du har ' . $this->count . ' olästa notiser. Klicka på knappen nedan för att läsa notiserna';
         }
         $appName = config('app.name');
         return (new MailMessage)
-                    ->subject("({$this->count}) Olästa notiser i Fabriq CMS - {$appName}")
+                    ->subject("({$this->count}) Olästa notiser - {$appName}")
                     ->greeting("Hej {$this->user->firstName}!")
                     ->line($countString)
                     ->action('Visa notiser', url('/notifications'))
