@@ -49,7 +49,7 @@ class PublishNotification extends Command
             return 0;
         }
 
-        $admins = config('fabriq.models.notification')::whereHas('roles', function(Builder $query) {
+        $admins = config('fabriq.models.user')::whereHas('roles', function(Builder $query) {
             return $query->where('name', 'admin');
         })->get()->each(function($user) use ($notificationText) {
             config('fabriq.models.notification')::create([
