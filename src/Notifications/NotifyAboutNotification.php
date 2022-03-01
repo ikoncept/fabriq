@@ -56,7 +56,7 @@ class NotifyAboutNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $countString = 'Du har en oläst notis i Fabriq CMS. Klicka på knappen nedan för att komma till notisen';
+        $countString = 'Du har en oläst notis. Klicka på knappen nedan för att komma till notisen';
         if($this->count > 1) {
             $countString = 'Du har ' . $this->count . ' olästa notiser. Klicka på knappen nedan för att läsa notiserna';
         }
