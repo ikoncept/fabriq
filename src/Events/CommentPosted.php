@@ -51,7 +51,7 @@ class CommentPosted implements ShouldBroadcast
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
-    public function broadcastOn() : Channel | array
+    public function broadcastOn()
     {
         return new PrivateChannel('user.'. $this->notification->user_id);
     }
