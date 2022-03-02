@@ -41,7 +41,7 @@ class CommentPosted implements ShouldBroadcast
         $this->notification = $notification;
     }
 
-    public function broadscastAs()
+    public function broadscastAs() : string
     {
         return 'comment.posted';
     }
@@ -51,12 +51,12 @@ class CommentPosted implements ShouldBroadcast
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
-    public function broadcastOn()
+    public function broadcastOn() : Channel | array
     {
         return new PrivateChannel('user.'. $this->notification->user_id);
     }
 
-    public function broadcastWith()
+    public function broadcastWith() : array
     {
         return [
             'comment' => $this->comment,
