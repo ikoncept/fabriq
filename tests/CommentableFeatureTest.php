@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use Ikoncept\Fabriq\Events\CommentPosted;
+use Ikoncept\Fabriq\Events\NotificationDeleted;
+use Ikoncept\Fabriq\Models\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
@@ -110,6 +112,7 @@ class CommentableFeatureTest extends AdminUserTestCase
     public function it_will_allow_the_creator_to_delete_its_comment()
     {
         // Arrange
+        Event::fake(NotificationDeleted::class);
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $user = \Ikoncept\Fabriq\Models\User::factory()->create();
         $otherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
@@ -120,7 +123,7 @@ class CommentableFeatureTest extends AdminUserTestCase
             'name' => 'Sven',
             'email' => 'sven@pontare.se'
         ]);
-        $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-email="Roger Pontare">@Roger Pontare</span> <span data-mention="" class="mention" data-email="Sven">@Sven</span><p>');
+        $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-email="roger@pontare.se">@Roger Pontare</span> <span data-mention="" class="mention" data-email="Sven">@Sven</span><p>');
 
         $this->actingAs($user);
 
@@ -136,6 +139,10 @@ class CommentableFeatureTest extends AdminUserTestCase
             'type' => 'comment',
             'notifiable_id' => $page->id
         ]);
+        $this->assertDatabaseMissing('notifications', [
+            'user_id' => $otherUser->id
+        ]);
+        Event::assertDispatched(NotificationDeleted::class);
     }
 
     /** @test **/

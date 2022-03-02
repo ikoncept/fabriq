@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Models;
 
 use Ikoncept\Fabriq\Database\Factories\NotificationFactory;
+use Ikoncept\Fabriq\Events\NotificationDeleted;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,6 +30,13 @@ class Notification extends Model
     protected $fillable = ['user_id', 'content'];
 
     protected $dates = ['cleared_at', 'notified_at'];
+
+    protected static function booted() : void
+    {
+        static::deleted(function ($model) {
+            NotificationDeleted::dispatch($model);
+        });
+    }
 
     public function notifiable() : MorphTo
     {
