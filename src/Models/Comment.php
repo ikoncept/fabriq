@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Models;
 
 use Ikoncept\Fabriq\Database\Factories\CommentFactory;
+use Ikoncept\Fabriq\Events\CommentPosted;
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,9 +43,10 @@ class Comment extends Model
                     $email = $filter->getAttribute('data-email');
                     $user = User::whereEmail($email)->first();
                     if($user) {
-                        $model->notifications()->create([
+                        $notification = $model->notifications()->create([
                             'user_id' => $user->id,
                         ]);
+                        CommentPosted::dispatch($notification, $model);
                     }
                 }
             }

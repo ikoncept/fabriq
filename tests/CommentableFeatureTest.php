@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
+use Ikoncept\Fabriq\Events\CommentPosted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Ikoncept\Fabriq\Tests\TestCase;
+use Illuminate\Support\Facades\Event;
 
 class CommentableFeatureTest extends AdminUserTestCase
 {
@@ -217,6 +219,7 @@ class CommentableFeatureTest extends AdminUserTestCase
     public function it_will_create_a_notification_if_a_user_is_mentionend_in_the_comment()
     {
         // Arrange
+        Event::fake(CommentPosted::class);
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $otherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
             'name' => 'Roger Pontare',
@@ -241,6 +244,7 @@ class CommentableFeatureTest extends AdminUserTestCase
             'notifiable_id' => $comment->id,
             'user_id' => $anotherUser->id
         ]);
+        Event::assertDispatched(CommentPosted::class);
     }
 
 }
