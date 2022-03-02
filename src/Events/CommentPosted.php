@@ -41,7 +41,7 @@ class CommentPosted implements ShouldBroadcast
         $this->notification = $notification;
     }
 
-    public function broadscastAs() : string
+    public function broadcastAs() : string
     {
         return 'comment.posted';
     }
