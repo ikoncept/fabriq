@@ -35,7 +35,7 @@ class EloquentPageRepository implements PageRepositoryInterface
         })->firstOrFail();
 
         // Decorate with content
-        $model->content = $model->getFieldContent($model->published_version);
+        $model->content = $model->getFieldContent($model->published_version, app()->getLocale());
         $model->slug = $slug;
 
         return $model;
