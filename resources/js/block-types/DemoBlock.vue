@@ -263,7 +263,8 @@ export default {
                     newlyAdded: true
                 }
             } else {
-                newItem = { ...item }
+                newItem = JSON.parse(JSON.stringify(item))
+
                 newItem.id = 'i' + Math.random().toString(20).substr(2, 6)
                 newItem.name = 'Kopia av ' + newItem.name
             }
