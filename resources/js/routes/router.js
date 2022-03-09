@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from '~/routes/fabriq-routes'
+import userRoutes from '~/routes/routes'
 import store from '~/store'
 import * as types from '~/store/mutation-types'
 
@@ -17,7 +18,7 @@ export default router
 function createRouter () {
     const router = new VueRouter({
         mode: 'history',
-        routes
+        routes: [...routes, ...userRoutes]
     })
 
     router.beforeEach(beforeEach)
