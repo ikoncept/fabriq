@@ -29,7 +29,7 @@ class ContactController extends ApiController
     {
         $eagerLoad = $this->getEagerLoad(Fabriq::getFqnModel('contact')::RELATIONSHIPS);
         $contacts = QueryBuilder::for(Fabriq::getFqnModel('contact'))
-            ->allowedSorts('name', 'email', 'updated_at', 'sortindex')
+            ->allowedSorts('name', 'email', 'updated_at', 'sortindex', 'published')
             ->allowedFilters([
                 AllowedFilter::scope('search')
             ])
@@ -43,7 +43,7 @@ class ContactController extends ApiController
     public function show(Request $request, int $id) : JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Fabriq::getFqnModel('contact')::RELATIONSHIPS);
-        $contact = Contact::where('id', $id)
+        $contact = Fabriq::getFqnModel('contact')::where('id', $id)
             ->with($eagerLoad)
             ->firstOrFail();
 
@@ -52,7 +52,7 @@ class ContactController extends ApiController
 
     public function store(CreateContactRequest $request) : JsonResponse
     {
-        $contact = new Contact;
+        $contact = Fabriq::getModelClass('contact');
         $contact->name = $request->name;
         $contact->save();
 
@@ -62,7 +62,7 @@ class ContactController extends ApiController
 
     public function update(UpdateContactRequest $request, int $id) : JsonResponse
     {
-        $contact = Contact::findOrFail($id);
+        $contact = Fabriq::getFqnModel('contact')::findOrFail($id);
         $contact->fill($request->validated());
 
         $contact->contactTags = $request->tags;
@@ -79,7 +79,7 @@ class ContactController extends ApiController
 
     public function destroy(int $id) : JsonResponse
     {
-        $contact = Contact::findOrFail($id);
+        $contact = Fabriq::getFqnModel('contact')::findOrFail($id);
         $contact->delete();
 
         return $this->respondWithSuccess('The contact has been deleted successfully');
