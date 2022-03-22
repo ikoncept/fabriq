@@ -35,6 +35,7 @@ class MenuTreeItemTransformer extends TransformerAbstract
             'slug' => $menuItem->getSlugString(),
             'path' => $menuItem->relativePath,
             'localized_path' => '/' . app()->getLocale() . $menuItem->relativePath,
+            'parent_id' => ($menuItem->parent_id) ? (int) $menuItem->parent_id : null,
             'type' => $menuItem->type
         ];
     }
