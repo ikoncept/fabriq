@@ -145,13 +145,13 @@
                     </template>
                     <template #default="{ row: item, prop }">
                         <span v-if="prop == 'file'"
-                              class="block w-12 h-12 "
+                              class="block"
                               @click="$vfm.show('file-modal', {id: item.id})"
                         >
                             <UiImagePresenter v-if="item.thumb_src"
                                               :image="item"
                                               thumbnail
-                                              class="object-contain w-full h-full cursor-pointer "
+                                              class="cursor-pointer max-h-16"
                             />
                             <div v-else>
                                 <span class=" items-center justify-center h-8 px-1 font-semibold font-mono text-xs rounded-full min-w-[2rem] bg-royal-500 text-gold-300 inline-flex">
