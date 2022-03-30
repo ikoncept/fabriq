@@ -67,6 +67,18 @@
                                 label="Sidtitel"
                                 help-text="Visas i menyer"
                         />
+                        <FSwitch v-if="Object.keys(localizedContent).length > 0"
+                                 v-model="localizedContent[activeLocale].black_text"
+                                 column-layout
+                        >
+                            Svart text i meny
+                        </FSwitch>
+                        <!-- <FInput v-if="Object.keys(localizedContent).length > 0"
+                                v-model="localizedContent[activeLocale].page_title"
+                                name="*.page_title"
+                                label="Sidtitel"
+                                help-text="Visas i menyer"
+                        /> -->
                     </div>
                 </UiCard>
                 <div
@@ -83,8 +95,8 @@
                             >
                                 <template #header>
                                     <h3 class>
-                                        <span v-if="index == 'meta'">Meta-fält</span>
-                                        <span v-else-if="index == 'main_content'">Sidhuvud</span>
+                                        <span v-if="index === 'meta'">Meta-fält</span>
+                                        <span v-else-if="index === 'main_content'">Sidhuvud</span>
                                         <span v-else>{{ index }}</span>
                                     </h3>
                                 </template>
@@ -156,6 +168,15 @@
                                                 v-model="localizedContent[lIndex][field.key]"
                                                 class="col-span-12 lg:col-span-8"
                                             />
+                                        </div>
+                                        <div v-else-if="field.type == 'switch'"
+                                             class="mb-6"
+                                        >
+                                            <FSwitch v-model="localizedContent[lIndex][field.key]"
+                                                     column-layout
+                                            >
+                                                {{ field.name }}
+                                            </FSwitch>
                                         </div>
                                     </div>
                                 </div>
@@ -406,7 +427,7 @@ export default {
             if (!this.localizedContent[this.activeLocale].boxes) {
                 this.$set(this.localizedContent[this.activeLocale], 'boxes', [])
             }
-            this.localizedContent[this.activeLocale].boxes.push(JSON.parse(JSON.stringify(item)))
+            this.localizedContent[this.activeLocale].boxes.push({ ...item })
             this.$nextTick(() => {
                 this.localizedContent[this.activeLocale].boxes[this.localizedContent[this.activeLocale].boxes.length - 1].newlyAdded = false
             })
