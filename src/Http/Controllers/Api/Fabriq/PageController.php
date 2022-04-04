@@ -31,7 +31,8 @@ class PageController extends ApiController
         $pages = QueryBuilder::for(Fabriq::getFqnModel('page'))
             ->allowedSorts('name', 'slug', 'id', 'created_at', 'updated_at')
             ->allowedFilters([
-                AllowedFilter::scope('search')
+                AllowedFilter::scope('search'),
+                AllowedFilter::exact('template_id')
             ])
             ->with($eagerLoad)
             ->paginate($this->number);
