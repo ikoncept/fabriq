@@ -64,4 +64,21 @@ class CachingPageRepository implements PageRepositoryInterface
 
         return $page;
     }
+
+    /**
+     * Find pages by ids
+     *
+     * @param array $ids
+     * @return mixed
+     */
+    public function findByIds(array $ids)
+    {
+        $locale = 'sv';
+        $pages = $this->cache->tags(['cms_page'])
+            ->rememberForever($locale, function () use ($ids) {
+                return $this->repository->findByIds($ids);
+            });
+
+        return $pages;
+    }
 }

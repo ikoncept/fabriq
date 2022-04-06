@@ -19,4 +19,13 @@ interface PageRepositoryInterface
      * @return mixed
      */
     public function findPreviewBySlug(string $slug);
+
+
+    /**
+     * Find by slug
+     *
+     * @param array $ids
+     * @return mixed
+     */
+    public function findByIds(array $ids);
 }

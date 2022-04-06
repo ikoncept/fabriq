@@ -53,4 +53,16 @@ class EloquentPageRepository implements PageRepositoryInterface
 
         return $model;
     }
+
+
+    public function findByIds(array $ids)
+    {
+        $models = $this->model->whereIn('id', $ids)
+            ->get()->transform(function($model) {
+                $model->content = $model->getFieldContent($model->revision);
+                return $model;
+            });
+
+        return $models;
+    }
 }
