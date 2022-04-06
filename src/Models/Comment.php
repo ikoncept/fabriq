@@ -2,6 +2,8 @@
 
 namespace Ikoncept\Fabriq\Models;
 
+use DOMDocument;
+use DOMXPath;
 use Ikoncept\Fabriq\Database\Factories\CommentFactory;
 use Ikoncept\Fabriq\Events\CommentPosted;
 use Ikoncept\Fabriq\Fabriq;
@@ -34,9 +36,9 @@ class Comment extends Model
     protected static function booted() : void
     {
         static::saved(function ($model) {
-            $doc = new \DOMDocument;
+            $doc = new DOMDocument();
             $doc->loadHTML($model->comment);
-            $xpath = new \DOMXpath($doc);
+            $xpath = new DOMXPath($doc);
             $filtered = $xpath->query("//span[@data-email]");
             if($filtered) {
                 foreach($filtered as $filter) {
