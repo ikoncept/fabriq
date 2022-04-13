@@ -6,6 +6,7 @@ use Ikoncept\Fabriq\Models\Image;
 use League\Fractal\TransformerAbstract;
 use Illuminate\Support\Str;
 use League\Fractal\Resource\Collection;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ImageTransformer extends TransformerAbstract
 {
@@ -53,8 +54,8 @@ class ImageTransformer extends TransformerAbstract
             'x_position' => (string) $image->x_position,
             'y_position' => (string) $image->y_position,
             'size' => $media->size,
-            'width' => ($media->responsiveImages()->files->first()) ? $media->responsiveImages()->files->first()->width() : null,
-            'height' => ($media->responsiveImages()->files->first()) ? $media->responsiveImages()->files->first()->height() : null,
+            'width' => $this->getWidth($media),
+            'height' => $this->getHeight($media),
             'updated_at' => $image->updated_at,
             'created_at' => $image->created_at,
         ];
@@ -63,5 +64,41 @@ class ImageTransformer extends TransformerAbstract
     public function includeTags(Image $image) : Collection
     {
         return $this->collection($image->tags, new TagTransformer);
+    }
+
+    /**
+     * Get width
+     *
+     * @param Media $media
+     * @return mixed
+     */
+    protected function getWidth(Media $media)
+    {
+        if($media->getCustomProperty('width')) {
+           return $media->getCustomProperty('width');
+        }
+        if($media->responsiveImages()->files->first()) {
+            return $media->responsiveImages()->files->first()->width();
+        }
+
+        return null;
+    }
+
+    /**
+     * Get height
+     *
+     * @param Media $media
+     * @return mixed
+     */
+    protected function getHeight(Media $media)
+    {
+        if($media->getCustomProperty('height')) {
+           return $media->getCustomProperty('height');
+        }
+        if($media->responsiveImages()->files->first()) {
+            return $media->responsiveImages()->files->first()->width();
+        }
+
+        return null;
     }
 }

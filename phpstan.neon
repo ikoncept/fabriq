@@ -6,6 +6,8 @@ parameters:
     paths:
         - src
 
+    reportUnmatchedIgnoredErrors: false
+
     # The level 8 is the highest level
     level: 7
 
@@ -19,9 +21,9 @@ parameters:
         -
             message: '#Call to an undefined static method#'
             path: ./src/Http/Controllers/Api/Fabriq/MenuItemTreeController.php
-        -
-            message: '#Call to an undefined method#'
-            path: ./src/Services/ResponsiveImageGenerator.php
+        #-
+        #    message: '#Call to an undefined method#'
+        #    path: ./src/Services/ResponsiveImageGenerator.php
         -
             message: '#Parameter#'
             path: ./src/MacroServiceProvider.php
@@ -31,7 +33,17 @@ parameters:
         -
             message: '#unused use#'
             path: ./src/ContentGetters/BaseGetter.php
+        -
+            message: '#use array destructuring on#'
+            path: ./src/Models/Image.php
+        -
+            message: '#filename of function getimagesize expects string#'
+            path: ./src/Models/Image.php
+        -
+            message: '#undefined method DOMNode#'
+            path: ./src/Models/Comment.php
         # -
+
         #     message: '#$view of function view expects view-string#'
         #     path: ./src/Http/Controllers/Api/Fabriq/ImageSourceSetController.php
         # -
