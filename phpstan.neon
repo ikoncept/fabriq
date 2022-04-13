@@ -41,8 +41,9 @@ parameters:
             path: ./src/Models/Image.php
         -
             message: '#undefined method DOMNode#'
-            path: Models/Comment.php
+            path: ./src/Models/Comment.php
         # -
+
         #     message: '#$view of function view expects view-string#'
         #     path: ./src/Http/Controllers/Api/Fabriq/ImageSourceSetController.php
         # -
