@@ -6,6 +6,8 @@ parameters:
     paths:
         - src
 
+    reportUnmatchedIgnoredErrors: false
+
     # The level 8 is the highest level
     level: 7
 
@@ -37,6 +39,9 @@ parameters:
         -
             message: '#filename of function getimagesize expects string#'
             path: ./src/Models/Image.php
+        -
+            message: '#undefined method DOMNode#'
+            path: Models/Comment.php
         # -
         #     message: '#$view of function view expects view-string#'
         #     path: ./src/Http/Controllers/Api/Fabriq/ImageSourceSetController.php
