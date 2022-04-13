@@ -66,6 +66,12 @@ class ImageTransformer extends TransformerAbstract
         return $this->collection($image->tags, new TagTransformer);
     }
 
+    /**
+     * Get width
+     *
+     * @param Media $media
+     * @return mixed
+     */
     protected function getWidth(Media $media)
     {
         if($media->getCustomProperty('width')) {
@@ -78,6 +84,12 @@ class ImageTransformer extends TransformerAbstract
         return null;
     }
 
+    /**
+     * Get height
+     *
+     * @param Media $media
+     * @return mixed
+     */
     protected function getHeight(Media $media)
     {
         if($media->getCustomProperty('height')) {
