@@ -53,8 +53,8 @@ class ImageTransformer extends TransformerAbstract
             'x_position' => (string) $image->x_position,
             'y_position' => (string) $image->y_position,
             'size' => $media->size,
-            'width' => ($media->responsiveImages()->files->first()) ? $media->responsiveImages()->files->first()->width() : null,
-            'height' => ($media->responsiveImages()->files->first()) ? $media->responsiveImages()->files->first()->height() : null,
+            'width' => ($media->getCustomProperty('width')) ? $media->getCustomProperty('width') : $media->responsiveImages()->files->first()?->width(),
+            'height' => ($media->getCustomProperty('height')) ? $media->getCustomProperty('height') : $media->responsiveImages()->files->first()?->height(),
             'updated_at' => $image->updated_at,
             'created_at' => $image->created_at,
         ];

@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Services;
 
+use GuzzleHttp\Promise\Utils;
 use Spatie\MediaLibrary\MediaCollections\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -11,42 +12,44 @@ use Spatie\MediaLibrary\ResponsiveImages\ResponsiveImageGenerator as SpatieRespo
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\Support\TemporaryDirectory;
 
-
 class ResponsiveImageGenerator extends SpatieResponsiveImageGenerator
 {
-    protected $fileType;
+
+    protected string $fileType;
 
     public function generateResponsiveImagesViaLambda(Media $media): void
     {
         $this->fileType = config('fabriq.enable_webp') ? 'webp' : $media->extension;
-        $temporaryDirectory = TemporaryDirectory::create();
-
-        $baseImage = app(Filesystem::class)->copyFromMediaLibrary(
-            $media,
-            $temporaryDirectory->path(Str::random(16).'.'.$media->extension)
-        );
 
         $media = $this->cleanResponsiveImages($media);
+        $filesPayload = $this->buildPayload(
+            $this->widthCalculator->calculateWidths($media->size,
+            $media->getCustomProperty('width'),
+            $media->getCustomProperty('height')),
+            $media
+        );
 
-        $filesPayload = $this->buildPayload($this->widthCalculator->calculateWidthsFromFile($baseImage), $media);
         $extension = $this->fileType;
-        $random = Str::random(16);
-        $tempS3path = 'crunch/' . $random . '.' . $extension;
-        Storage::disk('s3')->put($tempS3path, file_get_contents($baseImage));
-
-        $payload = [
-            'file' => $tempS3path,
-            'bucket' => 'fabriq-cms',
-            'outputs' => $filesPayload->toArray(),
-            'deleteSourceFile' => true
-        ];
-
-        $response = LambdaService::call('media-cruncher', $payload);
-
-
         $responsiveImagePath = $this->fileNamer->temporaryFileName($media, $extension);
 
-        foreach ($response['files'] as $file) {
+        $promises = $filesPayload->map(function($file) use ($media) {
+            $payload = [
+                'file' => $media->getPath(),
+                'bucket' => 'fabriq-cms',
+                'outputs' => collect([])->push($file)->toArray(),
+                'deleteSourceFile' => false
+            ];
+            return LambdaService::callAsync('media-cruncher', $payload);
+        });
+
+        $response = Utils::unwrap($promises);
+        $responses = collect($response)->map(function($response) {
+            return json_decode($response->get('Payload')->getContents(), true);
+        });
+
+
+        foreach ($responses as $response) {
+            $file = $response['files'][0];
             $fileName = $this->addPropertiesToFileName(
                 $responsiveImagePath,
                 'media_library_original',
@@ -59,12 +62,19 @@ class ResponsiveImageGenerator extends SpatieResponsiveImageGenerator
             Storage::disk('s3')->move($file['path'], pathinfo($file['path'], PATHINFO_DIRNAME) .'/' . $fileName);
         }
 
+        $temporaryDirectory = TemporaryDirectory::create();
+
+        $baseImage = app(Filesystem::class)->copyFromMediaLibrary(
+            $media,
+            $temporaryDirectory->path(Str::random(16).'.'.$media->extension)
+        );
+
         $this->generateTinyJpg($media, $baseImage, 'media_library_original', $temporaryDirectory);
 
         $temporaryDirectory->delete();
     }
 
-    protected function buildPayload(Collection $widths, $media) : Collection
+    protected function buildPayload(Collection $widths, Media $media) : Collection
     {
         $mediaPathGenerator = new MediaPathGenerator();
         $responsiveImagePath = $this->fileNamer->temporaryFileName($media, $this->fileType);

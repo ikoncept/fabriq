@@ -21,9 +21,11 @@ class ImageUploadController extends ApiController
             $image->saveMedia($request->has('url'));
         } catch (\Throwable $exception) {
             $image->delete();
-
             return $this->setStatusCode(500)
-                ->respondWithArray(['message' => 'Kunde inte ladda upp filen']);
+                ->respondWithArray([
+                    'message' => 'Kunde inte ladda upp filen',
+                    'exception' => $exception->getMessage()
+                ]);
         }
 
         return $this->respondWithArray($image->toArray());
