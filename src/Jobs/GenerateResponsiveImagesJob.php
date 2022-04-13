@@ -27,6 +27,11 @@ class GenerateResponsiveImagesJob implements ShouldQueue
         /** @var \Ikoncept\Fabriq\Services\ResponsiveImageGenerator $responsiveImageGenerator */
         $responsiveImageGenerator = app(ResponsiveImageGenerator::class);
 
+        if(config('fabriq.enable_remote_image_processing')) {
+            $responsiveImageGenerator->generateResponsiveImagesViaLambda($this->media);
+            return true;
+        }
+
         $responsiveImageGenerator->generateResponsiveImages($this->media);
 
         return true;
