@@ -27,6 +27,7 @@ class UpdateContactRequest extends FormRequest
             'name' => 'required|max:255',
             'email' => 'nullable|email|max:255',
             'phone' => 'nullable|max:255',
+            'mobile' => 'nullable|max:255',
             'published' => 'boolean',
             'sortindex' => 'nullable',
             'content' => 'array',
