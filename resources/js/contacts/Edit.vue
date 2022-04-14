@@ -62,9 +62,15 @@
                     />
                     <FInput v-model="contact.phone"
                             label="Telefonnummer"
-                            type="phone"
-                            class="col-span-4 row-start-2"
+                            class="col-span-2 row-start-2"
+                            type="tel"
                             name="phone"
+                    />
+                    <FInput v-model="contact.mobile"
+                            label="Mobil"
+                            class="col-span-2 row-start-2"
+                            type="tel"
+                            name="mobile"
                     />
                     <FInput v-model="contact.sortindex"
                             type="number"
