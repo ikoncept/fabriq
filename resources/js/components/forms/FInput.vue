@@ -215,6 +215,10 @@ export default {
         optional: {
             type: String,
             default: ''
+        },
+        defaultValue: {
+            type: [String, Number, Object, Array, Boolean],
+            default: ''
         }
     },
     data () {
@@ -260,6 +264,9 @@ export default {
                 const area = this.$refs.textarea
                 autosize(area)
             })
+        }
+        if (this.defaultValue) {
+            this.updateValue(this.defaultValue)
         }
     },
     methods: {
