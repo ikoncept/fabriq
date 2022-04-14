@@ -18,7 +18,7 @@ class DownloadController extends ApiController
     const DOWNLOADABLE_TYPES = [
         'images' => 'Ikoncept\Fabriq\Models\Image',
         'files' => 'Ikoncept\Fabriq\Models\File',
-        'videos' => 'Ikoncept\Fabriq\Models\Video'
+        'videos' => 'Ikoncept\Fabriq\Models\Video',
     ];
 
     public function index(Request $request) : BinaryFileResponse
@@ -66,18 +66,25 @@ class DownloadController extends ApiController
     {
         $type = self::DOWNLOADABLE_TYPES[$request->type];
         $item = $type::where('id', $id)->firstOrFail();
-
+        $conversion = '';
         $mediaFile = $item->getFirstMedia($request->type);
+        $name = $mediaFile->file_name;
+
+        if($request->has('webp')) {
+            $conversion = 'webp';
+            $name =  pathinfo($name, PATHINFO_BASENAME) . '.webp';
+        }
+
         $disk = $mediaFile->disk;
         $headers = [
-            'X-FILENAME' => $mediaFile->file_name
+            'X-FILENAME' => $name
         ];
 
         if($disk === 'public') {
-            return response()->download($mediaFile->getPath(), $mediaFile->file_name, $headers);
+            return response()->download($mediaFile->getPath($conversion), $name, $headers);
         }
 
-        return Storage::disk($disk)->download($mediaFile->getPath(), $mediaFile->file_name, $headers);
+        return Storage::disk($disk)->download($mediaFile->getPath($conversion), $name, $headers);
     }
 
 }
