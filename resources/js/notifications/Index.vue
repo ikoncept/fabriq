@@ -10,7 +10,7 @@
             class="mb-8"
             paginated
             clickable-rows
-            :options="{ clickableRows: true, emptyText: 'Inga notiser att hantera! ☕' }"
+            :options="{ clickableRows: true, emptyText: 'Inga notiser att hantera! 🥂' }"
             @row-clicked="handleRowClicked"
             @change-page="setPage"
             @sort="setSort"
