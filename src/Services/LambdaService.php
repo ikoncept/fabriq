@@ -9,12 +9,12 @@ use Ikoncept\Fabriq\Exceptions\LambdaException;
 
 class LambdaService
 {
+
     public static function call(string $function, array $payload) : array
     {
-        $accessKey = env('AWS_LAMBDA_ACCESS_KEY_ID');
-        $secret = env('AWS_LAMBDA_SECRET_ACCESS_KEY');
-
-        $credentials = new Credentials($accessKey, $secret);
+        $accessKey = config('fabriq.aws_lambda_access_key');
+        $secretKey = config('fabriq.aws_lambda_secret_key');
+        $credentials = new Credentials($accessKey, $secretKey);
 
         $client = new LambdaClient([
             'credentials' => $credentials,
@@ -50,10 +50,11 @@ class LambdaService
      */
     public static function callAsync(string $function, array $payload)
     {
-        $accessKey = env('AWS_LAMBDA_ACCESS_KEY_ID');
-        $secret = env('AWS_LAMBDA_SECRET_ACCESS_KEY');
+        $accessKey = config('fabriq.aws_lambda_access_key');
+        $secretKey = config('fabriq.aws_lambda_secret_key');
+        $credentials = new Credentials($accessKey, $secretKey);
 
-        $credentials = new Credentials($accessKey, $secret);
+        $credentials = new Credentials($accessKey, $secretKey);
 
         $client = new LambdaClient([
             'credentials' => $credentials,

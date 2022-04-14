@@ -8,7 +8,7 @@
         <template #dropdown>
             <div class="text-white rounded bg-royal-500">
                 <svg
-                    class="absolute w-5 h-5 -mt-4 text-orange-500 transform rotate-180 text-royal-500"
+                    class="absolute w-5 h-5 -mt-4 transform rotate-180 text-royal-500"
                     :class="alignment === 'top-right' ? 'mr-4 right-0 ' : 'left-0 ml-4'"
                     viewBox="0 0 100 100"
                 >

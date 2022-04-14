@@ -32,17 +32,26 @@
                             class="col-span-3"
                             name="name"
                     />
-                    <div class="col-span-2">
-                        <FLabel class="mb-2"
-                                name="published"
-                        >
-                            Visa
-                        </FLabel>
-                        <div class="flex items-center mt-1 mb-6">
-                            <FSwitch v-model="contact.published" />
-                            <div class="ml-2 text-sm"
-                                 v-text="contact.published ? 'Ja' : 'Nej'"
+                    <div class="col-span-6">
+                        <div class="flex space-x-6">
+                            <FSelect v-model="tags"
+                                     multiple
+                                     taggable
+                                     label="Kontaktgrupp"
+                                     class="w-96"
+                                     name="tags"
+                                     :reduce-fn="tag => tag"
+                                     :create-option="tag => ({ name: tag, value: null, type: 'contacts'})"
+                                     value-key="name"
+                                     option-label="name"
+                                     :push-tags="false"
+                                     :options="contactTags"
                             />
+                            <FSwitch v-model="contact.published"
+                                     column-layout
+                            >
+                                Visa
+                            </FSwitch>
                         </div>
                     </div>
                     <FInput v-model="contact.email"
@@ -53,9 +62,15 @@
                     />
                     <FInput v-model="contact.phone"
                             label="Telefonnummer"
-                            type="phone"
-                            class="col-span-4 row-start-2"
+                            class="col-span-2 row-start-2"
+                            type="tel"
                             name="phone"
+                    />
+                    <FInput v-model="contact.mobile"
+                            label="Mobil"
+                            class="col-span-2 row-start-2"
+                            type="tel"
+                            name="mobile"
                     />
                     <FInput v-model="contact.sortindex"
                             type="number"
@@ -63,25 +78,15 @@
                             label="Sorteringsindex"
                             help-text="Sorterar kontakter i stigande ordning (lägst först)"
                     />
-                    <!-- <FSelect v-model="tags"
-                             multiple
-                             taggable
-                             label="Kontaktgrupp"
-                             name="tags"
-                             :reduce-fn="tag => tag"
-                             class="col-span-4 row-start-2"
-                             :create-option="tag => ({ name: tag, value: null, type: 'contacts'})"
-                             value-key="name"
-                             option-label="name"
-                             :push-tags="false"
-                             :options="contactTags"
-                    /> -->
+
                     <div class="col-span-12">
-                        <FImageInput v-if="contact.id"
-                                     v-model="content.image"
-                                     name="image"
-                                     label="Kontaktbild"
-                        />
+                        <div class="w-96">
+                            <FImageInput v-if="contact.id"
+                                         v-model="content.image"
+                                         name="image"
+                                         label="Kontaktbild"
+                            />
+                        </div>
                     </div>
                     <div class="col-span-12">
                         <FTabs>

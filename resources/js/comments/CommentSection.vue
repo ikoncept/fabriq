@@ -1,7 +1,7 @@
 <template>
     <div
         ref="comments"
-        class="fixed bottom-0 right-0 w-4/5 bg-white border-l border-gray-200 rounded-tl xl:w-1/2 lg:w-2/3 min-h-10 comment-box"
+        class="fixed bottom-0 right-0 z-10 w-4/5 bg-white border-l border-gray-200 rounded-tl xl:w-1/2 lg:w-2/3 min-h-10 comment-box"
     >
         <div class="flex items-center justify-between text-gray-100 bg-gray-800 rounded-tl cursor-pointer min-h-10"
              @click.stop="commentSectionOpen = ! commentSectionOpen"
