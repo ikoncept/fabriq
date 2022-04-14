@@ -96,7 +96,7 @@ class ImageTransformer extends TransformerAbstract
            return $media->getCustomProperty('height');
         }
         if($media->responsiveImages()->files->first()) {
-            return $media->responsiveImages()->files->first()->width();
+            return $media->responsiveImages()->files->first()->height();
         }
 
         return null;
