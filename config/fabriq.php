@@ -91,6 +91,8 @@ return [
     'enable_remote_image_processing' => env('FABRIQ_REMOTE_IMAGE_PROCESSING', false),
     'remote_image_processing_url' => env('FABRIQ_REMOTE_IMAGE_PROCESSING_URL', 'https://media-cruncher.ikoncept.io'),
     'remote_image_processing_api_key' => env('FABRIQ_REMOTE_IMAGE_PROCESSING_KEY', ''),
+    'aws_lambda_access_key' => env('AWS_LAMBDA_ACCESS_KEY_ID'),
+    'aws_lambda_secret_key' => env('AWS_LAMBDA_SECRET_ACCESS_KEY'),
 
 
     /**
