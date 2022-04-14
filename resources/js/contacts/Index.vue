@@ -78,6 +78,7 @@
                                 class="object-cover w-6 h-6 mr-4 rounded-full"
                                 :image="item.content.data.image"
                             />
+                            <!-- {{ item.image }} -->
                         </div>
                         {{ item.name }}
                     </RouterLink>
@@ -90,6 +91,16 @@
                     </span>
                     <span v-else-if="prop == 'sortindex'">
                         <UiBadge>{{ item.sortindex }}</UiBadge>
+                    </span>
+                    <span v-else-if="prop == 'published'"
+                          class="flex justify-center"
+                    >
+                        <CircleCheckIcon v-if="item.published"
+                                         class="w-5 text-green-500"
+                        />
+                        <XMarkIcon v-else
+                                   class="w-3 text-red-400"
+                        />
                     </span>
 
                     <span v-else-if="prop == 'edit'"
@@ -136,7 +147,7 @@ export default {
                 number: 50,
                 sort: 'sortindex',
                 'filter[search]': '',
-                include: 'tags',
+                include: 'tags,content',
                 append: 'image'
             },
             columns: [
@@ -159,6 +170,11 @@ export default {
                 {
                     title: 'Sorteringsindex',
                     key: 'sortindex',
+                    sortable: true
+                },
+                {
+                    title: 'Visas',
+                    key: 'published',
                     sortable: true
                 },
                 {
