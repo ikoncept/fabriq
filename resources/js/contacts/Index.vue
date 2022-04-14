@@ -69,16 +69,15 @@
                                 :to="{name: 'contacts.edit', params: { id: item.id }}"
                     >
                         <CircleUserIcon
-                            v-if="! item.image"
+                            v-if="! item.content.data.image"
                             thin
                             class="items-center w-6 h-6 mr-4"
                         />
                         <div v-else>
                             <UiImagePresenter
                                 class="object-cover w-6 h-6 mr-4 rounded-full"
-                                :image="item.image"
+                                :image="item.content.data.image"
                             />
-                            <!-- {{ item.image }} -->
                         </div>
                         {{ item.name }}
                     </RouterLink>
