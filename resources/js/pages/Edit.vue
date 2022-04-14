@@ -427,7 +427,7 @@ export default {
             if (!this.localizedContent[this.activeLocale].boxes) {
                 this.$set(this.localizedContent[this.activeLocale], 'boxes', [])
             }
-            this.localizedContent[this.activeLocale].boxes.push({ ...item })
+            this.localizedContent[this.activeLocale].boxes.push(JSON.parse(JSON.stringify(item)))
             this.$nextTick(() => {
                 this.localizedContent[this.activeLocale].boxes[this.localizedContent[this.activeLocale].boxes.length - 1].newlyAdded = false
             })
