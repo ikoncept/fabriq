@@ -40,7 +40,7 @@
 
             <FTable
                 :columns="columns"
-                :options="{clickableRows: false, defaultSort: 'sortindex', sortDescending: false, shadow: false, search: true}"
+                :options="{clickableRows: true, defaultSort: 'sortindex', sortDescending: false, shadow: false, search: true}"
                 :pagination="pagination"
                 :rows="contacts"
                 :search-query="searchQuery"

@@ -79,13 +79,14 @@
                             </RouterLink>
                         </div>
                         <div class="w-64" />
-                        <div class="font-medium text-gray-400">
-                            <UiBadge class="mr-8">
-                                {{ item.template.name }}
-                            </UiBadge>
-                        </div>
+
                         <div>
                             <div class="flex items-center justify-end space-x-4 ">
+                                <div class="font-medium text-gray-400">
+                                    <UiBadge class="mr-8">
+                                        {{ item.template.name }}
+                                    </UiBadge>
+                                </div>
                                 <RouterLink
                                     :to="{name: 'pages.edit', params: {id: item.id }}"
                                     class="flex items-center justify-end link"

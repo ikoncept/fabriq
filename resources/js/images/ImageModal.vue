@@ -78,14 +78,6 @@
                              :options="imageTags"
                     />
                     <div>
-                        <FButton
-                            type="button"
-                            class="inline-block px-8 py-2 mb-4 leading-none fabriq-btn btn-outline-royal"
-                            spinner-color="text-royal-500"
-                            :click="downloadFile"
-                        >
-                            Ladda ner
-                        </FButton>
                         <FSwitch v-model="image.custom_crop"
                                  name="custom_crop"
                         >
@@ -104,7 +96,7 @@
                         </UiBadge>
                     </div>
                     <div ref="image"
-                         class="relative bg-red-100 cursor-pointer duration"
+                         class="relative cursor-pointer duration"
                          @click="getCoords"
                     >
                         <Transition enter-active-class="transition ease-out transform duration-600"
@@ -124,6 +116,28 @@
                                           disable-custom-crop
                                           class="w-full mb-2 border border-gray-100 pointer-events-none bg-checkered-lg"
                         />
+                    </div>
+                    <div class="flex space-x-6">
+                        <div>
+                            <FButton
+                                type="button"
+                                class="inline-block px-8 py-2 mb-4 leading-none fabriq-btn btn-outline-royal whitespace-nowrap"
+                                spinner-color="text-royal-500"
+                                :click="downloadFile"
+                            >
+                                Ladda ner
+                            </FButton>
+                        </div>
+                        <div v-if="image.webp_src">
+                            <FButton
+                                type="button"
+                                class="inline-block px-8 py-2 mb-4 leading-none fabriq-btn btn-outline-royal whitespace-nowrap"
+                                spinner-color="text-royal-500"
+                                :click="downloadWebP"
+                            >
+                                Ladda ner WebP
+                            </FButton>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -238,6 +252,16 @@ export default {
             const payload = {
                 params: {
                     type: 'images'
+                }
+            }
+            const { data, headers } = await Download.show(this.image.id, payload)
+            await Download.handleBlobDownload(data, headers)
+        },
+        async downloadWebP () {
+            const payload = {
+                params: {
+                    type: 'images',
+                    webp: true
                 }
             }
             const { data, headers } = await Download.show(this.image.id, payload)

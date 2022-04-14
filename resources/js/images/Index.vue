@@ -185,6 +185,12 @@
                         <span v-else-if="prop == 'size'">
                             {{ item.size | filesize }}
                         </span>
+                        <span v-else-if="prop == 'dimensions'">
+
+                            <UiBadge v-show="item.width">
+                                {{ item.width }}×{{ item.height }}px
+                            </UiBadge>
+                        </span>
                         <span v-else-if="prop == 'edit'">
                             <button class="px-4 py-2 btn-ghost fabriq-btn"
                                     @click="openImageModal(item)"
@@ -258,8 +264,13 @@ export default {
                 },
                 {
                     key: 'size',
-                    title: 'Storlek',
+                    title: 'Filstorlek',
                     sortable: true
+                },
+                {
+                    key: 'dimensions',
+                    title: 'Storlek',
+                    sortable: false
                 },
                 {
                     key: 'edit',

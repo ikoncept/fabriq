@@ -36,11 +36,12 @@
             </template>
             <FTable
                 :columns="columns"
-                :options="{shadow: false}"
+                :options="{shadow: false, clickableRows: true}"
                 :pagination="pagination"
                 :rows="blocks"
                 class="mb-8"
                 paginated
+                @row-clicked="handleRowClicked"
                 @change-page="setPage"
                 @sort="setSort"
             >
@@ -160,6 +161,9 @@ export default {
                 }
                 console.error(error)
             }
+        },
+        handleRowClicked (row) {
+            this.$router.push({ name: 'smartBlocks.edit', params: { id: row.id } })
         },
         resetCreateModal () {
             setTimeout(() => {
