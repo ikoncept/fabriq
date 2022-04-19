@@ -41,6 +41,71 @@ class CommentableFeatureTest extends AdminUserTestCase
     }
 
     /** @test **/
+    public function it_can_attach_a_new_comment_with_a_specified_parent_id()
+    {
+        // Arrange
+        $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
+        $user = \Ikoncept\Fabriq\Models\User::factory()->create();
+
+        // Act
+        $comment = $page->commentAs($user, 'This is my special comment!');
+        $page->commentAs($user, 'This is the answer on your special comment.', $comment->id);
+
+        // Assert
+        $this->assertDatabaseHas('comments', [
+            'comment' => 'This is my special comment!',
+            'user_id' => $user->id,
+        ]);
+        $this->assertDatabaseHas('comments', [
+            'comment' => 'This is the answer on your special comment.',
+            'parent_id' => $comment->id,
+            'user_id' => $user->id,
+        ]);
+    }
+
+    /** @test **/
+    public function it_can_get_children_of_a_comment()
+    {
+        // Arrange
+        $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
+        $user = \Ikoncept\Fabriq\Models\User::factory()->create();
+
+        // Act
+        $parentComment = $page->commentAs($user, 'This is my special comment!');
+        $page->commentAs($user, 'This is the answer on your special comment.', $parentComment->id);
+        $page->commentAs($user, 'Other answer.', $parentComment->id);
+
+        // Assert
+        $this->assertCount(2, $parentComment->children);
+        $this->assertEquals('This is the answer on your special comment.', $parentComment->children->first()->comment);
+    }
+
+    /** @test **/
+    public function it_can_delete_a_parent_comment()
+    {
+        // Arrange
+        $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
+        $user = \Ikoncept\Fabriq\Models\User::factory()->create();
+
+        // Act
+        $parentComment = $page->commentAs($user, 'This is my special comment!');
+        $page->commentAs($user, 'This is the answer on your special comment.', $parentComment->id);
+        $page->commentAs($user, 'Other answer.', $parentComment->id);
+
+        // Assert
+        $parentComment->delete();
+        $this->assertDatabaseHas('comments', [
+            'id' => $parentComment->id,
+        ]);
+        $this->assertDatabaseHas('comments', [
+            'comment' => 'This is the answer on your special comment.',
+            'parent_id' => $parentComment->id
+        ]);
+        // $this->assertCount(2, $parentComment->children);
+        // $this->assertEquals('This is the answer on your special comment.', $parentComment->children->first()->comment);
+    }
+
+    /** @test **/
     public function it_get_all_comments_for_specific_resource()
     {
         // Arrange
@@ -53,14 +118,20 @@ class CommentableFeatureTest extends AdminUserTestCase
                 'commentable_id' => $page->id,
                 'user_id' => \Ikoncept\Fabriq\Models\User::factory()->create()
             ]);
+        $firstComment = $comments->first();
+        $user = \Ikoncept\Fabriq\Models\User::factory()->create();
+        $childComment = $page->commentAs($user, 'This is the answer on your special comment.', $firstComment->id);
 
         // Act
-        $response = $this->json('GET', '/pages/' . $page->id . '/comments');
+        $response = $this->json('GET', '/pages/' . $page->id . '/comments?include=children');
 
 
         // Assert
         $response->assertOk();
         $response->assertJsonCount(5, 'data');
+        $response->assertJsonFragment([
+            'comment' => 'This is the answer on your special comment.'
+        ]);
     }
 
     /** @test **/

@@ -14,7 +14,7 @@ class CommentTransformer extends TransformerAbstract
      * @var array
      */
     protected $availableIncludes = [
-        'user', 'page'
+        'user', 'page', 'children'
     ];
 
     /**
@@ -30,6 +30,7 @@ class CommentTransformer extends TransformerAbstract
             'id' => (int) $comment->id,
             'comment' => (string) $comment->comment,
             'created_at' => (string) $comment->created_at->toIsoString(),
+            'anonmyzed_at' => $comment->anonymized_at,
             'user_id' => ($comment->user_id) ? (int) $comment->user_id : null
         ];
     }
@@ -43,5 +44,16 @@ class CommentTransformer extends TransformerAbstract
     public function includeUser(Comment $comment)
     {
         return $this->item($comment->user, new UserTransformer);
+    }
+
+    /**
+     * Include children
+     *
+     * @param Comment $comment
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeChildren(Comment $comment)
+    {
+        return $this->collection($comment->children, new CommentTransformer);
     }
 }
