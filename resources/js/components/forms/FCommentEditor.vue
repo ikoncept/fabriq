@@ -2,8 +2,9 @@
     <div>
         <EditorContent
             v-if="editor"
+            ref="editor"
             :editor="editor"
-            class="w-full border-t rounded focus:outline-none focus:ring-1 f-comment-editor"
+            class="w-full rounded focus:outline-none focus:ring-1 f-comment-editor"
         />
         <p v-if="helpText"
            class="mt-1 text-xs text-gray-500 help-text"
@@ -67,13 +68,18 @@ export default {
         helpText: {
             type: String,
             default: ''
+        },
+        rows: {
+            type: Number,
+            default: 3
         }
     },
     data () {
         return {
             editor: null,
             isEditing: true,
-            users: []
+            users: [],
+            pop: ''
         }
     },
     computed: {
@@ -81,6 +87,17 @@ export default {
             return this.users.map(item => {
                 return { name: item.name, email: item.email }
             })
+        }
+    },
+    watch: {
+        value (value) {
+            const isSame = this.editor.getHTML() === value
+
+            if (isSame) {
+                return
+            }
+
+            this.editor.commands.setContent(value, false)
         }
     },
     mounted () {
@@ -108,11 +125,27 @@ export default {
         },
         initEditor () {
             this.editor = new Editor({
+                editorProps: {
+                    handleDOMEvents: {
+                        keydown: (view, event) => {
+                            return event.keyCode === 13 && event.metaKey
+                        }
+                    }
+                },
+                content: this.value,
+                onUpdate: () => {
+                    // HTML
+                    this.$emit('input', this.editor.getHTML())
+
+                    // JSON
+                    // this.$emit('update:modelValue', this.editor.getJSON())
+                },
                 extensions: [
                     StarterKit,
                     Placeholder.configure({
                         placeholder: this.placeholder
                     }),
+
                     CustomMention.configure({
                         HTMLAttributes: {
                             class: 'mention',
@@ -169,17 +202,24 @@ export default {
                     })
                 ]
             })
-            this.editor.on('update', () => {
-                this.$emit('input', this.editor.getHTML())
+            // this.editor.on('update', () => {
+            //     this.$emit('input', this.editor.getHTML())
+            // })
+
+            this.editor.on('focus', ({ editor, event }) => {
+                this.$emit('focus', event)
             })
-            this.editor.commands.setContent(this.value)
+            this.editor.on('blur', ({ editor, event }) => {
+                this.$emit('blur', event)
+            })
+            // this.editor.commands.setContent(this.value)
         }
     }
 }
 </script>
 <style>
     .f-comment-editor > div {
-        @apply w-full px-4 pt-4 pb-4 transition duration-200 ease-out bg-white border border-gray-300 rounded focus:outline-none focus:ring-1 ring-inset ring-gray-800 h-24 overflow-y-auto;
+        @apply w-full px-4 pt-2 pb-2 transition duration-200 ease-out bg-white border border-gray-300 rounded focus:outline-none focus:ring-1 ring-inset ring-gray-800;
     }
     .f-comment-editor .tippy-content .items {
         @apply flex flex-col;

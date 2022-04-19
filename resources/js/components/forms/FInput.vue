@@ -52,7 +52,8 @@
                     :readonly="readOnly"
                     :value="value"
                     class=" flex-1 block w-full rounded px-4 py-2.5 text-sm antialiased text-gray-800 transition duration-200 ease-out appearance-none leadning-none ring-1 focus:outline-none ring-gray-300 focus:ring-gray-800"
-                    rows="2"
+                    :rows="rows"
+                    v-on="inputListeners"
                     @input="updateValue($event.target.value)"
                 />
                 <span v-else-if="inputType === 'input'"
@@ -215,6 +216,10 @@ export default {
         optional: {
             type: String,
             default: ''
+        },
+        rows: {
+            type: Number,
+            default: 2
         },
         defaultValue: {
             type: [String, Number, Object, Array, Boolean],
