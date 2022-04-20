@@ -4,12 +4,6 @@
          style="scroll-margin-top: 10px;"
          :class="isChild ? 'pb-2 pr-4' : 'pb-6 pt-4 px-4 mb-4 bg-white shadow-lg rounded-md border border-neutral-100'"
     >
-        <span v-if="$route.query.commentId == comment.id"
-              class="absolute left-0 z-10 flex w-2 h-2 mt-1 mr-2"
-        >
-            <span class="absolute inline-flex w-full h-full bg-red-500 rounded-full opacity-75 animate-ping" />
-            <span class="relative inline-flex w-2 h-2 bg-red-400 rounded-full" />
-        </span>
         <div class="relative flex items-start space-x-3">
             <div class="relative z-10">
                 <UiAvatar :user="comment.user.data"

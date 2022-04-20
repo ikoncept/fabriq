@@ -19,7 +19,7 @@
                 <span v-if="prop == 'commentInfo'">
                     <div class="flex items-start ">
                         <div class="flex-shrink-0 w-2 h-2 mt-1 mr-4 bg-red-400 rounded-full" />
-                        <div v-if="item.notifiable.data.commentable_type.includes('Page')">
+                        <div v-if="item.notifiable.data.commentable_type && item.notifiable.data.commentable_type.includes('Page')">
                             <PageComment :item="item"
                                          :cleared="false"
                             />
@@ -55,7 +55,7 @@
                 <span v-if="prop == 'commentInfo'">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 w-2 h-2 mt-1 mr-4 bg-gray-400 rounded-full" />
-                        <div v-if="item.notifiable.data.commentable_type.includes('Page')"
+                        <div v-if="item.notifiable.data.commentable_type && item.notifiable.data.commentable_type.includes('Page')"
                              class="opacity-80"
                         >
                             <PageComment :item="item"
@@ -162,7 +162,7 @@ export default {
         handleRowClicked (row) {
             if (row.notifiable.data.commentable_type.includes('Page')) {
                 this.clearNotification(row.id)
-                this.$router.push({ name: 'pages.edit', params: { id: row.notifiable.data.commentable_id }, query: { openComments: true } })
+                this.$router.push({ name: 'pages.edit', params: { id: row.notifiable.data.commentable_id }, query: { openComments: true, commentId: row.notifiable_id } })
             }
         },
         async clearNotification (id, refresh = false) {
