@@ -6,9 +6,10 @@
             :editor="editor"
             class="w-full rounded focus:outline-none focus:ring-1 f-comment-editor"
         />
-        <p v-if="helpText"
-           class="mt-1 text-xs text-gray-500 help-text"
-           v-text="helpText"
+        <p
+            v-if="helpText"
+            class="mt-1 text-xs text-gray-500 help-text"
+            v-text="helpText"
         />
     </div>
 </template>
@@ -218,46 +219,44 @@ export default {
 }
 </script>
 <style>
-    .f-comment-editor > div {
-        @apply w-full px-4 pt-2 pb-2 transition duration-200 ease-out bg-white border border-gray-300 rounded focus:outline-none focus:ring-1 ring-inset ring-gray-800;
-    }
-    .f-comment-editor .tippy-content .items {
-        @apply flex flex-col;
-    }
-.mention {
-    color: #A975FF;
-    border-radius: 0.3rem;
-    padding: 0.1rem 0.3rem;
-    @apply bg-purple-50;
+.f-comment-editor > div {
+    @apply w-full px-4 pt-2 pb-2 transition duration-200 ease-out bg-white border border-gray-300 rounded focus:outline-none focus:ring-1 ring-inset ring-gray-800;
 }
-    .items {
-  position: relative;
-  border-radius: 0.25rem;
-  background: white;
-  color: rgba(0,0,0, 0.8);
-  overflow: hidden;
-  font-size: 0.9rem;
-  @apply shadow;
+.f-comment-editor .tippy-content .items {
+    @apply flex flex-col;
+}
+.mention {
+    color: theme("colors.purple.600");
+    font-weight: theme('fontWeight.medium');
+    background: theme("colors.transparent");
+}
+.items {
+    position: relative;
+    border-radius: 0.25rem;
+    background: white;
+    overflow: hidden;
+    @apply shadow text-sm text-neutral-600;
 }
 .item {
-  display: block;
-  width: 100%;
-  text-align: left;
-  background: transparent;
-  border: none;
-  padding: 0.2rem 0.5rem;
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    padding: 0.2rem 0.5rem;
+    @apply font-medium;
 }
 
-.item.is-selected, .item:hover {
-    @apply bg-purple-50 text-purple-500;
+.item.is-selected,
+.item:hover {
+    @apply bg-purple-50 text-purple-600;
 }
-  /* Placeholder (at the top) */
-  .ProseMirror p.is-editor-empty:first-child::before {
+/* Placeholder (at the top) */
+.ProseMirror p.is-editor-empty:first-child::before {
     content: attr(data-placeholder);
     float: left;
     pointer-events: none;
     height: 0;
     @apply text-gray-400;
-  }
-
+}
 </style>
