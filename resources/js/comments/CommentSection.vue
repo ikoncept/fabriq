@@ -1,7 +1,7 @@
 <template>
     <div
         ref="comments"
-        class="fixed bottom-0 right-0 z-10 w-4/5 bg-white border-l border-gray-200 rounded-tl xl:w-1/2 lg:w-2/3 min-h-10 comment-box"
+        class="fixed bottom-0 right-0 z-10 w-4/5 bg-white border-l border-gray-200 rounded-tl bgred-100 xl:w-1/2 lg:w-2/3 min-h-10 comment-box"
     >
         <div class="flex items-center justify-between text-gray-100 bg-gray-800 rounded-tl cursor-pointer min-h-10"
              @click.stop="commentSectionOpen = ! commentSectionOpen"
@@ -24,7 +24,7 @@
         >
             <div>
                 <div ref="flow"
-                     class="flow-root overflow-y-auto h-96"
+                     class="flow-root overflow-y-auto h-[660px]"
                 >
                     <ul
                         role="list"
@@ -34,20 +34,22 @@
                             :key="comment.id"
                         >
                             <CommentItem :comment="comment"
-                                         :is-last="(index+1) < comments.length"
-                                         @comment-deleted="fetchComments"
+                                         :is-last="(index+1) === comments.length"
+                                         @refresh-comments="fetchComments"
                             />
                         </li>
                     </ul>
-                    <div class="relative z-20 flex items-end mx-6 my-6 space-x-6">
+                    <div class="relative z-20 flex items-center mx-8 mt-16 mb-8 space-x-4">
                         <FCommentEditor v-if="commentSectionOpen"
                                         v-model="newComment"
                                         class="flex-1"
                                         placeholder="Skriv din kommentar här…"
+                                        @focus="onFocus"
+                                        @blur="onBlur"
                         />
                         <div>
                             <FButton :click="postComment"
-                                     class="px-6 py-2.5 leading-none fabriq-btn btn-royal z-50"
+                                     class="px-6 py-2.5 leading-none fabriq-btn btn-royal z-50 h-[41px]"
                             >
                                 Skicka
                             </FButton>
@@ -78,7 +80,6 @@ export default {
     },
     mounted () {
         this.fetchComments()
-        this.$refs.comments.addEventListener('keydown', this.listenForMetaPlusEnter)
         this.$eventBus.$on('open-comment-section', this.openCommentSection)
     },
     beforeDestroy () {
@@ -86,14 +87,30 @@ export default {
         this.$refs.comments.removeEventListener('keydown', this.listenForMetaPlusEnter)
     },
     methods: {
+        onFocus () {
+            this.$refs.comments.addEventListener('keydown', this.listenForMetaPlusEnter)
+        },
+        onBlur () {
+            this.$refs.comments.removeEventListener('keydown', this.listenForMetaPlusEnter)
+        },
         openCommentSection () {
             this.commentSectionOpen = true
         },
         scrollToLatestComment () {
+            if (this.$route.query.commentId) {
+                setTimeout(() => {
+                    this.scrollToComment(this.$route.query.commentId)
+                }, 300)
+                return
+            }
             const container = this.$refs.flow
             setTimeout(() => {
-                container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' })
-            }, 150)
+                container.scrollTo({ top: container.scrollHeight })
+            }, 100)
+        },
+        scrollToComment (id) {
+            const element = document.getElementById('comment' + id)
+            element.scrollIntoView({ behavior: 'smooth', top: 10 })
         },
         listenForMetaPlusEnter (event) {
             const vm = this
@@ -105,7 +122,7 @@ export default {
                 const payload = {
                     comment: this.newComment,
                     params: {
-                        include: 'user'
+                        include: 'user,children,children.user'
                     }
                 }
                 await Comment.store('pages', this.$route.params.id, payload)
@@ -123,7 +140,7 @@ export default {
             try {
                 const payload = {
                     params: {
-                        include: 'user'
+                        include: 'user,children,children.user'
                     }
                 }
                 const { data } = await Comment.index('pages', this.$route.params.id, payload)

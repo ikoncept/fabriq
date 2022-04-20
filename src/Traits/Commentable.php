@@ -11,7 +11,9 @@ trait Commentable
 
     public function comments() : MorphMany
     {
-        return $this->morphMany(Comment::class, 'commentable');
+        return $this->morphMany(Comment::class, 'commentable')
+            ->whereNull('parent_id')
+            ->orderBy('created_at');
     }
 
     public function comment(string $comment): Model
@@ -19,11 +21,20 @@ trait Commentable
         return $this->newComment(['comment' => $comment]);
     }
 
-    public function commentAs(Model $user, string $comment): Model
+    /**
+     * Comment as a user
+     *
+     * @param Model $user
+     * @param string $comment
+     * @param null|int $parentId
+     * @return Model
+     */
+    public function commentAs(Model $user, string $comment, $parentId = null): Model
     {
         return $this->newComment([
             'comment' => $comment,
             'user_id' => $user->getKey(),
+            'parent_id' => $parentId
         ]);
     }
 

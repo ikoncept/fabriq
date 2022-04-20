@@ -33,7 +33,7 @@ class CommentableController extends ApiController
 
         $modelClass = $this->modelMap[$modelName];
         $model = Fabriq::getModelClass($modelClass)->where('id', $modelId)
-            ->with('comments', 'comments.user', 'comments.user.roles')
+            ->with('comments', 'comments.user', 'comments.user.roles', 'comments.children', 'comments.children.user')
             ->firstOrFail();
 
         return $this->respondWithCollection($model->comments, new CommentTransformer);
@@ -48,7 +48,7 @@ class CommentableController extends ApiController
         $modelClass = $this->modelMap[$modelName];
         $model = Fabriq::getModelClass($modelClass)->where('id', $modelId)
             ->firstOrFail();
-        $comment = $model->commentAs($request->user(), $request->comment);
+        $comment = $model->commentAs($request->user(), $request->comment, $request->parent_id ?? null);
 
         return $this->respondWithItem($comment, new CommentTransformer, 201);
     }
