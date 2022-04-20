@@ -2,7 +2,7 @@
     <div :id="'comment'+comment.id"
          class="relative "
          style="scroll-margin-top: 10px;"
-         :class="isChild ? 'pb-2 pr-4' : 'pb-6 pt-3 px-4 mb-4 bg-white shadow-lg rounded-md border border-neutral-100'"
+         :class="isChild ? 'pb-2 pr-4' : 'pb-6 pt-4 px-4 mb-4 bg-white shadow-lg rounded-md border border-neutral-100'"
     >
         <span v-if="$route.query.commentId == comment.id"
               class="absolute left-0 z-10 flex w-2 h-2 mt-1 mr-2"
@@ -14,7 +14,6 @@
             <div class="relative z-10">
                 <UiAvatar :user="comment.user.data"
                           :class="isChild ? 'w-6 h-6' : 'w-10 h-10'"
-
                           class="flex items-center justify-center object-cover mt-1.5 bg-gray-400 rounded-full ring-1 ring-royal-500"
                 />
             </div>
@@ -22,12 +21,29 @@
                 <div>
                     <p class="mt-0.5 " />
                 </div>
-                <div class="relative pr-4 text-sm text-gray-700">
-                    <div class="relative ">
+                <div
+                    class="relative pr-4 text-sm text-gray-700"
+                >
+                    <div class="relative">
                         <div v-if="!comment.anonmyzed_at"
-                             class="inline-flex flex-col px-4 py-2 rounded-lg bg-neutral-100"
+                             v-click-outside="rollBackDelete"
+                             class="relative inline-flex flex-col px-4 py-2 rounded-lg bg-neutral-100"
                         >
-                            <div>
+                            <div v-if="isOwnedByUser && ! comment.anonmyzed_at"
+                                 class="absolute top-0 right-0 flex transition-all duration-300  items-center  h-6 p-[7.5px] rounded-full cursor-pointer overflow-hidden"
+                                 :class="isDeleting ? 'w-20 bg-neutral-200 shadow' : 'w-6'"
+                                 @click="deleteComment"
+                            >
+                                <XMarkIcon
+                                    :class="isDeleting ? 'text-neutral-500' : 'text-neutral-400'"
+                                    class="block group-hover:hidden max-w-2.5"
+                                    regular
+                                />
+                                <span v-show="isDeleting"
+                                      class="justify-center flex-1 w-full text-xs text-center whitespace-nowrap "
+                                >Ta bort</span>
+                            </div>
+                            <div class="pr-4">
                                 <span
                                     class="text-xs font-medium text-gray-900"
                                     v-text="isOwnedByUser ? 'Du' : comment.user.data.name"
@@ -38,15 +54,6 @@
                                 class="inline-flex flex-col prose-sm prose origin-left transform scale-95 "
                                 v-html="comment.comment"
                             />
-                            <span v-if="isOwnedByUser && ! comment.anonmyzed_at"
-                                  class="text-xs"
-                            >
-                                <span class="text-xs text-red-500 cursor-pointer"
-                                      @click="deleteComment"
-                                      v-text="isDeleting ? 'Bekräfta' : 'Ta bort'"
-                                />
-
-                            </span>
                         </div>
                         <div v-else
                              class="pt-3 pb-2 prose-sm prose origin-left"
@@ -139,6 +146,9 @@ export default {
         }
     },
     methods: {
+        rollBackDelete () {
+            this.isDeleting = false
+        },
         onFocus () {
             this.replyHasFocus = true
             window.addEventListener('keydown', this.listenForMetaPlusEnter)

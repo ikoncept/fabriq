@@ -105,8 +105,8 @@ export default {
             }
             const container = this.$refs.flow
             setTimeout(() => {
-                container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' })
-            }, 550)
+                container.scrollTo({ top: container.scrollHeight })
+            }, 100)
         },
         scrollToComment (id) {
             const element = document.getElementById('comment' + id)
