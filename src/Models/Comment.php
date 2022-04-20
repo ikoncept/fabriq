@@ -68,6 +68,17 @@ class Comment extends Model
                 return false;
             }
         });
+
+        // If the last child comment is deleted on a deleted
+        // parent, the parent should be deleted
+        static::deleted(function ($model) {
+            if(! $model->parent_id) {
+                return;
+            }
+            if(! $model->parent->children->count()) {
+                $model->parent->delete();
+            }
+        });
     }
 
 
@@ -98,5 +109,10 @@ class Comment extends Model
     {
         return $this->hasMany(self::class, 'parent_id', 'id')
             ->orderBy('created_at');
+    }
+
+    public function parent() : BelongsTo
+    {
+        return $this->belongsTo(self::class, 'parent_id', 'id');
     }
 }

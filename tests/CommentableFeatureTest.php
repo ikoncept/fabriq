@@ -325,4 +325,24 @@ class CommentableFeatureTest extends AdminUserTestCase
         Event::assertDispatched(CommentPosted::class);
     }
 
+    /** @test **/
+    public function it_will_delete_the_anonymized_parent_if_there_are_no_children_left()
+    {
+        // Arrange
+        $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
+        $user = \Ikoncept\Fabriq\Models\User::factory()->create();
+        $comment = $page->commentAs($user, 'This is my special comment!');
+        $childComment = $page->commentAs($user, 'This is the answer on your special comment.', $comment->id);
+        $comment->delete();
+        $this->actingAs($user);
+
+        // Act
+        $response = $this->json('DELETE', '/comments/' . $childComment->id);
+
+        // Assert
+        $response->assertOk();
+        $this->assertDatabaseMissing('comments', [
+            'id' => $comment->id
+        ]);
+    }
 }
