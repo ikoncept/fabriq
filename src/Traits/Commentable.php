@@ -20,6 +20,14 @@ trait Commentable
         return $this->newComment(['comment' => $comment]);
     }
 
+    /**
+     * Comment as a user
+     *
+     * @param Model $user
+     * @param string $comment
+     * @param null|int $parentId
+     * @return Model
+     */
     public function commentAs(Model $user, string $comment, $parentId = null): Model
     {
         return $this->newComment([
