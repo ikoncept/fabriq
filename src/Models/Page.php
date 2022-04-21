@@ -72,7 +72,7 @@ class Page extends Model implements HasMedia
                 $item->delete();
             });
             DB::table('slugs')->where('model_id', $page->id)
-                ->where('model_type', 'Ikoncept\Fabriq\Models\Page')
+                ->where('model_type', Fabriq::getFqnModel('page'))
                 ->delete();
         });
     }
