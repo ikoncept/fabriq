@@ -38,6 +38,23 @@ php artisan vendor:publish --provider="Infab\TranslatableRevisions\TranslatableR
 
 Setup your database using the .env
 
+
+## Modify the user model 🧘
+
+The user model need to extend the Fabriq\Models\User::class
+
+```php
+// app/Models/User.php
+
+//...
+use Ikoncept\Fabriq\Models\User as FabriqUser;
+//...
+
+class User extends FabriqUser
+
+// ...
+```
+
 Run the `fabriq:install` command:
 ```
 $ php artisan fabriq:install
@@ -85,21 +102,6 @@ Enable the Laravel Sanctum middleware in `app\Http\Kernel.php`
 
 ```
 
-## Modify the user model 🧘
-
-The user model need to extend the Fabriq\Models\User::class
-
-```php
-// app/Models/User.php
-
-//...
-use Ikoncept\Fabriq\Models\User as FabriqUser;
-//...
-
-class User extends FabriqUser
-
-// ...
-```
 
 ## Register routes 🛣
 Register the routes that makes sense for your app. See below examples
