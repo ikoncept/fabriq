@@ -57,7 +57,7 @@ class PagePathsFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $response->assertJsonFragment([
             'absolute_path' => config('fabriq.front_end_domain') . '/' . App::currentLocale() . '/parent-1/child-2/child-1-of-child-1',
-            'permalink' => config('fabriq.front_end_domain') .  '/permalink/' . hash('sha1', $childChildOne->id)
+            'permalink' => config('fabriq.front_end_domain') .  '/permalink/' . hash('md5', $childChildOne->id) .  '/' . App::currentLocale()
         ]);
     }
 
