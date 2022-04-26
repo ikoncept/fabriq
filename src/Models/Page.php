@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Models;
 
+use Ikoncept\Fabriq\Concerns\HasPaths;
 use Ikoncept\Fabriq\ContentGetters\ButtonGetter;
 use Ikoncept\Fabriq\ContentGetters\ButtonsGetter;
 use Ikoncept\Fabriq\ContentGetters\FileGetter;
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +31,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Page extends Model implements HasMedia
 {
-    use HasFactory, HasTranslatedRevisions, InteractsWithMedia, NodeTrait, Commentable;
+    use HasFactory, HasTranslatedRevisions, InteractsWithMedia, NodeTrait, Commentable, HasPaths;
 
     const RELATIONSHIPS = ['template', 'template.fields'];
 
@@ -74,6 +76,15 @@ class Page extends Model implements HasMedia
             DB::table('slugs')->where('model_id', $page->id)
                 ->where('model_type', Fabriq::getFqnModel('page'))
                 ->delete();
+        });
+        static::created(function ($page) {
+            $content = [
+                'page_title' => $page->name
+            ];
+            $supportedLocales = Fabriq::getModelClass('locale')->cachedLocales();
+            $supportedLocales->each(function($locale, $key) use ($content, $page) {
+                $page->updateContent($content, $key, 1);
+            });
         });
     }
 
@@ -211,6 +222,7 @@ class Page extends Model implements HasMedia
 
         return $slugGroups;
     }
+
     /**
      * Relation for slugs
      *
@@ -219,6 +231,11 @@ class Page extends Model implements HasMedia
     public function slugs() : MorphMany
     {
         return $this->morphMany(Fabriq::getFqnModel('slug'), 'model');
+    }
+
+    public function latestSlug() : MorphOne
+    {
+        return $this->morphOne(Fabriq::getFqnModel('slug'), 'model')->latestOfMany();
     }
 
 
