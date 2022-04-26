@@ -13,16 +13,16 @@ jobs:
       BROADCAST_DRIVER: log
       DB_CONNECTION: pgsql
       DB_HOST: localhost
-      DB_PASSWORD: postgres
-      DB_USERNAME: postgres
-      DB_DATABASE: postgres
+      DB_PASSWORD: secret
+      DB_USERNAME: homestead
+      DB_DATABASE: fabriq_testing
     services:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
+          POSTGRES_USER: homestead
+          POSTGRES_PASSWORD: secret
+          POSTGRES_DB: fabriq_testing
         ports:
           - 5432/tcp
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
