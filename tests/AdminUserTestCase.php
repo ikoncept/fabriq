@@ -5,6 +5,7 @@ namespace Ikoncept\Fabriq\Tests;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
@@ -17,7 +18,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 abstract class AdminUserTestCase extends Orchestra
 {
 
-    use DatabaseTransactions;
+    use LazilyRefreshDatabase;
 
     public function setUp() : void
     {
@@ -30,7 +31,6 @@ abstract class AdminUserTestCase extends Orchestra
         );
         $this->setUpDatabase($this->app);
 
-        Artisan::call('fabriq:install');
         Artisan::call('vendor:publish', [
             '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
             '--tag' => 'fabriq-translations'
