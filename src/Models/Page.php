@@ -193,7 +193,7 @@ class Page extends Model implements HasMedia
                     return '';
                 }
                 return collect($item->ancestors)->reduce(function($carry, $subItem) use ($locale) {
-                    // /** @var MenuItem $subItem **/
+                    /** @var MenuItem $subItem **/
                     if(! $subItem->page) {
                         return;
                     }
