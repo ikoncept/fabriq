@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
@@ -71,7 +71,7 @@ class ImageFeatureTest extends AdminUserTestCase
 
         // Act
         $response = $this->json('POST', '/images/'. $image->id . '/users', [
-            'model_id' => 1
+            'model_id' => $this->user->id
         ]);
 
         // Assert
@@ -173,8 +173,8 @@ class ImageFeatureTest extends AdminUserTestCase
         // Assert
         $response->assertOk();
         $response->assertJsonCount(5, 'data');
-        $this->assertEquals(collect($response->json()['data'])->last()['id'], 1);
-        $this->assertEquals(collect($response->json()['data'])->first()['id'], 5);
+        $this->assertEquals(collect($response->json()['data'])->last()['id'], $images->first()->id);
+        $this->assertEquals(collect($response->json()['data'])->first()['id'], $images->last()->id);
     }
 
     /** @test **/

@@ -13,9 +13,6 @@ class PagePathController
 {
     use ApiControllerTrait;
 
-    protected $middleware = [LocaleMiddleware::class];
-
-
     public function index(Request $request, int $id) : JsonResponse
     {
         $page = Fabriq::getModelClass('page')->whereId($id)

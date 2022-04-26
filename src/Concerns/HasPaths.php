@@ -16,7 +16,13 @@ trait HasPaths
         return $query->where($this->getWhereHashStatement(), $hash);
     }
 
-    public function getAbsolutePath(string $path) : string
+    /**
+     * Get the absolute path
+     *
+     * @param string|null $path
+     * @return string
+     */
+    public function getAbsolutePath($path) : string
     {
         return config('fabriq.front_end_domain')
             . $this->currentLocaleString()
@@ -27,7 +33,7 @@ trait HasPaths
     {
         return config('fabriq.front_end_domain')
             . '/permalink/'
-            . hash('md5', $this->id)
+            . hash('md5', (string) $this->id)
             . $this->currentLocaleString();
     }
 
@@ -39,7 +45,7 @@ trait HasPaths
             }
             return [
                 'absolute_path' => $this->getAbsolutePath($item[App::currentLocale()]['0']),
-                'permalink' => $this->getPermalinkPath($this->id)
+                'permalink' => $this->getPermalinkPath()
             ];
         })->filter()->first();
     }

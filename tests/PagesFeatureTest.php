@@ -293,7 +293,7 @@ class PagesFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $response->assertJsonFragment([
             'slug' => 'the-page-title-for-the-page',
-            'source_key' => 'pages-1-1-page_title'
+            'source_key' => 'pages-' . $page->id . '-1-page_title'
         ]);
     }
 

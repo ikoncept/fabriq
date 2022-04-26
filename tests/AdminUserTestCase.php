@@ -17,8 +17,9 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class AdminUserTestCase extends Orchestra
 {
-
     use LazilyRefreshDatabase;
+
+    public $user;
 
     public function setUp() : void
     {
@@ -31,6 +32,7 @@ abstract class AdminUserTestCase extends Orchestra
         );
         $this->setUpDatabase($this->app);
 
+        Artisan::call('fabriq:install');
         Artisan::call('vendor:publish', [
             '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
             '--tag' => 'fabriq-translations'
@@ -42,6 +44,7 @@ abstract class AdminUserTestCase extends Orchestra
             'password' => bcrypt('secret')
         ]);
 
+        $this->user = $user;
         $this->actingAs($user);
     }
 

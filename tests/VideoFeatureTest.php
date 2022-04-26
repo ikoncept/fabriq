@@ -144,8 +144,8 @@ class VideoFeatureTest extends AdminUserTestCase
         // Assert
         $response->assertOk();
         $response->assertJsonCount(5, 'data');
-        $this->assertEquals(collect($response->json()['data'])->last()['id'], 1);
-        $this->assertEquals(collect($response->json()['data'])->first()['id'], 5);
+        $this->assertEquals(collect($response->json()['data'])->last()['id'], $videos->first()->id);
+        $this->assertEquals(collect($response->json()['data'])->first()['id'], $videos->last()->id);
     }
 
     /** @test **/

@@ -14,7 +14,7 @@ class UserImageFeatureTest extends AdminUserTestCase
     /** @test **/
     public function it_can_upload_and_attach_image_to_an_user()
     {
-        $user = Auth::user();
+        // $user = Auth::user();
         $route = route('user.image.store');
 
         $response = $this->json('POST', $route, [
@@ -22,12 +22,15 @@ class UserImageFeatureTest extends AdminUserTestCase
         ]);
 
         $response->assertSuccessful();
+        $response->assertJsonFragment([
+            'id' => $response->json()['data']['image']['data']['id']
+        ]);
         $this->assertDatabaseHas('users', [
-            'id'        => $user->id,
-            'image_id'  => 1
+            'id' => $this->user->id,
+            'image_id' => $response->json()['data']['image']['data']['id'],
         ]);
         $this->assertDatabaseHas('images', [
-            'id' => 1,
+            'id' => $response->json()['data']['image']['data']['id'],
         ]);
     }
 

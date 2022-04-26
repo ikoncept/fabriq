@@ -23,6 +23,7 @@ use Ikoncept\Fabriq\Repositories\Decorators\CachingPageRepository;
 use Ikoncept\Fabriq\Repositories\EloquentMenuRepository;
 use Ikoncept\Fabriq\Repositories\EloquentPageRepository;
 use Ikoncept\Fabriq\Repositories\Interfaces\PageRepositoryInterface;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Infab\Core\CoreServiceProvider;
 use Infab\TranslatableRevisions\TranslatableRevisionsServiceProvider;
@@ -154,7 +155,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
 
     protected function resourceDirectories() : array
     {
-        $resourceDirectories = glob(__DIR__.'/../resources/js/*');
+        $resourceDirectories = (array) glob(__DIR__.'/../resources/js/*');
 
         list($updateFolders, $installFolders) = collect($resourceDirectories)->mapWithKeys(function($item) {
                 $path = pathinfo((string)$item, PATHINFO_BASENAME);
