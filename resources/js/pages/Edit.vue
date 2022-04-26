@@ -324,8 +324,7 @@ export default {
             id: 0,
             queryParams: {
                 include: 'template,template.groupedFields,slugs,localizedContent',
-                locale: 'all',
-                append: 'paths'
+                locale: 'all'
             },
             page: {
                 id: 0,
@@ -376,6 +375,9 @@ export default {
     methods: {
         openAllCards () {
             this.$eventBus.$emit('open-all-cards')
+        },
+        async fetchPagePaths() {
+            this.
         },
         async updateContent () {
             try {

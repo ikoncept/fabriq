@@ -31,7 +31,7 @@ return [
         [
             'title' => 'Nyheter',
             'route' => 'articles.index',
-            'enabled' => env('FABRIQ_ARTICLES', true),
+            'enabled' => env('FABRIQ_ARTICLES', false),
             'icon' => 'NewspaperIcon',
             'roles' => ['admin']
         ],
@@ -45,7 +45,7 @@ return [
         [
             'title' => 'Kalender',
             'route' => 'calendar.index',
-            'enabled' => env('FABRIQ_EVENTS', true),
+            'enabled' => env('FABRIQ_EVENTS', false),
             'icon' => 'CalendarIcon',
             'roles' => ['admin']
         ],

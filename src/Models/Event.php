@@ -27,6 +27,7 @@ class Event extends Model
      */
     public $morphClass = 'event';
 
+
     /**
      * Create a new factory
      */
