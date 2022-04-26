@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Ikoncept\Fabriq\Tests\TestCase;
 
 class PageTreeFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     public function setUp() : void
     {

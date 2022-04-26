@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Infab\TranslatableRevisions\Models\RevisionTemplate;
 use Infab\TranslatableRevisions\Models\RevisionTemplateField;
@@ -11,7 +11,7 @@ use Ikoncept\Fabriq\Tests\TestCase;
 
 class PagePreviewFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_get_a_preview_with_a_signed_link()

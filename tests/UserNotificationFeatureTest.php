@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Ikoncept\Fabriq\Tests\TestCase;
 
 class UserNotificationFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_show_a_users_notifications()

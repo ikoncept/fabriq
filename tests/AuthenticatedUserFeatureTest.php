@@ -3,13 +3,13 @@
 namespace Tests\Feature;
 
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Ikoncept\Fabriq\Tests\TestCase;
 
 class AuthenticatedUserFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     public function testAnAuhtenticatedUserCanGetInfoAboutSelf()
     {

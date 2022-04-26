@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Ikoncept\Fabriq\Models\I18nDefinition;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Infab\TranslatableRevisions\Models\RevisionTemplate;
 use Infab\TranslatableRevisions\Models\RevisionTemplateField;
@@ -14,7 +14,7 @@ use Infab\TranslatableRevisions\Events\TranslatedRevisionUpdated;
 
 class MenuItemFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_get_a_tree_representation_of_the_menu_items()

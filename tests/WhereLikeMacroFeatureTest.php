@@ -3,12 +3,12 @@
 namespace Tests\Feature;
 
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 
 class WhereLikeMacroFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_search_for_a_model()

@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Database\Seeders\DatabaseSeeder;
 use Ikoncept\Fabriq\Database\Seeders\PageTemplateSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Infab\TranslatableRevisions\Models\I18nTerm;
@@ -15,7 +15,7 @@ use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 
 class PagesFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
 
     public function setUp() : void

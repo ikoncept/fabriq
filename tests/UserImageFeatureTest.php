@@ -3,13 +3,13 @@
 namespace Ikoncept\Fabriq\Tests;
 
 use Ikoncept\Fabriq\Models\Image;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 
 class UserImageFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_upload_and_attach_image_to_an_user()

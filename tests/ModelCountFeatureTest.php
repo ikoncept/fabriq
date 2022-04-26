@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 
 class ModelCountFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_will_return_an_error_if_the_model_isnt_countable()

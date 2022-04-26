@@ -2,14 +2,16 @@
 
 namespace Ikoncept\Fabriq\Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Infab\TranslatableRevisions\Models\RevisionTemplate;
 use Infab\TranslatableRevisions\Models\RevisionTemplateField;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ArticlesFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_store_a_new_article()

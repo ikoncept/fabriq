@@ -3,14 +3,14 @@
 namespace Tests\Feature;
 
 use Ikoncept\Fabriq\Models\Slug;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Ikoncept\Fabriq\Tests\TestCase;
 
 class PageSlugFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_find_a_page_via_its_slugs()

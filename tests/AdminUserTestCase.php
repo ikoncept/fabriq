@@ -4,21 +4,28 @@ namespace Ikoncept\Fabriq\Tests;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Laravel\Sanctum\Sanctum;
+use Orchestra\Testbench\Concerns\CreatesApplication;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class AdminUserTestCase extends Orchestra
 {
+
+    use DatabaseTransactions;
+
     public function setUp() : void
     {
         parent::setUp();
         Fabriq::routes(
             function ($router) {
                 $router->all();
+                $router->allWeb();
             }
         );
         $this->setUpDatabase($this->app);
@@ -53,11 +60,14 @@ abstract class AdminUserTestCase extends Orchestra
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'sqlite');
-        $app['config']->set('database.connections.sqlite', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
+        $app['config']->set('database.default', 'pgsql');
+        $app['config']->set('database.connections.pgsql', [
+            'driver' => 'pgsql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => 'fabriq_testing',
+            'username' => 'homestead',
+            'password' => 'secret',
         ]);
         $app['config']->set('filesystems.disks.__test', [
             'driver' => 'local',

@@ -28,7 +28,8 @@ class AddParentIdToCommentsTable extends Migration
     public function down()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn(['parent_id', 'anonymized_at']);
+            // $table->dropForeign('parent_id');
+            $table->dropColumn(['anonymized_at']);
         });
     }
 }

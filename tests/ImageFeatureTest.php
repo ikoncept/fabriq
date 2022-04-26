@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
@@ -10,7 +10,7 @@ use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 
 class ImageFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_get_a_single_image()
