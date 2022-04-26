@@ -51,8 +51,8 @@ class RouteRegistrar
             return back()->with('message', 'Verification link sent!');
         })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-        Route::get('/perma-link/{sha}', \Ikoncept\Fabriq\Http\Controllers\PermaLinkRedirectController::class)
-            ->name('perma-link.redirect');
+        Route::get('/permalink/{hash}/{locale?}', \Ikoncept\Fabriq\Http\Controllers\PermaLinkRedirectController::class)
+            ->name('permalink.redirect');
 
         Route::get('/', [\Ikoncept\Fabriq\Http\Controllers\SpaController::class, 'index'])->middleware('auth');
         Route::get('/{any}', [\Ikoncept\Fabriq\Http\Controllers\SpaController::class, 'index'])->where('any', '.*')->middleware('auth');

@@ -25,7 +25,10 @@ trait HasPaths
 
     public function getPermalinkPath() : string
     {
-        return config('fabriq.front_end_domain') . '/perma-link/' . hash('md5', $this->id);
+        return config('fabriq.front_end_domain')
+            . '/permalink/'
+            . hash('md5', $this->id)
+            . $this->currentLocaleString();
     }
 
     public function transformPaths() : array
@@ -36,7 +39,7 @@ trait HasPaths
             }
             return [
                 'absolute_path' => $this->getAbsolutePath($item[App::currentLocale()]['0']),
-                'perma_link' => $this->getPermalinkPath($this->id)
+                'permalink' => $this->getPermalinkPath($this->id)
             ];
         })->filter()->first();
     }
