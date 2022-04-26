@@ -14,11 +14,13 @@ export const state = {
         },
         timezone: 'Europe/Stockholm'
     },
-    notifications: []
+    notifications: [],
+    users: []
 }
 
 export const getters = {
     user: state => state.user,
+    users: state => state.users,
     notifications: state => state.notifications,
     roles: (getters) => {
         return getters.user.role_list
@@ -34,6 +36,9 @@ export const getters = {
 export const mutations = {
     [types.SET_USER]: (state, data) => {
         state.user = data
+    },
+    [types.SET_USERS]: (state, data) => {
+        state.users = data
     },
     [types.SET_NOTIFICATIONS]: (state, data) => {
         state.notifications = data

@@ -147,7 +147,8 @@ export default {
                 number: 50,
                 sort: 'sortindex',
                 'filter[search]': '',
-                include: 'tags,content'
+                include: 'tags,content',
+                append: 'image'
             },
             columns: [
                 {

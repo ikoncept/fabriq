@@ -131,7 +131,8 @@ export default {
             queryParams: {
                 number: 300,
                 page: 1,
-                'filter[dateRange]': '1999-02-24,2021-03-04'
+                'filter[dateRange]': '1999-02-24,2021-03-04',
+                append: 'title'
             },
             masks: {
                 weekdays: 'WWWW'

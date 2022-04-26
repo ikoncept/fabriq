@@ -172,7 +172,8 @@ export default {
             id: 0,
             queryParams: {
                 include: 'localizedContent',
-                locale: 'all'
+                locale: 'all',
+                append: 'paths'
             },
             smartBlock: {
                 id: 0,

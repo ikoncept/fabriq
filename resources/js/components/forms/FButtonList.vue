@@ -112,6 +112,8 @@ export default {
             try {
                 const payload = {
                     params: {
+                        // field: 'id,name',
+                        append: 'paths',
                         selectOptions: true
                     }
                 }

@@ -49,5 +49,10 @@ export default {
         const { data } = await axios.get(this.endpoint + id + '/signed-url')
 
         return data
+    },
+    async paths (id, payload) {
+        const { data } = await axios.get(this.endpoint + id + '/paths', payload)
+
+        return data
     }
 }
