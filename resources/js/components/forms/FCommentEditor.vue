@@ -21,7 +21,6 @@ import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 import Mention from '@tiptap/extension-mention'
 import MentionList from '~/components/forms/extensions/MentionList'
-import User from '~/models/User'
 
 const CustomMention = Mention.extend({
     addAttributes () {
