@@ -57,7 +57,7 @@ class PagePathsFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $response->assertJsonFragment([
             'absolute_path' => config('fabriq.front_end_domain') . '/' . App::currentLocale() . '/parent-1/child-2/child-1-of-child-1',
-            'perma_link' => config('fabriq.front_end_domain') .  '/perma-link/' . hash('sha1', $childChildOne->id)
+            'permalink' => config('fabriq.front_end_domain') .  '/permalink/' . hash('sha1', $childChildOne->id)
         ]);
     }
 
@@ -89,12 +89,11 @@ class PagePathsFeatureTest extends AdminUserTestCase
             'menu_id' => $menu->id,
             'parent_id' => $subItem->id
         ]);
-
+        App::setLocale('sv');
         $paths = $childChildOne->transformPaths();
-        // dd($paths['perma_link'], route('perma-link.redirect', hash('sha1', $childChildOne->id)));
 
         // Act
-        $response = $this->get($paths['perma_link']);
+        $response = $this->get($paths['permalink']);
 
         // Assert
         $response->assertRedirect(config('fabriq.front_end_domain') . '/' . App::currentLocale() . '/parent-1/child-2/child-1-of-child-1');

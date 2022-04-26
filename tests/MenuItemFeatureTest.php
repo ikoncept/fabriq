@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\I18nDefinition;
 
 use Illuminate\Foundation\Testing\WithFaker;
@@ -118,8 +119,11 @@ class MenuItemFeatureTest extends AdminUserTestCase
             'page_id' => $page->id,
             'type' => 'internal'
         ]);
+        Event::assertDispatchedTimes(TranslatedRevisionUpdated::class, 2);
         Event::assertDispatched(function (TranslatedRevisionUpdated $event) {
-            return $event->model->getRevisionOptions()->cacheTagsToFlush[0] === 'cms_menu';
+            if(get_class($event->model) === Fabriq::getFqnModel('menuItem')) {
+                return $event->model->getRevisionOptions()->cacheTagsToFlush[0] === 'cms_menu';
+            }
         });
     }
 
