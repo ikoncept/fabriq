@@ -50,6 +50,7 @@ class TagController extends ApiController
 
         $tags = $request->tags;
         foreach($tags as $tag) {
+            /** @var Tag $newTag **/
             $newTag = Tag::findOrCreate($tag, $request->model_type);
             $newTag->save();
         }
