@@ -8,6 +8,7 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Ikoncept\Fabriq\Models\MenuItem;
 
 trait HasPaths
 {
