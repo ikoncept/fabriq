@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Ikoncept\Fabriq\ContentGetters\FileGetter;
 use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Ikoncept\Fabriq\ContentGetters\VideoGetter;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
@@ -13,7 +13,7 @@ use Ikoncept\Fabriq\Tests\TestCase;
 
 class SmartBlocksFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_store_a_new_smart_block()

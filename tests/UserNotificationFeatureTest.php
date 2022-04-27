@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Ikoncept\Fabriq\Models\Notification;
 use Illuminate\Foundation\Testing\WithFaker;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Ikoncept\Fabriq\Tests\TestCase;
 
 class UserNotificationFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_show_a_users_notifications()
@@ -43,9 +43,10 @@ class UserNotificationFeatureTest extends AdminUserTestCase
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $user = \Ikoncept\Fabriq\Models\User::factory()->create();
         $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-email="roger@pontare.se">@Roger Pontare</span> <span data-mention="" class="mention" data-email="'.$user->email.'">@'.$user->name.'</span><p>');
+        $notification = Notification::where('notifiable_id', $comment->id)->first();
 
         // Act
-        $response = $this->actingAs($user)->json('PATCH', '/user/notifications/' . 1, [
+        $response = $this->actingAs($user)->json('PATCH', '/user/notifications/' . $notification->id, [
             'clear' => true
         ]);
 

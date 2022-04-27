@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Storage;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
@@ -10,7 +10,7 @@ use Ikoncept\Fabriq\Tests\TestCase;
 
 class FileFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     protected $endpoint = '/files/';
 

@@ -87,6 +87,7 @@
                          class="inline-flex items-center px-3 py-2.5 text-sm font-medium text-gray-500 bg-gray-100 rounded-r ring-1 ring-gray-300"
                          v-text="suffix"
                     />
+                    <slot name="buttonSuffix" />
                 </span>
                 <p
                     v-if="helpText"
@@ -238,7 +239,7 @@ export default {
         roundedClasses () {
             if (this.prefix && this.suffix) return 'rounded-none'
             if (this.prefix) return 'rounded-r'
-            if (this.suffix) return 'rounded-l'
+            if (this.suffix || !!this.$slots.buttonSuffix) return 'rounded-l'
 
             return 'rounded'
         },

@@ -84,5 +84,9 @@ class CreateI18nTables extends Migration
      */
     public function down()
     {
+        $prefix = config('translatable-revisions.i18n_table_prefix_name');
+        Schema::dropIfExists($prefix . 'i18n_locales');
+        Schema::dropIfExists($prefix . 'i18n_definitions');
+        Schema::dropIfExists($prefix . 'i18n_terms');
     }
 }

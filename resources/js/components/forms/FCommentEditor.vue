@@ -21,7 +21,6 @@ import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 import Mention from '@tiptap/extension-mention'
 import MentionList from '~/components/forms/extensions/MentionList'
-import User from '~/models/User'
 
 const CustomMention = Mention.extend({
     addAttributes () {
@@ -79,11 +78,13 @@ export default {
         return {
             editor: null,
             isEditing: true,
-            users: [],
             pop: ''
         }
     },
     computed: {
+        users () {
+            return this.$store.getters['user/users']
+        },
         userNames () {
             return this.users.map(item => {
                 return { name: item.name, email: item.email }
@@ -103,7 +104,6 @@ export default {
     },
     mounted () {
         this.$eventBus.$on('comment-posted', this.clearContent)
-        this.fetchUsers()
         setTimeout(() => {
             this.initEditor()
         }, 100)
@@ -113,14 +113,7 @@ export default {
         this.editor.destroy()
     },
     methods: {
-        async fetchUsers () {
-            try {
-                const { data } = await User.index()
-                this.users = data
-            } catch (error) {
-                console.log(error)
-            }
-        },
+
         clearContent () {
             this.editor.commands.clearContent(true)
         },

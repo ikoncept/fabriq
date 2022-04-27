@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 
 class VideoFeatureTest extends AdminUserTestCase
 {
 
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_get_a_single_video()
@@ -144,8 +144,8 @@ class VideoFeatureTest extends AdminUserTestCase
         // Assert
         $response->assertOk();
         $response->assertJsonCount(5, 'data');
-        $this->assertEquals(collect($response->json()['data'])->last()['id'], 1);
-        $this->assertEquals(collect($response->json()['data'])->first()['id'], 5);
+        $this->assertEquals(collect($response->json()['data'])->last()['id'], $videos->first()->id);
+        $this->assertEquals(collect($response->json()['data'])->first()['id'], $videos->last()->id);
     }
 
     /** @test **/

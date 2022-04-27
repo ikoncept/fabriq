@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
@@ -10,7 +10,7 @@ use Ikoncept\Fabriq\Tests\TestCase;
 
 class UploadFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_upload_an_image_and_persist_it()

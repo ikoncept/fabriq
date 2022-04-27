@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Infab\TranslatableRevisions\Models\RevisionTemplate;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
@@ -10,7 +10,7 @@ use Ikoncept\Fabriq\Tests\TestCase;
 
 class RevisionTemplateFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_get_all_templates()

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Carbon\CarbonImmutable;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Infab\TranslatableRevisions\Models\I18nLocale;
 use Infab\TranslatableRevisions\Models\I18nTerm;
@@ -16,7 +16,7 @@ use Infab\TranslatableRevisions\Models\RevisionMeta;
 
 class EventFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     public function setUp() : void
     {

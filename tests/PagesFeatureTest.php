@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Database\Seeders\DatabaseSeeder;
 use Ikoncept\Fabriq\Database\Seeders\PageTemplateSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Infab\TranslatableRevisions\Models\I18nTerm;
@@ -15,7 +15,7 @@ use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 
 class PagesFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
 
     public function setUp() : void
@@ -293,7 +293,7 @@ class PagesFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $response->assertJsonFragment([
             'slug' => 'the-page-title-for-the-page',
-            'source_key' => 'pages-1-1-page_title'
+            'source_key' => 'pages-' . $page->id . '-1-page_title'
         ]);
     }
 
@@ -443,54 +443,6 @@ class PagesFeatureTest extends AdminUserTestCase
                     ]
                 ]
             ]
-        ]);
-    }
-
-    /** @test **/
-    public function it_can_append_its_path()
-    {
-        // Arrange
-        $this->withoutExceptionHandling();
-        $parentPage = \Ikoncept\Fabriq\Models\Page::factory()->create(['name' => 'parent_page']);
-        $page = \Ikoncept\Fabriq\Models\Page::factory()->create(['name' => 'normal page']);
-        $menu = \Ikoncept\Fabriq\Models\Menu::factory()->create();
-        $root = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
-            'menu_id' => $menu->id, ]);
-        $template = RevisionTemplate::factory()->create([
-            'slug' => 'menu-item'
-        ]);
-        $field = RevisionTemplateField::factory()->create([
-            'template_id' => $template->id,
-            'key' => 'title',
-            'type' => 'text',
-            'translated' => true
-        ]);
-        $parentMenuItem = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
-            'menu_id' => $menu->id,
-            'page_id' => $parentPage->id,
-            'type' => 'internal'
-        ]);
-        $parentPage->updateContent([
-            'page_title' => 'Parent'
-        ]);
-        $pageMenuItem = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
-            'menu_id' => $menu->id,
-            'page_id' => $page->id,
-            'parent_id' => $parentMenuItem->id,
-            'type' => 'internal'
-        ]);
-        $page->updateContent([
-            'page_title' => 'Page'
-        ]);
-
-
-        // Act
-        $response = $this->json('GET', '/pages/' . $page->id . '?append=paths');
-
-        // Assert
-        $response->assertOk();
-        $response->assertJsonFragment([
-            '/parent/page'
         ]);
     }
 }

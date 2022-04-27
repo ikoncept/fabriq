@@ -36,6 +36,6 @@ class CreateTranslatableRevisionTemplateFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('page_template_fields');
+        Schema::dropIfExists(config('translatable-revisions.revision_template_fields_table_name'));
     }
 }

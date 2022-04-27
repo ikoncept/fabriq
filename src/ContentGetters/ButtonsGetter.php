@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\ContentGetters;
 
 use Ikoncept\Fabriq\Models\Page;
+use Illuminate\Support\Collection;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 
 class ButtonsGetter
@@ -21,7 +22,7 @@ class ButtonsGetter
                 'meta_id' => $meta->id
             ];
         }
-        $value = collect($meta->meta_value);
+        $value = new Collection($meta->meta_value);
 
         $buttons = $value->map(function($button) {
             $tempMeta = RevisionMeta::make([

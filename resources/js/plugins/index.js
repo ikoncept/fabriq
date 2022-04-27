@@ -9,4 +9,3 @@ import '~/plugins/vue-nestable'
 import '~/plugins/vue-number-animation'
 import '~/plugins/vue-select'
 import '~/plugins/vue-slide-up-down'
-
