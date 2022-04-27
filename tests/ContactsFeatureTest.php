@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use League\CommonMark\Block\Element\ThematicBreak;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
@@ -10,7 +10,7 @@ use Ikoncept\Fabriq\Tests\TestCase;
 
 class ContactsFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     protected $endpoint = '/contacts/';
 

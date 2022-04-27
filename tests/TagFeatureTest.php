@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Spatie\Tags\Tag;
@@ -11,7 +11,7 @@ use Ikoncept\Fabriq\Tests\TestCase;
 
 class TagFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     protected $endpoint = '/tags/';
 

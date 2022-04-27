@@ -9,7 +9,7 @@ parameters:
     reportUnmatchedIgnoredErrors: false
 
     # The level 8 is the highest level
-    level: 7
+    level: 6
 
     noModelMake: false
 
@@ -27,6 +27,9 @@ parameters:
         -
             message: '#Parameter#'
             path: ./src/MacroServiceProvider.php
+        -
+            message: '#in call to function collect#'
+            path: ./src/Models/Page.php
         -
             message: '#getSlugString#'
             path: ./src/Models/Page.php

@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Ikoncept\Fabriq\Events\CommentPosted;
 use Ikoncept\Fabriq\Events\NotificationDeleted;
 use Ikoncept\Fabriq\Models\Notification;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Event;
 
 class CommentableFeatureTest extends AdminUserTestCase
 {
-    use RefreshDatabase;
+
 
     /** @test **/
     public function it_can_attach_commentable_behaviour_to_a_model()

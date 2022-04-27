@@ -33,7 +33,6 @@ class ContactController extends ApiController
             ->allowedFilters([
                 AllowedFilter::scope('search')
             ])
-            ->allowedAppends(['image'])
             ->with($eagerLoad)
             ->paginate($this->number);
 

@@ -52,7 +52,6 @@ class PageController extends ApiController
         $eagerLoad = $this->getEagerLoad(Fabriq::getModelClass('page')::RELATIONSHIPS);
 
         $page = QueryBuilder::for(Fabriq::getFqnModel('page'))
-            ->allowedAppends(['paths'])
             ->where('id', $id)
             ->with($eagerLoad)
             ->firstOrFail();
@@ -98,17 +97,8 @@ class PageController extends ApiController
         $page = new Page();
         $page->name = $request->name;
         $page->template_id = $request->template_id;
-        $content = [
-            'page_title' => $request->name
-        ];
         $page->parent_id = $pageRoot->id;
         $page->save();
-
-        $supportedLocales = Fabriq::getModelClass('locale')->cachedLocales();
-        $supportedLocales->each(function($locale, $key) use ($content, $page) {
-            $page->updateContent($content, $key, 1);
-        });
-
 
         return $this->respondWithItem($page, new PageTransformer, 201);
     }

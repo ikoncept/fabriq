@@ -56,23 +56,45 @@
                                 label="Namn"
                                 name="name"
                         />
+                        <FInput v-if="Object.keys(localizedContent).length > 0"
+                                v-model="localizedContent[activeLocale].page_title"
+                                name="*.page_title"
+                                label="Sidtitel"
+                                help-text="Visas utåt i menyer"
+                        />
                         <FInput v-model="page.template.data.name"
                                 label="Sidtyp"
                                 name="template.data.name"
                                 disabled
                         />
-                        <FInput v-if="Object.keys(localizedContent).length > 0"
-                                v-model="localizedContent[activeLocale].page_title"
-                                name="*.page_title"
-                                label="Sidtitel"
-                                help-text="Visas i menyer"
-                        />
-                        <FSwitch v-if="Object.keys(localizedContent).length > 0"
+                        <div class="flex col-span-3 space-x-6 lg:col-span-2">
+                            <FInput v-for="(path, index) in paths"
+                                    :key="index"
+                                    v-model="paths[index]"
+                                    :label="pathLabelMap[index]"
+                                    class="w-full"
+                                    read-only
+                            >
+                                <template #buttonSuffix>
+                                    <FButton
+                                        :click="() => {
+                                            $clipboard(paths[index])
+                                            $toast.success({ title: 'Länken har kopierats'})
+                                        }"
+                                        without-loader
+                                        class="px-3 ring-1 ring-royal-500 rounded-l-none py-2.5 leading-none text-sm fabriq-btn btn-royal"
+                                    >
+                                        <PasteIcon class="h-4" />
+                                    </FButton>
+                                </template>
+                            </FInput>
+                        </div>
+                        <!-- <FSwitch v-if="Object.keys(localizedContent).length > 0"
                                  v-model="localizedContent[activeLocale].black_text"
                                  column-layout
                         >
                             Svart text i meny
-                        </FSwitch>
+                        </FSwitch> -->
                         <!-- <FInput v-if="Object.keys(localizedContent).length > 0"
                                 v-model="localizedContent[activeLocale].page_title"
                                 name="*.page_title"
@@ -309,6 +331,7 @@
 <script>
 import Page from '~/models/Page'
 import Draggable from 'vuedraggable'
+import * as types from '~/store/mutation-types'
 export default {
     name: 'PagesEdit',
     components: { Draggable },
@@ -327,6 +350,11 @@ export default {
                 locale: 'all',
                 append: 'paths'
             },
+            paths: [],
+            pathLabelMap: {
+                absolute_path: 'Absolut sökväg',
+                permalink: 'Permalänk'
+            },
             page: {
                 id: 0,
                 updated_at: '2020-01-01 10:00:00',
@@ -342,7 +370,6 @@ export default {
             groupedFields: [],
             repeaterKeys: ['boxes'],
             drag: false,
-            activeLocale: 'sv',
             localizedContent: {},
             showBlockTypeModalF: false
         }
@@ -361,12 +388,21 @@ export default {
         },
         locales () {
             return this.$store.getters['config/supportedLocales']
+        },
+        activeLocale: {
+            get () {
+                return this.$store.getters['config/activeLocale']
+            },
+            set (value) {
+                this.$store.commit(`config/${types.SET_ACTIVE_LOCALE}`, value)
+            }
         }
     },
     activated () {
         this.id = this.$route.params.id
         this.$eventBus.$on('block-type-added', this.blockTypeAdded)
         this.fetchPage()
+        this.fetchPaths()
         this.$nextTick(() => {
             if (this.$route.query.openComments) {
                 this.$eventBus.$emit('open-comment-section')
@@ -376,6 +412,10 @@ export default {
     methods: {
         openAllCards () {
             this.$eventBus.$emit('open-all-cards')
+        },
+        async fetchPaths () {
+            const { data } = await Page.paths(this.id)
+            this.paths = data
         },
         async updateContent () {
             try {
@@ -419,6 +459,9 @@ export default {
         setLanguage (key) {
             this.activeLocale = key
             this.$eventBus.$emit('relayout-cards')
+            this.$nextTick(() => {
+                this.fetchPaths()
+            })
         },
         showBlockTypeModal () {
             this.$vfm.show('block-type-modal')
@@ -437,7 +480,6 @@ export default {
         },
         refreshBlock (payload) {
             this.localizedContent[this.activeLocale].boxes[payload.index] = { ...payload.item }
-            console.log(payload.item)
         },
         copySuccess () {
             this.$toast.success({ title: 'Blockets ID har kopierats', message: 'Klista in som en extern länk i fältet till kontrollen du önskar länka blocket till.' })
@@ -449,7 +491,6 @@ export default {
                 const data = await Page.signedPreview(this.id)
                 const url = this.config.front_end_domain + data.computed_path + '?preview=' + data.encoded_signed_url
                 window.open(url, 'fabriq-previw')
-                console.log(data)
             } catch (error) {
                 console.error(error)
             }

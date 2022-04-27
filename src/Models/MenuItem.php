@@ -7,6 +7,7 @@ use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Infab\TranslatableRevisions\Traits\HasTranslatedRevisions;
 use Infab\TranslatableRevisions\Traits\RevisionOptions;
@@ -120,7 +121,9 @@ class MenuItem extends Model
     public function getRelativePathAttribute() : string
     {
         if($this->ancestors->count()) {
-            return collect($this->ancestors)->reduce(function($carry, $subItem) {
+            $collection = new Collection($this->ancestors);
+            return $collection->reduce(function($carry, $subItem) {
+                /** @var MenuItem $subItem **/
                 if(! $subItem->page) {
                     return;
                 }

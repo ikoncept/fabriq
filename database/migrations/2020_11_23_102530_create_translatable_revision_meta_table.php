@@ -21,4 +21,9 @@ class CreateTranslatableRevisionMetaTable extends Migration
             $table->nullableTimestamps();
         });
     }
+
+    public function down()
+    {
+        Schema::dropIfExists(config('translatable-revisions.revision_meta_table_name'));
+    }
 }

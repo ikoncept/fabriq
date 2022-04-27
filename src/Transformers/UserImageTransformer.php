@@ -29,6 +29,7 @@ class UserImageTransformer extends TransformerAbstract
         }
 
         return [
+            'id' => $image->id,
             'file_name' => $media->file_name,
             'thumb_src' => $media->getUrl('thumb'),
             'webp_src' => (string) ($media->hasGeneratedConversion('webp')) ? $media->getUrl('webp') : '',

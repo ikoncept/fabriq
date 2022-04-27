@@ -63,6 +63,7 @@
 <script>
 import CommentItem from '~/comments/CommentItem'
 import Comment from '~/models/Comment'
+import User from '~/models/User'
 export default {
     name: 'CommentSection',
     components: { CommentItem },
@@ -80,6 +81,7 @@ export default {
     },
     mounted () {
         this.fetchComments()
+        this.fetchUsers()
         this.$eventBus.$on('open-comment-section', this.openCommentSection)
     },
     beforeDestroy () {
@@ -87,6 +89,15 @@ export default {
         this.$refs.comments.removeEventListener('keydown', this.listenForMetaPlusEnter)
     },
     methods: {
+        async fetchUsers () {
+            try {
+                const { data } = await User.index()
+                this.$store.commit('user/SET_USERS', data)
+                // this.users = data
+            } catch (error) {
+                console.log(error)
+            }
+        },
         onFocus () {
             this.$refs.comments.addEventListener('keydown', this.listenForMetaPlusEnter)
         },

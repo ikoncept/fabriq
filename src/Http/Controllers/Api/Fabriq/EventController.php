@@ -24,7 +24,6 @@ class EventController extends ApiController
     {
         $events = QueryBuilder::for(Fabriq::getFqnModel('event'))
             ->allowedFilters(AllowedFilter::scope('dateRange'))
-            ->allowedAppends(['title'])
             ->paginate($this->number);
 
         $end = CarbonImmutable::parse(explode(',', $request->filter['dateRange'])[1]);
