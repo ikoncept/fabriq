@@ -28,7 +28,7 @@ trait HasPaths
     {
         return config('fabriq.front_end_domain')
             . $this->currentLocaleString()
-            . ($path ??  $this->latestSlug->slug);
+            . ($path ??  '/' . $this->latestSlug->slug);
     }
 
     public function getPermalinkPath() : string
@@ -46,7 +46,7 @@ trait HasPaths
                 return null;
             }
             return [
-                'absolute_path' => $this->getAbsolutePath($item[App::currentLocale()]['0']),
+                'absolute_path' => $this->getAbsolutePath($item[App::currentLocale()]['0'] ?? null),
                 'permalink' => $this->getPermalinkPath()
             ];
         })->filter()->first();
