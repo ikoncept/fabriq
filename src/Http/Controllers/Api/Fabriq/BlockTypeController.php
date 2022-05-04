@@ -8,6 +8,7 @@ use Ikoncept\Fabriq\Transformers\BlockTypeTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class BlockTypeController extends ApiController
 {
@@ -16,7 +17,10 @@ class BlockTypeController extends ApiController
 
     public function index(Request $requst) : JsonResponse
     {
-        $blockTypes = BlockType::where('active', 1)->get();
+        $blockTypes = QueryBuilder::for(BlockType::where('active', 1))
+            ->allowedSorts('name', 'id')
+            ->defaultSort('name')
+            ->get();
 
         return $this->respondWithCollection($blockTypes, new BlockTypeTransformer());
     }

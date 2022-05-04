@@ -25,5 +25,26 @@ class BlockTypesFeatureTest extends AdminUserTestCase
 
         // Assert
         $response->assertOk();
+        $response->assertJsonCount(3, 'data');
+    }
+
+    /** @test **/
+    public function it_can_sort_active_blocks_by_name()
+    {
+        $blockType = \Ikoncept\Fabriq\Models\BlockType::factory()->create([
+            'name' => 'BBBlock',
+            'active' => true
+        ]);
+        $blockType = \Ikoncept\Fabriq\Models\BlockType::factory()->create([
+            'name' => 'AABlock',
+            'active' => true
+        ]);
+
+        // Act
+        $response = $this->json('GET', '/block-types?sort=name');
+
+        // Assert
+        $response->assertOk();
+        $this->assertEquals('AABlock', $response->json()['data'][0]['name']);
     }
 }
