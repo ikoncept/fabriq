@@ -425,6 +425,7 @@ export default {
                 }
                 await Page.update(this.id, payload)
                 this.$toast.success({ title: 'Utkastet har sparats' })
+                this.fetchPaths()
             } catch (error) {
                 console.error(error)
             }

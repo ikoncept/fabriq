@@ -92,7 +92,7 @@ class PageController extends ApiController
     {
         $pageRoot = Fabriq::getModelClass('page')->whereNull('parent_id')
             ->select('id')
-            ->first();
+            ->firstOrFail();
 
         $page = new Page();
         $page->name = $request->name;

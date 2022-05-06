@@ -7,7 +7,7 @@ module.exports = {
     ],
     theme: {
         ringColor: {
-            gray: colors.trueGray,
+            gray: colors.neutral,
             red: colors.red,
             gold: {
                 100: '#fdfdfb',

@@ -78,9 +78,12 @@ class Page extends Model implements HasMedia
             $content = [
                 'page_title' => $page->name
             ];
+            $localPage = Fabriq::getModelClass('page')
+                ->select('id')
+                ->find($page->id);
             $supportedLocales = Fabriq::getModelClass('locale')->cachedLocales();
-            $supportedLocales->each(function($locale, $key) use ($content, $page) {
-                $page->updateContent($content, $key, 1);
+            $supportedLocales->each(function($locale, $key) use ($content, $localPage) {
+                $localPage->updateContent($content, $key, 1);
             });
         });
     }
@@ -190,7 +193,9 @@ class Page extends Model implements HasMedia
 
     public function latestSlug() : MorphOne
     {
-        return $this->morphOne(Fabriq::getFqnModel('slug'), 'model')->latestOfMany();
+        return $this->morphOne(Fabriq::getFqnModel('slug'), 'model')->ofMany([], function ($query) {
+            $query->where('locale', app()->getLocale());
+        });
     }
 
 
