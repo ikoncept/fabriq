@@ -4,6 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fabriq CMS</title>
+    <style>
+        @font-face {
+            font-family: 'Inter var';
+            font-weight: 100 900;
+            font-display: swap;
+            font-style: normal;
+            font-named-instance: 'Regular';
+            src: url("{{ mix('fonts/Inter-roman.var.woff2', 'dist') }}") format("woff2");
+        }
+        @font-face {
+            font-family: 'Inter var';
+            font-weight: 100 900;
+            font-display: swap;
+            font-style: italic;
+            font-named-instance: 'Italic';
+            src: url("{{ mix('fonts/Inter-italic.var.woff2', 'dist') }}") format("woff2");
+        }
+    </style>
     <link href="{{ mix('css/app.css', 'dist') }}" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="/dist/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/dist/images/favicon-32x32.png">

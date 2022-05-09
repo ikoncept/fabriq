@@ -3,27 +3,9 @@
 @tailwind utilities;
 
 @layer components {
-    @font-face {
-        font-family: 'Inter var';
-        font-weight: 100 900;
-        font-display: swap;
-        font-style: normal;
-        font-named-instance: 'Regular';
-        src: url("/dist/fontsInter-roman.var.woff2?v=3.19") format("woff2");
-    }
-    @font-face {
-        font-family: 'Inter var';
-        font-weight: 100 900;
-        font-display: swap;
-        font-style: italic;
-        font-named-instance: 'Italic';
-        src: url("/dist/fontsInter-italic.var.woff2?v=3.19") format("woff2");
-    }
-
     body {
         @apply antialiased text-gray-800;
     }
-
 
     a, .link {
         @apply font-semibold transition-colors duration-200 rounded text-royal-500 hover:text-royal-700 focus:outline-none;
