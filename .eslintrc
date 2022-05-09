@@ -6,20 +6,17 @@
         "sourceType": "module"
     },
     "extends": [
-        "plugin:vue/recommended",
-        "standard"
+        "plugin:vue/recommended"
     ],
     "rules": {
-        "vue/max-attributes-per-line": [
-            "error",
-            {
-                "singleline": 1,
-                "multiline": {
-                    "max": 1,
-                    "allowFirstLine": true
-                }
+        "vue/max-attributes-per-line": ["error", {
+            "singleline": {
+              "max": 1
+            },
+            "multiline": {
+              "max": 1
             }
-        ],
+        }],
         "vue/custom-event-name-casing": [
             "error",
             "kebab-case",
@@ -27,6 +24,9 @@
               "ignores": []
             }
         ],
+        "vue/multi-word-component-names": ["error", {
+            "ignores": ["Toast"]
+        }],
         "vue/component-name-in-template-casing": [
             "error",
             "PascalCase",

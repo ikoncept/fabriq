@@ -1,67 +1,71 @@
 lockfileVersion: 5.3
 
+overrides:
+  autoprefixer: 10.4.5
+
 specifiers:
-  '@babel/core': ^7.17.10
-  '@babel/eslint-parser': ^7.17.0
-  '@babel/eslint-plugin': ^7.17.7
-  '@popperjs/core': ^2.0
-  '@tailwindcss/aspect-ratio': ^0.4.0
-  '@tailwindcss/line-clamp': ^0.4.0
-  '@tailwindcss/typography': ^0.5.0
-  '@tiptap/core': ^2.0.0-beta.54
-  '@tiptap/extension-image': ^2.0.0-beta.11
-  '@tiptap/extension-link': ^2.0.0-beta.15
-  '@tiptap/extension-mention': ^2.0.0-beta.67
-  '@tiptap/extension-placeholder': ^2.0.0-beta.27
-  '@tiptap/extension-table': ^2.0.0-beta.18
-  '@tiptap/extension-table-cell': ^2.0.0-beta.11
-  '@tiptap/extension-table-header': ^2.0.0-beta.13
-  '@tiptap/extension-table-row': ^2.0.0-beta.11
-  '@tiptap/extension-text-align': ^2.0.0-beta.28
-  '@tiptap/extension-typography': ^2.0.0-beta.10
-  '@tiptap/extension-underline': ^2.0.0-beta.12
-  '@tiptap/starter-kit': ^2.0.0-beta.51
-  '@tiptap/vue-2': ^2.0.0-beta.27
-  autoprefixer: ^10.4.7
-  autosize: ^4.0.2
-  axios: ^0.21.1
-  copy-webpack-plugin: ^10.2.4
-  cross-env: ^7.0
-  css-loader: ^6.7.1
-  date-fns: ^2.16.1
-  dropzone: ^5.7.2
-  eslint: ^8.15.0
-  eslint-plugin-import: ^2.26.0
-  eslint-plugin-node: ^11.1.0
-  eslint-plugin-unicorn: ^42.0.0
-  eslint-plugin-vue: ^8.7.1
-  filesize: ^6.1.0
+  '@babel/core': 7.17.10
+  '@babel/eslint-parser': 7.17.0
+  '@babel/eslint-plugin': 7.17.7
+  '@popperjs/core': 2.11.5
+  '@tailwindcss/aspect-ratio': 0.4.0
+  '@tailwindcss/line-clamp': 0.4.0
+  '@tailwindcss/typography': 0.5.2
+  '@tiptap/core': ^2.0.0-beta.175
+  '@tiptap/extension-image': ^2.0.0-beta.27
+  '@tiptap/extension-link': ^2.0.0-beta.37
+  '@tiptap/extension-mention': ^2.0.0-beta.96
+  '@tiptap/extension-placeholder': ^2.0.0-beta.48
+  '@tiptap/extension-table': ^2.0.0-beta.48
+  '@tiptap/extension-table-cell': ^2.0.0-beta.20
+  '@tiptap/extension-table-header': ^2.0.0-beta.22
+  '@tiptap/extension-table-row': ^2.0.0-beta.19
+  '@tiptap/extension-text-align': ^2.0.0-beta.29
+  '@tiptap/extension-typography': ^2.0.0-beta.20
+  '@tiptap/extension-underline': ^2.0.0-beta.23
+  '@tiptap/starter-kit': ^2.0.0-beta.184
+  '@tiptap/vue-2': ^2.0.0-beta.78
+  autoprefixer: 10.4.5
+  autosize: ^4.0.4
+  axios: ^0.21.4
+  copy-webpack-plugin: 10.2.4
+  cross-env: 7.0.3
+  css-loader: 6.7.1
+  date-fns: ^2.28.0
+  dropzone: ^5.9.3
+  eslint: 8.15.0
+  eslint-plugin-import: 2.26.0
+  eslint-plugin-node: 11.1.0
+  eslint-plugin-unicorn: 42.0.0
+  eslint-plugin-vue: 8.7.1
+  filesize: ^6.4.0
   js-cookie: ^3.0.1
-  laravel-echo: ^1.11.3
-  laravel-mix: ^6.0.10
+  laravel-echo: ^1.11.7
+  laravel-mix: 6.0.43
   portal-vue: ^2.1.7
-  postcss: ^8.4.13
-  pusher-js: ^7.0.3
-  tailwindcss: ^3.0.24
-  tippy.js: ^6.3.1
-  v-calendar: ^2.2.0
+  postcss: 8.4.13
+  postcss-import: 14.1.0
+  pusher-js: ^7.0.6
+  tailwindcss: 3.0.24
+  tippy.js: ^6.3.7
+  v-calendar: ^2.4.1
   v-clipboard: ^2.2.3
-  v-mask: ^2.2.4
-  v-tooltip: ^2.1.2
-  vee-validate: ^3.4.5
-  vue: ^2.6.12
+  v-mask: ^2.3.0
+  v-tooltip: ^2.1.3
+  vee-validate: ^3.4.14
+  vue: ^2.6.14
   vue-currency-filter: ^5.2.0
   vue-final-modal: ^0.20.1
-  vue-loader: ^15.9.7
+  vue-loader: 15.9.8
   vue-nestable: ^2.6.0
-  vue-number-animation: ^1.1.1
-  vue-router: ^3.4.9
-  vue-select: ^3.10.8
+  vue-number-animation: ^1.1.2
+  vue-router: ^3.5.3
+  vue-select: ^3.18.3
   vue-slide-up-down: ^2.0.1
-  vue-template-compiler: ^2.6.14
+  vue-template-compiler: 2.6.14
   vuedraggable: ^2.24.3
-  vuex: ^3.5.1
-  webpack: ^5.72.0
+  vuex: ^3.6.2
+  webpack: 5.72.0
 
 dependencies:
   '@tiptap/core': 2.0.0-beta.175
@@ -112,7 +116,7 @@ devDependencies:
   '@tailwindcss/aspect-ratio': 0.4.0_tailwindcss@3.0.24
   '@tailwindcss/line-clamp': 0.4.0_tailwindcss@3.0.24
   '@tailwindcss/typography': 0.5.2_tailwindcss@3.0.24
-  autoprefixer: 10.4.7_postcss@8.4.13
+  autoprefixer: 10.4.5_postcss@8.4.13
   copy-webpack-plugin: 10.2.4_webpack@5.72.0
   cross-env: 7.0.3
   css-loader: 6.7.1_webpack@5.72.0
@@ -123,6 +127,7 @@ devDependencies:
   eslint-plugin-vue: 8.7.1_eslint@8.15.0
   laravel-mix: 6.0.43_postcss@8.4.13
   postcss: 8.4.13
+  postcss-import: 14.1.0_postcss@8.4.13
   tailwindcss: 3.0.24
   vue-loader: 15.9.8_dd6eed2edbdf5ee85aee7553536cc635
   vue-template-compiler: 2.6.14
@@ -2407,8 +2412,8 @@ packages:
       util: 0.10.3
     dev: true
 
-  /autoprefixer/10.4.7_postcss@8.4.13:
-    resolution: {integrity: sha512-ypHju4Y2Oav95SipEcCcI5J7CGPuvz8oat7sUtYj3ClK44bldfvtvcxK6IEK++7rqB7YchDGzweZIBG+SD0ZAA==}
+  /autoprefixer/10.4.5_postcss@8.4.13:
+    resolution: {integrity: sha512-Fvd8yCoA7lNX/OUllvS+aS1I7WRBclGXsepbvT8ZaPgrH24rgXpZzF0/6Hh3ZEkwg+0AES/Osd196VZmYoEFtw==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
@@ -4749,7 +4754,7 @@ packages:
       '@types/imagemin-mozjpeg': 8.0.1
       '@types/imagemin-optipng': 5.2.1
       '@types/imagemin-svgo': 8.0.1
-      autoprefixer: 10.4.7_postcss@8.4.13
+      autoprefixer: 10.4.5_postcss@8.4.13
       babel-loader: 8.2.5_887a5110397f957d9e06dd05497793db
       chalk: 4.1.2
       chokidar: 3.5.3
@@ -5439,6 +5444,11 @@ packages:
     engines: {node: '>=8.6'}
     dev: true
 
+  /pify/2.3.0:
+    resolution: {integrity: sha1-7RQaasBDqEnqWISY59yosVMw6Qw=}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
   /pkg-dir/4.2.0:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
@@ -5531,6 +5541,18 @@ packages:
       postcss: ^8.2.15
     dependencies:
       postcss: 8.4.13
+    dev: true
+
+  /postcss-import/14.1.0_postcss@8.4.13:
+    resolution: {integrity: sha512-flwI+Vgm4SElObFVPpTIT7SU7R3qk2L7PyduMcokiaVKuWv9d/U+Gm/QAd8NDLuykTWTkcrjOeD2Pp1rMeBTGw==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      postcss: ^8.0.0
+    dependencies:
+      postcss: 8.4.13
+      postcss-value-parser: 4.2.0
+      read-cache: 1.0.0
+      resolve: 1.22.0
     dev: true
 
   /postcss-js/4.0.0_postcss@8.4.13:
@@ -6072,6 +6094,12 @@ packages:
       http-errors: 2.0.0
       iconv-lite: 0.4.24
       unpipe: 1.0.0
+    dev: true
+
+  /read-cache/1.0.0:
+    resolution: {integrity: sha1-5mTvMRYRZsl1HNvo28+GtftY93Q=}
+    dependencies:
+      pify: 2.3.0
     dev: true
 
   /read-pkg-up/7.0.1:
