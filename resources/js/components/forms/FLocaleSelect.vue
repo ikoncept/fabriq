@@ -7,9 +7,10 @@
             name="locales"
             @change="$emit('change', activeLocale)"
         >
-            <option v-for="(locale, key) in locales"
-                    :key="key"
-                    :value="key"
+            <option
+                v-for="(locale, key) in locales"
+                :key="key"
+                :value="key"
             >
                 {{ locale.native }}
             </option>

@@ -3,32 +3,36 @@
         <UiSectionHeader class="mb-4">
             Kontakter
             <template #tools>
-                <button type="button"
-                        class="fabriq-btn ml-10  btn-royal py-2.5 px-4 inline-flex items-center"
-                        @click="$vfm.show('createContactModal')"
+                <button
+                    type="button"
+                    class="fabriq-btn ml-10  btn-royal py-2.5 px-4 inline-flex items-center"
+                    @click="$vfm.show('createContactModal')"
                 >
                     Lägg till kontakt
                 </button>
             </template>
         </UiSectionHeader>
-        <CreateModal name="createContactModal"
-                     @validated="createContact"
-                     @closed="resetCreateModal"
-                     @opened="$refs.nameInput.$refs.input.focus()"
+        <CreateModal
+            name="createContactModal"
+            @validated="createContact"
+            @closed="resetCreateModal"
+            @opened="$refs.nameInput.$refs.input.focus()"
         >
             <template #title>
                 Lägg till kontakt
             </template>
-            <FInput ref="nameInput"
-                    v-model="creationObject.name"
-                    label="Namn"
-                    rules="required"
-                    class="mb-6"
-                    name="name"
+            <FInput
+                ref="nameInput"
+                v-model="creationObject.name"
+                label="Namn"
+                rules="required"
+                class="mb-6"
+                name="name"
             />
         </CreateModal>
-        <UiCard :padding="false"
-                class="pb-8"
+        <UiCard
+            :padding="false"
+            class="pb-8"
         >
             <template #header>
                 <div class="flex justify-between px-6">
@@ -54,19 +58,21 @@
                     <div class="px-6 border-b border-gray-100">
                         <div class="flex items-center ">
                             <SearchIcon class="w-6 h-6 mr-0 text-gray-300" />
-                            <FSearchInput v-model="queryParams['filter[search]']"
-                                          placeholder="Sök…"
-                                          class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
-                                          @perform-search="fetchContacts"
-                                          @clear-search="resetSearch"
+                            <FSearchInput
+                                v-model="queryParams['filter[search]']"
+                                placeholder="Sök…"
+                                class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
+                                @perform-search="fetchContacts"
+                                @clear-search="resetSearch"
                             />
                         </div>
                     </div>
                 </template>
                 <template #default="{ row: item, prop }">
-                    <RouterLink v-if="prop == 'name'"
-                                class="flex items-center "
-                                :to="{name: 'contacts.edit', params: { id: item.id }}"
+                    <RouterLink
+                        v-if="prop == 'name'"
+                        class="flex items-center "
+                        :to="{name: 'contacts.edit', params: { id: item.id }}"
                     >
                         <CircleUserIcon
                             v-if="! item.content.data.image"
@@ -82,43 +88,52 @@
                         </div>
                         {{ item.name }}
                     </RouterLink>
-                    <span v-else-if="prop == 'tags'"
-                          class="flex space-x-2"
+                    <span
+                        v-else-if="prop == 'tags'"
+                        class="flex space-x-2"
                     >
-                        <UiBadge v-for="(tag, index) in item.tags.data"
-                                 :key="index"
+                        <UiBadge
+                            v-for="(tag, index) in item.tags.data"
+                            :key="index"
                         >{{ tag.name }}</UiBadge>
                     </span>
                     <span v-else-if="prop == 'sortindex'">
                         <UiBadge>{{ item.sortindex }}</UiBadge>
                     </span>
-                    <span v-else-if="prop == 'published'"
-                          class="flex justify-center"
+                    <span
+                        v-else-if="prop == 'published'"
+                        class="flex justify-center"
                     >
-                        <CircleCheckIcon v-if="item.published"
-                                         class="w-5 text-green-500"
+                        <CircleCheckIcon
+                            v-if="item.published"
+                            class="w-5 text-green-500"
                         />
-                        <XMarkIcon v-else
-                                   class="w-3 text-red-400"
+                        <XMarkIcon
+                            v-else
+                            class="w-3 text-red-400"
                         />
                     </span>
 
-                    <span v-else-if="prop == 'edit'"
-                          class="flex items-start justify-end space-x-5"
+                    <span
+                        v-else-if="prop == 'edit'"
+                        class="flex items-start justify-end space-x-5"
                     >
                         <RouterLink
                             :to="{name: 'contacts.edit', params: { id: item.id }}"
                             class="flex items-center justify-end link"
                         >
-                            <PenToSquareIcon thin
-                                             class="w-6 h-6 text-gray-800"
+                            <PenToSquareIcon
+                                thin
+                                class="w-6 h-6 text-gray-800"
                             />
                         </RouterLink>
-                        <FConfirmDropdown confirm-question="Vill du ta bort kontakten?"
-                                          @confirmed="deleteContact(item)"
+                        <FConfirmDropdown
+                            confirm-question="Vill du ta bort kontakten?"
+                            @confirmed="deleteContact(item)"
                         >
-                            <TrashIcon class="w-6 h-6 text-gray-800 hover:text-red-500"
-                                       thin
+                            <TrashIcon
+                                class="w-6 h-6 text-gray-800 hover:text-red-500"
+                                thin
                             />
                         </FConfirmDropdown>
                     </span>

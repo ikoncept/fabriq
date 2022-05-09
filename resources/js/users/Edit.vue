@@ -13,8 +13,9 @@
                     >
                         Avbryt
                     </FButton>
-                    <FButton class="px-6 py-2.5 leading-none fabriq-btn btn-royal"
-                             :click="updateUser"
+                    <FButton
+                        class="px-6 py-2.5 leading-none fabriq-btn btn-royal"
+                        :click="updateUser"
                     >
                         Spara
                     </FButton>
@@ -26,12 +27,13 @@
                 Generell information
             </template>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-6">
-                <FInput v-model="user.name"
-                        label="Namn"
-                        name="name"
-                        optional="frivillig"
-                        rules="required"
-                        placeholder="Skriv namn här..."
+                <FInput
+                    v-model="user.name"
+                    label="Namn"
+                    name="name"
+                    optional="frivillig"
+                    rules="required"
+                    placeholder="Skriv namn här..."
                 />
                 <FInput
                     v-model="user.email"
@@ -43,16 +45,17 @@
                     type="email"
                 />
                 <div class="mb-6">
-                    <FSelect v-model="chosenRoles"
-                             :disabled="currentUser.id === user.id"
-                             :help-text=" currentUser.id === user.id ? 'Du kan inte ändra dina egna roller' : ''"
-                             label="Roller"
-                             :reduce-fn="item => item.name"
-                             multiple
-                             name="roles"
-                             :options="roles"
-                             option-label="display_name"
-                             value-key="name"
+                    <FSelect
+                        v-model="chosenRoles"
+                        :disabled="currentUser.id === user.id"
+                        :help-text=" currentUser.id === user.id ? 'Du kan inte ändra dina egna roller' : ''"
+                        label="Roller"
+                        :reduce-fn="item => item.name"
+                        multiple
+                        name="roles"
+                        :options="roles"
+                        option-label="display_name"
+                        value-key="name"
                     />
                 </div>
             </div>

@@ -3,8 +3,9 @@
         ref="comments"
         class="fixed bottom-0 right-0 z-10 w-4/5 bg-white border-l border-gray-200 rounded-tl bgred-100 xl:w-1/2 lg:w-2/3 min-h-10 comment-box"
     >
-        <div class="flex items-center justify-between text-gray-100 bg-gray-800 rounded-tl cursor-pointer min-h-10"
-             @click.stop="commentSectionOpen = ! commentSectionOpen"
+        <div
+            class="flex items-center justify-between text-gray-100 bg-gray-800 rounded-tl cursor-pointer min-h-10"
+            @click.stop="commentSectionOpen = ! commentSectionOpen"
         >
             <div class="flex items-center ml-8">
                 <CommentIcon class="w-6 h-6 " />
@@ -12,8 +13,9 @@
                     {{ comments.length }} <span v-text="comments.length === 1 ? 'kommentar' : 'kommentarer'" />
                 </div>
             </div>
-            <button class="mr-6 text-sm font-semibold focus:outline-none"
-                    v-text="commentSectionOpen ? 'Stäng' : 'Öppna'"
+            <button
+                class="mr-6 text-sm font-semibold focus:outline-none"
+                v-text="commentSectionOpen ? 'Stäng' : 'Öppna'"
             />
         </div>
         <SlideUpDown
@@ -23,33 +25,38 @@
             @open-start="scrollToLatestComment"
         >
             <div>
-                <div ref="flow"
-                     class="flow-root overflow-y-auto h-[660px]"
+                <div
+                    ref="flow"
+                    class="flow-root overflow-y-auto h-[660px]"
                 >
                     <ul
                         role="list"
                         class="px-8 pt-6 -mb-8"
                     >
-                        <li v-for="(comment, index) in comments"
+                        <li
+                            v-for="(comment, index) in comments"
                             :key="comment.id"
                         >
-                            <CommentItem :comment="comment"
-                                         :is-last="(index+1) === comments.length"
-                                         @refresh-comments="fetchComments"
+                            <CommentItem
+                                :comment="comment"
+                                :is-last="(index+1) === comments.length"
+                                @refresh-comments="fetchComments"
                             />
                         </li>
                     </ul>
                     <div class="relative z-20 flex items-center mx-8 mt-16 mb-8 space-x-4">
-                        <FCommentEditor v-if="commentSectionOpen"
-                                        v-model="newComment"
-                                        class="flex-1"
-                                        placeholder="Skriv din kommentar här…"
-                                        @focus="onFocus"
-                                        @blur="onBlur"
+                        <FCommentEditor
+                            v-if="commentSectionOpen"
+                            v-model="newComment"
+                            class="flex-1"
+                            placeholder="Skriv din kommentar här…"
+                            @focus="onFocus"
+                            @blur="onBlur"
                         />
                         <div>
-                            <FButton :click="postComment"
-                                     class="px-6 py-2.5 leading-none fabriq-btn btn-royal z-50 h-[41px]"
+                            <FButton
+                                :click="postComment"
+                                class="px-6 py-2.5 leading-none fabriq-btn btn-royal z-50 h-[41px]"
                             >
                                 Skicka
                             </FButton>

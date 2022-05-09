@@ -1,7 +1,8 @@
 <template>
     <span>
-        <FLabel v-if="label"
-                :padding="false"
+        <FLabel
+            v-if="label"
+            :padding="false"
         >{{ label }}</FLabel>
         <div class="flex items-center space-x-4">
 
@@ -21,13 +22,15 @@
                         {{ localFile.c_name }}
                     </div>
                     <div class="flex justify-start space-x-2">
-                        <button class="font-semibold text-left focus:outline-none"
-                                @click="$vfm.show('file-modal', {id: localFile.id})"
+                        <button
+                            class="font-semibold text-left focus:outline-none"
+                            @click="$vfm.show('file-modal', {id: localFile.id})"
                         >
                             <PenToSquareIcon class="w-4 h-4" />
                         </button>
-                        <button class="font-semibold focus:outline-none"
-                                @click="clearFile"
+                        <button
+                            class="font-semibold focus:outline-none"
+                            @click="clearFile"
                         >
                             <XMarkIcon class="w-4 h-4" />
                         </button>
@@ -35,10 +38,11 @@
                 </div>
             </div>
         </div>
-        <FMediaPicker :open="pickerOpen"
-                      media-type="file"
-                      @close="pickerOpen = false"
-                      @item-picked="pickFile"
+        <FMediaPicker
+            :open="pickerOpen"
+            media-type="file"
+            @close="pickerOpen = false"
+            @item-picked="pickFile"
         />
     </span>
 </template>

@@ -1,10 +1,11 @@
 <template>
-    <FModal v-model="show"
-            name="file-modal"
-            width="max-w-5xl"
-            overflow="overflow-auto"
-            @before-open="initModal"
-            @closed="resetFile"
+    <FModal
+        v-model="show"
+        name="file-modal"
+        width="max-w-5xl"
+        overflow="overflow-auto"
+        @before-open="initModal"
+        @closed="resetFile"
     >
         <template #title>
             <div class="flex items-center justify-between flex-1">
@@ -12,14 +13,17 @@
                     class="text-xl text-gray-700"
                     v-text="'Redigera fil'"
                 />
-                <button type="button"
-                        class="relative z-20 mr-6"
+                <button
+                    type="button"
+                    class="relative z-20 mr-6"
                 >
-                    <FConfirmDropdown confirm-question="Vill du ta bort bilden?"
-                                      @confirmed="deleteFile"
+                    <FConfirmDropdown
+                        confirm-question="Vill du ta bort bilden?"
+                        @confirmed="deleteFile"
                     >
-                        <TrashIcon thin
-                                   class="w-6 h-6 mt-1 text-gray-800 transition-colors duration-150 hover:text-red-500"
+                        <TrashIcon
+                            thin
+                            class="w-6 h-6 mt-1 text-gray-800 transition-colors duration-150 hover:text-red-500"
                         />
                     </FConfirmDropdown>
                 </button>
@@ -45,14 +49,16 @@
         </template>
         <div class="relative z-40 py-2">
             <div class="grid grid-cols-12 gap-x-6">
-                <form class="flex flex-col col-span-4 gap-y-4"
-                      @submit.prevent="updateFile"
+                <form
+                    class="flex flex-col col-span-4 gap-y-4"
+                    @submit.prevent="updateFile"
                 >
-                    <FInput v-model="file.name"
-                            rules="required"
-                            name="name"
-                            label="Filnamn"
-                            :suffix="'.' + file.extension"
+                    <FInput
+                        v-model="file.name"
+                        rules="required"
+                        name="name"
+                        label="Filnamn"
+                        :suffix="'.' + file.extension"
                     />
                     <!-- <f-input v-model="file.readable_name"
                              label="Alt-text"
@@ -61,18 +67,19 @@
                     <!-- <f-input v-model="file.caption"
                              label="Bildtext"
                     /> -->
-                    <FSelect v-model="tags"
-                             multiple
-                             taggable
-                             label="Taggar"
-                             name="fileTags"
-                             :reduce-fn="tag => tag"
-                             class=""
-                             :create-option="tag => ({ name: tag, value: null, type: 'files'})"
-                             value-key="name"
-                             option-label="name"
-                             :push-tags="false"
-                             :options="fileTags"
+                    <FSelect
+                        v-model="tags"
+                        multiple
+                        taggable
+                        label="Taggar"
+                        name="fileTags"
+                        :reduce-fn="tag => tag"
+                        class=""
+                        :create-option="tag => ({ name: tag, value: null, type: 'files'})"
+                        value-key="name"
+                        option-label="name"
+                        :push-tags="false"
+                        :options="fileTags"
                     />
                     <div>
                         <FButton
@@ -95,10 +102,11 @@
                             {{ file.width }}×{{ file.height }}px
                         </UiBadge>
                     </div>
-                    <UiImagePresenter v-if="file.thumb_src"
-                                      :image="file"
-                                      thumbnail
-                                      class="w-full mb-2 border border-gray-100"
+                    <UiImagePresenter
+                        v-if="file.thumb_src"
+                        :image="file"
+                        thumbnail
+                        class="w-full mb-2 border border-gray-100"
                     />
                 </div>
             </div>

@@ -1,8 +1,9 @@
 <template>
-    <input type="search"
-           :value="value"
-           @input="updateValue($event.target.value)"
-           @keydown.esc="clearValue"
+    <input
+        type="search"
+        :value="value"
+        @input="updateValue($event.target.value)"
+        @keydown.esc="clearValue"
     >
 </template>
 <script>

@@ -4,9 +4,10 @@
         method="POST"
         @submit.prevent="logout"
     >
-        <input v-model="csrfToken"
-               name="_token"
-               type="hidden"
+        <input
+            v-model="csrfToken"
+            name="_token"
+            type="hidden"
         >
         <slot>
             <FButton

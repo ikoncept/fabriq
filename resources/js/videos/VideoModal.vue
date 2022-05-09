@@ -1,10 +1,11 @@
 <template>
-    <FModal v-model="show"
-            name="video-modal"
-            width="max-w-5xl"
-            overflow="overflow-auto"
-            @before-open="initModal"
-            @closed="resetVideo"
+    <FModal
+        v-model="show"
+        name="video-modal"
+        width="max-w-5xl"
+        overflow="overflow-auto"
+        @before-open="initModal"
+        @closed="resetVideo"
     >
         <template #title>
             <div class="flex items-center justify-between flex-1">
@@ -12,14 +13,17 @@
                     class="text-xl text-gray-700"
                     v-text="'Redigera video'"
                 />
-                <button type="button"
-                        class="relative z-20 mr-6"
+                <button
+                    type="button"
+                    class="relative z-20 mr-6"
                 >
-                    <FConfirmDropdown confirm-question="Vill du ta bort bilden?"
-                                      @confirmed="deleteVideo"
+                    <FConfirmDropdown
+                        confirm-question="Vill du ta bort bilden?"
+                        @confirmed="deleteVideo"
                     >
-                        <TrashIcon thin
-                                   class="w-6 h-6 mt-1 text-gray-800 transition-colors duration-150 hover:text-red-500"
+                        <TrashIcon
+                            thin
+                            class="w-6 h-6 mt-1 text-gray-800 transition-colors duration-150 hover:text-red-500"
                         />
                     </FConfirmDropdown>
                 </button>
@@ -45,36 +49,41 @@
         </template>
         <div class="relative z-40 py-2">
             <div class="grid grid-cols-12 gap-x-6">
-                <form class="flex flex-col col-span-4 gap-y-4"
-                      @submit.prevent="updateVideo"
+                <form
+                    class="flex flex-col col-span-4 gap-y-4"
+                    @submit.prevent="updateVideo"
                 >
-                    <FInput v-model="video.name"
-                            rules="required"
-                            name="name"
-                            label="Filnamn"
-                            :suffix="'.' + video.extension"
+                    <FInput
+                        v-model="video.name"
+                        rules="required"
+                        name="name"
+                        label="Filnamn"
+                        :suffix="'.' + video.extension"
                     />
-                    <FInput v-model="video.alt_text"
-                            label="Alt-text"
-                            name="alt_text"
-                            help-text="Alt-text visas b.la. för skärmläsare"
+                    <FInput
+                        v-model="video.alt_text"
+                        label="Alt-text"
+                        name="alt_text"
+                        help-text="Alt-text visas b.la. för skärmläsare"
                     />
-                    <FInput v-model="video.caption"
-                            label="Text"
-                            name="caption"
+                    <FInput
+                        v-model="video.caption"
+                        label="Text"
+                        name="caption"
                     />
-                    <FSelect v-model="tags"
-                             multiple
-                             taggable
-                             label="Taggar"
-                             name="videoTags"
-                             :reduce-fn="tag => tag"
-                             class=""
-                             :create-option="tag => ({ name: tag, value: null, type: 'videos'})"
-                             value-key="name"
-                             option-label="name"
-                             :push-tags="false"
-                             :options="videoTags"
+                    <FSelect
+                        v-model="tags"
+                        multiple
+                        taggable
+                        label="Taggar"
+                        name="videoTags"
+                        :reduce-fn="tag => tag"
+                        class=""
+                        :create-option="tag => ({ name: tag, value: null, type: 'videos'})"
+                        value-key="name"
+                        option-label="name"
+                        :push-tags="false"
+                        :options="videoTags"
                     />
                     <div>
                         <FButton
@@ -97,10 +106,11 @@
                             {{ video.width }}×{{ video.height }}px
                         </UiBadge>
                     </div>
-                    <video controls
-                           :poster="video.poster_src"
-                           class="w-full"
-                           :src="video.src"
+                    <video
+                        controls
+                        :poster="video.poster_src"
+                        class="w-full"
+                        :src="video.src"
                     >
                         Your browser does not support the video tag.
                     </video>

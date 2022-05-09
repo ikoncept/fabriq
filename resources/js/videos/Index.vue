@@ -1,26 +1,28 @@
 <template>
     <div>
-        <FModal v-model="showTagsModal"
-                name="add-tags-modal"
-                width="max-w-xl"
-                :click-to-close="false"
-                @before-open="fetchVideoTags"
+        <FModal
+            v-model="showTagsModal"
+            name="add-tags-modal"
+            width="max-w-xl"
+            :click-to-close="false"
+            @before-open="fetchVideoTags"
         >
             <template #title>
                 Kategorisera videos
             </template>
-            <FSelect v-model="selectedTags"
-                     multiple
-                     taggable
-                     label="Taggar"
-                     name="tags"
-                     :reduce-fn="tag => tag"
-                     class=""
-                     :create-option="tag => ({ name: tag, value: null, type: 'images'})"
-                     value-key="name"
-                     option-label="name"
-                     :push-tags="false"
-                     :options="fileTags"
+            <FSelect
+                v-model="selectedTags"
+                multiple
+                taggable
+                label="Taggar"
+                name="tags"
+                :reduce-fn="tag => tag"
+                class=""
+                :create-option="tag => ({ name: tag, value: null, type: 'images'})"
+                value-key="name"
+                option-label="name"
+                :push-tags="false"
+                :options="fileTags"
             />
             <template #actions>
                 <div class="flex justify-end mt-4 space-x-4">
@@ -53,8 +55,9 @@
                     @upload-queue-complete="fetchVideos"
                 >
                     <template #button>
-                        <button type="button"
-                                class="fabriq-btn ml-10 -mr-5 btn-royal py-2.5 px-4 inline-flex items-center"
+                        <button
+                            type="button"
+                            class="fabriq-btn ml-10 -mr-5 btn-royal py-2.5 px-4 inline-flex items-center"
                         >
                             Ladda upp videos
                         </button>
@@ -62,29 +65,34 @@
                 </FUpload>
             </template>
         </UiSectionHeader>
-        <UiCard :padding="false"
-                class="pb-6"
+        <UiCard
+            :padding="false"
+            class="pb-6"
         >
             <template #header>
                 <div class="flex justify-between px-6">
                     <div>
                         Uppladdade videos
                     </div>
-                    <div class="flex items-center space-x-6 text-sm transition duration-300"
-                         :class="hasCheckedRows ? 'text-gray-700' : 'text-gray-300'"
+                    <div
+                        class="flex items-center space-x-6 text-sm transition duration-300"
+                        :class="hasCheckedRows ? 'text-gray-700' : 'text-gray-300'"
                     >
                         <Transition name="fade">
-                            <span v-if="hasCheckedRows"
-                                  class="mr-4 leading-none text-gray-600"
+                            <span
+                                v-if="hasCheckedRows"
+                                class="mr-4 leading-none text-gray-600"
                             >Markerade filer ({{ checkedRows.length }})</span>
                         </Transition>
-                        <FButton :click="downloadCheckedItems"
-                                 :disabled="!hasCheckedRows"
-                                 class="focus:outline-none"
-                                 spinner-color="text-royal-500"
+                        <FButton
+                            :click="downloadCheckedItems"
+                            :disabled="!hasCheckedRows"
+                            class="focus:outline-none"
+                            spinner-color="text-royal-500"
                         >
-                            <ArrowDownLineIcon class="w-6 h-6 mr-3 "
-                                               thin
+                            <ArrowDownLineIcon
+                                class="w-6 h-6 mr-3 "
+                                thin
                             />
                             <span class="font-semibold">
                                 Ladda ner
@@ -97,20 +105,23 @@
                             spinner-color="text-royal-500"
                             :click="showModal"
                         >
-                            <TagIcon class="w-6 h-6 mr-3 "
-                                     thin
+                            <TagIcon
+                                class="w-6 h-6 mr-3 "
+                                thin
                             />
                             <span class="font-semibold">
                                 Lägg till kategori
                             </span>
                         </FButton>
-                        <FConfirmDropdown confirm-question="Vill du ta bort de markerade bilderna?"
-                                          :disabled="!hasCheckedRows"
-                                          @confirmed="deleteCheckedVideos()"
+                        <FConfirmDropdown
+                            confirm-question="Vill du ta bort de markerade bilderna?"
+                            :disabled="!hasCheckedRows"
+                            @confirmed="deleteCheckedVideos()"
                         >
                             <div class="flex items-center space-x-3 font-semibold">
-                                <TrashIcon class="w-6 h-6 "
-                                           thin
+                                <TrashIcon
+                                    class="w-6 h-6 "
+                                    thin
                                 />
                                 <div>
                                     Ta bort
@@ -121,37 +132,41 @@
                 </div>
             </template>
             <div class="max-w-full overflow-auto">
-                <FTable :columns="columns"
-                        :rows="videos"
-                        paginated
-                        :pagination="pagination"
-                        :options="{shadow: false, defaultSort: 'created_at', sortDescending: true, clickableRows: true, checkableRows: true}"
-                        @row-clicked="openVideoModal"
-                        @check-row="handleRowChecked"
-                        @change-page="setPage"
-                        @sort="setSort"
+                <FTable
+                    :columns="columns"
+                    :rows="videos"
+                    paginated
+                    :pagination="pagination"
+                    :options="{shadow: false, defaultSort: 'created_at', sortDescending: true, clickableRows: true, checkableRows: true}"
+                    @row-clicked="openVideoModal"
+                    @check-row="handleRowChecked"
+                    @change-page="setPage"
+                    @sort="setSort"
                 >
                     <template #search>
                         <div class="px-6 border-b border-gray-100">
                             <div class="flex items-center ">
                                 <SearchIcon class="w-6 h-6 mr-0 text-gray-300" />
-                                <FSearchInput v-model="queryParams['filter[search]']"
-                                              placeholder="Sök…"
-                                              class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
-                                              @perform-search="performSearch"
-                                              @clear-search="resetSearch"
+                                <FSearchInput
+                                    v-model="queryParams['filter[search]']"
+                                    placeholder="Sök…"
+                                    class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
+                                    @perform-search="performSearch"
+                                    @clear-search="resetSearch"
                                 />
                             </div>
                         </div>
                     </template>
                     <template #default="{ row: item, prop }">
-                        <span v-if="prop == 'file'"
-                              class="block w-20"
-                              @click="$vfm.show('video-modal', {id: item.id})"
+                        <span
+                            v-if="prop == 'file'"
+                            class="block w-20"
+                            @click="$vfm.show('video-modal', {id: item.id})"
                         >
-                            <UiImagePresenter :image="item"
-                                              thumbnail
-                                              class="cursor-pointer max-h-16"
+                            <UiImagePresenter
+                                :image="item"
+                                thumbnail
+                                class="cursor-pointer max-h-16"
                             />
                         </span>
                         <span v-else-if="prop == 'created_at'">
@@ -162,27 +177,33 @@
                                 {{ item.c_name }}
                             </div>
                         </span>
-                        <span v-else-if="prop == 'tags'"
-                              class="flex space-x-2"
+                        <span
+                            v-else-if="prop == 'tags'"
+                            class="flex space-x-2"
                         >
-                            <UiBadge v-for="(tag, index) in item.tags.data"
-                                     :key="index"
+                            <UiBadge
+                                v-for="(tag, index) in item.tags.data"
+                                :key="index"
                             >{{ tag.name }}</UiBadge>
                         </span>
                         <span v-else-if="prop == 'size'">
                             {{ item.size | filesize }}
                         </span>
                         <span v-else-if="prop == 'edit'">
-                            <button class="px-4 py-2 btn-ghost fabriq-btn"
-                                    @click="openVideoModal(item)"
-                            ><PenToSquareIcon class="w-6 h-6"
-                                              thin
+                            <button
+                                class="px-4 py-2 btn-ghost fabriq-btn"
+                                @click="openVideoModal(item)"
+                            ><PenToSquareIcon
+                                class="w-6 h-6"
+                                thin
                             /></button>
-                            <FConfirmDropdown confirm-question="Vill du ta bort denna filen?"
-                                              @confirmed="deleteVideo(item.id)"
+                            <FConfirmDropdown
+                                confirm-question="Vill du ta bort denna filen?"
+                                @confirmed="deleteVideo(item.id)"
                             >
-                                <TrashIcon class="w-6 h-6 mt-1 text-gray-800 hover:text-red-500"
-                                           thin
+                                <TrashIcon
+                                    class="w-6 h-6 mt-1 text-gray-800 hover:text-red-500"
+                                    thin
                                 />
                             </FConfirmDropdown>
                         </span>

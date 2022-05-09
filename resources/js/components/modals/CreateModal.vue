@@ -1,10 +1,11 @@
 <template>
-    <FModal v-model="showModal"
-            :name="name"
-            :width="width"
-            @closed="resetCreateModal"
-            @opened="emitOpened"
-            @before-open="emitBeforeOpen"
+    <FModal
+        v-model="showModal"
+        :name="name"
+        :width="width"
+        @closed="resetCreateModal"
+        @opened="emitOpened"
+        @before-open="emitBeforeOpen"
     >
         <template #title>
             <slot name="title" />
@@ -29,8 +30,9 @@
         </template>
 
         <ValidationObserver ref="observer">
-            <form class="flex flex-col col-span-4 gap-y-4"
-                  @submit.prevent="validateForm"
+            <form
+                class="flex flex-col col-span-4 gap-y-4"
+                @submit.prevent="validateForm"
             >
                 <slot />
             </form>

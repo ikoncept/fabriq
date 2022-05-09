@@ -1,6 +1,7 @@
 <template>
-    <div class="mt-4 bg-white rounded card"
-         :class="noShadow ? 'border' : 'shadow-md'"
+    <div
+        class="mt-4 bg-white rounded card"
+        :class="noShadow ? 'border' : 'shadow-md'"
     >
         <div
             v-if="hasHeaderSlot"
@@ -12,26 +13,30 @@
                 <slot name="header" />
             </span>
             <div v-if="collapsible">
-                <AngleDownIcon class="block w-6 h-6 ml-4 text-gray-800 transition-all duration-300 transform "
-                               :class="open ? '-rotate-180' : 'rotate-0'"
+                <AngleDownIcon
+                    class="block w-6 h-6 ml-4 text-gray-800 transition-all duration-300 transform "
+                    :class="open ? '-rotate-180' : 'rotate-0'"
                 />
             </div>
         </div>
-        <div v-if="! collapsible"
-             :class="{'p-6': padding }"
+        <div
+            v-if="! collapsible"
+            :class="{'p-6': padding }"
         >
             <slot />
         </div>
-        <SlideUpDown v-else
-                     ref="monkey"
-                     :active="open"
-                     :duration="animationDuration"
-                     class="wobbly-accordion"
-                     @open-start="delayOpen = true"
-                     @close-end="delayOpen = false"
+        <SlideUpDown
+            v-else
+            ref="monkey"
+            :active="open"
+            :duration="animationDuration"
+            class="wobbly-accordion"
+            @open-start="delayOpen = true"
+            @close-end="delayOpen = false"
         >
-            <div v-if="delayOpen"
-                 :class="{'p-6': padding }"
+            <div
+                v-if="delayOpen"
+                :class="{'p-6': padding }"
             >
                 <slot />
             </div>

@@ -13,22 +13,24 @@
         </template>
         <div>
             <ValidationObserver ref="observer">
-                <FDatePicker v-model="createEvent.date"
-                             label="Datum"
-                             mode="date"
-                             name="date"
-                             is-range
-                             rules="required"
-                             clearable
-                             placeholder="Klicka för att välja datum"
-                             class="block col-span-8 mt-2 mb-6"
+                <FDatePicker
+                    v-model="createEvent.date"
+                    label="Datum"
+                    mode="date"
+                    name="date"
+                    is-range
+                    rules="required"
+                    clearable
+                    placeholder="Klicka för att välja datum"
+                    class="block col-span-8 mt-2 mb-6"
                 />
                 <div class="grid grid-cols-2 gap-6 mb-4">
-                    <FInput v-model="createEvent.start_time"
-                            name="start_time"
-                            mask="##:##"
-                            label="Tid"
-                            type="text"
+                    <FInput
+                        v-model="createEvent.start_time"
+                        name="start_time"
+                        mask="##:##"
+                        label="Tid"
+                        type="text"
                     >
                         <template #icon>
                             <ClockIcon class="w-4 h-4" />
@@ -38,10 +40,11 @@
                         <FLabel name="end_time">
 &nbsp;
                         </FLabel>
-                        <FInput v-model="createEvent.end_time"
-                                mask="##:##"
-                                name="end_time"
-                                type="text"
+                        <FInput
+                            v-model="createEvent.end_time"
+                            mask="##:##"
+                            name="end_time"
+                            type="text"
                         >
                             <template #icon>
                                 <ClockIcon class="w-4 h-4" />
@@ -49,56 +52,64 @@
                         </FInput>
                     </div>
                     <div class="col-span-2">
-                        <FInput v-model="createEvent.daily_interval"
-                                input-type="radio"
-                                name="daily_interval"
-                                label="Repetera händelse"
-                                :options="[{label: 'Nej', value: 0}, { label: 'Varje vecka', value: 7 }, { label: 'Varannan vecka', value: 14 }]"
+                        <FInput
+                            v-model="createEvent.daily_interval"
+                            input-type="radio"
+                            name="daily_interval"
+                            label="Repetera händelse"
+                            :options="[{label: 'Nej', value: 0}, { label: 'Varje vecka', value: 7 }, { label: 'Varannan vecka', value: 14 }]"
                         />
                     </div>
                 </div>
             </ValidationObserver>
             <FTabs v-if="Object.keys(locales).length > 0">
-                <FTab v-for="(locale, key) in locales"
-                      :key="locale.regional"
-                      :has-error="localesWithErrors.includes(key)"
-                      :title="locale.native"
+                <FTab
+                    v-for="(locale, key) in locales"
+                    :key="locale.regional"
+                    :has-error="localesWithErrors.includes(key)"
+                    :title="locale.native"
                 >
-                    <ValidationObserver v-if="Object.keys(locales).length > 0"
-                                        :ref="'createForm' + key"
-                                        v-slot="{ passes }"
+                    <ValidationObserver
+                        v-if="Object.keys(locales).length > 0"
+                        :ref="'createForm' + key"
+                        v-slot="{ passes }"
                     >
-                        <form v-if="createEvent[key]"
-                              @submit.prevent="passes(storeEvent)"
+                        <form
+                            v-if="createEvent[key]"
+                            @submit.prevent="passes(storeEvent)"
                         >
                             <div class="grid grid-cols-12 mt-4 gap-x-6 gap-y-8">
-                                <FInput v-model="createEvent[key].title"
-                                        label="Titel"
-                                        placeholder="Ange en titel"
-                                        class="col-span-5"
-                                        :rules="key === 'sv' ? 'required' : ''"
-                                        name="titel"
+                                <FInput
+                                    v-model="createEvent[key].title"
+                                    label="Titel"
+                                    placeholder="Ange en titel"
+                                    class="col-span-5"
+                                    :rules="key === 'sv' ? 'required' : ''"
+                                    name="titel"
                                 />
-                                <FInput v-model="createEvent[key].location"
-                                        label="Plats"
-                                        placeholder="Ange plats"
-                                        class="col-span-7"
-                                        name="location"
+                                <FInput
+                                    v-model="createEvent[key].location"
+                                    label="Plats"
+                                    placeholder="Ange plats"
+                                    class="col-span-7"
+                                    name="location"
                                 >
                                     <template #icon>
                                         <LocationIcon class="w-5 h-5 text-gray-400" />
                                     </template>
                                 </FInput>
 
-                                <FInput v-model="createEvent[key].description"
-                                        class="col-span-12 mb-6"
-                                        name="description"
-                                        label="Beskrivning "
-                                        placeholder="Beskriv händelsen"
-                                        textarea
+                                <FInput
+                                    v-model="createEvent[key].description"
+                                    class="col-span-12 mb-6"
+                                    name="description"
+                                    label="Beskrivning "
+                                    placeholder="Beskriv händelsen"
+                                    textarea
                                 />
-                                <button type="submit"
-                                        class="hidden"
+                                <button
+                                    type="submit"
+                                    class="hidden"
                                 />
                             </div>
                         </form>

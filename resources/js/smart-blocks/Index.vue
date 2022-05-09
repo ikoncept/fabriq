@@ -1,33 +1,37 @@
 <template>
     <div>
-        <CreateModal name="createSmartBlockModal"
-                     @validated="createSmartBlock"
-                     @opened="$refs.nameInput.$refs.input.focus()"
+        <CreateModal
+            name="createSmartBlockModal"
+            @validated="createSmartBlock"
+            @opened="$refs.nameInput.$refs.input.focus()"
         >
             <template #title>
                 Lägg till smart block
             </template>
-            <FInput ref="nameInput"
-                    v-model="newSmartBlock.name"
-                    label="Namn"
-                    rules="required"
-                    class="mb-6"
-                    name="name"
+            <FInput
+                ref="nameInput"
+                v-model="newSmartBlock.name"
+                label="Namn"
+                rules="required"
+                class="mb-6"
+                name="name"
             />
         </CreateModal>
         <UiSectionHeader class="mb-4">
             Smarta block
             <template #tools>
-                <button type="button"
-                        class="fabriq-btn ml-10  btn-royal py-2.5 px-4 inline-flex items-center"
-                        @click="$vfm.show('createSmartBlockModal')"
+                <button
+                    type="button"
+                    class="fabriq-btn ml-10  btn-royal py-2.5 px-4 inline-flex items-center"
+                    @click="$vfm.show('createSmartBlockModal')"
                 >
                     Lägg till smart block
                 </button>
             </template>
         </UiSectionHeader>
-        <UiCard :padding="false"
-                class="pb-6 mb-4"
+        <UiCard
+            :padding="false"
+            class="pb-6 mb-4"
         >
             <template #header>
                 <div class="px-6">
@@ -47,22 +51,26 @@
             >
                 <template #default="{ row: item, prop }">
                     <span v-if="prop == 'updated_at'">{{ item.updated_at | localTime }}</span>
-                    <span v-else-if="prop == 'edit'"
-                          class="flex items-start justify-end space-x-5"
+                    <span
+                        v-else-if="prop == 'edit'"
+                        class="flex items-start justify-end space-x-5"
                     >
                         <RouterLink
                             :to="{name: 'smartBlocks.edit', params: { id: item.id }}"
                             class="flex items-center justify-end link"
                         >
-                            <PenToSquareIcon thin
-                                             class="w-6 h-6 text-gray-800"
+                            <PenToSquareIcon
+                                thin
+                                class="w-6 h-6 text-gray-800"
                             />
                         </RouterLink>
-                        <FConfirmDropdown confirm-question="Vill du ta bort blocket?"
-                                          @confirmed="deleteSmartBlock(item)"
+                        <FConfirmDropdown
+                            confirm-question="Vill du ta bort blocket?"
+                            @confirmed="deleteSmartBlock(item)"
                         >
-                            <TrashIcon class="w-6 h-6 text-gray-800 hover:text-red-500"
-                                       thin
+                            <TrashIcon
+                                class="w-6 h-6 text-gray-800 hover:text-red-500"
+                                thin
                             />
                         </FConfirmDropdown>
                     </span>

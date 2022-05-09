@@ -1,38 +1,43 @@
 <template>
     <div>
-        <CreateModal name="createUserModal"
-                     @opened="$refs.nameInput.$refs.input.focus()"
-                     @closed="resetCreateModal"
-                     @validated="createUser"
+        <CreateModal
+            name="createUserModal"
+            @opened="$refs.nameInput.$refs.input.focus()"
+            @closed="resetCreateModal"
+            @validated="createUser"
         >
             <template #title>
                 Lägg till användare
             </template>
             <div class="grid grid-cols-2 gap-6">
-                <FInput ref="nameInput"
-                        v-model="newUser.name"
-                        label="Namn"
-                        rules="required"
+                <FInput
+                    ref="nameInput"
+                    v-model="newUser.name"
+                    label="Namn"
+                    rules="required"
                 />
-                <FInput v-model="newUser.email"
-                        label="E-post"
-                        rules="required|email"
+                <FInput
+                    v-model="newUser.email"
+                    label="E-post"
+                    rules="required|email"
                 />
             </div>
         </CreateModal>
         <UiSectionHeader class="mb-4">
             Användare
             <template #tools>
-                <button type="button"
-                        class="fabriq-btn ml-10  btn-royal py-2.5 px-4 inline-flex items-center"
-                        @click="$vfm.show('createUserModal')"
+                <button
+                    type="button"
+                    class="fabriq-btn ml-10  btn-royal py-2.5 px-4 inline-flex items-center"
+                    @click="$vfm.show('createUserModal')"
                 >
                     Lägg till användare
                 </button>
             </template>
         </UiSectionHeader>
-        <UiCard :padding="false"
-                class="pb-8"
+        <UiCard
+            :padding="false"
+            class="pb-8"
         >
             <template #header>
                 <span class="inline-flex px-6">
@@ -56,19 +61,21 @@
                     <div class="px-6 border-b border-gray-100">
                         <div class="flex items-center ">
                             <SearchIcon class="w-6 h-6 mr-0 text-gray-300" />
-                            <FSearchInput v-model="queryParams['filter[search]']"
-                                          placeholder="Sök…"
-                                          class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
-                                          @perform-search="fetchUsers"
-                                          @clear-search="resetSearch"
+                            <FSearchInput
+                                v-model="queryParams['filter[search]']"
+                                placeholder="Sök…"
+                                class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
+                                @perform-search="fetchUsers"
+                                @clear-search="resetSearch"
                             />
                         </div>
                     </div>
                 </template>
                 <template #default="{ row: item, prop }">
                     <span v-if="prop == 'updated_at'">{{ item.updated_at | localTime }}</span>
-                    <span v-else-if="prop == 'roles'"
-                          class="space-x-2"
+                    <span
+                        v-else-if="prop == 'roles'"
+                        class="space-x-2"
                     >
                         <UiBadge
                             v-for="role in item.roles.data"
@@ -76,22 +83,26 @@
                             color="royal"
                         >{{ role.display_name }}</UiBadge>
                     </span>
-                    <span v-else-if="prop == 'edit'"
-                          class="flex items-start justify-end space-x-5"
+                    <span
+                        v-else-if="prop == 'edit'"
+                        class="flex items-start justify-end space-x-5"
                     >
                         <RouterLink
                             :to="{name: 'users.edit', params: { id: item.id }}"
                             class="flex items-center justify-end link"
                         >
-                            <PenToSquareIcon thin
-                                             class="w-6 h-6 text-gray-800"
+                            <PenToSquareIcon
+                                thin
+                                class="w-6 h-6 text-gray-800"
                             />
                         </RouterLink>
-                        <FConfirmDropdown confirm-question="Vill du ta bort användaren?"
-                                          @confirmed="deleteUser(item)"
+                        <FConfirmDropdown
+                            confirm-question="Vill du ta bort användaren?"
+                            @confirmed="deleteUser(item)"
                         >
-                            <TrashIcon class="w-6 h-6 text-gray-800 hover:text-red-500"
-                                       thin
+                            <TrashIcon
+                                class="w-6 h-6 text-gray-800 hover:text-red-500"
+                                thin
                             />
                         </FConfirmDropdown>
                     </span>

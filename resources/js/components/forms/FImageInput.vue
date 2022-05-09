@@ -1,15 +1,18 @@
 <template>
     <span>
-        <FLabel v-if="label"
-                :padding="false"
-                :name="name"
+        <FLabel
+            v-if="label"
+            :padding="false"
+            :name="name"
         >{{ label }}</FLabel>
-        <div :ref="randomRef"
-             class="relative flex items-center justify-center transition-colors duration-150 border-dashed rounded-md aspect-w-16 aspect-h-9"
-             :class="[hasImage ? 'border-transparent ring-2 ring-inset' : 'ring-royal-500  ring-2 ring-inset', isDraggingOver ? 'bg-royal-100' : 'bg-royal-50']"
+        <div
+            :ref="randomRef"
+            class="relative flex items-center justify-center transition-colors duration-150 border-dashed rounded-md aspect-w-16 aspect-h-9"
+            :class="[hasImage ? 'border-transparent ring-2 ring-inset' : 'ring-royal-500  ring-2 ring-inset', isDraggingOver ? 'bg-royal-100' : 'bg-royal-50']"
         >
-            <div v-show="!hasImage"
-                 class="absolute flex flex-col items-center justify-center "
+            <div
+                v-show="!hasImage"
+                class="absolute flex flex-col items-center justify-center "
             >
                 <div
                     class="flex flex-col items-center space-y-2 text-sm "
@@ -22,9 +25,10 @@
                         >Ladda upp bild</button>
                     </div>
                     eller
-                    <button class="cursor-pointer link"
-                            type="button"
-                            @click="pickerOpen = true"
+                    <button
+                        class="cursor-pointer link"
+                        type="button"
+                        @click="pickerOpen = true"
                     >
                         välj från arkivet
                     </button>
@@ -41,32 +45,37 @@
                     @upload-complete="handleNewImage"
                 />
             </div>
-            <div v-if="hasImage"
-                 class="absolute w-full h-full group"
+            <div
+                v-if="hasImage"
+                class="absolute w-full h-full group"
             >
                 <div class="absolute inset-0 z-10 flex items-end justify-end transition-opacity duration-300 opacity-0 group-hover:opacity-100 ">
                     <div class="flex w-full -mb-px">
-                        <button class="flex items-center justify-center w-full px-4 py-4 text-sm font-semibold leading-none text-white transition-colors duration-150 bg-gray-800 focus:outline-none rounded-bl-md hover:bg-gray-900"
-                                @click="$vfm.show('image-modal', {id: localImage.id})"
+                        <button
+                            class="flex items-center justify-center w-full px-4 py-4 text-sm font-semibold leading-none text-white transition-colors duration-150 bg-gray-800 focus:outline-none rounded-bl-md hover:bg-gray-900"
+                            @click="$vfm.show('image-modal', {id: localImage.id})"
                         >Redigera</button>
-                        <button class="flex items-center justify-center w-full px-4 py-4 text-sm font-semibold leading-none text-white transition-colors duration-150 bg-gray-800 focus:outline-none rounded-br-md hover:bg-gray-900"
-                                @click="clearImage"
+                        <button
+                            class="flex items-center justify-center w-full px-4 py-4 text-sm font-semibold leading-none text-white transition-colors duration-150 bg-gray-800 focus:outline-none rounded-br-md hover:bg-gray-900"
+                            @click="clearImage"
                         >
                             Ta bort
                         </button>
                     </div>
                 </div>
                 <div class="absolute inset-0 transition-opacity duration-300 bg-black rounded-md opacity-0 group-hover:opacity-50 overlay " />
-                <UiImagePresenter thumbnail
-                                  :image="localImage"
-                                  class="block object-cover w-full h-full rounded-md"
+                <UiImagePresenter
+                    thumbnail
+                    :image="localImage"
+                    class="block object-cover w-full h-full rounded-md"
                 />
             </div>
 
         </div>
-        <FMediaPicker :open="pickerOpen"
-                      @close="pickerOpen = false"
-                      @item-picked="pickImage"
+        <FMediaPicker
+            :open="pickerOpen"
+            @close="pickerOpen = false"
+            @item-picked="pickImage"
         />
     </span>
 </template>

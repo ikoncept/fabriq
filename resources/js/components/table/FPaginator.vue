@@ -17,8 +17,9 @@
             <div>
                 <p class="text-sm text-gray-700">
                     Visar
-                    <span v-if="currentPageIsFirst"
-                          class="font-medium"
+                    <span
+                        v-if="currentPageIsFirst"
+                        class="font-medium"
                     >1</span>
                     <span
                         v-else
@@ -39,8 +40,9 @@
                 </p>
             </div>
             <div>
-                <nav aria-label="Pagination"
-                     class="relative z-0 inline-flex -space-x-px shadow-sm"
+                <nav
+                    aria-label="Pagination"
+                    class="relative z-0 inline-flex -space-x-px shadow-sm"
                 >
                     <button
                         class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 focus:outline-none rounded-l-md hover:bg-gray-50"

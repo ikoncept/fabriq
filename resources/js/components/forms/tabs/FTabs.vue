@@ -1,17 +1,20 @@
 <template>
     <div>
-        <ul v-show="showTabs && ! hideTabs"
+        <ul
+            v-show="showTabs && ! hideTabs"
             class="flex -mb-px space-x-8 border-b border-gray-200"
         >
-            <li v-for="(tab, index) in tabs"
+            <li
+                v-for="(tab, index) in tabs"
                 :key="tab.title"
                 :class="index == selectedIndex ? 'border-gold-700 text-gray-800' : 'text-gray-400 hover:text-gray-600 hover:border-gray-300'"
                 class="px-1 py-4 text-sm font-medium transition-colors duration-200 border-b-2 border-transparent cursor-pointer whitespace-nowrap"
                 @click="selectTab(index)"
             >
                 <div class="flex items-center">
-                    <CircleExclamationIcon v-if="tab.hasError"
-                                           class="w-5 h-5 mr-2 text-red-500"
+                    <CircleExclamationIcon
+                        v-if="tab.hasError"
+                        class="w-5 h-5 mr-2 text-red-500"
                     />
                     {{ tab.title }}
                 </div>

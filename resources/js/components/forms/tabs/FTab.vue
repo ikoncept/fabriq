@@ -1,6 +1,7 @@
 <template>
-    <div v-show="isActive"
-         class="py-6"
+    <div
+        v-show="isActive"
+        class="py-6"
     >
         <slot />
     </div>

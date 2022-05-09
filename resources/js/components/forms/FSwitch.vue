@@ -1,21 +1,24 @@
 <template>
     <div>
-        <FLabel v-if="columnLayout"
-                class="mb-2 cursor-pointer select-none"
-                :name="name"
+        <FLabel
+            v-if="columnLayout"
+            class="mb-2 cursor-pointer select-none"
+            :name="name"
         >
             <slot />
         </FLabel>
         <div
             class="flex items-center"
         >
-            <span v-if="hasSlot && ! columnLayout"
-                  :name="name"
-                  class="flex flex-col mr-4 "
-                  @click="computedValue = ! computedValue"
+            <span
+                v-if="hasSlot && ! columnLayout"
+                :name="name"
+                class="flex flex-col mr-4 "
+                @click="computedValue = ! computedValue"
             >
-                <FLabel class="mb-0 cursor-pointer select-none"
-                        :name="name"
+                <FLabel
+                    class="mb-0 cursor-pointer select-none"
+                    :name="name"
                 >
                     <slot />
                 </FLabel>
@@ -37,22 +40,25 @@
                     class="absolute top-0 left-0 inline-block w-5 h-5 transition duration-200 ease-in-out transform bg-white rounded-full shadow ring-0"
                 />
             </button>
-            <Transition v-if="columnLayout"
-                        tag="div"
-                        name="fade"
-                        mode="out-in"
+            <Transition
+                v-if="columnLayout"
+                tag="div"
+                name="fade"
+                mode="out-in"
             >
-                <span v-if="computedValue"
-                      key="truthy"
-                      class="ml-2.5 text-sm inline-block"
+                <span
+                    v-if="computedValue"
+                    key="truthy"
+                    class="ml-2.5 text-sm inline-block"
                 >
                     <slot name="truthy">
                         Ja
                     </slot>
                 </span>
-                <span v-else
-                      key="falsy"
-                      class="ml-2.5 text-sm inline-block"
+                <span
+                    v-else
+                    key="falsy"
+                    class="ml-2.5 text-sm inline-block"
                 >
                     <slot name="falsy">
                         Nej

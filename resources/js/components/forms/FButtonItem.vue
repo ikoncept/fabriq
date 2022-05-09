@@ -1,24 +1,27 @@
 <template>
     <div class="flex space-x-12">
-        <FInput v-model="localButton.text"
-                class="w-80"
-                :disabled="disabled"
-                label="Knapptext"
+        <FInput
+            v-model="localButton.text"
+            class="w-80"
+            :disabled="disabled"
+            label="Knapptext"
         />
-        <FInput v-model="localButton.linkType"
-                input-type="radio"
-                class="col-span-4 xl:col-span-3"
-                :disabled="disabled"
-                name="linkType"
-                :options="[{ label: 'Intern', value: 'internal' }, { label: 'Extern', value: 'external' }, { label: 'Fil', value: 'file'}]"
-                label="Länktyp"
+        <FInput
+            v-model="localButton.linkType"
+            input-type="radio"
+            class="col-span-4 xl:col-span-3"
+            :disabled="disabled"
+            name="linkType"
+            :options="[{ label: 'Intern', value: 'internal' }, { label: 'Extern', value: 'external' }, { label: 'Fil', value: 'file'}]"
+            label="Länktyp"
         />
-        <FInput v-if="value.linkType === 'external'"
-                v-model="localButton.url"
-                class="flex-1"
-                :disabled="disabled"
-                label="Länk"
-                placeholder="https://exempel.se eller /min-sida"
+        <FInput
+            v-if="value.linkType === 'external'"
+            v-model="localButton.url"
+            class="flex-1"
+            :disabled="disabled"
+            label="Länk"
+            placeholder="https://exempel.se eller /min-sida"
         />
         <FSelect
             v-if="value.linkType === 'internal'"
@@ -35,19 +38,21 @@
             @open="checkForPages"
         >
             <template #prefix="option">
-                <div v-for="pageIndex in option.depth"
-                     :key="pageIndex"
+                <div
+                    v-for="pageIndex in option.depth"
+                    :key="pageIndex"
                 >
                     <div class="mr-3" />
                 </div>
                 <!-- {{ option.page.name }} -->
             </template>
         </FSelect>
-        <FFileInput v-if="value.linkType === 'file'"
-                    v-model="localButton.file"
-                    class="flex-1"
-                    :disabled="disabled"
-                    label="Fil"
+        <FFileInput
+            v-if="value.linkType === 'file'"
+            v-model="localButton.file"
+            class="flex-1"
+            :disabled="disabled"
+            label="Fil"
         />
     </div>
 </template>

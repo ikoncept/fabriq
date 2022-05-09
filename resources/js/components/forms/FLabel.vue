@@ -1,13 +1,16 @@
 <template>
-    <label :class="{'text-white': nonWhiteBg }"
-           :for="name"
-           class="block font-sans text-sm font-medium text-gray-600 mb-1.5"
+    <label
+        :class="{'text-white': nonWhiteBg }"
+        :for="name"
+        class="block font-sans text-sm font-medium text-gray-600 mb-1.5"
     >
-        <slot /><span v-if="required"
-                      class="-ml-1 text-red-500"
-        >*</span><span v-if="showOptional"
-                       class="italic text-gray-400"
-                       v-text="'('+optional+')'"
+        <slot /><span
+            v-if="required"
+            class="-ml-1 text-red-500"
+        >*</span><span
+            v-if="showOptional"
+            class="italic text-gray-400"
+            v-text="'('+optional+')'"
         />
         <code v-if="devMode"><span class="text-xs">{{ name }}</span></code>
     </label>

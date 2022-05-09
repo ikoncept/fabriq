@@ -3,41 +3,45 @@
         <UiSectionHeader class="mb-4">
             Sidor
             <template #tools>
-                <button type="button"
-                        class="fabriq-btn ml-10  btn-royal py-2.5 px-4 inline-flex items-center"
-                        @click="$vfm.show('createPageModal')"
+                <button
+                    type="button"
+                    class="fabriq-btn ml-10  btn-royal py-2.5 px-4 inline-flex items-center"
+                    @click="$vfm.show('createPageModal')"
                 >
                     Lägg till sida
                 </button>
             </template>
         </UiSectionHeader>
-        <CreateModal name="createPageModal"
-                     width="max-w-xl"
-                     @before-open="fetchTemplates"
-                     @closed="resetCreateModal"
-                     @validated="createPage"
-                     @opened="$refs.nameInput.$refs.input.focus()"
+        <CreateModal
+            name="createPageModal"
+            width="max-w-xl"
+            @before-open="fetchTemplates"
+            @closed="resetCreateModal"
+            @validated="createPage"
+            @opened="$refs.nameInput.$refs.input.focus()"
         >
             <template #title>
                 Lägg till sida
             </template>
-            <FInput ref="nameInput"
-                    v-model="newPage.name"
-                    label="Namn"
-                    rules="required"
-                    class="mb-6"
-                    name="name"
+            <FInput
+                ref="nameInput"
+                v-model="newPage.name"
+                label="Namn"
+                rules="required"
+                class="mb-6"
+                name="name"
             />
-            <FSelect v-model="newPage.template_id"
-                     name="template_id"
-                     :options="templates"
-                     placeholder="Vänligen välj"
-                     option-label="name"
-                     class="mb-6"
-                     rules="required"
-                     value-key="id"
-                     label="Sidtyp"
-                     :reduce-fn="item => item.id"
+            <FSelect
+                v-model="newPage.template_id"
+                name="template_id"
+                :options="templates"
+                placeholder="Vänligen välj"
+                option-label="name"
+                class="mb-6"
+                rules="required"
+                value-key="id"
+                label="Sidtyp"
+                :reduce-fn="item => item.id"
             />
         </CreateModal>
         <UiCard
@@ -58,8 +62,9 @@
                             <div class="mb-4 text-xl font-light">
                                 Inga sidor har lagts till ännu
                             </div>
-                            <button class="flex items-center text-sm link"
-                                    @click="$vfm.show('createPageModal')"
+                            <button
+                                class="flex items-center text-sm link"
+                                @click="$vfm.show('createPageModal')"
                             >
                                 <PlusIcon class="w-5 h-5 mr-2" />Lägg till sida
                             </button>
@@ -69,8 +74,9 @@
                 <template slot-scope="{ item }">
                     <div class="flex items-center justify-between p-2 text-sm border border-gray-300 rounded group">
                         <div class="flex items-center font-semibold text-gray-700">
-                            <VueNestableHandle :item="item"
-                                               class="px-2 -mx-2"
+                            <VueNestableHandle
+                                :item="item"
+                                class="px-2 -mx-2"
                             >
                                 <GripVerticalIcon class="w-4 h-4 ml-1 mr-2 text-gray-300" />
                             </VueNestableHandle>
@@ -91,15 +97,18 @@
                                     :to="{name: 'pages.edit', params: {id: item.id }}"
                                     class="flex items-center justify-end link"
                                 >
-                                    <PenToSquareIcon thin
-                                                     class="w-6 h-6 text-gray-800"
+                                    <PenToSquareIcon
+                                        thin
+                                        class="w-6 h-6 text-gray-800"
                                     />
                                 </RouterLink>
-                                <FConfirmDropdown confirm-question="Vill du ta bort denna sida?"
-                                                  @confirmed="deletePage(item)"
+                                <FConfirmDropdown
+                                    confirm-question="Vill du ta bort denna sida?"
+                                    @confirmed="deletePage(item)"
                                 >
-                                    <TrashIcon class="w-6 h-6 mt-1 text-gray-800 hover:text-red-500"
-                                               thin
+                                    <TrashIcon
+                                        class="w-6 h-6 mt-1 text-gray-800 hover:text-red-500"
+                                        thin
                                     />
                                 </FConfirmDropdown>
                             </div>
@@ -122,11 +131,12 @@
                     <div class="px-6 border-b border-gray-100">
                         <div class="flex items-center ">
                             <SearchIcon class="w-6 h-6 mr-0 text-gray-300" />
-                            <FSearchInput v-model="queryParams['filter[search]']"
-                                          placeholder="Sök…"
-                                          class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
-                                          @perform-search="fetchPages"
-                                          @clear-search="clearSearch"
+                            <FSearchInput
+                                v-model="queryParams['filter[search]']"
+                                placeholder="Sök…"
+                                class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
+                                @perform-search="fetchPages"
+                                @clear-search="clearSearch"
                             />
                         </div>
                     </div>
@@ -138,22 +148,26 @@
                             {{ page.template.data.name }}
                         </UiBadge>
                     </span>
-                    <span v-else-if="prop == 'edit'"
-                          class="flex items-start justify-end space-x-5"
+                    <span
+                        v-else-if="prop == 'edit'"
+                        class="flex items-start justify-end space-x-5"
                     >
                         <RouterLink
                             :to="{name: 'pages.edit', params: {id: page.id }}"
                             class="flex items-center justify-end link"
                         >
-                            <PenToSquareIcon thin
-                                             class="w-6 h-6 text-gray-800"
+                            <PenToSquareIcon
+                                thin
+                                class="w-6 h-6 text-gray-800"
                             />
                         </RouterLink>
-                        <FConfirmDropdown confirm-question="Vill du ta bort denna sida?"
-                                          @confirmed="deletePage(page)"
+                        <FConfirmDropdown
+                            confirm-question="Vill du ta bort denna sida?"
+                            @confirmed="deletePage(page)"
                         >
-                            <TrashIcon class="w-6 h-6 text-gray-800 hover:text-red-500"
-                                       thin
+                            <TrashIcon
+                                class="w-6 h-6 text-gray-800 hover:text-red-500"
+                                thin
                             />
                         </FConfirmDropdown>
                     </span>

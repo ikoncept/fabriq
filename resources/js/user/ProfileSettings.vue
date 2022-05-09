@@ -13,8 +13,9 @@
                     >
                         Avbryt
                     </FButton>
-                    <FButton class="px-6 py-2.5 leading-none fabriq-btn btn-royal"
-                             :click="updateUser"
+                    <FButton
+                        class="px-6 py-2.5 leading-none fabriq-btn btn-royal"
+                        :click="updateUser"
                     >
                         Spara
                     </FButton>
@@ -27,15 +28,17 @@
             </template>
             <div class="grid grid-cols-12 gap-6">
                 <div class="col-span-4">
-                    <FInput v-model="localUser.name"
-                            label="Namn"
-                            rules="required|email"
+                    <FInput
+                        v-model="localUser.name"
+                        label="Namn"
+                        rules="required|email"
                     />
                 </div>
                 <div class="col-span-4">
-                    <FInput v-model="localUser.email"
-                            label="E-postadress"
-                            rules="required|email"
+                    <FInput
+                        v-model="localUser.email"
+                        label="E-postadress"
+                        rules="required|email"
                     />
                 </div>
                 <div class="flex flex-col justify-center col-span-4">
@@ -44,16 +47,17 @@
                     </FLabel>
 
                     <div class="flex items-center">
-                        <FUpload :ref="fileUploadRef"
-                                 endpoint="/api/user/image"
-                                 types="image/*"
-                                 class="flex-col w-auto"
-                                 upload-name="image"
-                                 without-loader
-                                 :max-items="1"
-                                 @error="handleImageUploadError($event)"
-                                 @added-file="fileAdded"
-                                 @upload-complete="userImageSaved()"
+                        <FUpload
+                            :ref="fileUploadRef"
+                            endpoint="/api/user/image"
+                            types="image/*"
+                            class="flex-col w-auto"
+                            upload-name="image"
+                            without-loader
+                            :max-items="1"
+                            @error="handleImageUploadError($event)"
+                            @added-file="fileAdded"
+                            @upload-complete="userImageSaved()"
                         >
                             <button
                                 class="px-6 leading-none py-2.5 text-sm font-semibold fabriq-btn btn-royal"
@@ -61,26 +65,30 @@
                             />
                         </FUpload>
 
-                        <img v-if="imageUrl"
-                             :src="imageUrl"
-                             alt=""
-                             class="inline-block object-cover ml-4 border rounded-lg h-9 w-9"
+                        <img
+                            v-if="imageUrl"
+                            :src="imageUrl"
+                            alt=""
+                            class="inline-block object-cover ml-4 border rounded-lg h-9 w-9"
                         >
 
-                        <button v-if="imageUrl && !isUploading"
-                                class="mt-auto ml-2 text-xs leading-none fabriq-btn btn-link"
-                                @click="deleteUserImage()"
+                        <button
+                            v-if="imageUrl && !isUploading"
+                            class="mt-auto ml-2 text-xs leading-none fabriq-btn btn-link"
+                            @click="deleteUserImage()"
                         >
                             Ta bort
                         </button>
-                        <div v-else-if="isUploading"
-                             class="mt-auto ml-2 text-xs leading-none fabriq-btn btn-link animate-pulse"
-                             v-text="'Laddar upp...'"
+                        <div
+                            v-else-if="isUploading"
+                            class="mt-auto ml-2 text-xs leading-none fabriq-btn btn-link animate-pulse"
+                            v-text="'Laddar upp...'"
                         />
                     </div>
 
-                    <span v-if="imageUploadError"
-                          class="font-sans text-xs text-red-500"
+                    <span
+                        v-if="imageUploadError"
+                        class="font-sans text-xs text-red-500"
                     >
                         <span class="inline-flex items-center mt-2 leading-none">
                             <CircleExclamationIcon class="w-5 h-5 mr-2" />
@@ -93,21 +101,24 @@
                     Ändra lösenord
                 </h3>
                 <div class="col-span-4">
-                    <FInput v-model="passwordFields.password"
-                            type="password"
-                            label="Nytt lösenord"
+                    <FInput
+                        v-model="passwordFields.password"
+                        type="password"
+                        label="Nytt lösenord"
                     />
                 </div>
                 <div class="col-span-4">
-                    <FInput v-model="passwordFields.password_confirmation"
-                            type="password"
-                            label="Bekräfta nytt lösenord"
+                    <FInput
+                        v-model="passwordFields.password_confirmation"
+                        type="password"
+                        label="Bekräfta nytt lösenord"
                     />
                 </div>
                 <div class="col-span-4">
-                    <FInput v-model="passwordFields.current_password"
-                            type="password"
-                            label="Nuvarande lösenord"
+                    <FInput
+                        v-model="passwordFields.current_password"
+                        type="password"
+                        label="Nuvarande lösenord"
                     />
                 </div>
             </div>

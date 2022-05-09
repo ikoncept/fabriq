@@ -11,13 +11,14 @@
         :style="[customCrop]"
         sizes="1px"
     >
-    <img v-else
-         :id="image.id"
-         :alt="image.alt"
-         loading="lazy"
-         :src="imageSrc"
-         :class="imageClasses"
-         class="bg-checkered-sm"
+    <img
+        v-else
+        :id="image.id"
+        :alt="image.alt"
+        loading="lazy"
+        :src="imageSrc"
+        :class="imageClasses"
+        class="bg-checkered-sm"
     >
 </template>
 <script>

@@ -20,20 +20,23 @@
                     <div class="flex items-start ">
                         <div class="flex-shrink-0 w-2 h-2 mt-1 mr-4 bg-red-400 rounded-full" />
                         <div v-if="item.notifiable.data.commentable_type && item.notifiable.data.commentable_type.includes('Page')">
-                            <PageComment :item="item"
-                                         :cleared="false"
+                            <PageComment
+                                :item="item"
+                                :cleared="false"
                             />
                         </div>
-                        <div v-else
-                             class="max-w-full whitespace-normal"
+                        <div
+                            v-else
+                            class="max-w-full whitespace-normal"
                         >
                             {{ item.content }}
                         </div>
                     </div>
                 </span>
                 <span v-else-if="prop == 'controls'">
-                    <button class="flex items-center focus:outline-none"
-                            @click.stop="clearNotification(item.id, true)"
+                    <button
+                        class="flex items-center focus:outline-none"
+                        @click.stop="clearNotification(item.id, true)"
                     >
                         <XMarkIcon class="w-5 h-5" />
                     </button>
@@ -55,15 +58,18 @@
                 <span v-if="prop == 'commentInfo'">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 w-2 h-2 mt-1 mr-4 bg-gray-400 rounded-full" />
-                        <div v-if="item.notifiable.data.commentable_type && item.notifiable.data.commentable_type.includes('Page')"
-                             class="opacity-80"
+                        <div
+                            v-if="item.notifiable.data.commentable_type && item.notifiable.data.commentable_type.includes('Page')"
+                            class="opacity-80"
                         >
-                            <PageComment :item="item"
-                                         :cleared="true"
+                            <PageComment
+                                :item="item"
+                                :cleared="true"
                             />
                         </div>
-                        <div v-else
-                             class="max-w-full whitespace-normal opacity-80"
+                        <div
+                            v-else
+                            class="max-w-full whitespace-normal opacity-80"
                         >
                             {{ item.content }}
                             <div class="text-xs font-semibold">

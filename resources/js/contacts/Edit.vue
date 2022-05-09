@@ -13,8 +13,9 @@
                     >
                         Avbryt
                     </FButton>
-                    <FButton class="px-6 py-2.5 leading-none fabriq-btn btn-royal"
-                             :click="updateContact"
+                    <FButton
+                        class="px-6 py-2.5 leading-none fabriq-btn btn-royal"
+                        :click="updateContact"
                     >
                         Spara
                     </FButton>
@@ -27,81 +28,92 @@
                     Information
                 </template>
                 <div class="grid grid-cols-12 gap-x-6 gap-y-6">
-                    <FInput v-model="contact.name"
-                            label="Namn"
-                            class="col-span-3"
-                            name="name"
+                    <FInput
+                        v-model="contact.name"
+                        label="Namn"
+                        class="col-span-3"
+                        name="name"
                     />
                     <div class="col-span-6">
                         <div class="flex space-x-6">
-                            <FSelect v-model="tags"
-                                     multiple
-                                     taggable
-                                     label="Kontaktgrupp"
-                                     class="w-96"
-                                     name="tags"
-                                     :reduce-fn="tag => tag"
-                                     :create-option="tag => ({ name: tag, value: null, type: 'contacts'})"
-                                     value-key="name"
-                                     option-label="name"
-                                     :push-tags="false"
-                                     :options="contactTags"
+                            <FSelect
+                                v-model="tags"
+                                multiple
+                                taggable
+                                label="Kontaktgrupp"
+                                class="w-96"
+                                name="tags"
+                                :reduce-fn="tag => tag"
+                                :create-option="tag => ({ name: tag, value: null, type: 'contacts'})"
+                                value-key="name"
+                                option-label="name"
+                                :push-tags="false"
+                                :options="contactTags"
                             />
-                            <FSwitch v-model="contact.published"
-                                     column-layout
+                            <FSwitch
+                                v-model="contact.published"
+                                column-layout
                             >
                                 Visa
                             </FSwitch>
                         </div>
                     </div>
-                    <FInput v-model="contact.email"
-                            label="E-post"
-                            type="email"
-                            class="col-span-4 row-start-2 "
-                            name="email"
+                    <FInput
+                        v-model="contact.email"
+                        label="E-post"
+                        type="email"
+                        class="col-span-4 row-start-2 "
+                        name="email"
                     />
-                    <FInput v-model="contact.phone"
-                            label="Telefonnummer"
-                            class="col-span-2 row-start-2"
-                            type="tel"
-                            name="phone"
+                    <FInput
+                        v-model="contact.phone"
+                        label="Telefonnummer"
+                        class="col-span-2 row-start-2"
+                        type="tel"
+                        name="phone"
                     />
-                    <FInput v-model="contact.mobile"
-                            label="Mobil"
-                            class="col-span-2 row-start-2"
-                            type="tel"
-                            name="mobile"
+                    <FInput
+                        v-model="contact.mobile"
+                        label="Mobil"
+                        class="col-span-2 row-start-2"
+                        type="tel"
+                        name="mobile"
                     />
-                    <FInput v-model="contact.sortindex"
-                            type="number"
-                            class="col-span-4 row-start-2"
-                            label="Sorteringsindex"
-                            help-text="Sorterar kontakter i stigande ordning (lägst först)"
+                    <FInput
+                        v-model="contact.sortindex"
+                        type="number"
+                        class="col-span-4 row-start-2"
+                        label="Sorteringsindex"
+                        help-text="Sorterar kontakter i stigande ordning (lägst först)"
                     />
 
                     <div class="col-span-12">
                         <div class="w-96">
-                            <FImageInput v-if="contact.id"
-                                         v-model="content.image"
-                                         name="image"
-                                         label="Kontaktbild"
+                            <FImageInput
+                                v-if="contact.id"
+                                v-model="content.image"
+                                name="image"
+                                label="Kontaktbild"
                             />
                         </div>
                     </div>
                     <div class="col-span-12">
                         <FTabs>
-                            <FTab v-for="(locale, key) in locales"
-                                  :key="locale.regional"
+                            <FTab
+                                v-for="(locale, key) in locales"
+                                :key="locale.regional"
 
-                                  :title="locale.native"
+                                :title="locale.native"
                             >
-                                <div v-if="localizedContent[key]"
-                                     class="grid grid-cols-3 gap-x-6 gap-y-6"
+                                <div
+                                    v-if="localizedContent[key]"
+                                    class="grid grid-cols-3 gap-x-6 gap-y-6"
                                 >
                                     <div class="col-span-1">
-                                        <FInput v-model="localizedContent[key].position"
-                                                name="position"
-                                                label="Roll"
+                                        <FInput
+                                            v-model="localizedContent[key].position"
+                                            name="position"
+                                            label="Roll"
                                         />
                                     </div>
                                     <FEditor

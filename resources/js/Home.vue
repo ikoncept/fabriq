@@ -7,32 +7,38 @@
             <p>Om du har frågor eller funderingar, hör gärna av dig till support@ikoncept.se</p>
         </div>
         <div class="grid flex-grow grid-cols-4 gap-8">
-            <StatsBox :delay="0"
-                      :number="pageCount"
-                      title="Antal sidor"
+            <StatsBox
+                :delay="0"
+                :number="pageCount"
+                title="Antal sidor"
             />
-            <StatsBox :delay="0"
-                      :number="articleCount"
-                      title="Antal nyheter"
+            <StatsBox
+                :delay="0"
+                :number="articleCount"
+                title="Antal nyheter"
             />
-            <StatsBox :delay="0"
-                      :number="imageCount"
-                      title="Antal bilder"
+            <StatsBox
+                :delay="0"
+                :number="imageCount"
+                title="Antal bilder"
             />
-            <StatsBox :delay="0"
-                      :number="fileCount"
-                      title="Antal filer"
+            <StatsBox
+                :delay="0"
+                :number="fileCount"
+                title="Antal filer"
             />
         </div>
         <div class="absolute bottom-0 left-0 right-0 flex flex-col items-center mb-8 text-xs">
             Fabriq CMS är byggt av
-            <a href="https://ikoncept.se"
-               target="_blank"
-               rel="noreferrer noopener"
+            <a
+                href="https://ikoncept.se"
+                target="_blank"
+                rel="noreferrer noopener"
             >
-                <img src="/dist/images/ikoncept-logo.svg"
-                     alt="Ikoncept logotyp"
-                     class="block h-12 mt-2"
+                <img
+                    src="/dist/images/ikoncept-logo.svg"
+                    alt="Ikoncept logotyp"
+                    class="block h-12 mt-2"
                 >
             </a>
         </div>

@@ -9,7 +9,8 @@
                 <table class="table min-w-full divide-y divide-gray-200">
                     <thead>
                         <tr>
-                            <th v-if="mergedOptions.checkableRows"
+                            <th
+                                v-if="mergedOptions.checkableRows"
                                 class="w-12"
                             >
                                 <!-- <input
@@ -28,8 +29,9 @@
                                 @click="thClicked(column)"
                             >
                                 <span>{{ column.title }}</span>
-                                <span v-if="column.sortable"
-                                      class="inline-block ml-1 align-bottom"
+                                <span
+                                    v-if="column.sortable"
+                                    class="inline-block ml-1 align-bottom"
                                 >
                                     <span v-if="currentSortable.includes(column.key)">
                                         <ChevronUpIcon
@@ -56,15 +58,17 @@
                             class="transition-colors duration-200 bg-white group hover:bg-gray-50"
                             @click="rowClicked(row)"
                         >
-                            <td v-if="mergedOptions.checkableRows"
+                            <td
+                                v-if="mergedOptions.checkableRows"
                                 class="w-8 px-4 text-center "
                             >
-                                <input v-model="checkedRows"
-                                       type="checkbox"
-                                       class="w-5 h-5 fabriq-checkbox form-checkbox focus:outline-none focus:ring-offset-3 focus:ring-1 focus:ring-royal-300"
-                                       :value="row[mergedOptions.rowKey]"
-                                       @change="$emit('check-row', checkedRows)"
-                                       @click.stop
+                                <input
+                                    v-model="checkedRows"
+                                    type="checkbox"
+                                    class="w-5 h-5 fabriq-checkbox form-checkbox focus:outline-none focus:ring-offset-3 focus:ring-1 focus:ring-royal-300"
+                                    :value="row[mergedOptions.rowKey]"
+                                    @change="$emit('check-row', checkedRows)"
+                                    @click.stop
                                 >
                             </td>
                             <td
@@ -73,16 +77,18 @@
                                 :class="[prop.tdClasses, 'text-gray-500']"
                             >
                                 <div class="px-6 py-4 text-sm whitespace-nowrap">
-                                    <slot v-if="prop.dotNotated"
-                                          :prop="prop.key"
-                                          :row="row"
+                                    <slot
+                                        v-if="prop.dotNotated"
+                                        :prop="prop.key"
+                                        :row="row"
                                     >
                                         <!-- {{ row[prop.key] }} -->
                                         {{ prop.key.split('.').reduce((o,i)=>o[i], row) }}
                                     </slot>
-                                    <slot v-else
-                                          :prop="prop.key"
-                                          :row="row"
+                                    <slot
+                                        v-else
+                                        :prop="prop.key"
+                                        :row="row"
                                     >
                                         {{ row[prop.key] }}
                                     </slot>
@@ -90,8 +96,9 @@
                             </td>
                         </tr>
                     </tbody>
-                    <tbody v-if="! rows.length"
-                           class="bg-white divide-y divide-gray-200"
+                    <tbody
+                        v-if="rows.length === 0"
+                        class="bg-white divide-y divide-gray-200"
                     >
                         <tr>
                             <td
@@ -103,7 +110,8 @@
                     </tbody>
                     <tfoot v-if="hasTableFooterSlot">
                         <tr class="bg-white">
-                            <td colspan="100%"
+                            <td
+                                colspan="100%"
                                 class="px-6 py-4 text-right whitespace-nowrap"
                             >
                                 <slot name="footer" />

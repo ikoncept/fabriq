@@ -1,35 +1,39 @@
 <template>
     <div>
-        <CreateModal :show="showCreate"
-                     focus-ref="nameInput"
-                     name="createArticleModal"
-                     @opened="$refs.nameInput.$refs.input.focus()"
-                     @validated="createArticle"
+        <CreateModal
+            :show="showCreate"
+            focus-ref="nameInput"
+            name="createArticleModal"
+            @opened="$refs.nameInput.$refs.input.focus()"
+            @validated="createArticle"
         >
             <template #title>
                 Lägg till nyhet
             </template>
-            <FInput ref="nameInput"
-                    v-model="newArticle.name"
-                    label="Namn"
-                    rules="required"
-                    class="mb-6"
-                    name="name"
+            <FInput
+                ref="nameInput"
+                v-model="newArticle.name"
+                label="Namn"
+                rules="required"
+                class="mb-6"
+                name="name"
             />
         </CreateModal>
         <UiSectionHeader class="mb-4 lookie">
             Nyheter
             <template #tools>
-                <button type="button"
-                        class="fabriq-btn ml-10  btn-royal py-2.5 px-4 inline-flex items-center"
-                        @click="$vfm.show('createArticleModal')"
+                <button
+                    type="button"
+                    class="fabriq-btn ml-10  btn-royal py-2.5 px-4 inline-flex items-center"
+                    @click="$vfm.show('createArticleModal')"
                 >
                     Lägg till nyhet
                 </button>
             </template>
         </UiSectionHeader>
-        <UiCard :padding="false"
-                class="pb-4"
+        <UiCard
+            :padding="false"
+            class="pb-4"
         >
             <template #header>
                 <div class="flex justify-between px-6">
@@ -51,11 +55,12 @@
                     <div class="px-6 border-b border-gray-100">
                         <div class="flex items-center ">
                             <SearchIcon class="w-6 h-6 mr-0 text-gray-300" />
-                            <FSearchInput v-model="queryParams['filter[search]']"
-                                          placeholder="Sök…"
-                                          class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
-                                          @perform-search="fetchArticles"
-                                          @clear-search="clearSearch"
+                            <FSearchInput
+                                v-model="queryParams['filter[search]']"
+                                placeholder="Sök…"
+                                class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
+                                @perform-search="fetchArticles"
+                                @clear-search="clearSearch"
                             />
                         </div>
                     </div>
@@ -65,36 +70,43 @@
                     <span v-else-if="prop == 'publishes_at'">
                         <span v-if="item.is_published">
                             <UiBadge color="gold">{{ item.publishes_at | localTime }}</UiBadge>
-                            <div v-if="item.has_unpublished_time"
-                                 class="mt-1 text-xs italic text-gray-400"
+                            <div
+                                v-if="item.has_unpublished_time"
+                                class="mt-1 text-xs italic text-gray-400"
                             >Avpubliceras {{ item.unpublishes_at | localTime }}</div>
                         </span>
                         <span v-else-if="! item.has_unpublished_time">
                             <UiBadge v-if="item.publishes_at">Publiceras {{ item.publishes_at | localTime }}</UiBadge>
-                            <span v-else
-                                  class="text-xs italic text-gray-400"
+                            <span
+                                v-else
+                                class="text-xs italic text-gray-400"
                             >Inte publicerad</span>
                         </span>
-                        <span v-else
-                              class="text-xs italic text-gray-400"
+                        <span
+                            v-else
+                            class="text-xs italic text-gray-400"
                         >Inte publicerad</span>
                     </span>
-                    <span v-else-if="prop == 'edit'"
-                          class="flex items-start justify-end space-x-5"
+                    <span
+                        v-else-if="prop == 'edit'"
+                        class="flex items-start justify-end space-x-5"
                     >
                         <RouterLink
                             :to="{name: 'articles.edit', params: {id: item.id }}"
                             class="flex items-center justify-end link"
                         >
-                            <PenToSquareIcon class="w-6 h-6 text-gray-800 hover:text-gray-700"
-                                             thin
+                            <PenToSquareIcon
+                                class="w-6 h-6 text-gray-800 hover:text-gray-700"
+                                thin
                             />
                         </RouterLink>
-                        <FConfirmDropdown confirm-question="Vill du ta bort denna sida?"
-                                          @confirmed="deleteArticle(item)"
+                        <FConfirmDropdown
+                            confirm-question="Vill du ta bort denna sida?"
+                            @confirmed="deleteArticle(item)"
                         >
-                            <TrashIcon class="w-6 h-6 text-gray-800 hover:text-red-500"
-                                       thin
+                            <TrashIcon
+                                class="w-6 h-6 text-gray-800 hover:text-red-500"
+                                thin
                             />
                         </FConfirmDropdown>
                     </span>

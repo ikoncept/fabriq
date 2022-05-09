@@ -1,6 +1,7 @@
 <template>
-    <UiImagePresenter thumbnail
-                      :image="imageObject"
+    <UiImagePresenter
+        thumbnail
+        :image="imageObject"
     />
 </template>
 <script>

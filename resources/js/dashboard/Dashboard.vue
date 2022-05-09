@@ -21,9 +21,10 @@
 
                     <!-- This will be the content of the popover -->
                     <template slot="popover">
-                        <input v-model="msg"
-                               class="tooltip-content"
-                               placeholder="Tooltip content"
+                        <input
+                            v-model="msg"
+                            class="tooltip-content"
+                            placeholder="Tooltip content"
                         >
                         <p>
                             ett meddelande {{ msg }}

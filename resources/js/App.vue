@@ -7,14 +7,16 @@
         <UiDesktopSidebar />
         <UiTopbar />
         <div class="flex flex-col flex-1 w-0 mt-12 overflow-hidden lg:mt-0">
-            <main class="relative flex-1 overflow-y-auto focus:outline-none"
-                  tabindex="0"
+            <main
+                class="relative flex-1 overflow-y-auto focus:outline-none"
+                tabindex="0"
             >
                 <BlockTypeModal />
                 <div class="py-6">
                     <div class="px-4 pb-24 mx-auto max-w-10xl sm:px-6 md:px-8">
-                        <Transition mode="out-in"
-                                    name="fade"
+                        <Transition
+                            mode="out-in"
+                            name="fade"
                         >
                             <KeepAlive>
                                 <RouterView

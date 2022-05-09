@@ -25,8 +25,9 @@
         <div class="flex justify-between px-4">
             <div class="flex items-center ml-4 md:ml-6">
                 <!-- Profile dropdown -->
-                <UiDropdown ref="profileDropdown"
-                            alignment="top-right"
+                <UiDropdown
+                    ref="profileDropdown"
+                    alignment="top-right"
                 >
                     <template #dropdown>
                         <div
@@ -64,8 +65,9 @@
                             @click="showDropdown = ! showDropdown"
                         >
                             <span class="sr-only">Open user menu</span>
-                            <UiAvatar :user="user"
-                                      class="w-8 h-8 rounded-lg"
+                            <UiAvatar
+                                :user="user"
+                                class="w-8 h-8 rounded-lg"
                             />
                         </button>
                     </div>

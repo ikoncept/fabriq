@@ -14,23 +14,27 @@
                 <span class="flex-1 text-xl font-light">
                     <slot name="title" />
                 </span>
-                <button class
-                        @click="$emit('input', false)"
+                <button
+                    class
+                    @click="$emit('input', false)"
                 >
-                    <XMarkIcon thin
-                               class="block w-8 h-8 text-gray-800 "
+                    <XMarkIcon
+                        thin
+                        class="block w-8 h-8 text-gray-800 "
                     />
                 </button>
             </div>
         </span>
-        <div class="relative z-0 w-screen"
-             :class="[width, overflow]"
+        <div
+            class="relative z-0 w-screen"
+            :class="[width, overflow]"
         >
             <div class="w-full px-6 py-3">
                 <slot />
                 <div class="my-4">
-                    <slot class="modal__action"
-                          name="actions"
+                    <slot
+                        class="modal__action"
+                        name="actions"
                     />
                 </div>
             </div>

@@ -1,30 +1,33 @@
 <template>
     <div>
         <div class="grid grid-cols-3 gap-x-6">
-            <FInput v-model="localContent.name"
-                    name="name"
-                    label="Namn"
-                    rules="required"
-                    help-text="Visas endast internt"
+            <FInput
+                v-model="localContent.name"
+                name="name"
+                label="Namn"
+                rules="required"
+                help-text="Visas endast internt"
             />
-            <FSelect v-model="localContent.columnSize"
-                     label="Bildstorlek"
-                     class="col-span-1"
-                     default-value="m"
-                     :reduce-fn="size => size.value"
-                     name="columnSize"
-                     value-key="value"
-                     option-label="text"
-                     :clearable="false"
-                     :options="[{ text: 'Large', value: 'grid-cols-1'}, { text: 'Medium', value: 'grid-cols-2' }, { text: 'Small', value: 'grid-cols-4' }, { text: 'Extra Small', value: 'grid-cols-6' }]"
+            <FSelect
+                v-model="localContent.columnSize"
+                label="Bildstorlek"
+                class="col-span-1"
+                default-value="m"
+                :reduce-fn="size => size.value"
+                name="columnSize"
+                value-key="value"
+                option-label="text"
+                :clearable="false"
+                :options="[{ text: 'Large', value: 'grid-cols-1'}, { text: 'Medium', value: 'grid-cols-2' }, { text: 'Small', value: 'grid-cols-4' }, { text: 'Extra Small', value: 'grid-cols-6' }]"
             />
         </div>
         <hr class="w-full h-px my-6 ">
         <div class="grid grid-cols-12 mb-10 gap-x-6 gap-y-6">
-            <FInput v-model="localContent.header"
-                    name="header"
-                    class="col-span-4"
-                    label="Rubriktext"
+            <FInput
+                v-model="localContent.header"
+                name="header"
+                class="col-span-4"
+                label="Rubriktext"
             />
         </div>
         <div class="flex items-center justify-between">
@@ -33,8 +36,9 @@
                     Bilder
                 </h3>
             </div>
-            <div v-show="localContent.children.length"
-                 class="flex justify-end"
+            <div
+                v-show="localContent.children.length > 0"
+                class="flex justify-end"
             >
                 <span>
                     <button
@@ -48,17 +52,19 @@
             </div>
         </div>
         <div class="">
-            <Draggable v-model="localContent.children"
-                       handle=".handle"
-                       tag="ul"
-                       v-bind="dragOptions"
-                       class="grid grid-cols-1 mt-4 list-group gap-x-6 gap-y-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4"
-                       :group="{ name: 'images', pull: false, put: false }"
-                       @start="drag = true"
-                       @end="drag = false"
+            <Draggable
+                v-model="localContent.children"
+                handle=".handle"
+                tag="ul"
+                v-bind="dragOptions"
+                class="grid grid-cols-1 mt-4 list-group gap-x-6 gap-y-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4"
+                :group="{ name: 'images', pull: false, put: false }"
+                @start="drag = true"
+                @end="drag = false"
             >
-                <div v-for="(child, childIndex) in localContent.children"
-                     :key="'child' + childIndex"
+                <div
+                    v-for="(child, childIndex) in localContent.children"
+                    :key="'child' + childIndex"
                 >
                     <div class="p-3 bg-gray-50">
                         <div class="flex items-center justify-between mb-2 text-sm">
@@ -66,12 +72,14 @@
                                 <GripVerticalIcon class="block w-4 h-4 mr-2 text-gray-400 cursor-move handle" /> Bild {{ childIndex + 1 }}
                             </div>
                             <div class="relative flex items-center space-x-4">
-                                <div v-if="child.hasOwnProperty('link')"
-                                     class="flex items-center"
+                                <div
+                                    v-if="child.hasOwnProperty('link')"
+                                    class="flex items-center"
                                 >
-                                    <input v-model="child.link"
-                                           class="py-0.5 px-2 rounded text-xs focus:outline-none focus:ring-gray-400 focus:ring-1"
-                                           placeholder="https://exempel.se"
+                                    <input
+                                        v-model="child.link"
+                                        class="py-0.5 px-2 rounded text-xs focus:outline-none focus:ring-gray-400 focus:ring-1"
+                                        placeholder="https://exempel.se"
                                     >
                                     <div>
                                         <button
@@ -82,22 +90,25 @@
                                         </button>
                                     </div>
                                 </div>
-                                <button v-else
-                                        class="focus:outline-none"
-                                        @click="enableLink(childIndex)"
+                                <button
+                                    v-else
+                                    class="focus:outline-none"
+                                    @click="enableLink(childIndex)"
                                 >
                                     <LinkIcon class="w-5 h-5 transition-colors duration-150" />
                                 </button>
-                                <FConfirmDropdown confirm-question="Vill du ta bort bilden?"
-                                                  @confirmed="deleteChild(childIndex)"
+                                <FConfirmDropdown
+                                    confirm-question="Vill du ta bort bilden?"
+                                    @confirmed="deleteChild(childIndex)"
                                 >
                                     <TrashIcon class="w-4 h-4 mt-1 transition-colors duration-150 hover:text-red-500" />
                                 </FConfirmDropdown>
                             </div>
                         </div>
                         <div class="ml-6">
-                            <FImageInput :key="'i'+ child.id"
-                                         v-model="child.image"
+                            <FImageInput
+                                :key="'i'+ child.id"
+                                v-model="child.image"
                             />
                         </div>
                     </div>
@@ -129,8 +140,9 @@
                     <FLabel>Blockknapp</FLabel>
                     <div class="flex items-center mt-3">
                         <FSwitch v-model="localContent.hasButton" />
-                        <div class="ml-2 text-sm"
-                             v-text="localContent.hasButton ? 'Ja' : 'Nej'"
+                        <div
+                            class="ml-2 text-sm"
+                            v-text="localContent.hasButton ? 'Ja' : 'Nej'"
                         />
                     </div>
                 </div>

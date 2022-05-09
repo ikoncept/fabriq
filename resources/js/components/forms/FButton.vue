@@ -1,7 +1,8 @@
 <template>
-    <button class
-            :class="{'link': textButton}"
-            @click.prevent="handleClick"
+    <button
+        class
+        :class="{'link': textButton}"
+        @click.prevent="handleClick"
     >
         <span class="flex items-center justify-center">
             <span
@@ -11,10 +12,11 @@
                 <slot />
             </span>
             <Transition name="slide-fade">
-                <div v-if="loading"
-                     key="spinner"
-                     :class="spinnerColor"
-                     class="absolute w-6 h-6"
+                <div
+                    v-if="loading"
+                    key="spinner"
+                    :class="spinnerColor"
+                    class="absolute w-6 h-6"
                 >
                     <SpinIcon class="animate-spin" />
                 </div>

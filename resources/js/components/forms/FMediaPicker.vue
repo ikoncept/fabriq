@@ -1,9 +1,10 @@
 <template>
     <!-- This example requires Tailwind CSS v2.0+ -->
     <Transition :duration="201">
-        <div v-show="open"
-             key="mm"
-             class="fixed inset-0 z-[60] overflow-hidden"
+        <div
+            v-show="open"
+            key="mm"
+            class="fixed inset-0 z-[60] overflow-hidden"
         >
             <div class="absolute inset-0 overflow-hidden">
                 <section
@@ -21,8 +22,9 @@
                         leave-class="translate-x-0"
                         leave-to-class="translate-x-full"
                     >
-                        <div v-if="open"
-                             class="w-screen max-w-7xl"
+                        <div
+                            v-if="open"
+                            class="w-screen max-w-7xl"
                         >
                             <div
                                 class="flex flex-col h-full py-6 overflow-y-scroll bg-white shadow-xl"
@@ -51,11 +53,12 @@
                                                 upload-name="video"
                                                 @upload-queue-complete="fetchVideos"
                                             />
-                                            <FUpload v-else
-                                                     class="mr-10"
-                                                     endpoint="/api/admin/uploads/files"
-                                                     upload-name="file"
-                                                     @upload-queue-complete="fetchFiles"
+                                            <FUpload
+                                                v-else
+                                                class="mr-10"
+                                                endpoint="/api/admin/uploads/files"
+                                                upload-name="file"
+                                                @upload-queue-complete="fetchFiles"
                                             />
                                             <button
                                                 class="text-gray-400 bg-white rounded-md hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -83,14 +86,15 @@
                                     </div>
                                 </div>
                                 <div class="relative z-30 flex-1 px-6 mt-6 sm:px-6=">
-                                    <FTable :columns="columns"
-                                            :rows="items"
-                                            paginated
-                                            :options="{shadow: false, defaultSort: 'created_at', sortDescending: true, clickableRows: true}"
-                                            :pagination="pagination"
-                                            @change-page="setPage"
-                                            @row-clicked="handleRowClicked"
-                                            @sort="setSort"
+                                    <FTable
+                                        :columns="columns"
+                                        :rows="items"
+                                        paginated
+                                        :options="{shadow: false, defaultSort: 'created_at', sortDescending: true, clickableRows: true}"
+                                        :pagination="pagination"
+                                        @change-page="setPage"
+                                        @row-clicked="handleRowClicked"
+                                        @sort="setSort"
                                     >
                                         <!-- <template #search>
                                             <div class="px-6 border-b border-gray-100">
@@ -107,27 +111,30 @@
                                             <div class="px-6 border-b border-gray-100">
                                                 <div class="flex items-center ">
                                                     <SearchIcon class="w-6 h-6 mr-0 text-gray-300" />
-                                                    <FSearchInput v-model="queryParams['filter[search]']"
-                                                                  placeholder="Sök…"
-                                                                  class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
-                                                                  @perform-search="setPageAndFetchItems"
-                                                                  @clear-search="resetSearch"
+                                                    <FSearchInput
+                                                        v-model="queryParams['filter[search]']"
+                                                        placeholder="Sök…"
+                                                        class="flex-1 px-6 py-4 text-sm text-gray-600 appearance-none focus:outline-none"
+                                                        @perform-search="setPageAndFetchItems"
+                                                        @clear-search="resetSearch"
                                                     />
                                                 </div>
                                             </div>
                                         </template>
                                         <template #default="{ row: item, prop }">
                                             <span v-if="prop == 'image'">
-                                                <UiImagePresenter :image="item"
-                                                                  thumbnail
-                                                                  class="w-20 max-h-16"
+                                                <UiImagePresenter
+                                                    :image="item"
+                                                    thumbnail
+                                                    class="w-20 max-h-16"
                                                 />
                                             </span>
                                             <span v-else-if="prop == 'created_at'">
                                                 {{ item.created_at | localTime }}
                                             </span>
-                                            <span v-else-if="prop == 'alt_text'"
-                                                  class="pb-1 font-medium border-b-2 border-gray-500 border-dotted text-royal-500"
+                                            <span
+                                                v-else-if="prop == 'alt_text'"
+                                                class="pb-1 font-medium border-b-2 border-gray-500 border-dotted text-royal-500"
                                             >
                                                 Lägg till alt-text
                                             </span>
@@ -137,11 +144,13 @@
                                             <span v-else-if="prop == 'size'">
                                                 {{ item.size | filesize }}
                                             </span>
-                                            <span v-else-if="prop == 'tags'"
-                                                  class="flex space-x-2"
+                                            <span
+                                                v-else-if="prop == 'tags'"
+                                                class="flex space-x-2"
                                             >
-                                                <UiBadge v-for="(tag, index) in item.tags.data"
-                                                         :key="index"
+                                                <UiBadge
+                                                    v-for="(tag, index) in item.tags.data"
+                                                    :key="index"
                                                 >{{ tag.name }}</UiBadge>
                                             </span>
                                             <span v-else-if="prop == 'edit'">

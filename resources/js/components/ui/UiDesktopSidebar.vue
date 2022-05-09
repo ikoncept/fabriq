@@ -30,12 +30,14 @@
                             {{ item.title }}
                         </RouterLink>
                     </nav>
-                    <div v-if="isDev"
-                         class="px-4 mb-4 text-sm"
+                    <div
+                        v-if="isDev"
+                        class="px-4 mb-4 text-sm"
                     >
                         <div v-if="devMode">
-                            <FButton class="w-full py-2 my-4 fabriq-btn btn-outline-red"
-                                     :click="bustCache"
+                            <FButton
+                                class="w-full py-2 my-4 fabriq-btn btn-outline-red"
+                                :click="bustCache"
                             >
                                 💥  &nbsp; Nuke cache
                             </FButton>
@@ -45,21 +47,26 @@
                         </FSwitch>
                     </div>
                     <div class="flex items-center justify-between flex-shrink-0 p-4 border-t border-gray-200 bg-gray-50">
-                        <RouterLink :to="{name: 'profile.settings'}"
-                                    class="flex"
+                        <RouterLink
+                            :to="{name: 'profile.settings'}"
+                            class="flex"
                         >
-                            <GearIcon class="w-7"
-                                      thin
+                            <GearIcon
+                                class="w-7"
+                                thin
                             />
                         </RouterLink>
-                        <RouterLink class="relative block"
-                                    :to="{name: 'notifications.index'}"
+                        <RouterLink
+                            class="relative block"
+                            :to="{name: 'notifications.index'}"
                         >
-                            <div v-if="notifications.length > 0"
-                                 class="absolute top-0 right-0 w-3 h-3 -mt-1 -mr-1 bg-red-400 rounded-full dot"
+                            <div
+                                v-if="notifications.length > 0"
+                                class="absolute top-0 right-0 w-3 h-3 -mt-1 -mr-1 bg-red-400 rounded-full dot"
                             />
-                            <UiAvatar :user="user"
-                                      class="inline-block object-cover rounded-lg h-9 w-9"
+                            <UiAvatar
+                                :user="user"
+                                class="inline-block object-cover rounded-lg h-9 w-9"
                             />
                         </RouterLink>
                         <div>

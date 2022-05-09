@@ -1,8 +1,9 @@
 <template>
     <div class="flex justify-center w-full">
         <Transition name="fade">
-            <div v-show="isUploading && ! withoutLoader"
-                 class="flex items-center text-sm"
+            <div
+                v-show="isUploading && ! withoutLoader"
+                class="flex items-center text-sm"
             >
                 <div>
                     Laddar upp {{ numUploads }} filer
@@ -22,8 +23,9 @@
         <Transition name="fade">
             {{ progress }}
         </Transition>
-        <div v-if="! withoutButton"
-             ref="uploadButton"
+        <div
+            v-if="! withoutButton"
+            ref="uploadButton"
         >
             <slot name="button">
                 <button

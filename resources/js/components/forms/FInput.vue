@@ -1,41 +1,48 @@
 <template>
     <div>
-        <ValidationProvider v-slot="{ errors, classes }"
-                            :mode="validationMode"
-                            :rules="rules"
+        <ValidationProvider
+            v-slot="{ errors, classes }"
+            :mode="validationMode"
+            :rules="rules"
         >
             <span :class="classes">
-                <FLabel v-if="label"
-                        :name="name"
-                        :non-white-bg="nonWhiteBg"
-                        :optional="optional"
+                <FLabel
+                    v-if="label"
+                    :name="name"
+                    :non-white-bg="nonWhiteBg"
+                    :optional="optional"
 
-                        :required="hasRuleRequired"
+                    :required="hasRuleRequired"
                 >
                     {{ label }}
                 </FLabel>
 
-                <div v-if="inputType === 'radio'"
-                     class="flex items-center space-x-4 min-h-10"
+                <div
+                    v-if="inputType === 'radio'"
+                    class="flex items-center space-x-4 min-h-10"
                 >
-                    <div v-for="(radioOption, index) in options"
-                         :key="'r' + index"
-                         class="flex items-center"
+                    <div
+                        v-for="(radioOption, index) in options"
+                        :key="'r' + index"
+                        class="flex items-center"
                     >
-                        <input :id="id + radioOption.value + _uid"
-                               :name="id + name + _uid"
-                               type="radio"
-                               :checked="radioOption.value == value"
-                               :class="inputClasses"
-                               :disabled="disabled"
-                               class="w-5 h-5 fabriq-radio form-radio focus:outline-none focus:ring-offset-3 focus:ring-1 focus:ring-royal-300"
-                               @input="updateValue(radioOption.value)"
+                        <input
+                            :id="id + radioOption.value + _uid"
+                            :name="id + name + _uid"
+                            type="radio"
+                            :checked="radioOption.value == value"
+                            :class="inputClasses"
+                            :disabled="disabled"
+                            class="w-5 h-5 fabriq-radio form-radio focus:outline-none focus:ring-offset-3 focus:ring-1 focus:ring-royal-300"
+                            @input="updateValue(radioOption.value)"
                         >
-                        <label :for="id + radioOption.value + _uid"
-                               class="cursor-pointer"
+                        <label
+                            :for="id + radioOption.value + _uid"
+                            class="cursor-pointer"
                         >
-                            <slot name="option"
-                                  v-bind="radioOption"
+                            <slot
+                                name="option"
+                                v-bind="radioOption"
                             >
                                 <span class="block ml-3 text-sm font-medium text-gray-700"> {{ radioOption.label }}</span>
                             </slot>
@@ -56,15 +63,18 @@
                     v-on="inputListeners"
                     @input="updateValue($event.target.value)"
                 />
-                <span v-else-if="inputType === 'input'"
-                      class="relative flex items-center"
+                <span
+                    v-else-if="inputType === 'input'"
+                    class="relative flex items-center"
                 >
-                    <div v-if="prefix"
-                         class="inline-flex items-center px-3 py-2.5 text-sm font-medium text-gray-500 bg-gray-100 rounded-l ring-1 ring-gray-300"
-                         v-text="prefix"
+                    <div
+                        v-if="prefix"
+                        class="inline-flex items-center px-3 py-2.5 text-sm font-medium text-gray-500 bg-gray-100 rounded-l ring-1 ring-gray-300"
+                        v-text="prefix"
                     />
-                    <span class="absolute ml-4"
-                          style="z-index: 1"
+                    <span
+                        class="absolute ml-4"
+                        style="z-index: 1"
                     >
                         <slot name="icon" />
                     </span>
@@ -83,9 +93,10 @@
                         @input="updateValue($event.target.value)"
                         v-on="inputListeners"
                     >
-                    <div v-if="suffix"
-                         class="inline-flex items-center px-3 py-2.5 text-sm font-medium text-gray-500 bg-gray-100 rounded-r ring-1 ring-gray-300"
-                         v-text="suffix"
+                    <div
+                        v-if="suffix"
+                        class="inline-flex items-center px-3 py-2.5 text-sm font-medium text-gray-500 bg-gray-100 rounded-r ring-1 ring-gray-300"
+                        v-text="suffix"
                     />
                     <slot name="buttonSuffix" />
                 </span>
@@ -94,9 +105,10 @@
                     class="mt-2 font-sans text-xs italic text-gray-600"
                     v-text="helpText"
                 />
-                <span v-if="errors[0]"
-                      class="font-sans text-xs text-red-500"
-                      :class="{'absolute': absolutePosErrors, 'hidden': hideErrors}"
+                <span
+                    v-if="errors[0]"
+                    class="font-sans text-xs text-red-500"
+                    :class="{'absolute': absolutePosErrors, 'hidden': hideErrors}"
                 >
                     <span class="inline-flex items-center mt-2 leading-none">
 
@@ -288,9 +300,10 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
+
 .form-radio:disabled {
-    @apply  opacity-30 cursor-not-allowed;
+    @apply  opacity-30 cursor-not-allowed ;
 }
 .form-radio:checked {
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16'  fill='%230b3b5b' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='4.5'/%3e%3c/svg%3e");

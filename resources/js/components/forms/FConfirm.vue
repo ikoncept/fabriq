@@ -16,8 +16,9 @@
                     class="text-xl font-semibold text-gray-500"
                     v-text="header"
                 >Ta bort menypunkt</h2>
-                <button class
-                        @click="$emit('input', false)"
+                <button
+                    class
+                    @click="$emit('input', false)"
                 >
                     <XMarkIcon
                         class="block w-6 h-6 -mt-2 -mr-2 text-gray-400 hover:text-gray-700"
@@ -27,11 +28,13 @@
         </span>
         <div class="w-screen max-w-sm overflow-visible">
             <div class="w-full">
-                <div class="py-8 text-sm font-semibold"
-                     v-text="text"
+                <div
+                    class="py-8 text-sm font-semibold"
+                    v-text="text"
                 />
-                <div v-if="htmlText"
-                     v-html="htmlText"
+                <div
+                    v-if="htmlText"
+                    v-html="htmlText"
                 />
                 <slot />
             </div>

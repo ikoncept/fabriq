@@ -3,8 +3,9 @@
         <UiSectionHeader class="mb-4">
             Menyer
         </UiSectionHeader>
-        <UiCard :padding="false"
-                class="pb-6"
+        <UiCard
+            :padding="false"
+            class="pb-6"
         >
             <template #header>
                 <div class="px-6">
@@ -18,15 +19,17 @@
                 @row-clicked="handleRowClicked"
             >
                 <template #default="{ row: menu, prop }">
-                    <span v-if="prop == 'edit'"
-                          class="flex items-start justify-end space-x-5"
+                    <span
+                        v-if="prop == 'edit'"
+                        class="flex items-start justify-end space-x-5"
                     >
                         <RouterLink
                             :to="{name: 'menus.edit', params: {id: menu.id }}"
                             class="flex items-center justify-end link"
                         >
-                            <PenToSquareIcon thin
-                                             class="w-6 h-6 text-gray-800"
+                            <PenToSquareIcon
+                                thin
+                                class="w-6 h-6 text-gray-800"
                             />
                         </RouterLink>
                     <!-- <f-confirm-dropdown confirm-question="Vill du ta bort menyn?"

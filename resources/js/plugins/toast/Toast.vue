@@ -42,8 +42,9 @@
                                     class="mt-1 text-xs font-medium leading-5"
                                     v-html="message"
                                 />
-                                <div v-if="buttonText"
-                                     class="mt-2"
+                                <div
+                                    v-if="buttonText"
+                                    class="mt-2"
                                 >
                                     <button
                                         class="text-sm font-medium leading-5 transition duration-150 ease-in-out text-gold-400 hover:text-gold-500 focus:outline-none focus:underline"

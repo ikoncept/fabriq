@@ -31,10 +31,11 @@
             <template #header>
                 <div class="flex justify-between flex-1">
                     Menypunkter
-                    <FButton :click="createMenuItem"
-                             class="text-sm"
-                             text-button
-                             without-loader
+                    <FButton
+                        :click="createMenuItem"
+                        class="text-sm"
+                        text-button
+                        without-loader
                     >
                         <PlusIcon class="w-4 h-4 mr-1" />Lägg till menypunkt
                     </FButton>
@@ -48,8 +49,9 @@
                                 <div class="mb-4 text-xl font-light">
                                     Inga menypunkter har lagts till ännu
                                 </div>
-                                <button class="flex items-center text-sm link"
-                                        @click="createMenuItem"
+                                <button
+                                    class="flex items-center text-sm link"
+                                    @click="createMenuItem"
                                 >
                                     <PlusIcon class="w-5 h-5 mr-2" />Lägg till menypunkt
                                 </button>
@@ -61,17 +63,19 @@
                             v-show="! deleteQueue.includes(item.id)"
                             class="flex items-center h-12 p-2 border border-gray-300 rounded group"
                         >
-                            <VueNestableHandle :item="item"
-                                               class="px-2 -mx-2"
+                            <VueNestableHandle
+                                :item="item"
+                                class="px-2 -mx-2"
                             >
                                 <GripVerticalIcon class="w-4 h-4 ml-1 mr-2 text-gray-300" />
                             </VueNestableHandle>
 
                             <!-- Content -->
                             <div class="flex flex-1 text-sm font-semibold text-gray-700">
-                                <span v-if="item.type === 'internal'"
-                                      class="cursor-pointer"
-                                      @click="editMenuItem(item)"
+                                <span
+                                    v-if="item.type === 'internal'"
+                                    class="cursor-pointer"
+                                    @click="editMenuItem(item)"
                                 >
                                     {{ item.page.name }}
                                 </span>
@@ -92,16 +96,19 @@
                                     class="flex text-sm focus:outline-none "
                                     @click="editMenuItem(item)"
                                 >
-                                    <PenToSquareIcon class="w-6 h-6"
-                                                     thin
+                                    <PenToSquareIcon
+                                        class="w-6 h-6"
+                                        thin
                                     />
                                 </button>
                                 <div class="pr-2">
-                                    <FConfirmDropdown confirm-question="Vill du ta bort menypunkten?"
-                                                      @confirmed="deleteConfirmed(item.id)"
+                                    <FConfirmDropdown
+                                        confirm-question="Vill du ta bort menypunkten?"
+                                        @confirmed="deleteConfirmed(item.id)"
                                     >
-                                        <TrashIcon class="w-6 h-6"
-                                                   thin
+                                        <TrashIcon
+                                            class="w-6 h-6"
+                                            thin
                                         />
                                     </FConfirmDropdown>
                                 </div>

@@ -2,27 +2,31 @@
     <div
         class="flex items-start w-full md:items-end"
     >
-        <div ref="container"
-             class="mr-4 text-xl font-light md:text-4xl"
+        <div
+            ref="container"
+            class="mr-4 text-xl font-light md:text-4xl"
         >
             <slot />
         </div>
         <div class="text-sm font-semibold text-gray-400 div-b">
             <slot name="subtitle" />
         </div>
-        <Transition v-if="hasToolsSlot"
-                    name="fade"
+        <Transition
+            v-if="hasToolsSlot"
+            name="fade"
         >
-            <div v-if="!showFixedTools"
-                 key="fixedTools"
+            <div
+                v-if="!showFixedTools"
+                key="fixedTools"
 
-                 class="ml-auto div-c"
+                class="ml-auto div-c"
             >
                 <slot name="tools" />
             </div>
-            <div v-else
-                 key="nonfixedTools"
-                 class="fixed z-50 p-2.5 ml-auto bg-white rounded shadow-md right-8 div-c fixed-tools"
+            <div
+                v-else
+                key="nonfixedTools"
+                class="fixed z-50 p-2.5 ml-auto bg-white rounded shadow-md right-8 div-c fixed-tools"
             >
                 <slot name="tools" />
             </div>

@@ -36,44 +36,51 @@
                 </div>
             </template>
         </UiSectionHeader>
-        <FTabs v-if="Object.keys(locales).length"
-               @change="setLanguage"
+        <FTabs
+            v-if="Object.keys(locales).length > 0"
+            @change="setLanguage"
         >
-            <FTab v-for="(locale, lIndex) in locales"
-                  :key="lIndex"
-                  :value-key="lIndex"
-                  :title="locale.native"
+            <FTab
+                v-for="(locale, lIndex) in locales"
+                :key="lIndex"
+                :value-key="lIndex"
+                :title="locale.native"
             >
-                <UiCard collapsible
-                        group="pages-ettings"
-                        sync-groups
+                <UiCard
+                    collapsible
+                    group="pages-ettings"
+                    sync-groups
                 >
                     <template #header>
                         Sidinställningar
                     </template>
                     <div class="grid grid-cols-3 gap-x-6 gap-y-6">
-                        <FInput v-model="page.name"
-                                label="Namn"
-                                name="name"
+                        <FInput
+                            v-model="page.name"
+                            label="Namn"
+                            name="name"
                         />
-                        <FInput v-if="Object.keys(localizedContent).length > 0"
-                                v-model="localizedContent[activeLocale].page_title"
-                                name="*.page_title"
-                                label="Sidtitel"
-                                help-text="Visas utåt i menyer"
+                        <FInput
+                            v-if="Object.keys(localizedContent).length > 0"
+                            v-model="localizedContent[activeLocale].page_title"
+                            name="*.page_title"
+                            label="Sidtitel"
+                            help-text="Visas utåt i menyer"
                         />
-                        <FInput v-model="page.template.data.name"
-                                label="Sidtyp"
-                                name="template.data.name"
-                                disabled
+                        <FInput
+                            v-model="page.template.data.name"
+                            label="Sidtyp"
+                            name="template.data.name"
+                            disabled
                         />
                         <div class="flex col-span-3 space-x-6 lg:col-span-2">
-                            <FInput v-for="(path, index) in paths"
-                                    :key="index"
-                                    v-model="paths[index]"
-                                    :label="pathLabelMap[index]"
-                                    class="w-full"
-                                    read-only
+                            <FInput
+                                v-for="(path, index) in paths"
+                                :key="index"
+                                v-model="paths[index]"
+                                :label="pathLabelMap[index]"
+                                class="w-full"
+                                read-only
                             >
                                 <template #buttonSuffix>
                                     <FButton
@@ -107,13 +114,15 @@
                     class="grid grid-cols-4 space-x-6"
                 >
                     <div class="col-span-4">
-                        <div v-for="(fieldGroup, index) in groupedFields"
-                             :key="'g' + index"
+                        <div
+                            v-for="(fieldGroup, index) in groupedFields"
+                            :key="'g' + index"
                         >
-                            <UiCard v-if="! repeaterKeys.includes(index)"
-                                    :group="index"
-                                    sync-groups
-                                    collapsible
+                            <UiCard
+                                v-if="! repeaterKeys.includes(index)"
+                                :group="index"
+                                sync-groups
+                                collapsible
                             >
                                 <template #header>
                                     <h3 class>
@@ -145,8 +154,9 @@
                                                 textarea
                                             />
                                         </div>
-                                        <div v-else-if="field.type == 'html'"
-                                             class="mb-6"
+                                        <div
+                                            v-else-if="field.type == 'html'"
+                                            class="mb-6"
                                         >
                                             <FEditor
                                                 v-model="localizedContent[lIndex][field.key]"
@@ -154,8 +164,9 @@
                                                 :name="field.key"
                                             />
                                         </div>
-                                        <div v-else-if="field.type == 'image'"
-                                             class="mb-6"
+                                        <div
+                                            v-else-if="field.type == 'image'"
+                                            class="mb-6"
                                         >
                                             <FImageInput
                                                 v-model="localizedContent[lIndex][field.key]"
@@ -166,8 +177,9 @@
                                                 :model-id="page.id"
                                             />
                                         </div>
-                                        <div v-else-if="field.type == 'video'"
-                                             class="mb-6"
+                                        <div
+                                            v-else-if="field.type == 'video'"
+                                            class="mb-6"
                                         >
                                             <FVideoInput
                                                 v-model="localizedContent[lIndex][field.key]"
@@ -178,8 +190,9 @@
                                                 :model-id="page.id"
                                             />
                                         </div>
-                                        <div v-else-if="field.type == 'button'"
-                                             class="mb-6"
+                                        <div
+                                            v-else-if="field.type == 'button'"
+                                            class="mb-6"
                                         >
                                             <div>
                                                 <FLabel :name="field.key">
@@ -191,11 +204,13 @@
                                                 class="col-span-12 lg:col-span-8"
                                             />
                                         </div>
-                                        <div v-else-if="field.type == 'switch'"
-                                             class="mb-6"
+                                        <div
+                                            v-else-if="field.type == 'switch'"
+                                            class="mb-6"
                                         >
-                                            <FSwitch v-model="localizedContent[lIndex][field.key]"
-                                                     column-layout
+                                            <FSwitch
+                                                v-model="localizedContent[lIndex][field.key]"
+                                                column-layout
                                             >
                                                 {{ field.name }}
                                             </FSwitch>
@@ -208,8 +223,9 @@
                                     <h4 class="text-3xl font-light text-gray-700">
                                         Block
                                     </h4>
-                                    <button class="flex items-center text-sm link"
-                                            @click="showBlockTypeModal"
+                                    <button
+                                        class="flex items-center text-sm link"
+                                        @click="showBlockTypeModal"
                                     >
                                         <PlusIcon class="w-5 h-5 mr-2" />Lägg till block
                                     </button>
@@ -221,8 +237,9 @@
                                             <div class="mb-4 text-xl font-light">
                                                 Inga block har lagts till ännu
                                             </div>
-                                            <button class="flex items-center text-sm link"
-                                                    @click="showBlockTypeModal"
+                                            <button
+                                                class="flex items-center text-sm link"
+                                                @click="showBlockTypeModal"
                                             >
                                                 <PlusIcon class="w-5 h-5 mr-2" />Lägg till block
                                             </button>
@@ -236,25 +253,28 @@
                                         :key="'f' + repeaterIndex + activeLocale"
                                         :class="[field.options ? field.options.classes : 'col-span-12']"
                                     >
-                                        <Draggable v-model="localizedContent[activeLocale][field.key]"
-                                                   handle=".handle"
-                                                   tag="ul"
-                                                   v-bind="dragOptions"
-                                                   class="list-group"
-                                                   @start="drag = true"
-                                                   @end="drag = false"
+                                        <Draggable
+                                            v-model="localizedContent[activeLocale][field.key]"
+                                            handle=".handle"
+                                            tag="ul"
+                                            v-bind="dragOptions"
+                                            class="list-group"
+                                            @start="drag = true"
+                                            @end="drag = false"
                                         >
-                                            <TransitionGroup type="transition"
-                                                             :name="'flip-list-move'"
+                                            <TransitionGroup
+                                                type="transition"
+                                                :name="'flip-list-move'"
                                             >
                                                 <li
                                                     v-for="(block, boxIndex) in localizedContent[activeLocale][field.key]"
                                                     :key="'alt' + boxIndex + activeLocale"
                                                     class="list-group-item"
                                                 >
-                                                    <UiCard v-if="block.id"
-                                                            collapsible
-                                                            :open-by-default="block.newlyAdded"
+                                                    <UiCard
+                                                        v-if="block.id"
+                                                        collapsible
+                                                        :open-by-default="block.newlyAdded"
                                                     >
                                                         <template #header>
                                                             <div class="flex items-center justify-between">
@@ -269,35 +289,41 @@
                                                                 </div>
                                                                 <div class="flex items-center space-x-4">
                                                                     <!-- <ellipsis-icon class="w-6 h-6 mr-4" /> -->
-                                                                    <button v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Klona block' }"
-                                                                            class="focus:outline-none"
-                                                                            @click.stop="cloneBlock(block)"
+                                                                    <button
+                                                                        v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Klona block' }"
+                                                                        class="focus:outline-none"
+                                                                        @click.stop="cloneBlock(block)"
                                                                     >
                                                                         <CloneIcon
                                                                             thin
                                                                             class="h-6"
                                                                         />
                                                                     </button>
-                                                                    <button v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Kopiera block-ID' }"
-                                                                            v-clipboard="'#' + block.id"
-                                                                            v-clipboard:success="copySuccess"
-                                                                            class="focus:outline-none"
-                                                                            type="button"
-                                                                            @click.stop
+                                                                    <button
+                                                                        v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Kopiera block-ID' }"
+                                                                        v-clipboard="'#' + block.id"
+                                                                        v-clipboard:success="copySuccess"
+                                                                        class="focus:outline-none"
+                                                                        type="button"
+                                                                        @click.stop
                                                                     >
-                                                                        <LinkIcon class="h-6"
-                                                                                  thin
+                                                                        <LinkIcon
+                                                                            class="h-6"
+                                                                            thin
                                                                         />
                                                                     </button>
-                                                                    <FButtonSwitch v-model="block.hidden"
-                                                                                   class="self-center mb-1 "
+                                                                    <FButtonSwitch
+                                                                        v-model="block.hidden"
+                                                                        class="self-center mb-1 "
                                                                     />
-                                                                    <FConfirmDropdown confirm-question="Vill du ta bort detta blocket?"
-                                                                                      class="relative w-6 h-6"
-                                                                                      @confirmed="deleteBlock(boxIndex)"
+                                                                    <FConfirmDropdown
+                                                                        confirm-question="Vill du ta bort detta blocket?"
+                                                                        class="relative w-6 h-6"
+                                                                        @confirmed="deleteBlock(boxIndex)"
                                                                     >
-                                                                        <TrashIcon class="h-6 transition-colors duration-150 hover:text-red-500"
-                                                                                   thin
+                                                                        <TrashIcon
+                                                                            class="h-6 transition-colors duration-150 hover:text-red-500"
+                                                                            thin
                                                                         />
                                                                     </FConfirmDropdown>
                                                                     <div class="w-px h-8 mx-6 bg-gray-300" />

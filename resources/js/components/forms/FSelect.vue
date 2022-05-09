@@ -1,13 +1,15 @@
 <template>
     <div>
-        <ValidationProvider v-slot="{ errors, classes }"
-                            :mode="validationMode"
-                            :rules="rules"
+        <ValidationProvider
+            v-slot="{ errors, classes }"
+            :mode="validationMode"
+            :rules="rules"
         >
-            <FLabel v-if="label"
-                    :class="classes"
-                    :name="name"
-                    :required="hasRuleRequired"
+            <FLabel
+                v-if="label"
+                :class="classes"
+                :name="name"
+                :required="hasRuleRequired"
             >
                 {{ label }}
             </FLabel>
@@ -30,19 +32,22 @@
                 @input="emitValue"
             >
                 <template #selected-option="option">
-                    <slot name="fop"
-                          v-bind="option"
+                    <slot
+                        name="fop"
+                        v-bind="option"
                     />
                 </template>
                 <template #option="option">
                     <div
                         class="inline-flex items-center"
                     >
-                        <div v-if="value && valueKey && option[valueKey] === value"
-                             class="absolute z-10 w-2 h-2 rounded-full bg-gold-500"
+                        <div
+                            v-if="value && valueKey && option[valueKey] === value"
+                            class="absolute z-10 w-2 h-2 rounded-full bg-gold-500"
                         />
-                        <div v-if="value && ! valueKey && option[optionLabel] === value[optionLabel]"
-                             class="absolute w-2 h-2 rounded-full bg-gold-500"
+                        <div
+                            v-if="value && ! valueKey && option[optionLabel] === value[optionLabel]"
+                            class="absolute w-2 h-2 rounded-full bg-gold-500"
                         />
                         <span class="flex items-center ml-4">
                             <slot
@@ -62,9 +67,10 @@
                     <AngleDownIcon class="w-4 h-4 text-gray-500 vs__open-indicator" />
                 </template>
             </VSelect>
-            <span v-if="errors[0]"
-                  class="font-sans text-xs text-red-500"
-                  :class="{'absolute': absolutePosErrors, 'hidden': hideErrors}"
+            <span
+                v-if="errors[0]"
+                class="font-sans text-xs text-red-500"
+                :class="{'absolute': absolutePosErrors, 'hidden': hideErrors}"
             >
                 <span class="inline-flex items-center mt-2 leading-none">
 

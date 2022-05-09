@@ -1,10 +1,11 @@
 <template>
-    <FModal v-model="show"
-            name="block-type-modal"
-            :click-to-close="false"
-            @before-open="fetchBlockTypes"
-            @closed="resetCreateModal"
-            @opened="$refs.nameInput.$refs.input.focus()"
+    <FModal
+        v-model="show"
+        name="block-type-modal"
+        :click-to-close="false"
+        @before-open="fetchBlockTypes"
+        @closed="resetCreateModal"
+        @opened="$refs.nameInput.$refs.input.focus()"
     >
         <template #title>
             <span
@@ -32,19 +33,21 @@
         <div class="relative z-40 py-2">
             <ValidationObserver ref="observer">
                 <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
-                    <FInput ref="nameInput"
-                            v-model="chosenBlock.name"
-                            name="name"
-                            rules="required"
-                            label="Namn"
+                    <FInput
+                        ref="nameInput"
+                        v-model="chosenBlock.name"
+                        name="name"
+                        rules="required"
+                        label="Namn"
                     />
-                    <FSelect v-model="chosenBlock.block_type"
-                             label="Blocktyp"
-                             name="block_type"
-                             rules="required"
-                             :options="blockTypes"
-                             :reduce-fn="block_type => block_type"
-                             option-label="name"
+                    <FSelect
+                        v-model="chosenBlock.block_type"
+                        label="Blocktyp"
+                        name="block_type"
+                        rules="required"
+                        :options="blockTypes"
+                        :reduce-fn="block_type => block_type"
+                        option-label="name"
                     />
                 </div>
             </ValidationObserver>

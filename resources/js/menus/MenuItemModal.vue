@@ -1,10 +1,11 @@
 <template>
-    <FModal v-model="show"
-            name="menu-item-modal"
-            width="max-w-3xl"
-            :click-to-close="false"
-            @closed="resetModal"
-            @before-open="initModal"
+    <FModal
+        v-model="show"
+        name="menu-item-modal"
+        width="max-w-3xl"
+        :click-to-close="false"
+        @closed="resetModal"
+        @before-open="initModal"
     >
         <template #title>
             <span
@@ -41,16 +42,18 @@
         >
             <div class="grid grid-cols-1 gap-x-6 sm:grid-cols-2">
                 <fieldset class="mb-6">
-                    <FInput v-model="mItem.type"
-                            input-type="radio"
-                            name="link_types"
-                            label="Länktyp"
-                            :options="[{ label: 'Intern', value: 'internal' }, { label: 'Extern', value: 'external' }]"
+                    <FInput
+                        v-model="mItem.type"
+                        input-type="radio"
+                        name="link_types"
+                        label="Länktyp"
+                        :options="[{ label: 'Intern', value: 'internal' }, { label: 'Extern', value: 'external' }]"
                     />
                 </fieldset>
             </div>
-            <div v-show="mItem.type === 'internal'"
-                 class="mt-4 mb-6"
+            <div
+                v-show="mItem.type === 'internal'"
+                class="mt-4 mb-6"
             >
                 <ValidationObserver ref="internalObserver">
                     <FSelect
@@ -64,8 +67,9 @@
                         name="pageSelect"
                     >
                         <template #prefix="option">
-                            <div v-for="index in option.depth"
-                                 :key="index"
+                            <div
+                                v-for="index in option.depth"
+                                :key="index"
                             >
                                 <div class="mr-3" />
                             </div>
@@ -78,8 +82,9 @@
                     ref="externalObserver"
                 >
                     <div class="grid grid-cols-12 gap-6">
-                        <div v-if="mItem.type === 'external'"
-                             class="grid grid-cols-2 col-span-12 gap-6"
+                        <div
+                            v-if="mItem.type === 'external'"
+                            class="grid grid-cols-2 col-span-12 gap-6"
                         >
                             <FInput
                                 v-model="content.title"

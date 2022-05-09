@@ -1,23 +1,26 @@
 <template>
     <div>
-        <FModal v-model="show"
-                :name="name"
-                width="max-w-xl"
+        <FModal
+            v-model="show"
+            :name="name"
+            width="max-w-xl"
         >
             <template #title>
                 Lägg till bild från URL
             </template>
-            <ValidationObserver v-slot="{ invalid }"
-                                ref="observer"
+            <ValidationObserver
+                v-slot="{ invalid }"
+                ref="observer"
             >
                 <form @submit.prevent="addImage">
-                    <FInput v-model="imageUrl"
-                            name="url"
-                            class="mb-6"
-                            validation-mode="aggressive"
-                            label="Webbadress"
-                            placeholder="https://via.placeholder.com/140x100.png"
-                            rules="required|url"
+                    <FInput
+                        v-model="imageUrl"
+                        name="url"
+                        class="mb-6"
+                        validation-mode="aggressive"
+                        label="Webbadress"
+                        placeholder="https://via.placeholder.com/140x100.png"
+                        rules="required|url"
                     />
                     <div class="flex justify-end">
                         <FButton

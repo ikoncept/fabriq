@@ -1,9 +1,10 @@
 <template>
-    <UiDropdown ref="dropdown"
-                :alignment="alignment"
-                :margin-classes="alignment === 'top-right' ? '-mr-4 mt-2.5' : '-ml-4 mt-2.5'"
-                :disabled="disabled"
-                @open="focusDismiss"
+    <UiDropdown
+        ref="dropdown"
+        :alignment="alignment"
+        :margin-classes="alignment === 'top-right' ? '-mr-4 mt-2.5' : '-ml-4 mt-2.5'"
+        :disabled="disabled"
+        @open="focusDismiss"
     >
         <template #dropdown>
             <div class="text-white rounded bg-royal-500">
@@ -12,24 +13,28 @@
                     :class="alignment === 'top-right' ? 'mr-4 right-0 ' : 'left-0 ml-4'"
                     viewBox="0 0 100 100"
                 >
-                    <polygon points="0,0 100,0 50,60"
-                             fill="currentColor"
+                    <polygon
+                        points="0,0 100,0 50,60"
+                        fill="currentColor"
                     />
                 </svg>
-                <div class="px-8 py-4 text-xs font-semibold whitespace-nowrap"
-                     v-text="confirmQuestion"
+                <div
+                    class="px-8 py-4 text-xs font-semibold whitespace-nowrap"
+                    v-text="confirmQuestion"
                 />
                 <div class="flex text-sm">
-                    <button ref="dismiss"
-                            class="flex-1 font-bold bg-royal-500 transition-colors duration-150 py-2.5 hover:bg-royal-600 focus:outline-none rounded-bl"
-                            type="button"
-                            @click.stop="dismiss"
-                            v-text="dismissText"
+                    <button
+                        ref="dismiss"
+                        class="flex-1 font-bold bg-royal-500 transition-colors duration-150 py-2.5 hover:bg-royal-600 focus:outline-none rounded-bl"
+                        type="button"
+                        @click.stop="dismiss"
+                        v-text="dismissText"
                     />
-                    <button class="flex-1 font-bold bg-royal-500  py-2.5  hover:bg-royal-600  focus:outline-none rounded-br"
-                            type="button"
-                            @click.stop="confirm"
-                            v-text="confirmText"
+                    <button
+                        class="flex-1 font-bold bg-royal-500  py-2.5  hover:bg-royal-600  focus:outline-none rounded-br"
+                        type="button"
+                        @click.stop="confirm"
+                        v-text="confirmText"
                     />
                 </div>
             </div>

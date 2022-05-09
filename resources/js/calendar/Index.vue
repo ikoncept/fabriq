@@ -1,25 +1,27 @@
 <template>
     <div>
-        <EventModal :event="activeEvent"
-                    :creating="creatingEvent"
-                    @updated="fetchEvents"
+        <EventModal
+            :event="activeEvent"
+            :creating="creatingEvent"
+            @updated="fetchEvents"
         />
         <UiSectionHeader class="mb-4">
             Kalender
             <template #tools>
-                <button class="block px-6 py-2.5 leading-none text-sm fabriq-btn btn-royal"
-                        type="button"
-                        @click="openCreateEventModal"
+                <button
+                    class="block px-6 py-2.5 leading-none text-sm fabriq-btn btn-royal"
+                    type="button"
+                    @click="openCreateEventModal"
                 >
                     Lägg till händelse
                 </button>
             </template>
         </UiSectionHeader>
         <UiCard :padding="false">
-            <div class="">
+            <div class="lg-cal">
                 <!-- eslint-disable-next-line -->
                 <v-calendar
-                    class="max-w-full lg-cal"
+                    class="max-w-full"
                     :masks="masks"
                     :attributes="events"
                     disable-page-swiped
@@ -52,26 +54,31 @@
                                                         {{ attr.customData.title }}
                                                     </div>
                                                     <div class="flex items-start space-x-4 text-gray-500">
-                                                        <button v-close-popover.all
-                                                                class="focus:outline-none"
-                                                                @click="editEvent(attr.customData.data)"
+                                                        <button
+                                                            v-close-popover.all
+                                                            class="focus:outline-none"
+                                                            @click="editEvent(attr.customData.data)"
                                                         >
-                                                            <PenToSquareIcon thin
-                                                                             class="w-6 h-6"
+                                                            <PenToSquareIcon
+                                                                thin
+                                                                class="w-6 h-6"
                                                             />
                                                         </button>
-                                                        <FConfirmDropdown confirm-question="Vill du ta bort händelsen?"
-                                                                          @confirmed="deleteEvent(attr.customData.data.id)"
+                                                        <FConfirmDropdown
+                                                            confirm-question="Vill du ta bort händelsen?"
+                                                            @confirmed="deleteEvent(attr.customData.data.id)"
                                                         >
-                                                            <TrashIcon thin
-                                                                       class="w-6 h-6"
+                                                            <TrashIcon
+                                                                thin
+                                                                class="w-6 h-6"
                                                             />
                                                         </FConfirmDropdown>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div v-if="Object.keys(eventData).length > 0"
-                                                 class="flex flex-col px-6 space-y-4 text-sm pb-7 body"
+                                            <div
+                                                v-if="Object.keys(eventData).length > 0"
+                                                class="flex flex-col px-6 space-y-4 text-sm pb-7 body"
                                             >
                                                 <p>
                                                     <span v-if="attr.customData.data.start != attr.customData.data.end">
@@ -83,22 +90,25 @@
                                                     </span>
                                                     <span v-if="attr.customData.data.start_time || attr.customData.data.end_time">{{ attr.customData.data.start_time }} - {{ attr.customData.data.end_time }}</span>
                                                 </p>
-                                                <p v-if="eventData.content.data.location"
-                                                   class="flex items-center"
+                                                <p
+                                                    v-if="eventData.content.data.location"
+                                                    class="flex items-center"
                                                 >
                                                     <LocationIcon class="inline-flex w-5 h-5 mr-1 text-gray-500" />
                                                     {{ eventData.content.data.location }}
                                                 </p>
-                                                <p class="whitespace-pre-line"
-                                                   v-text="eventData.content.data.description"
+                                                <p
+                                                    class="whitespace-pre-line"
+                                                    v-text="eventData.content.data.description"
                                                 />
                                             </div>
                                         </div>
                                     </div>
                                 </template>
                                 <div class="flex flex-wrap w-full p-2 space-x-2 text-xs leading-tight text-white transition-colors duration-150 border rounded-md cursor-pointer bg-royal-500 hover:bg-royal-700">
-                                    <div v-if="attr.customData.data.start_time "
-                                         class="mr-2 time"
+                                    <div
+                                        v-if="attr.customData.data.start_time "
+                                        class="mr-2 time"
                                     >
                                         {{ attr.customData.data.start_time }}
                                     </div>

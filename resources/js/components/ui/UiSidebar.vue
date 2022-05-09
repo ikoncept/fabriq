@@ -1,7 +1,8 @@
 <template>
     <div class="lg:hidden">
-        <div :class="{'pointer-events-none': ! menuOpen}"
-             class="fixed inset-0 z-40 flex"
+        <div
+            :class="{'pointer-events-none': ! menuOpen}"
+            class="fixed inset-0 z-40 flex"
         >
             <Transition
                 enter-active-class="transition-opacity duration-300 ease-linear"
@@ -11,9 +12,10 @@
                 leave-class="opacity-100"
                 leave-to-class="opacity-0"
             >
-                <div v-if="menuOpen"
-                     aria-hidden="true"
-                     class="fixed inset-0"
+                <div
+                    v-if="menuOpen"
+                    aria-hidden="true"
+                    class="fixed inset-0"
                 >
                     <div class="absolute inset-0 bg-gray-600 opacity-75" />
                 </div>
@@ -80,8 +82,9 @@
                     </div>
                 </div>
             </Transition>
-            <div aria-hidden="true"
-                 class="flex-shrink-0 w-14"
+            <div
+                aria-hidden="true"
+                class="flex-shrink-0 w-14"
             >
                 <!-- Dummy element to force sidebar to shrink to fit close icon -->
             </div>

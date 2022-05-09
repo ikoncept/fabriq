@@ -1,43 +1,49 @@
 <template>
     <div>
         <div class="grid grid-cols-3 gap-x-6">
-            <FInput v-model="localContent.name"
-                    name="name"
-                    label="Namn"
-                    rules="required"
-                    help-text="Visas endast internt"
+            <FInput
+                v-model="localContent.name"
+                name="name"
+                label="Namn"
+                rules="required"
+                help-text="Visas endast internt"
             />
-            <FSelect v-model="localContent.size"
-                     name="size"
-                     default-value="large"
-                     label="Storlek"
-                     :options="[{ label: 'Small', value: 'small' }, { label: 'Medium', value: 'medium' }, { label: 'Large', value: 'large' }]"
+            <FSelect
+                v-model="localContent.size"
+                name="size"
+                default-value="large"
+                label="Storlek"
+                :options="[{ label: 'Small', value: 'small' }, { label: 'Medium', value: 'medium' }, { label: 'Large', value: 'large' }]"
             />
         </div>
         <hr class="w-full h-px my-6 ">
         <div class="grid grid-cols-12 mb-10 gap-x-6 gap-y-6">
-            <FInput v-model="localContent.header"
-                    name="header"
-                    class="col-span-4"
-                    label="Rubriktext"
+            <FInput
+                v-model="localContent.header"
+                name="header"
+                class="col-span-4"
+                label="Rubriktext"
             />
-            <FInput v-model="localContent.subheader"
-                    class="col-span-4"
-                    name="subheader"
-                    label="Underrubrik"
+            <FInput
+                v-model="localContent.subheader"
+                class="col-span-4"
+                name="subheader"
+                label="Underrubrik"
             />
-            <FImageInput v-model="localContent.image"
-                         class="col-span-4"
-                         label="Bild"
-                         name="image"
+            <FImageInput
+                v-model="localContent.image"
+                class="col-span-4"
+                label="Bild"
+                name="image"
             />
         </div>
         <div class="flex items-center justify-between">
             <h3 class="text-xl font-light">
                 Kort
             </h3>
-            <div v-show="localContent.children.length > 0"
-                 class="flex justify-end"
+            <div
+                v-show="localContent.children.length > 0"
+                class="flex justify-end"
             >
                 <button
                     class="flex items-center text-sm link"
@@ -47,22 +53,24 @@
                 </button>
             </div>
         </div>
-        <Draggable v-model="localContent.children"
-                   handle=".handle"
-                   tag="ul"
-                   v-bind="dragOptions"
-                   class="list-group"
-                   :group="{ name: 'children', pull: 'clone', put: ['children'] }"
-                   @start="drag = true"
-                   @end="drag = false"
+        <Draggable
+            v-model="localContent.children"
+            handle=".handle"
+            tag="ul"
+            v-bind="dragOptions"
+            class="list-group"
+            :group="{ name: 'children', pull: 'clone', put: ['children'] }"
+            @start="drag = true"
+            @end="drag = false"
         >
-            <UiCard v-for="(child, childIndex) in localContent.children"
-                    :key="'child' + childIndex"
-                    is-child
-                    collapsible
-                    class="mb-6"
-                    no-shadow
-                    header-classes="bg-gray-50 py-2"
+            <UiCard
+                v-for="(child, childIndex) in localContent.children"
+                :key="'child' + childIndex"
+                is-child
+                collapsible
+                class="mb-6"
+                no-shadow
+                header-classes="bg-gray-50 py-2"
             >
                 <template #header>
                     <div class="flex items-center justify-between">
@@ -71,34 +79,40 @@
                             <span class="inline-flex text-sm font-semibold text-gray-500">{{ child.name }}</span>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <button v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Klona block' }"
-                                    class="focus:outline-none"
-                                    @click.stop="addCard(child)"
+                            <button
+                                v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Klona block' }"
+                                class="focus:outline-none"
+                                @click.stop="addCard(child)"
                             >
                                 <CloneIcon
                                     thin
                                     class="h-6"
                                 />
                             </button>
-                            <button v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Kopiera block-ID' }"
-                                    v-clipboard="'#' + child.id"
-                                    v-clipboard:success="copySuccess"
-                                    class="focus:outline-none"
-                                    type="button"
-                                    @click.stop
+                            <button
+                                v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Kopiera block-ID' }"
+                                v-clipboard="'#' + child.id"
+                                v-clipboard:success="copySuccess"
+                                class="focus:outline-none"
+                                type="button"
+                                @click.stop
                             >
-                                <LinkIcon class="h-6"
-                                          thin
+                                <LinkIcon
+                                    class="h-6"
+                                    thin
                                 />
                             </button>
-                            <FButtonSwitch v-model="child.hidden"
-                                           class="self-center mb-1 "
+                            <FButtonSwitch
+                                v-model="child.hidden"
+                                class="self-center mb-1 "
                             />
-                            <FConfirmDropdown confirm-question="Vill du ta bort detta kortet?"
-                                              @confirmed="deleteChild(childIndex)"
+                            <FConfirmDropdown
+                                confirm-question="Vill du ta bort detta kortet?"
+                                @confirmed="deleteChild(childIndex)"
                             >
-                                <TrashIcon class="w-5 mt-1 duration-150 h-5transition-colors hover:text-red-500"
-                                           thin
+                                <TrashIcon
+                                    class="w-5 mt-1 duration-150 h-5transition-colors hover:text-red-500"
+                                    thin
                                 />
                             </FConfirmDropdown>
                             <div class="w-px h-8 mx-6 bg-gray-300" />
@@ -108,15 +122,17 @@
                 <div
                     class="grid grid-cols-3 gap-x-6 gap-y-6"
                 >
-                    <FInput v-model="child.name"
-                            label="Namn"
+                    <FInput
+                        v-model="child.name"
+                        label="Namn"
                     />
                     <div>
                         <FLabel>Bild</FLabel>
                         <div class="flex items-center mb-6">
                             <FSwitch v-model="child.hasImage" />
-                            <div class="ml-2 text-sm"
-                                 v-text="child.hasImage ? 'Ja' : 'Nej'"
+                            <div
+                                class="ml-2 text-sm"
+                                v-text="child.hasImage ? 'Ja' : 'Nej'"
                             />
                         </div>
                         <div v-if="child.hasImage">
@@ -126,17 +142,20 @@
                         </div>
                     </div>
                     <hr class="col-span-3 my-6">
-                    <FInput v-model="child.header"
-                            label="Rubriktext"
-                            name="header"
+                    <FInput
+                        v-model="child.header"
+                        label="Rubriktext"
+                        name="header"
                     />
-                    <FInput v-model="child.subheader"
-                            label="Underrubrik"
-                            name="subheader"
+                    <FInput
+                        v-model="child.subheader"
+                        label="Underrubrik"
+                        name="subheader"
                     />
-                    <FEditor v-model="child.body"
-                             label="Text"
-                             class="col-span-3"
+                    <FEditor
+                        v-model="child.body"
+                        label="Text"
+                        class="col-span-3"
                     />
                     <div class="col-span-3">
                         <FButtonList v-model="child.buttons">
@@ -171,11 +190,13 @@
                     Blockknapp
                 </FLabel>
                 <div class="flex items-center">
-                    <FSwitch v-model="localContent.hasButton"
-                             class="h-10"
+                    <FSwitch
+                        v-model="localContent.hasButton"
+                        class="h-10"
                     />
-                    <div class="ml-2 text-sm"
-                         v-text="localContent.hasButton ? 'Ja' : 'Nej'"
+                    <div
+                        class="ml-2 text-sm"
+                        v-text="localContent.hasButton ? 'Ja' : 'Nej'"
                     />
                 </div>
             </div>

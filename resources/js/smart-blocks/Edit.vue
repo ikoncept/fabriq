@@ -24,13 +24,15 @@
                 </template>
             </UiSectionHeader>
         </div>
-        <FTabs v-if="Object.keys(locales).length"
-               @change="setLanguage"
+        <FTabs
+            v-if="Object.keys(locales).length > 0"
+            @change="setLanguage"
         >
-            <FTab v-for="(locale, lIndex) in locales"
-                  :key="lIndex"
-                  :value-key="lIndex"
-                  :title="locale.native"
+            <FTab
+                v-for="(locale, lIndex) in locales"
+                :key="lIndex"
+                :value-key="lIndex"
+                :title="locale.native"
             >
                 <UiCard
                     group="smartBlocks-ettings"
@@ -40,9 +42,10 @@
                         Inställningar
                     </template>
                     <div class="grid grid-cols-3 gap-x-6 gap-y-6">
-                        <FInput v-model="smartBlock.name"
-                                label="Namn"
-                                help-text="Visas endast internt"
+                        <FInput
+                            v-model="smartBlock.name"
+                            label="Namn"
+                            help-text="Visas endast internt"
                         />
                     </div>
                 </UiCard>
@@ -51,21 +54,23 @@
                         <h4 class="text-3xl font-light text-gray-700">
                             Block
                         </h4>
-                        <button class="flex items-center text-sm link"
-                                @click="showBlockTypeModal"
+                        <button
+                            class="flex items-center text-sm link"
+                            @click="showBlockTypeModal"
                         >
                             <PlusIcon class="w-5 h-5 mr-2" />Lägg till block
                         </button>
                     </div>
-                    <div v-if="Object.keys(localizedContent).length">
-                        <div v-if="! localizedContent[activeLocale].boxes.length">
+                    <div v-if="Object.keys(localizedContent).length > 0">
+                        <div v-if="localizedContent[activeLocale].boxes.length === 0">
                             <div class="flex items-center justify-center h-48 border-2 border-dashed rounded border-royal-200">
                                 <div class="flex flex-col items-center">
                                     <div class="mb-4 text-xl font-light">
                                         Inga block har lagts till ännu
                                     </div>
-                                    <button class="flex items-center text-sm link"
-                                            @click="showBlockTypeModal"
+                                    <button
+                                        class="flex items-center text-sm link"
+                                        @click="showBlockTypeModal"
                                     >
                                         <PlusIcon class="w-5 h-5 mr-2" />Lägg till block
                                     </button>
@@ -74,25 +79,28 @@
                         </div>
 
                         <div v-else>
-                            <Draggable v-model="localizedContent[activeLocale].boxes"
-                                       handle=".handle"
-                                       tag="ul"
-                                       v-bind="dragOptions"
-                                       class="list-group"
-                                       @start="drag = true"
-                                       @end="drag = false"
+                            <Draggable
+                                v-model="localizedContent[activeLocale].boxes"
+                                handle=".handle"
+                                tag="ul"
+                                v-bind="dragOptions"
+                                class="list-group"
+                                @start="drag = true"
+                                @end="drag = false"
                             >
-                                <TransitionGroup type="transition"
-                                                 :name="'flip-list-move'"
+                                <TransitionGroup
+                                    type="transition"
+                                    :name="'flip-list-move'"
                                 >
                                     <li
                                         v-for="(block, boxIndex) in localizedContent[activeLocale].boxes"
                                         :key="'alt' + boxIndex + activeLocale"
                                         class="list-group-item"
                                     >
-                                        <UiCard v-if="block.name"
-                                                collapsible
-                                                :open-by-default="block.newlyAdded"
+                                        <UiCard
+                                            v-if="block.name"
+                                            collapsible
+                                            :open-by-default="block.newlyAdded"
                                         >
                                             <template #header>
                                                 <div class="flex items-center justify-between">
@@ -107,26 +115,31 @@
                                                     </div>
                                                     <div class="flex items-center">
                                                         <!-- <ellipsis-icon class="w-6 h-6 mr-4" /> -->
-                                                        <button v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Kopiera block-ID' }"
-                                                                v-clipboard="'#' + block.id"
-                                                                v-clipboard:success="copySuccess"
-                                                                class="focus:outline-none"
-                                                                type="button"
-                                                                @click.stop
+                                                        <button
+                                                            v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Kopiera block-ID' }"
+                                                            v-clipboard="'#' + block.id"
+                                                            v-clipboard:success="copySuccess"
+                                                            class="focus:outline-none"
+                                                            type="button"
+                                                            @click.stop
                                                         >
-                                                            <LinkIcon class="h-6 mr-4"
-                                                                      thin
+                                                            <LinkIcon
+                                                                class="h-6 mr-4"
+                                                                thin
                                                             />
                                                         </button>
-                                                        <FButtonSwitch v-model="block.hidden"
-                                                                       class="self-center mb-1 mr-4 "
+                                                        <FButtonSwitch
+                                                            v-model="block.hidden"
+                                                            class="self-center mb-1 mr-4 "
                                                         />
-                                                        <FConfirmDropdown confirm-question="Vill du ta bort detta blocket?"
-                                                                          class="relative w-6 h-6"
-                                                                          @confirmed="deleteBlock(boxIndex)"
+                                                        <FConfirmDropdown
+                                                            confirm-question="Vill du ta bort detta blocket?"
+                                                            class="relative w-6 h-6"
+                                                            @confirmed="deleteBlock(boxIndex)"
                                                         >
-                                                            <TrashIcon class="h-6 transition-colors duration-150 hover:text-red-500"
-                                                                       thin
+                                                            <TrashIcon
+                                                                class="h-6 transition-colors duration-150 hover:text-red-500"
+                                                                thin
                                                             />
                                                         </FConfirmDropdown>
                                                         <div class="w-px h-8 mx-6 bg-gray-300" />

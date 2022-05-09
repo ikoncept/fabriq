@@ -1,8 +1,9 @@
 <template>
-    <button v-if="! computedValue"
-            type="button"
-            class="focus:outline-none w-7"
-            @click.stop="computedValue = true"
+    <button
+        v-if="! computedValue"
+        type="button"
+        class="focus:outline-none w-7"
+        @click.stop="computedValue = true"
     >
         <slot name="on">
             <EyeIcon
@@ -12,10 +13,11 @@
             />
         </slot>
     </button>
-    <button v-else
-            type="button"
-            class="w-7 focus:outline-none"
-            @click.stop="computedValue = false"
+    <button
+        v-else
+        type="button"
+        class="w-7 focus:outline-none"
+        @click.stop="computedValue = false"
     >
         <slot name="off">
             <EyeSlashIcon

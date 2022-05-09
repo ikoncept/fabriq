@@ -1,5 +1,5 @@
-import Toast from './Toast.vue'
 import eventBus from './bus.js'
+import Toast from './Toast.vue'
 
 const Api = (Vue, globalOptions = {}) => {
     return {
