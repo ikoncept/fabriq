@@ -172,6 +172,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
     {
        return [
             __DIR__.'/../resources/images' => resource_path('images'),
+            __DIR__.'/../resources/fonts' => resource_path('fonts'),
             __DIR__.'/../resources/css' => resource_path('css'),
             __DIR__.'/../tailwind.config.js' => 'tailwind.config.js',
             __DIR__.'/../webpack.mix.js' => 'webpack.mix.js',
