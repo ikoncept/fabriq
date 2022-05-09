@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -84,6 +85,27 @@ class User extends Authenticatable implements MustVerifyEmail
     public function setRoleListAttribute(array $value)
     {
         Fabriq::getModelClass('user')->find($this->id)->syncRoles($value);
+    }
+
+    public function invitation() : HasOne
+    {
+        return $this->hasOne(Invitation::class)->latestOfMany();
+    }
+
+    /**
+     * Create a new invitation
+     *
+     * @param int|null $invitedBy
+     * @return Invitation
+     */
+    public function createInvitation($invitedBy = null) : Invitation
+    {
+        $invitation = Invitation::create([
+            'user_id' => $this->id,
+            'invited_by' => $invitedBy ?? auth()->user()->id
+        ]);
+
+        return $invitation;
     }
 
     /**
