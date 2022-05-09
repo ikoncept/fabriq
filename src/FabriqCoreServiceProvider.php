@@ -175,13 +175,15 @@ class FabriqCoreServiceProvider extends ServiceProvider
             __DIR__.'/../resources/css' => resource_path('css'),
             __DIR__.'/../tailwind.config.js' => 'tailwind.config.js',
             __DIR__.'/../webpack.mix.js' => 'webpack.mix.js',
+            __DIR__.'/../webpack.config.js' => 'webpack.config.js',
+            __DIR__.'/../postcss.config.js' => 'postcss.config.js',
             __DIR__.'/../package.json' => 'package.json',
             __DIR__.'/../jsconfig.json' => 'jsconfig.json',
             __DIR__.'/../.eslintrc' => '.eslintrc',
             __DIR__.'/../.babelrc' => '.babelrc',
             __DIR__.'/../.styleci.yml' => '.styleci.yml',
             __DIR__.'/../pnpm-lock.yaml' => 'pnpm-lock.yaml',
-            __DIR__.'/../.npmrc' => '.npmrc',
+            __DIR__.'/../.npmrc' => '.npmrc'
        ];
     }
 }
