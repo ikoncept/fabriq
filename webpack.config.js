@@ -30,6 +30,6 @@ module.exports = {
         ]
     },
     stats: {
-        children: true
+        children: false
     }
 }
