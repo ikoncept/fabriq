@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fabriq CMS</title>
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link href="{{ mix('css/app.css', 'dist') }}" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="/dist/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/dist/images/favicon-32x32.png">
