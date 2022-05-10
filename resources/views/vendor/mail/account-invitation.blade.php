@@ -1,8 +1,8 @@
 @component('mail::message')
 
-## Hej {{ $invitation->user->first_name }}!
+# Hej {{ $invitation->user->first_name }}!
 
-Du har blivit inbjuden till Sajnat av {{ $invitation->invitedBy->first_name }}. Klicka på knappen nedan för att acceptera inbjudan och skapa ett konto!
+Du har blivit inbjuden till Fabriq CMS av {{ $invitation->invitedBy->first_name }}. Klicka på knappen nedan för att acceptera inbjudan och skapa ett konto!
 
 @component('mail::button', ['url' => $inviteUrl])
 Acceptera inbjudan

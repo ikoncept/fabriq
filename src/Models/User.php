@@ -137,13 +137,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Image::class);
     }
 
-    /**
-     * Display first name
-     *
-     * @return string
-     */
-    public function getFirstNameAttribute()
+    public function getFirstNameAttribute() : string
     {
-        return Str::words($this->name, 1, '');
+        return explode(' ', $this->name, 2)[0];
+    }
+
+    public function getLastNameAttribute() : string
+    {
+        $parts = explode(' ', $this->name);
+
+        return array_pop($parts);
     }
 }

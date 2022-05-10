@@ -5,6 +5,7 @@ namespace Ikoncept\Fabriq;
 use Illuminate\Contracts\Routing\Registrar as Router;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 class RouteRegistrar
 {
@@ -56,6 +57,9 @@ class RouteRegistrar
 
         Route::get('/permalink/{hash}/{locale?}', \Ikoncept\Fabriq\Http\Controllers\PermaLinkRedirectController::class)
             ->name('permalink.redirect');
+
+        Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+            ->name('login');
 
         Route::get('/', [\Ikoncept\Fabriq\Http\Controllers\SpaController::class, 'index'])->middleware('auth');
         Route::get('/{any}', [\Ikoncept\Fabriq\Http\Controllers\SpaController::class, 'index'])->where('any', '.*')->middleware('auth');

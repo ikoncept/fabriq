@@ -67,7 +67,7 @@
     }
 
     .btn-gold {
-        @apply text-white bg-gold-500 focus:ring-gold-300 hover:bg-gold-700 border-gold-500 hover:border-gold-700;
+        @apply text-white bg-gold-500 focus:ring-gold-300 hover:bg-gold-700 border-gold-500 hover:border-gold-700 hover:text-white;
     }
 
     .btn-outline-gold {

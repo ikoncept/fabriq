@@ -64,10 +64,6 @@ class UserFeatureTest extends AdminUserTestCase
         $this->assertDatabaseHas('users', [
             'name' => 'Ralf Edström',
             'email' => 'ralf@spray.se',
-        ]);
-        $this->assertDatabaseMissing('users', [
-            'name' => 'Ralf Edström',
-            'email' => 'ralf@spray.se',
             'email_verified_at' => null
         ]);
     }

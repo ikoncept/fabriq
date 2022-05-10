@@ -6,32 +6,55 @@ use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Controllers\Controller;
 use Ikoncept\Fabriq\Http\Requests\AcceptInvitationRequest;
 use Ikoncept\Fabriq\Models\Invitation;
-use Ikoncept\Fabriq\Transformers\InviteTransformer;
+use Ikoncept\Fabriq\Transformers\InvitationTransformer;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Infab\Core\Traits\ApiControllerTrait;
 
 class AcceptInvitationController extends Controller
 {
     use ApiControllerTrait;
 
-    public function show(Request $request, int $tenantId, string $invitationUuid) : JsonResponse
+    /**
+     * Show invitation view
+     *
+     * @param Request $request
+     * @param string $invitationUuid
+     * @return JsonResponse|View
+     */
+    public function show(Request $request, string $invitationUuid)
     {
         if (! $request->hasValidSignature()) {
             return $this->errorUnauthorized();
         }
 
         $invitation = Invitation::where('uuid', $invitationUuid)
-            ->where('tenant_id', $tenantId)
             ->with('user')
             ->firstOrFail();
 
 
-        return $this->respondWithItem($invitation, new InviteTransformer());
+        /** @var view-string $viewString **/
+        $viewString = 'vendor.fabriq.auth.activate';
+
+        return view($viewString, ['invitation' => $invitation]);
     }
 
-    public function store(AcceptInvitationRequest $request, string $invitationUuid) : JsonResponse
+    /**
+     * Undocumented function
+     *
+     * @param AcceptInvitationRequest $request
+     * @param string $invitationUuid
+     * @return JsonResponse|RedirectResponse
+     */
+    public function store(AcceptInvitationRequest $request, string $invitationUuid)
     {
+        if (! $request->hasValidSignature()) {
+            return $this->errorUnauthorized();
+        }
+
         $invitation = Invitation::where('uuid', $invitationUuid)
             ->with('user')
             ->firstOrFail();
@@ -40,9 +63,14 @@ class AcceptInvitationController extends Controller
         $user->email_verified_at = now();
         $user->password = bcrypt($request->password);
         $user->save();
+        Auth::login($user);
 
         $invitation->delete();
 
-        return $this->respondWithSuccess('The user has accepted the invitation successfully');
+        if(request()->wantsJson()) {
+            return $this->respondWithSuccess('The user has accepted the invitation successfully');
+        }
+
+        return response()->redirectTo('/');
     }
 }

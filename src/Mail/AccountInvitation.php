@@ -40,6 +40,7 @@ class AccountInvitation extends Mailable
 
         return $this->replyTo($this->invitation->invitedBy->email)
             ->subject('Acceptera din inbjudan till Fabriq CMS - ' . config('app.name'))
+
             ->markdown('vendor.mail.account-invitation');
     }
 }

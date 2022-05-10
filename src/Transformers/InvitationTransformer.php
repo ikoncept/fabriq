@@ -5,7 +5,7 @@ namespace Ikoncept\Fabriq\Transformers;
 use Ikoncept\Fabriq\Models\Invitation;
 use League\Fractal\TransformerAbstract;
 
-class InviteTransformer extends TransformerAbstract
+class InvitationTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
@@ -25,9 +25,8 @@ class InviteTransformer extends TransformerAbstract
      */
     public function transform(Invitation $invitation)
     {
-        return $invitation->toArray();
-        // return [
-        //     'id' => (int) $invitation->id,
-        // ];
+        return array_merge([
+            'is_valid' => (bool) $invitation->created_at->diffInHours(now()) < 48
+        ], $invitation->toArray());
     }
 }

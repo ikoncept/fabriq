@@ -8,7 +8,7 @@ use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\BlockType;
 use Ikoncept\Fabriq\Models\Invitation;
 use Ikoncept\Fabriq\Transformers\BlockTypeTransformer;
-use Ikoncept\Fabriq\Transformers\InviteTransformer;
+use Ikoncept\Fabriq\Transformers\InvitationTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -30,7 +30,7 @@ class InvitationController extends ApiController
         Mail::to($user->email)
             ->queue(new AccountInvitation($invitation));
 
-        return $this->respondWithItem($invitation, new InviteTransformer(), 201);
+        return $this->respondWithItem($invitation, new InvitationTransformer(), 201);
     }
 
     public function destroy(Request $request, int $userId) : JsonResponse

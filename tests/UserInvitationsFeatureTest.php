@@ -9,6 +9,7 @@ use Ikoncept\Fabriq\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 class UserInvitationsFeatureTest extends AdminUserTestCase
 {
@@ -16,7 +17,7 @@ class UserInvitationsFeatureTest extends AdminUserTestCase
     public function it_will_allow_an_admin_to_create_and_send_an_invitation_to_a_user()
     {
         // Arrange
-        // Mail::fake(AccountInvitation::class);
+        Mail::fake(AccountInvitation::class);
         $this->user->assignRole('admin');
         $otherUser = User::factory()->create();
 
@@ -68,16 +69,18 @@ class UserInvitationsFeatureTest extends AdminUserTestCase
         // Arrange
         $this->user->assignRole('admin');
         $otherUser = User::factory()->create([
-                 'email_verified_at' => null
-            ]);
+            'email_verified_at' => null
+        ]);
 
         $invitation = $otherUser->createInvitation();
+        $this->app['auth']->guard('web')->logout();
+        $url = URL::temporarySignedRoute('invitation.accept', now()->addHours(48), [$invitation->uuid]);
 
         // Act
-        $response = $this->json('POST', route('invitation.accept.store', [$invitation->uuid]), [
-                'password' => 'my-new_password',
-                'password_confirmation' => 'my-new_password',
-            ]);
+        $response = $this->json('POST', $url, [
+            'password' => 'my-new_password',
+            'password_confirmation' => 'my-new_password',
+        ]);
 
         // Assert
         $response->assertOk();
@@ -88,5 +91,26 @@ class UserInvitationsFeatureTest extends AdminUserTestCase
         $this->assertDatabaseMissing('invitations', [
             'user_id' => $invitation->user_id,
         ]);
+    }
+
+
+    /** @test **/
+    public function it_can_show_the_create_account_view()
+    {
+        // Arrange
+        $this->user->assignRole('admin');
+        $otherUser = User::factory()->create([
+                 'email_verified_at' => null
+            ]);
+
+        $invitation = $otherUser->createInvitation();
+        $url = URL::temporarySignedRoute('invitation.accept', now()->addHours(48), [$invitation->uuid]);
+
+        // Act
+        $response = $this->get($url);
+
+        // Assert
+        $response->assertOk();
+        $response->assertSee('Activate account');
     }
 }

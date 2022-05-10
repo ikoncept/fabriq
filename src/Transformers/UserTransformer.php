@@ -6,6 +6,7 @@ use Ikoncept\Fabriq\Models\User;
 use Illuminate\Support\Collection as IlluminateCollection;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
+use League\Fractal\Resource\NullResource;
 use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
@@ -17,7 +18,7 @@ class UserTransformer extends TransformerAbstract
      * @var array
      */
     protected $availableIncludes = [
-        'roles',
+        'roles', 'invitation'
     ];
 
     protected $defaultIncludes = [
@@ -39,7 +40,8 @@ class UserTransformer extends TransformerAbstract
             'email' => $user->email,
             'role_list' => $this->getRoles($user),
             'timezone' => 'Europe/Stockholm',
-            'email_verified_at' => ($user->email_verified_at) ? $user->email_verified_at->toISOString()  : false,
+            // 'email_verified_at' => ($user->email_verified_at) ? $user->email_verified_at->toISOString()  : false,
+            'email_verified_at' => ($user->email_verified_at) ? (string) $user->email_verified_at : null,
             'updated_at' => $user->updated_at
         ];
     }
@@ -64,6 +66,16 @@ class UserTransformer extends TransformerAbstract
     public function includeImage(User $user) : Item
     {
         return $this->item($user->image, new UserImageTransformer());
+    }
+
+
+    public function includeInvitation(User $user) : Item|NullResource
+    {
+        if(! $user->invitation) {
+            return $this->null();
+        }
+
+        return $this->item($user->invitation, new InvitationTransformer);
     }
 
     /**
