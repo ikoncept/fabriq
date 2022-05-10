@@ -2,11 +2,10 @@
 
 namespace Ikoncept\Fabriq\Http\Requests;
 
-use Ikoncept\Fabriq\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class CreateUserRequest extends FormRequest
+
+class AcceptInvitationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,14 +20,13 @@ class CreateUserRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function rules()
     {
         return [
-            'name' => ['required', 'max:255'],
-            'email' => ['required', 'email', Rule::unique(User::class)],
-            'role_list' => 'array'
+            'password' => 'required|min:8|confirmed:password_confirmation',
+            'password_confirmation' => 'required'
         ];
     }
 }

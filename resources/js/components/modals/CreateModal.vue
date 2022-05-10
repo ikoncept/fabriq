@@ -35,6 +35,10 @@
                 @submit.prevent="validateForm"
             >
                 <slot />
+                <button
+                    class="hidden"
+                    type="submit"
+                />
             </form>
         </ValidationObserver>
     </FModal>

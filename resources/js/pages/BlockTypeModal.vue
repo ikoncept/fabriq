@@ -5,7 +5,6 @@
         :click-to-close="false"
         @before-open="fetchBlockTypes"
         @closed="resetCreateModal"
-        @opened="$refs.nameInput.$refs.input.focus()"
     >
         <template #title>
             <span
@@ -32,7 +31,21 @@
         </template>
         <div class="relative z-40 py-2">
             <ValidationObserver ref="observer">
-                <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+                <form
+                    class="grid grid-cols-1 gap-x-4 sm:grid-cols-2"
+                    @submit.prevent="setBlockType"
+                >
+                    <FSelect
+                        ref="selectInput"
+                        v-model="chosenBlock.block_type"
+                        label="Blocktyp"
+                        :clearable="false"
+                        name="block_type"
+                        rules="required"
+                        :options="blockTypes"
+                        :reduce-fn="block_type => block_type"
+                        option-label="name"
+                    />
                     <FInput
                         ref="nameInput"
                         v-model="chosenBlock.name"
@@ -40,16 +53,12 @@
                         rules="required"
                         label="Namn"
                     />
-                    <FSelect
-                        v-model="chosenBlock.block_type"
-                        label="Blocktyp"
-                        name="block_type"
-                        rules="required"
-                        :options="blockTypes"
-                        :reduce-fn="block_type => block_type"
-                        option-label="name"
+                    <button
+                        class="hidden"
+                        type="submit"
+                        :click="setBlockType"
                     />
-                </div>
+                </form>
             </ValidationObserver>
         </div>
     </FModal>

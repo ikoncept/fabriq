@@ -20,6 +20,7 @@ import FSelect from '~/components/forms/FSelect'
 import FSwitch from '~/components/forms/FSwitch'
 import FUpload from '~/components/forms/FUpload'
 import FVideoInput from '~/components/forms/FVideoInput'
+import HelpText from '~/components/forms/HelpText.vue'
 import FTab from '~/components/forms/tabs/FTab'
 import FTabs from '~/components/forms/tabs/FTabs'
 import UiLogo from '~/components/Logo'
@@ -70,7 +71,8 @@ import UiStatsCard from '~/components/ui/UiStatsCard'
     CreateModal,
     UiDashedBox,
     UiAvatar,
-    PresenceInfo
+    PresenceInfo,
+    HelpText
 ].forEach(Component => {
     Vue.component(Component.name, Component)
 })

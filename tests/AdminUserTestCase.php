@@ -24,12 +24,16 @@ abstract class AdminUserTestCase extends Orchestra
     public function setUp() : void
     {
         parent::setUp();
-        Fabriq::routes(
-            function ($router) {
-                $router->all();
-                $router->allWeb();
-            }
-        );
+        Fabriq::routes(function($router) {
+            $router->all();
+        });
+
+        Fabriq::routes(function($router) {
+            $router->allWeb();
+        },[
+            'middleware' => ['web'],
+        ]);
+
         $this->setUpDatabase($this->app);
 
         Artisan::call('fabriq:install');

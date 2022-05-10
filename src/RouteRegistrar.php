@@ -2,10 +2,10 @@
 
 namespace Ikoncept\Fabriq;
 
-
 use Illuminate\Contracts\Routing\Registrar as Router;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 class RouteRegistrar
 {
@@ -51,8 +51,15 @@ class RouteRegistrar
             return back()->with('message', 'Verification link sent!');
         })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+
+        Route::get('/invitations/accept/{token}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AcceptInvitationController::class, 'show'])->name('invitation.accept');
+        Route::post('/invitations/accept/{token}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AcceptInvitationController::class, 'store'])->name('invitation.accept.store');
+
         Route::get('/permalink/{hash}/{locale?}', \Ikoncept\Fabriq\Http\Controllers\PermaLinkRedirectController::class)
             ->name('permalink.redirect');
+
+        Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+            ->name('login');
 
         Route::get('/', [\Ikoncept\Fabriq\Http\Controllers\SpaController::class, 'index'])->middleware('auth');
         Route::get('/{any}', [\Ikoncept\Fabriq\Http\Controllers\SpaController::class, 'index'])->where('any', '.*')->middleware('auth');
@@ -86,6 +93,7 @@ class RouteRegistrar
         $this->forConfig();
         $this->forPageSlugs();
         $this->forPagePaths();
+        $this->forInvitations();
     }
 
     public function forApiProtected()
@@ -114,6 +122,7 @@ class RouteRegistrar
         $this->forUsers();
         $this->forVideos();
         $this->forPagePaths();
+        $this->forInvitations();
     }
 
     public function forPublicApi()
@@ -226,6 +235,13 @@ class RouteRegistrar
         Route::delete('pages/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageController::class, 'destroy']);
         Route::post('pages/{id}/publish', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PublishPageController::class, 'store']);
         Route::get('pages/{id}/signed-url', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageSignedUrlController::class, 'show']);
+    }
+
+    public function forInvitations() : void
+    {
+        // Route::get('/invitations/accept/{token}', [Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AcceptInvitationController::class, 'show'])->name('invitation.accept');
+        Route::post('invitations/{userId}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\InvitationController::class, 'store'])->name('invitations.store');
+        Route::delete('invitations/{userId}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\InvitationController::class, 'destroy'])->name('invitations.destroy');
     }
 
     public function forPageSlugs()

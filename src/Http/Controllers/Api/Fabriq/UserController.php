@@ -43,12 +43,12 @@ class UserController extends ApiController
 
     public function store(CreateUserRequest $request) : JsonResponse
     {
-        $user = new User;
+        $user = Fabriq::getModelClass('user');
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt(Str::random(12));
-        $user->email_verified_at = now();
         $user->save();
+        $user->syncRoles($request->role_list);
 
         return $this->respondWithItem($user, new UserTransformer, 201);
     }

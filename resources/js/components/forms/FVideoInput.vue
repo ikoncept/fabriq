@@ -49,12 +49,19 @@
                 v-if="hasVideo"
                 class="absolute w-full h-full group"
             >
-                <div class="absolute inset-0 z-10 flex items-end justify-end transition-opacity duration-300 opacity-0 group-hover:opacity-100 ">
+                <div class="absolute inset-0 z-10 flex items-end justify-center transition-opacity duration-300 opacity-0 group-hover:opacity-100 ">
+                    <button
+                        type="button"
+                        class="absolute top-0 right-0 flex items-center px-4 py-2 space-x-2 text-sm font-semibold text-white bg-gray-800 rounded-bl-md rounded-tr-md"
+
+                        @click="$vfm.show('video-modal', {id: localVideo.id})"
+                    > <PencilIcon class="w-3.5" /> <span>Redigera</span></button>
                     <div class="flex w-full -mb-px">
                         <button
                             class="flex items-center justify-center w-full px-4 py-4 text-sm font-semibold leading-none text-white transition-colors duration-150 bg-gray-800 focus:outline-none rounded-bl-md hover:bg-gray-900"
-                            @click="$vfm.show('video-modal', {id: localVideo.id})"
-                        >Redigera</button>
+
+                            @click="pickerOpen = true"
+                        >Byt</button>
                         <button
                             class="flex items-center justify-center w-full px-4 py-4 text-sm font-semibold leading-none text-white transition-colors duration-150 bg-gray-800 focus:outline-none rounded-br-md hover:bg-gray-900"
                             @click="clearVideo"

@@ -28,6 +28,10 @@ export default [
         redirect: '/dashboard'
     },
     {
+        path: '/home',
+        redirect: '/dashboard'
+    },
+    {
         path: '/dashboard',
         name: 'home.index',
         component: Home,
