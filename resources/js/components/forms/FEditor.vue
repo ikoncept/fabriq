@@ -557,11 +557,9 @@
                 v-html="value"
             />
         </div>
-        <p
-            v-if="helpText"
-            class="mt-2 font-sans text-xs italic text-gray-600"
-            v-text="helpText"
-        />
+        <HelpText v-if="helpText">
+            {{ helpText }}
+        </HelpText>
         <FMediaPicker
             :open="pickerOpen"
             :media-type="pickerType"

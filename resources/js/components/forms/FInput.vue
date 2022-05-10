@@ -100,11 +100,9 @@
                     />
                     <slot name="buttonSuffix" />
                 </span>
-                <p
-                    v-if="helpText"
-                    class="mt-2 font-sans text-xs italic text-gray-600"
-                    v-text="helpText"
-                />
+                <HelpText v-if="helpText">
+                    {{ helpText }}
+                </HelpText>
                 <span
                     v-if="errors[0]"
                     class="font-sans text-xs text-red-500"

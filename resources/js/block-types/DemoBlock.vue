@@ -12,6 +12,7 @@
                 v-model="localContent.size"
                 name="size"
                 default-value="large"
+                :clearable="false"
                 label="Storlek"
                 :options="[{ label: 'Small', value: 'small' }, { label: 'Medium', value: 'medium' }, { label: 'Large', value: 'large' }]"
             />
@@ -41,10 +42,7 @@
             <h3 class="text-xl font-light">
                 Kort
             </h3>
-            <div
-                v-show="localContent.children.length > 0"
-                class="flex justify-end"
-            >
+            <div class="flex justify-end">
                 <button
                     class="flex items-center text-sm link"
                     @click="addCard"
@@ -126,18 +124,29 @@
                         v-model="child.name"
                         label="Namn"
                     />
-                    <div>
-                        <FLabel>Bild</FLabel>
-                        <div class="flex items-center mb-6">
-                            <FSwitch v-model="child.hasImage" />
-                            <div
-                                class="ml-2 text-sm"
-                                v-text="child.hasImage ? 'Ja' : 'Nej'"
-                            />
-                        </div>
+                    <div class="flex flex-col space-y-6">
+                        <FSwitch
+                            v-model="child.hasImage"
+                            column-layout
+                        >
+                            Bild
+                        </FSwitch>
                         <div v-if="child.hasImage">
                             <FImageInput
                                 v-model="child.image"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex flex-col space-y-6">
+                        <FSwitch
+                            v-model="child.hasVideo"
+                            column-layout
+                        >
+                            Video
+                        </FSwitch>
+                        <div v-if="child.hasVideo">
+                            <FVideoInput
+                                v-model="child.video"
                             />
                         </div>
                     </div>
@@ -166,14 +175,17 @@
             </UiCard>
         </Draggable>
 
-        <div v-show="localContent.children.length <= 0">
-            <div
-                class="grid mt-4 mb-6 sm:grid-cols-12 gap-x-6 gap-y-6"
-            >
-                <div class="flex flex-col col-span-5 mb-7 ">
-                    <h4 class="mb-2 text-base font-light">
-                        Inget kort har lagts till ännu
-                    </h4>
+        <UiDashedBox
+            v-show="localContent.children.length <= 0"
+            size="min-h-24"
+        >
+            <template #header>
+                <h4 class="mb-2 text-base font-light">
+                    Inget kort har lagts till ännu
+                </h4>
+            </template>
+            <template #link>
+                <div class="flex justify-center">
                     <button
                         class="flex items-center text-sm font-semibold focus:outline-none"
                         type="button"
@@ -182,8 +194,8 @@
                         <PlusIcon class="w-5 h-5 mr-2 " />Lägg till kort
                     </button>
                 </div>
-            </div>
-        </div>
+            </template>
+        </UiDashedBox>
         <div class="grid grid-cols-12 mt-8">
             <div>
                 <FLabel>

@@ -66,6 +66,9 @@
                 </span>
             </Transition>
         </div>
+        <HelpText v-if="helpText">
+            {{ helpText }}
+        </HelpText>
     </div>
 </template>
 <script>
@@ -83,6 +86,10 @@ export default {
         columnLayout: {
             type: Boolean,
             default: false
+        },
+        helpText: {
+            type: String,
+            default: ''
         }
     },
     data () {

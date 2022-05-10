@@ -4,23 +4,25 @@
             <slot />
         </div>
         <div v-if="noButtons">
-            <div
-                class="grid mb-6 sm:grid-cols-12 gap-x-6 gap-y-6"
-            >
-                <div class="flex flex-col col-span-5 mb-7">
-                    <h4 class="mb-2 text-lg font-light">
+            <UiDashedBox size="min-h-24">
+                <template #header>
+                    <div class="text-base">
                         Ingen knapp har lagts till ännu
-                    </h4>
-                    <button
-                        v-if="noButtons"
-                        class="flex items-center text-sm font-semibold focus:outline-none"
-                        type="button"
-                        @click="addButton"
-                    >
-                        <PlusIcon class="w-5 h-5 mr-2 " />Lägg till knapp
-                    </button>
-                </div>
-            </div>
+                    </div>
+                </template>
+                <template #link>
+                    <div class="flex justify-center">
+                        <button
+                            v-if="noButtons"
+                            class="flex items-center text-sm font-semibold focus:outline-none"
+                            type="button"
+                            @click="addButton"
+                        >
+                            <PlusIcon class="w-5 h-5 mr-2 " />Lägg till knapp
+                        </button>
+                    </div>
+                </template>
+            </UiDashedBox>
         </div>
         <div
             v-for="(button, index) in buttons"

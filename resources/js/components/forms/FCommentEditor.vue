@@ -6,11 +6,9 @@
             :editor="editor"
             class="w-full rounded focus:outline-none focus:ring-1 f-comment-editor"
         />
-        <p
-            v-if="helpText"
-            class="mt-1 text-xs text-gray-500 help-text"
-            v-text="helpText"
-        />
+        <HelpText v-if="helpText">
+            {{ helpText }}
+        </HelpText>
     </div>
 </template>
 <script>

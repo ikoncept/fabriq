@@ -8,24 +8,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Fabriq CMS') }}</title>
-    <style>
-        @font-face {
-            font-family: 'Inter var';
-            font-weight: 100 900;
-            font-display: swap;
-            font-style: normal;
-            font-named-instance: 'Regular';
-            src: url("{{ mix('fonts/Inter-roman.var.woff2', 'dist') }}") format("woff2");
-        }
-        @font-face {
-            font-family: 'Inter var';
-            font-weight: 100 900;
-            font-display: swap;
-            font-style: italic;
-            font-named-instance: 'Italic';
-            src: url("{{ mix('fonts/Inter-italic.var.woff2', 'dist') }}") format("woff2");
-        }
-    </style>
+
+    <!-- Styles -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet"> --}}
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link href="{{ mix('css/app.css', 'dist') }}" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="/dist/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/dist/images/favicon-32x32.png">
@@ -36,7 +24,6 @@
     <meta name="msapplication-TileColor" content="#0b3b5b">
     <meta name="msapplication-config" content="/dist/images/browserconfig.xml">
     <meta name="theme-color" content="#0b3b5b">
-    <meta name="og:image" content="https://media.fabriq-cms.se/public/fabriq-og-image-1200.jpg">
 </head>
 <body class="bg-gradient-to-r from-royal-900 to-royal-700">
     <main class="">

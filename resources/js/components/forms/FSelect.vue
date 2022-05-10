@@ -17,7 +17,7 @@
                 :value="value"
                 :options="options"
                 :reduce="reduceFn"
-                class="relative  flex-1 block w-full px-4 py-2.5 text-sm antialiased text-gray-800 transition duration-200 ease-out appearance-none leadning-none ring-1 focus:outline-none ring-gray-300 focus:ring-gray-800 rounded"
+                class="relative h-[40px] flex-1 block w-full px-4 py-2.5 text-sm antialiased text-gray-800 transition duration-200 ease-out appearance-none leadning-none ring-1 focus:outline-none ring-gray-300 focus:ring-gray-800 rounded"
                 :class="{'bg-gray-100 text-gray-500 cursor-not-allowed' : disabled}"
                 :disabled="disabled"
                 :label="optionLabel"
@@ -77,11 +77,9 @@
                     <CircleExclamationIcon class="w-5 h-5 mr-2" />
                     {{ convertErrorMessage(errors[0]) }}</span>
             </span>
-            <p
-                v-if="helpText"
-                class="mt-2 font-sans text-xs italic text-gray-600"
-                v-text="helpText"
-            />
+            <HelpText v-if="helpText">
+                {{ helpText }}
+            </HelpText>
         </ValidationProvider>
     </div>
 </template>

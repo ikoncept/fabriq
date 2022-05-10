@@ -15,12 +15,29 @@
                     v-model="newUser.name"
                     label="Namn"
                     rules="required"
+                    validation-mode="passive"
                 />
                 <FInput
                     v-model="newUser.email"
                     label="E-post"
                     rules="required|email"
                 />
+                <FSwitch
+                    v-model="newUser.admin"
+                    column-layout
+                >
+                    Admin
+                </FSwitch>
+                <hr class="col-span-2">
+                <div class="col-span-2 mb-4">
+                    <FSwitch
+                        v-model="newUser.sendActivation"
+                        help-text="Ett e-postmeddelande skickas med instruktioner för att aktivera kontot."
+                        column-layout
+                    >
+                        Skicka aktivering
+                    </FSwitch>
+                </div>
             </div>
         </CreateModal>
         <UiSectionHeader class="mb-4">
@@ -84,6 +101,43 @@
                         >{{ role.display_name }}</UiBadge>
                     </span>
                     <span
+                        v-else-if="prop == 'email_verified_at'"
+                        @click.stop
+                    >
+                        <div
+                            v-if="item.email_verified_at"
+                            class="flex justify-end"
+                        >
+                            <CircleCheckIcon
+                                class="w-5 text-green-500"
+                            />
+                        </div>
+                        <div v-else>
+                            <FButton
+                                v-if="!item.invitation.data.is_valid"
+                                :click="() => sendActivation(item.id)"
+                                class="px-2 py-1 text-xs leading-none cursor-pointer link fabriq-button btn-royal whitespace-nowrap"
+                            >Skicka aktivering</FButton>
+                            <div v-else>
+                                <div
+                                    class="flex items-center justify-end space-x-2"
+                                >
+
+                                    <FButton
+                                        size="xs"
+                                        :click="() => sendActivation(item.id)"
+                                        class="px-2 py-1 text-xs leading-none cursor-pointer link fabriq-button btn-royal whitespace-nowrap"
+                                    >Skicka igen </FButton>
+                                    <FButton
+                                        :click="() => cancelActivation(item.id)"
+                                        class="px-2 py-1 text-xs leading-none border border-red-500 cursor-pointer link fabriq-button btn-outline-red whitespace-nowrap"
+                                        spinner-color="text-red-400"
+                                    >Avbryt<FButton /></fbutton></div>
+                                <div class="mt-1 text-xs text-neutral-500">Skickad {{ item.invitation.data.created_at | localTime }}</div>
+                            </div>
+                        </div>
+                    </span>
+                    <span
                         v-else-if="prop == 'edit'"
                         class="flex items-start justify-end space-x-5"
                     >
@@ -112,7 +166,17 @@
     </div>
 </template>
 <script>
+function newUserObject() {
+    return {
+        name: '',
+        email: '',
+        admin: false,
+        sendActivation: true,
+        role_list: []
+    }
+}
 import User from '~/models/User'
+import Invitation from '~/models/Invitation'
 export default {
     name: 'UsersIndex',
     data () {
@@ -122,14 +186,11 @@ export default {
             searchQuery: '',
             queryParams: {
                 number: 50,
-                include: 'roles',
+                include: 'roles,invitation',
                 sort: 'name',
                 'filter[search]': ''
             },
-            newUser: {
-                name: '',
-                email: ''
-            },
+            newUser: {...newUserObject()},
             columns: [
                 {
                     title: 'Namn',
@@ -151,6 +212,13 @@ export default {
                     title: 'Uppdaterad',
                     key: 'updated_at',
                     sortable: true
+                },
+                {
+                    title: 'Aktiverad',
+                    key: 'email_verified_at',
+                    sortable: false,
+                    tdClasses: 'text-right',
+                    thClasses: 'text-right',
                 },
                 {
                     title: '',
@@ -204,8 +272,28 @@ export default {
         setSearch (value) {
             this.searchQuery = value
         },
+
+        async sendActivation (id) {
+            await Invitation.store(id)
+            // await this.$store.dispatch('Invitation/store', { userId: id })
+            this.$toast.success({ title: 'Aktivering skickad!' })
+            this.fetchUsers()
+        },
+        async cancelActivation (id) {
+            try {
+                await Invitation.destroy(id)
+                this.fetchUsers()
+                this.$toast.success({ title: 'Inbjudan har tagits bort' })
+            } catch (error) {
+                console.error(error)
+            }
+        },
         async createUser () {
             try {
+                const shouldSendActivation = this.newUser.sendActivation
+                if(this.newUser.admin) {
+                    this.newUser.role_list.push('admin')
+                }
                 const { data } = await User.store(this.newUser)
                 this.$toast.success({
                     title: 'Användaren har skapats!',
@@ -213,6 +301,9 @@ export default {
                     onClick: () => this.$router.push({ name: 'users.edit', params: { id: data.id } })
                 })
                 this.$vfm.hide('createUserModal')
+                if(shouldSendActivation) {
+                    await this.sendActivation(data.id)
+                }
                 this.resetCreateModal()
                 this.fetchUsers()
             } catch (error) {
@@ -221,10 +312,7 @@ export default {
         },
         resetCreateModal () {
             setTimeout(() => {
-                this.newUser = {
-                    name: '',
-                    email: ''
-                }
+                this.newUser = { ...newUserObject() }
             }, 200)
         }
     }
