@@ -282,6 +282,7 @@ export default {
             })
         }
         if (this.defaultValue) {
+            console.log(this.defaultValue)
             this.updateValue(this.defaultValue)
         }
     },

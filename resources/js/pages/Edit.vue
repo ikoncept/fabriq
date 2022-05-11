@@ -73,29 +73,10 @@
                             name="template.data.name"
                             disabled
                         />
-                        <div class="flex col-span-3 space-x-6 lg:col-span-2">
-                            <FInput
-                                v-for="(path, index) in paths"
-                                :key="index"
-                                v-model="paths[index]"
-                                :label="pathLabelMap[index]"
-                                class="w-full"
-                                read-only
-                            >
-                                <template #buttonSuffix>
-                                    <FButton
-                                        :click="() => {
-                                            $clipboard(paths[index])
-                                            $toast.success({ title: 'Länken har kopierats'})
-                                        }"
-                                        without-loader
-                                        class="px-3 ring-1 ring-royal-500 rounded-l-none py-2.5 leading-none text-sm fabriq-btn btn-royal"
-                                    >
-                                        <PasteIcon class="h-4" />
-                                    </FButton>
-                                </template>
-                            </FInput>
-                        </div>
+                        <PagePaths
+                            :paths="paths"
+                            class="flex col-span-3 space-x-6 lg:col-span-2"
+                        />
                         <!-- <FSwitch v-if="Object.keys(localizedContent).length > 0"
                                  v-model="localizedContent[activeLocale].black_text"
                                  column-layout
@@ -356,11 +337,12 @@
 </template>
 <script>
 import Page from '~/models/Page'
+import PagePaths from '~/pages/PagePaths.vue'
 import Draggable from 'vuedraggable'
 import * as types from '~/store/mutation-types'
 export default {
     name: 'PagesEdit',
-    components: { Draggable },
+    components: { Draggable, PagePaths },
     beforeRouteLeave (from, to, next) {
         this.$vfm.hide('block-type-modal')
         this.$eventBus.$off('block-type-added', this.blockTypeAdded)
@@ -377,10 +359,6 @@ export default {
                 append: 'paths'
             },
             paths: [],
-            pathLabelMap: {
-                absolute_path: 'Absolut sökväg',
-                permalink: 'Permalänk'
-            },
             page: {
                 id: 0,
                 updated_at: '2020-01-01 10:00:00',
@@ -428,7 +406,6 @@ export default {
         this.id = this.$route.params.id
         this.$eventBus.$on('block-type-added', this.blockTypeAdded)
         this.fetchPage()
-        this.fetchPaths()
         this.$nextTick(() => {
             if (this.$route.query.openComments) {
                 this.$eventBus.$emit('open-comment-section')
@@ -439,10 +416,6 @@ export default {
         openAllCards () {
             this.$eventBus.$emit('open-all-cards')
         },
-        async fetchPaths () {
-            const { data } = await Page.paths(this.id)
-            this.paths = data
-        },
         async updateContent () {
             try {
                 const payload = {
@@ -451,7 +424,7 @@ export default {
                 }
                 await Page.update(this.id, payload)
                 this.$toast.success({ title: 'Utkastet har sparats' })
-                this.fetchPaths()
+                this.$eventBus.$emit('page-updated')
             } catch (error) {
                 console.error(error)
             }
@@ -487,7 +460,7 @@ export default {
             this.activeLocale = key
             this.$eventBus.$emit('relayout-cards')
             this.$nextTick(() => {
-                this.fetchPaths()
+                this.$eventBus.$emit('page-updated')
             })
         },
         showBlockTypeModal () {
@@ -542,12 +515,6 @@ export default {
   opacity: 0.5;
   /* background: #c8ebfb; */
 }
-.list-group {
-  /* min-height: 20px; */
-}
-.list-group-item {
-  /* cursor: move; */
-}
 .flip-list-move {
     transition: transform 0.5s;
 }
@@ -557,12 +524,6 @@ export default {
 .ghost,
 .sortable-ghost {
     opacity: 0.5;
-}
-.list-group {
-    /* min-height: 20px; */
-}
-.list-group-item {
-    /* cursor: move; */
 }
 .list-group-item i {
     cursor: pointer;
