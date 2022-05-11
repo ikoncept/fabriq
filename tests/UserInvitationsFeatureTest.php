@@ -84,9 +84,9 @@ class UserInvitationsFeatureTest extends AdminUserTestCase
 
         // Assert
         $response->assertOk();
-        $this->assertDatabaseHas('users', [
+        $this->assertDatabaseMissing('users', [
             'id' => $invitation->user_id,
-            'email_verified_at' => now()
+            'email_verified_at' => null
         ]);
         $this->assertDatabaseMissing('invitations', [
             'user_id' => $invitation->user_id,
