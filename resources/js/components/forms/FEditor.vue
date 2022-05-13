@@ -630,6 +630,9 @@ const CustomLink = Link.extend({
             title: {
                 default: null
             },
+            target: {
+                default: '_self'
+            },
             'data-filename': {
                 default: 'hehe'
             },
@@ -730,7 +733,10 @@ export default {
         },
         getLinkUrl (attributes) {
             this.linkUrl = attributes.href
-            this.linkOpenNewTab = attributes.target !== '_self'
+            if(attributes.target === null) {
+                attributes.target  = '_self'
+            }
+            this.linkOpenNewTab = (attributes.target) !== '_self'
             this.linkType = attributes.download ? 'file' : 'link'
             this.attachedFileName = attributes['data-filename']
             this.linkMenuIsActive = true
@@ -744,11 +750,12 @@ export default {
                 this.linkUrl = null
                 this.editor.chain().focus().unsetLink().run()
             } else {
+                console.log(this.linkOpenNewTab)
                 const linkObject = {
                     href: this.linkUrl,
-                    target: this.linkOpenNewTab ? '_blank' : '_self',
-                    'data-filename': '',
-                    'data-type': '',
+                    target: this.linkOpenNewTab ? '_blank' : null,
+                    'data-filename': null,
+                    'data-type': null,
                     download: null
                 }
                 this.editor.chain().focus().setLink(linkObject).run()
