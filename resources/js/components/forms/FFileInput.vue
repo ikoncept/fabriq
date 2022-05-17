@@ -7,18 +7,18 @@
         <div class="flex items-center space-x-4">
 
             <button
-                class="px-6 py-2 text-sm cursor-pointer link fabriq-button btn-gold whitespace-nowrap"
+                class="px-3 py-1 text-xs cursor-pointer link fabriq-button btn-gold whitespace-nowrap"
                 type="button"
                 @click="pickerOpen = true"
             >
                 Välj fil
             </button>
             <div v-if="! hasFile">
-                <span class="text-sm italic text-gray-300">Ingen fil vald</span>
+                <span class="text-xs italic text-neutral-400">Ingen fil vald</span>
             </div>
             <div v-else>
-                <div class="flex items-center space-x-4 text-sm ">
-                    <div class="text-sm truncate max-w-32 xl:max-w-48">
+                <div class="flex items-center space-x-4 text-sm">
+                    <div class="text-xs line-clamp-1">
                         {{ localFile.c_name }}
                     </div>
                     <div class="flex justify-start space-x-2">
