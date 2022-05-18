@@ -41,7 +41,7 @@ class VideoController extends ApiController
     {
         $eagerLoad = $this->getEagerLoad(Video::RELATIONSHIPS);
 
-        $video = Video::where('id', $id)->with($eagerLoad)->firstOrFail();
+        $video = Fabriq::getFqnModel('video')::where('id', $id)->with($eagerLoad)->firstOrFail();
 
         return $this->respondWithItem($video, new VideoTransformer);
     }
@@ -50,7 +50,7 @@ class VideoController extends ApiController
     public function update(Request $request, int $id) : JsonResponse
     {
         $eagerLoad = $this->getEagerLoad();
-        $video = Video::where('id', $id)->with($eagerLoad)->firstOrFail();
+        $video = Fabriq::getFqnModel('video')::where('id', $id)->with($eagerLoad)->firstOrFail();
         $video->alt_text = $request->alt_text;
         $video->caption = $request->caption;
 
@@ -67,7 +67,7 @@ class VideoController extends ApiController
 
     public function destroy(int $id) : JsonResponse
     {
-        $video = Video::findOrFail($id);
+        $video = Fabriq::getFqnModel('video')::findOrFail($id);
         $video->delete();
 
         return $this->respondWithSuccess('Video has been deleted');

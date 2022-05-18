@@ -57,7 +57,7 @@ class FileController extends ApiController
 
     public function update(Request $request, int $id) : JsonResponse
     {
-        $file = File::findOrFail($id);
+        $file = Fabriq::getFqnModel('file')::findOrFail($id);
 
         $file->readable_name = $request->readable_name;
         $file->caption = $request->caption;
@@ -72,7 +72,7 @@ class FileController extends ApiController
 
     public function destroy(Request $request, int $id) : JsonResponse
     {
-        $file = File::findOrFail($id);
+        $file = Fabriq::getFqnModel('file')::findOrFail($id);
         $file->delete();
 
         return $this->respondWithSuccess('The file has been deleted');

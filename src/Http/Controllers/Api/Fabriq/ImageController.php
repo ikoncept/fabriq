@@ -63,7 +63,7 @@ class ImageController extends ApiController
 
     public function update(UpdateImageRequest $request, int $id) : JsonResponse
     {
-        $image = Image::findOrFail($id);
+        $image = Fabriq::getFqnModel('image')::findOrFail($id);
         $image->fill($request->validated());
         $image->imageTags = $request->validated()['tags'] ?? [];
         $media = $image->getFirstmedia('images');
@@ -77,7 +77,7 @@ class ImageController extends ApiController
 
     public function destroy(Request $request, int $id) : JsonResponse
     {
-        $image = Image::findOrFail($id);
+        $image = Fabriq::getFqnModel('image')::findOrFail($id);
         $image->delete();
 
         return $this->respondWithSuccess('The image has been deleted');
