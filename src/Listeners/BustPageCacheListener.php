@@ -28,12 +28,17 @@ class BustPageCacheListener
     public function handle(DefinitionsPublished $event)
     {
         $tagName = Str::lower(class_basename($event->model));
+
+        Log::info('Flushing menu cache');
+        Cache::tags('cms_menu')->flush();
+
+        if(! $event->model->slugs) {
+            return;
+        }
+
         foreach($event->model->slugs as $slug) {
             Log::info('Flushing page cache', ['name' => $event->model->name, 'key' => 'cms_' . $tagName . '_' . $slug->slug]);
             Cache::tags('cms_' . $tagName . '_' . $slug->slug)->flush();
-
-            Log::info('Flushing menu cache');
-            Cache::tags('cms_menu')->flush();
         }
     }
 }
