@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\UploadImageRequest;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\Image;
@@ -15,7 +16,7 @@ class ImageUploadController extends ApiController
 
     public function store(UploadImageRequest $request) : JsonResponse
     {
-        $image = new Image();
+        $image = Fabriq::getModelClass('image');
         $image->save();
         try {
             $image->saveMedia($request->has('url'));

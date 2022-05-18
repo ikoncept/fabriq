@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\File;
 use Illuminate\Http\JsonResponse;
@@ -14,7 +15,7 @@ class FileUploadController extends ApiController
 
     public function store(Request $request) : JsonResponse
     {
-        $file = new File();
+        $file = Fabriq::getModelClass('file');
         $file->save();
         try {
             $file->addMediaFromRequest('file')

@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\Video;
 use Illuminate\Http\JsonResponse;
@@ -15,7 +16,7 @@ class VideoUploadController extends ApiController
 
     public function store(Request $request) : JsonResponse
     {
-        $video = new Video();
+        $video = Fabriq::getModelClass('video');
         $video->save();
         try {
             $video->addMediaFromRequest('video')
