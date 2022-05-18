@@ -56,7 +56,7 @@ class ImageController extends ApiController
      */
     public function show(Request $request, $id) : JsonResponse
     {
-        $image = Image::findOrFail($id);
+        $image = Fabriq::getFqnModel('image')::findOrFail($id);
 
         return $this->respondWithItem($image, new ImageTransformer);
     }

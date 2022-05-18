@@ -48,7 +48,7 @@ class FileController extends ApiController
     public function show(Request $request, int $id) : JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(File::RELATIONSHIPS);
-        $file = File::where('id', $id)
+        $file = Fabriq::getFqnModel('file')::where('id', $id)
             ->with($eagerLoad)
             ->firstOrFail();
 
