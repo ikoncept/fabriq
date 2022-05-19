@@ -76,7 +76,8 @@ class ResponsiveImageGenerator extends SpatieResponsiveImageGenerator
 
     protected function buildPayload(Collection $widths, Media $media) : Collection
     {
-        $mediaPathGenerator = new MediaPathGenerator();
+        $generatorClass = config('fabriq.media-library.path_generator');
+        $mediaPathGenerator = new $generatorClass();
         $responsiveImagePath = $this->fileNamer->temporaryFileName($media, $this->fileType);
         return $widths->map(function ($width) use ($media, $responsiveImagePath, $mediaPathGenerator) {
             return [
