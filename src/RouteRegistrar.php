@@ -55,7 +55,7 @@ class RouteRegistrar
         Route::get('/invitations/accept/{token}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AcceptInvitationController::class, 'show'])->name('invitation.accept');
         Route::post('/invitations/accept/{token}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AcceptInvitationController::class, 'store'])->name('invitation.accept.store');
 
-        Route::get('/permalink/{hash}/{locale?}', \Ikoncept\Fabriq\Http\Controllers\PermaLinkRedirectController::class)
+        Route::get('/permalink/{hash}/{locale?}', \Ikoncept\Fabriq\Http\Controllers\PermalinkRedirectController::class)
             ->name('permalink.redirect');
 
         Route::get('/login', [AuthenticatedSessionController::class, 'create'])
