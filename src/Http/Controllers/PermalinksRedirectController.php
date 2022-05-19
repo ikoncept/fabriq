@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
 use Infab\Core\Traits\ApiControllerTrait;
 
-class PermalinkRedirectController extends Controller
+class PermalinksRedirectController extends Controller
 {
     use ApiControllerTrait;
 
