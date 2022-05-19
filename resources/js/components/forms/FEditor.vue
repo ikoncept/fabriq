@@ -1668,7 +1668,7 @@ export default {
                     height: data.height,
                     width: data.width,
                     onload: data.onload,
-                    srcset: data.srcset,
+                    srcset: data.srcset ?? null,
                     alt: data.alt_text
                 }
                 console.log(imageObject)
