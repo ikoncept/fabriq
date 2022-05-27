@@ -80,7 +80,7 @@ class Comment extends Model
             if(! $model->parent_id) {
                 return;
             }
-            if(! $model->parent->children->count()) {
+            if($model->parent->anonymized_at && ! $model->parent->children->count()) {
                 $model->parent->delete();
             }
         });
