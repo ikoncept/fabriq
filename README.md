@@ -186,8 +186,11 @@ If the Laravel Echo plugin isn't imported it will not be enabled.
 Don't forget to add the proper `.env` variables:
 
 ```
-PUSHER_APP_KEY=your-app-key
-PUSHER_APP_SECRET=the-secret-key
+BROADCAST_DRIVER=ikoncept_pusher
+PUSHER_APP_ID=400
+PUSHER_APP_KEY=your-key
+PUSHER_APP_SECRET=your-secret
+PUSHER_APP_CLUSTER=mt1
 ```
 
 If you want to have a presence channel for a specific page, simply add it to the route:
@@ -218,26 +221,7 @@ If you want to have a broadcast channel for a specific page, simply add it to th
 ```
 When the broadcast middleware is applied it will listen to `updated`, `created` and `deleted` events. Which is useful for index views when live updates are needed.
 
-It will also listen to `updated` events for specific items, such as an article with the id of 1 and then emit an event.
 
-```js
-Echo.channel(`${broadcastName}.${to.params.id}`)
-    .listen(`.${capitializedBroadcastName}Updated`, event => {
-        // Emit refresh
-        router.app.$eventBus.$emit('model-refresh', to.path)
-    })
-```
-
-If using the BroadcastMiddleware the BroadcastMixin can be used:
-```javascript
-import BroadcastMixin from '~/mixins/BroadcastMixin'
-
-export default {
-    mixins: [BroadcastMixin]
-}
-```
-
-This mixin contains an event listener for the event above (`model-refresh`) and informs the parent component to fetch new data.
 
 ### Updating ♻️
 You can publish new front end assets with the `php artisan fabriq:update` command. This command will publish new front end assets and run migrations.

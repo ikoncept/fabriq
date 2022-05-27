@@ -85,6 +85,10 @@ class FabriqCoreServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/fabriq.php', 'fabriq');
         $this->mergeConfigFrom(__DIR__.'/../config/fortify.php', 'fortify');
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/ikoncept-websockets.php',
+            'broadcasting.connections'
+        );
 
         $this->app->register(BroadcastServiceProvider::class);
         $this->app->register(EventServiceProvider::class);
