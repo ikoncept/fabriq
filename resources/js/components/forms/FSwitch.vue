@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="{'opacity-70': inputDisabled}">
         <FLabel
             v-if="columnLayout"
             class="mb-2 cursor-pointer select-none"
@@ -90,6 +90,10 @@ export default {
         helpText: {
             type: String,
             default: ''
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -109,7 +113,19 @@ export default {
                 this.newValue = value
                 this.$emit('input', value)
             }
-        }
+        },
+        currentUserIsFirstIn() {
+            return this.$store.getters['echo/currentUserIsFirstIn']
+        },
+        inputDisabled() {
+            if(this.disabled) {
+                return true
+            }
+            if(! this.currentUserIsFirstIn) {
+                return true
+            }
+            return false
+        },
     },
     watch: {
         /**
@@ -121,6 +137,9 @@ export default {
     },
     methods: {
         toggleSwitch () {
+            if(this.inputDisabled) {
+                return
+            }
             this.computedValue = !this.computedValue
         }
     }

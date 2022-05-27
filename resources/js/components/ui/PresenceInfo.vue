@@ -2,21 +2,28 @@
     <Transition name="fade">
         <div
             v-if="moreThanOne"
-            class="flex space-x-2"
+            class="flex items-center space-x-2"
         >
+            <p
+                v-show="currentUserIsFirst"
+                class="text-xs italic text-neutral-600"
+            >
+                Sidan är låst eftersom en annan användare redigerar den
+            </p>
             <TransitionGroup
                 name="fade"
                 tag="div"
-                class="flex space-x-2"
+                class="flex -space-x-2"
             >
                 <div
-                    v-for="user in usersIdleWithoutKey"
+                    v-for="(user, index) in usersIdleWithoutKey"
                     :key="user.id"
                     v-tooltip.bottom="{ delay: { show: 100, hide: 100 }, content: authenticatedUser.id !== user.id ? `${user.name} tittar på denna sida nu` : 'Det är du!' }"
+                    :class="{'z-10' : index === 0}"
                 >
                     <UiAvatar
                         :user="user"
-                        class="w-7 h-7"
+                        class="object-cover border rounded-full w-7 h-7 "
                     />
                 </div>
             </TransitionGroup>
@@ -37,8 +44,17 @@ export default {
             return Object.values(this.usersIdle)[0]
         },
         moreThanOne () {
-            // return this.usersIdleWithoutKey.length > 1
-            return true
+            if(!this.usersIdleWithoutKey) {
+                return false
+            }
+            return this.usersIdleWithoutKey.length > 1
+        },
+        currentUserIsFirst() {
+            if(! this.moreThanOne) {
+                return true
+            }
+
+            return this.authenticatedUser.id !== this.usersIdleWithoutKey[0].id
         }
     }
 }

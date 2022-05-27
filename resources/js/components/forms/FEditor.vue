@@ -543,7 +543,10 @@
             v-else
             class="relative"
         >
-            <div class="absolute top-0 right-0 flex items-center justify-end mt-1 mr-1">
+            <div
+                v-if="!inputDisabled"
+                class="absolute top-0 right-0 flex items-center justify-end mt-1 mr-1"
+            >
                 <button class="flex items-center py-1 pl-3 pr-4 space-x-2 text-xs fabriq-btn btn-royal">
                     <PencilIcon class="w-3 h-3" />
                     <span>
@@ -552,7 +555,7 @@
                 </button>
             </div>
             <div
-                class="relative min-w-full p-4 prose-sm prose border-2 border-t-0 border-dashed rounded cursor-pointer opacity-80 border-royal-200 min-h-12"
+                class="relative min-w-full p-4 prose-sm prose border-2 border-t-0 border-dashed rounded opacity-80 border-royal-200 min-h-12"
                 @click="startEditing"
                 v-html="value"
             />
@@ -675,6 +678,10 @@ export default {
         helpText: {
             type: String,
             default: ''
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -1407,7 +1414,7 @@ export default {
             v-else
             class="relative"
         >
-            <div class="absolute top-0 right-0 flex items-center justify-end mt-1 mr-1">
+            <div class="absolute top-0 right-0 flex items-center justify-end mt-1 mr-1" v-if="!inputDisabled">
                 <button class="flex items-center py-1 pl-3 pr-4 space-x-2 text-xs fabriq-btn btn-royal">
                     <PencilIcon class="w-3 h-3" />
                     <span>
@@ -1416,7 +1423,8 @@ export default {
                 </button>
             </div>
             <div
-                class="relative min-w-full p-4 prose-sm prose border-2 border-t-0 border-dashed rounded cursor-pointer opacity-80 border-royal-200 min-h-12"
+                :class="!inputDisabled ? 'cursor-pointer' : 'cursor-not-allowed'"
+                class="relative min-w-full p-4 prose-sm prose border-2 border-t-0 border-dashed rounded opacity-80 border-royal-200 min-h-12"
                 @click="startEditing"
                 v-html="value"
             />
@@ -1561,6 +1569,20 @@ export default {
             tabIdentifier: Math.random().toString(20).substr(2, 6)
         }
     },
+    computed: {
+        currentUserIsFirstIn() {
+            return this.$store.getters['echo/currentUserIsFirstIn']
+        },
+        inputDisabled() {
+            if(this.disabled) {
+                return true
+            }
+            if(! this.currentUserIsFirstIn) {
+                return true
+            }
+            return false
+        },
+    },
     mounted () {
         this.editor = new Editor({
             // content: '<p>I’m running tiptap with Vue.js. 🎉</p>',
@@ -1593,6 +1615,9 @@ export default {
     },
     methods: {
         startEditing() {
+            if(this.inputDisabled) {
+                return
+            }
             this.isEditing = true
             this.$nextTick( () => {
                 this.editor.commands.focus('end')

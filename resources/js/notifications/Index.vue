@@ -90,6 +90,10 @@ export default {
     components: {
         PageComment
     },
+    beforeRouteLeave(from, to, next) {
+        this.$eventBus.$off('user-mentioned-echo', this.fetchItems)
+        next()
+    },
     data () {
         return {
             email: '',
@@ -131,6 +135,9 @@ export default {
                 }
             ]
         }
+    },
+    mounted() {
+        this.$eventBus.$on('user-mentioned-echo', this.fetchItems)
     },
     activated () {
         this.fetchUnseenItems()

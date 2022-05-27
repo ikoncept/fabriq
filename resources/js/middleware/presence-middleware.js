@@ -5,11 +5,11 @@ export default function PresenceMiddleware ({ next, to, router, store }) {
     }
     const Echo = router.app.$echo
     const id = to.params.id
-    const pusherAppId = window.fabriqCms.pusher.appId
+    const wsPrefix = window.fabriqCms.pusher.ws_prefix
     const roomName = to.name
     const identifier = roomName + '.' + id
 
-    Echo.join(pusherAppId + '.presence.' + identifier)
+    Echo.join(wsPrefix + '.presence.' + identifier)
         .here((users) => {
             const object = {}
             object[identifier] = users

@@ -1,89 +1,91 @@
 <template>
-    <span>
-        <FLabel
-            v-if="label"
-            :padding="false"
-        >{{ label }}</FLabel>
-        <div
-            :ref="randomRef"
-
-            class="relative flex items-center justify-center transition-colors duration-150 border-dashed rounded-md aspect-w-16 aspect-h-9"
-            :class="[hasVideo ? 'border-transparent ring-2 ring-inset' : 'ring-royal-500  ring-2 ring-inset', isDraggingOver ? 'bg-royal-100' : 'bg-royal-50']"
-        >
+    <span :class="{'opacity-70 cursor-not-allowed': inputDisabled }">
+        <span :class="{'pointer-events-none': inputDisabled }">
+            <FLabel
+                v-if="label"
+                :padding="false"
+            >{{ label }}</FLabel>
             <div
-                v-show=" !hasVideo"
-                class="absolute flex flex-col items-center justify-center "
+                :ref="randomRef"
+
+                class="relative flex items-center justify-center transition-colors duration-150 border-dashed rounded-md aspect-w-16 aspect-h-9"
+                :class="[hasVideo ? 'border-transparent ring-2 ring-inset' : 'ring-royal-500  ring-2 ring-inset', isDraggingOver ? 'bg-royal-100' : 'bg-royal-50']"
             >
                 <div
-                    class="flex flex-col items-center space-y-2 text-sm "
+                    v-show=" !hasVideo"
+                    class="absolute flex flex-col items-center justify-center "
                 >
-                    <div>
-                        <button
-                            :ref="randomButtonRef"
-                            type="button"
-                            class="inline-flex px-6 py-2.5 mb-2 text-sm leading-none fabriq-btn btn-royal"
-                        >Ladda upp video</button>
-                    </div>
-                    eller
-                    <button
-                        class="cursor-pointer link"
-                        type="button"
-                        @click="pickerOpen = true"
+                    <div
+                        class="flex flex-col items-center space-y-2 text-sm "
                     >
-                        välj från arkivet
-                    </button>
-                </div>
-                <FUpload
-                    class="absolute pt-4 pb-1 mx-auto text-sm "
-                    :max-items="1"
-                    endpoint="/api/admin/uploads/videos"
-                    types="video/mp4,video/mov,video/quicktime,video/webm"
-                    upload-name="video"
-                    :drop-ref="randomRef"
-                    :button-ref="randomButtonRef"
-                    without-button
-                    @upload-complete="handleNewVideo"
-                />
-            </div>
-            <div
-                v-if="hasVideo"
-                class="absolute w-full h-full group"
-            >
-                <div class="absolute inset-0 z-10 flex items-end justify-center transition-opacity duration-300 opacity-0 group-hover:opacity-100 ">
-                    <button
-                        type="button"
-                        class="absolute top-0 right-0 flex items-center px-4 py-2 space-x-2 text-sm font-semibold text-white bg-gray-800 rounded-bl-md rounded-tr-md"
-
-                        @click="$vfm.show('video-modal', {id: localVideo.id})"
-                    > <PencilIcon class="w-3.5" /> <span>Redigera</span></button>
-                    <div class="flex w-full -mb-px">
+                        <div>
+                            <button
+                                :ref="randomButtonRef"
+                                type="button"
+                                class="inline-flex px-6 py-2.5 mb-2 text-sm leading-none fabriq-btn btn-royal"
+                            >Ladda upp video</button>
+                        </div>
+                        eller
                         <button
-                            class="flex items-center justify-center w-full px-4 py-4 text-sm font-semibold leading-none text-white transition-colors duration-150 bg-gray-800 focus:outline-none rounded-bl-md hover:bg-gray-900"
-
+                            class="cursor-pointer link"
+                            type="button"
                             @click="pickerOpen = true"
-                        >Byt</button>
-                        <button
-                            class="flex items-center justify-center w-full px-4 py-4 text-sm font-semibold leading-none text-white transition-colors duration-150 bg-gray-800 focus:outline-none rounded-br-md hover:bg-gray-900"
-                            @click="clearVideo"
                         >
-                            Ta bort
+                            välj från arkivet
                         </button>
                     </div>
+                    <FUpload
+                        class="absolute pt-4 pb-1 mx-auto text-sm "
+                        :max-items="1"
+                        endpoint="/api/admin/uploads/videos"
+                        types="video/mp4,video/mov,video/quicktime,video/webm"
+                        upload-name="video"
+                        :drop-ref="randomRef"
+                        :button-ref="randomButtonRef"
+                        without-button
+                        @upload-complete="handleNewVideo"
+                    />
                 </div>
-                <div class="absolute inset-0 transition-opacity duration-300 bg-black rounded-md opacity-0 group-hover:opacity-50 overlay " />
-                <UiImagePresenter
-                    thumbnail
-                    :image="localVideo"
-                    class="block object-cover w-full h-full rounded-md"
-                />
+                <div
+                    v-if="hasVideo"
+                    class="absolute w-full h-full group"
+                >
+                    <div class="absolute inset-0 z-10 flex items-end justify-center transition-opacity duration-300 opacity-0 group-hover:opacity-100 ">
+                        <button
+                            type="button"
+                            class="absolute top-0 right-0 flex items-center px-4 py-2 space-x-2 text-sm font-semibold text-white bg-gray-800 rounded-bl-md rounded-tr-md"
+
+                            @click="$vfm.show('video-modal', {id: localVideo.id})"
+                        > <PencilIcon class="w-3.5" /> <span>Redigera</span></button>
+                        <div class="flex w-full -mb-px">
+                            <button
+                                class="flex items-center justify-center w-full px-4 py-4 text-sm font-semibold leading-none text-white transition-colors duration-150 bg-gray-800 focus:outline-none rounded-bl-md hover:bg-gray-900"
+
+                                @click="pickerOpen = true"
+                            >Byt</button>
+                            <button
+                                class="flex items-center justify-center w-full px-4 py-4 text-sm font-semibold leading-none text-white transition-colors duration-150 bg-gray-800 focus:outline-none rounded-br-md hover:bg-gray-900"
+                                @click="clearVideo"
+                            >
+                                Ta bort
+                            </button>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 transition-opacity duration-300 bg-black rounded-md opacity-0 group-hover:opacity-50 overlay " />
+                    <UiImagePresenter
+                        thumbnail
+                        :image="localVideo"
+                        class="block object-cover w-full h-full rounded-md"
+                    />
+                </div>
             </div>
-        </div>
-        <FMediaPicker
-            :open="pickerOpen"
-            media-type="video"
-            @close="pickerOpen = false"
-            @item-picked="pickVideo"
-        />
+            <FMediaPicker
+                :open="pickerOpen"
+                media-type="video"
+                @close="pickerOpen = false"
+                @item-picked="pickVideo"
+            />
+        </span>
     </span>
 </template>
 <script>
@@ -128,6 +130,10 @@ export default {
         syncSimilar: {
             type: Boolean,
             default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -146,7 +152,19 @@ export default {
         },
         hasVideo () {
             return this.localVideo.id
-        }
+        },
+        currentUserIsFirstIn() {
+            return this.$store.getters['echo/currentUserIsFirstIn']
+        },
+        inputDisabled() {
+            if(this.disabled) {
+                return true
+            }
+            if(! this.currentUserIsFirstIn) {
+                return true
+            }
+            return false
+        },
     },
     created () {
         this.localVideo = { ...this.value }

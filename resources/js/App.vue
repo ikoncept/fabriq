@@ -69,17 +69,47 @@ export default {
             return this.$store.getters['user/userRoles']
         }
     },
-    created () {
-        this.$store.dispatch('user/index')
+    async created () {
+        await this.$store.dispatch('user/index')
         this.$store.dispatch('config/index')
         this.$store.dispatch('user/notifications')
         this.startPoll()
     },
     methods: {
         startPoll () {
+            if(this.$echo) {
+                // Listen to private user events
+
+                this.listenToEchoEvents();
+                return
+            }
             this.pollingNotifications = setInterval(() => {
                 this.$store.dispatch('user/notifications')
             }, 1000 * 15)
+        },
+        listenToEchoEvents() {
+            const wsPrefix = window.fabriqCms.pusher.ws_prefix
+            this.$echo.channel(`${wsPrefix}.comments`)
+                .listen(`.comment.posted`, (event) => {
+                    if (this.$store.getters['user/user'].id !== event.comment.user_id) {
+                        this.$eventBus.$emit('comment-posted-echo', event)
+                    }
+                })
+                .listen(`.comment.deleted`, (event) => {
+                    if (this.$store.getters['user/user'].id !== event.comment.user_id) {
+                        this.$eventBus.$emit('comment-posted-echo', event)
+                    }
+                })
+
+            this.$echo.private(`${wsPrefix}.user.${this.$store.getters['user/user'].id}`)
+                .listen(`.comment.user-mentioned`, (event) => {
+                    this.$eventBus.$emit('user-mentioned-echo', event)
+                    this.$store.dispatch('user/notifications')
+                })
+                .listen(`.notification.deleted`, (event) => {
+                    this.$eventBus.$emit('user-mentioned-echo', event)
+                    this.$store.dispatch('user/notifications')
+                })
         }
     }
 }
