@@ -55,7 +55,7 @@ class UserMentionedInComment implements ShouldBroadcast
     {
         $prefix = config('fabriq.ws_prefix');
 
-        return [new PrivateChannel($prefix . '.user.'. $this->comment->user_id)];
+        return [new PrivateChannel($prefix . '.user.' . $this->notification->user_id)];
     }
 
     public function broadcastWith() : array
