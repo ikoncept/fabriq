@@ -10,9 +10,16 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NotificationDeleted implements ShouldBroadcast
+class UserMentionedInComment implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    /**
+     * The comment posted
+     *
+     * @var mixed
+     */
+    public $comment;
 
     /**
      * The notification
@@ -24,17 +31,19 @@ class NotificationDeleted implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
+     * @param mixed $comment
      * @param mixed $notification
      * @return void
      */
-    public function __construct($notification)
+    public function __construct($comment, $notification)
     {
+        $this->comment = $comment;
         $this->notification = $notification;
     }
 
     public function broadcastAs() : string
     {
-        return 'notification.deleted';
+        return 'comment.user-mentioned';
     }
 
     /**
@@ -46,12 +55,13 @@ class NotificationDeleted implements ShouldBroadcast
     {
         $prefix = config('fabriq.ws_prefix');
 
-        return new PrivateChannel($prefix . '.user.'. $this->notification->user_id);
+        return [new PrivateChannel($prefix . '.user.'. $this->comment->user_id)];
     }
 
     public function broadcastWith() : array
     {
         return [
+            'comment' => $this->comment,
             'notification' => $this->notification,
         ];
     }

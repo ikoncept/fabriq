@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use Ikoncept\Fabriq\Events\CommentDeleted;
 use Ikoncept\Fabriq\Events\CommentPosted;
 use Ikoncept\Fabriq\Events\NotificationDeleted;
+use Ikoncept\Fabriq\Events\UserMentionedInComment;
 use Ikoncept\Fabriq\Models\Notification;
 
 use Illuminate\Foundation\Testing\WithFaker;
@@ -297,7 +299,8 @@ class CommentableFeatureTest extends AdminUserTestCase
     public function it_will_create_a_notification_if_a_user_is_mentionend_in_the_comment()
     {
         // Arrange
-        Event::fake(CommentPosted::class);
+        Event::fake([CommentPosted::class, UserMentionedInComment::class]);
+        // Event::fake(UserMentionedInComment::class);
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $otherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
             'name' => 'Roger Pontare',
@@ -323,12 +326,14 @@ class CommentableFeatureTest extends AdminUserTestCase
             'user_id' => $anotherUser->id
         ]);
         Event::assertDispatched(CommentPosted::class);
+        Event::assertDispatched(UserMentionedInComment::class);
     }
 
     /** @test **/
     public function it_will_delete_the_anonymized_parent_if_there_are_no_children_left()
     {
         // Arrange
+        Event::fake(CommentDeleted::class);
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $user = \Ikoncept\Fabriq\Models\User::factory()->create();
         $comment = $page->commentAs($user, 'This is my special comment!');
@@ -344,5 +349,6 @@ class CommentableFeatureTest extends AdminUserTestCase
         $this->assertDatabaseMissing('comments', [
             'id' => $comment->id
         ]);
+        Event::assertDispatched(CommentDeleted::class);
     }
 }

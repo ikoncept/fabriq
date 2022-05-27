@@ -1,11 +1,36 @@
-import * as types from '~/store/mutation-types'
+import * as types from '~/store/mutation-types';
 
 export const state = {
     usersIdle: {}
 }
 
 export const getters = {
-    usersIdle: state => state.usersIdle
+    usersIdle: (state) => {
+        const localCopy = { ...state.usersIdle }
+        Object.keys(localCopy).forEach((key, index) => {
+            localCopy[key].sort((a, b) => {
+                return a.timestamp - b.timestamp
+            })
+        })
+
+        return localCopy
+    },
+    currentUserIsFirstIn: (state, getters, rootState, rootGetters) => {
+        const users = Object.values(getters.usersIdle)[0]
+
+        if (!users) {
+            return true
+        }
+        if (users.length <= 1) {
+            return true
+        }
+
+        if (users[0].id === rootGetters['user/user'].id) {
+            return true
+        }
+
+        return false
+    }
 }
 
 export const mutations = {

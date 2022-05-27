@@ -10,6 +10,7 @@ import Home from '~/Home'
 import ImagesIndex from '~/images/Index'
 import MenusEdit from '~/menus/Edit'
 import MenusIndex from '~/menus/Index'
+import BroadcastMiddleware from '~/middleware/broadcast-middleware'
 import PresenceMiddleware from '~/middleware/presence-middleware'
 import RolesMiddleware from '~/middleware/roles-middleware'
 import NotificationIndex from '~/notifications/Index'
@@ -72,9 +73,10 @@ export default [
         name: 'pages.edit',
         component: PagesEdit,
         meta: {
-            middleware: [RolesMiddleware, PresenceMiddleware],
+            middleware: [RolesMiddleware, PresenceMiddleware, BroadcastMiddleware],
             roles: ['admin'],
-            commentable: true
+            commentable: true,
+            broadcastName: 'page'
         }
     },
     {

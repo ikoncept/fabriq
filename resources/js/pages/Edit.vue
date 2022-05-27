@@ -1,41 +1,65 @@
 <template>
     <div>
+        <RefreshObjectModal>
+            <template #title>
+                Sidan har uppdaterats
+            </template>
+            <template #default="{ params }">
+                <p
+                    v-if="params.model"
+                    class="text-sm"
+                >
+                    Sidan har uppdaterats av <span class="font-medium">{{ params.model.updatedByName }}</span>, därför behöver sidan laddas om.
+                </p>
+            </template>
+        </RefreshObjectModal>
         <UiSectionHeader>
             Redigera sida
             <template #subtitle>
-                {{ page.name }}
+                <div class="flex items-end space-x-4">
+                    <span>
+                        {{ page.name }}
+                    </span>
+                </div>
             </template>
             <template #tools>
-                <div class="flex flex-wrap space-x-4 whitespace-nowrap">
-                    <FButton
-                        class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-link"
-                        back-button="pages.index"
-                    >
-                        Avbryt
-                    </FButton>
-                    <FButton
-                        :click="previewPage"
-                        spinner-color="text-royal-500"
-                        class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-outline-royal"
-                    >
-                        Förhandsgranska
-                    </FButton>
-                    <FButton
-                        :click="updateContent"
-                        spinner-color="text-royal-500"
-                        class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-outline-royal"
-                    >
-                        Spara utkast
-                    </FButton>
-                    <FButton
-                        :click="publishPage"
-                        class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-royal"
-                    >
-                        Spara & publicera
-                    </FButton>
+                <div :class="{'opacity-70 pointer-events-none': !currentUserIsFirstIn }">
+                    <div class="flex flex-wrap space-x-4 whitespace-nowrap">
+                        <FButton
+                            class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-link"
+                            back-button="pages.index"
+                        >
+                            Avbryt
+                        </FButton>
+                        <FButton
+                            :click="previewPage"
+                            spinner-color="text-royal-500"
+                            class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-outline-royal"
+                        >
+                            Förhandsgranska
+                        </FButton>
+                        <FButton
+                            :click="updateContent"
+                            spinner-color="text-royal-500"
+                            class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-outline-royal"
+                        >
+                            Spara utkast
+                        </FButton>
+                        <FButton
+                            :click="publishPage"
+                            class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-royal"
+                        >
+                            Spara & publicera
+                        </FButton>
+                    </div>
                 </div>
             </template>
         </UiSectionHeader>
+        <div class="flex justify-end">
+            <div class="absolute mt-2">
+                <PresenceInfo />
+            </div>
+        </div>
         <FTabs
             v-if="Object.keys(locales).length > 0"
             @change="setLanguage"
@@ -339,13 +363,15 @@
 import Page from '~/models/Page'
 import PagePaths from '~/pages/PagePaths.vue'
 import Draggable from 'vuedraggable'
+import RefreshObjectModal from '~/components/modals/RefreshObjectModal.vue'
 import * as types from '~/store/mutation-types'
 export default {
     name: 'PagesEdit',
-    components: { Draggable, PagePaths },
+    components: { Draggable, PagePaths, RefreshObjectModal },
     beforeRouteLeave (from, to, next) {
         this.$vfm.hide('block-type-modal')
         this.$eventBus.$off('block-type-added', this.blockTypeAdded)
+        this.$eventBus.$off('page-updated-echo', this.askToUpdatePage)
         this.$destroy()
         next()
     },
@@ -358,7 +384,6 @@ export default {
                 locale: 'all',
                 append: 'paths'
             },
-            paths: [],
             page: {
                 id: 0,
                 updated_at: '2020-01-01 10:00:00',
@@ -369,6 +394,7 @@ export default {
                     data: {}
                 }
             },
+            paths: [],
             fields: {},
             content: {},
             groupedFields: [],
@@ -400,11 +426,15 @@ export default {
             set (value) {
                 this.$store.commit(`config/${types.SET_ACTIVE_LOCALE}`, value)
             }
-        }
+        },
+        currentUserIsFirstIn() {
+            return this.$store.getters['echo/currentUserIsFirstIn']
+        },
     },
     activated () {
         this.id = this.$route.params.id
         this.$eventBus.$on('block-type-added', this.blockTypeAdded)
+        this.$eventBus.$on('page-updated-echo', this.askToUpdatePage)
         this.fetchPage()
         this.$nextTick(() => {
             if (this.$route.query.openComments) {
@@ -413,6 +443,9 @@ export default {
         })
     },
     methods: {
+        askToUpdatePage(event) {
+            this.$vfm.show('RefreshObjectModal', event)
+        },
         openAllCards () {
             this.$eventBus.$emit('open-all-cards')
         },
@@ -444,11 +477,12 @@ export default {
             }
             try {
                 this.page.id = 0
+                let localizedContent = null
                 const { data } = await Page.show(this.id, payload)
                 this.page = data
                 this.fields = data.template.data.fields
                 this.groupedFields = data.template.data.groupedFields.data
-                const localizedContent = { ...data.localizedContent.data }
+                localizedContent = { ...data.localizedContent.data }
                 Object.keys(localizedContent).forEach((item) => {
                     this.$set(this.localizedContent, item, { ...localizedContent[item].content })
                 })

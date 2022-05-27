@@ -140,7 +140,7 @@ class Contact extends Model
      */
     public function broadcastOn($event)
     {
-        $prefix = config('broadcasting.connections.pusher.key');
+        $prefix = config('fabriq.ws_prefix');
 
         return [new Channel($prefix.'-contact'), new Channel('contact.' . $this->id)];
     }

@@ -31,11 +31,26 @@ function afterEach (to, from) {
     store.commit('ui/CLOSE_MENU')
     const Echo = router.app.$echo
     if (Echo) {
+
         const id = from.params.id
         const roomName = from.name
         const identifier = roomName + '.' + id
-        const pusherAppId = window.fabriqCms.pusher.appId
-        Echo.leave(pusherAppId + '.presence.' + identifier)
+        const wsPrefix = window.fabriqCms.pusher.ws_prefix
+        Echo.leave(wsPrefix + '.presence.' + identifier)
+
+        if (from.meta.broadcastName) {
+            const broadcastName = from.meta.broadcastName
+            const capitalizedBroadcastName = broadcastName[0].toUpperCase() + broadcastName.slice(1)
+
+            // console.log('byenye', capitalizedBroadcastName, `${wsPrefix}-${broadcastName}.${id}`, `${capitalizedBroadcastName}Updated`)
+            Echo.channel(`${wsPrefix}-${broadcastName}.${id}`)
+                .stopListening(`.${capitalizedBroadcastName}Updated`)
+
+            Echo.channel(`${wsPrefix}-${broadcastName}.`)
+                .stopListening(`.${capitalizedBroadcastName}Updated`)
+                .stopListening(`.${capitalizedBroadcastName}Deleted`)
+                .stopListening(`.${capitalizedBroadcastName}Created`)
+        }
     }
 }
 

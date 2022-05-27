@@ -32,7 +32,7 @@
                             type="radio"
                             :checked="radioOption.value == value"
                             :class="inputClasses"
-                            :disabled="disabled"
+                            :disabled="inputDisabled"
                             class="w-5 h-5 fabriq-radio form-radio focus:outline-none focus:ring-offset-3 focus:ring-1 focus:ring-royal-300"
                             @input="updateValue(radioOption.value)"
                         >
@@ -53,7 +53,7 @@
                     v-else-if="type === 'textarea'"
                     ref="textarea"
                     :class="{classes: classes }"
-                    :disabled="disabled"
+                    :disabled="inputDisabled"
                     :name="name"
                     :placeholder="placeholder"
                     :readonly="readOnly"
@@ -81,8 +81,8 @@
                     <input
                         ref="input"
                         v-mask="mask"
-                        :class="[{classes: classes}, inputClasses, roundedClasses, hasIcon ? 'pl-12' : 'pl-4', disabled ? 'bg-gray-100 text-gray-600 cursor-not-allowed' : 'text-gray-800 ']"
-                        :disabled="disabled"
+                        :class="[{classes: classes}, inputClasses, roundedClasses, hasIcon ? 'pl-12' : 'pl-4', inputDisabled ? 'bg-gray-100 text-gray-600 cursor-not-allowed' : 'text-gray-800 ']"
+                        :disabled="inputDisabled"
                         :min="min"
                         :name="name"
                         :placeholder="placeholder"
@@ -243,6 +243,18 @@ export default {
         }
     },
     computed: {
+        inputDisabled() {
+            if(this.disabled) {
+                return true
+            }
+            if(! this.currentUserIsFirstIn) {
+                return true
+            }
+            return false
+        },
+        currentUserIsFirstIn() {
+            return this.$store.getters['echo/currentUserIsFirstIn']
+        },
         hasIcon () {
             return !!this.$slots.icon
         },

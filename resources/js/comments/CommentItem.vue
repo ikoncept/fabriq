@@ -161,7 +161,6 @@ export default {
             window.removeEventListener('keydown', this.listenForMetaPlusEnter)
         },
         listenForMetaPlusEnter (event) {
-            console.log('listens')
             const vm = this
             if (!(event.keyCode === 13 && event.metaKey)) return
             vm.postComment()

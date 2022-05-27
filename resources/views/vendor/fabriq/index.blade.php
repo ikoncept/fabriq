@@ -37,7 +37,8 @@
         window.fabriqCms = {
             pusher: {
                 appId: "{{ config('broadcasting.connections.pusher.app_id') }}",
-                key: "{{ config('broadcasting.connections.pusher.key') }}"
+                key: "{{ config('broadcasting.connections.pusher.key') }}",
+                ws_prefix: "{{ config('fabriq.ws_prefix') }}"
             },
             @if(Auth::check())
             userRoles: @json(auth()->user()->roles->pluck('name')),

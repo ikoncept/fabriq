@@ -90,9 +90,11 @@ export default {
         this.fetchComments()
         this.fetchUsers()
         this.$eventBus.$on('open-comment-section', this.openCommentSection)
+        this.$eventBus.$on('comment-posted-echo', this.fetchComments)
     },
     beforeDestroy () {
         this.$eventBus.$off('open-comment-section', this.openCommentSection)
+        this.$eventBus.$off('comment-posted-echo', this.fetchComments)
         this.$refs.comments.removeEventListener('keydown', this.listenForMetaPlusEnter)
     },
     methods: {
@@ -128,6 +130,9 @@ export default {
         },
         scrollToComment (id) {
             const element = document.getElementById('comment' + id)
+            if(!element) {
+                return
+            }
             element.scrollIntoView({ behavior: 'smooth', top: 10 })
         },
         listenForMetaPlusEnter (event) {

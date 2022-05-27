@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Models;
 
+use Ikoncept\Fabriq\Concerns\BroadcastsModelEvents;
 use Ikoncept\Fabriq\Concerns\HasPaths;
 use Ikoncept\Fabriq\ContentGetters\ButtonGetter;
 use Ikoncept\Fabriq\ContentGetters\ButtonsGetter;
@@ -12,9 +13,12 @@ use Ikoncept\Fabriq\ContentGetters\VideoGetter;
 use Ikoncept\Fabriq\Database\Factories\PageFactory;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Traits\Commentable;
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -28,7 +32,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Page extends Model implements HasMedia
 {
-    use HasFactory, HasTranslatedRevisions, InteractsWithMedia, NodeTrait, Commentable, HasPaths;
+    use HasFactory, HasTranslatedRevisions, InteractsWithMedia, NodeTrait, Commentable, HasPaths, BroadcastsModelEvents;
 
     const RELATIONSHIPS = ['template', 'template.fields'];
 
@@ -179,6 +183,11 @@ class Page extends Model implements HasMedia
     public function menuItems() : HasMany
     {
         return $this->hasMany(Fabriq::getFqnModel('menuItem'));
+    }
+
+    public function updatedByUser() : BelongsTo
+    {
+        return $this->belongsTo(Fabriq::getFqnModel('user'), 'updated_by', 'id');
     }
 
     /**

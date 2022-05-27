@@ -5,17 +5,20 @@ export default function BroadcastMiddleware ({ next, to, router, store }) {
     }
     const Echo = router.app.$echo
     const id = to.params.id
-    const pusherKey = window.fabriqCms.pusher.key
+    const wsPrefix = window.fabriqCms.pusher.ws_prefix
 
     const broadcastName = to.meta.broadcastName
     const capitalizedBroadcastName = broadcastName[0].toUpperCase() + broadcastName.slice(1)
 
-    Echo.channel(`${pusherKey}-${broadcastName}.${id}`)
+    // Listen to model events
+    Echo.channel(`${wsPrefix}-${broadcastName}.${id}`)
         .listen(`.${capitalizedBroadcastName}Updated`, (event) => {
-            console.log('broadcast heard, updated on id ', event)
+            if (store.getters['user/user'].id !== event.model.updated_by) {
+                router.app.$eventBus.$emit(`${broadcastName}-updated-echo`, event)
+            }
         })
 
-    Echo.channel(`${pusherKey}-${broadcastName}.`)
+    Echo.channel(`${wsPrefix}-${broadcastName}.`)
         .listen(`.${capitalizedBroadcastName}Updated`, (event) => {
             console.log('broadcast heard, updated ', event)
         })

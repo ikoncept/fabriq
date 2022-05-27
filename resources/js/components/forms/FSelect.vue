@@ -18,8 +18,8 @@
                 :options="options"
                 :reduce="reduceFn"
                 class="relative h-[40px] flex-1 block w-full px-4 py-2.5 text-sm antialiased text-gray-800 transition duration-200 ease-out appearance-none leadning-none ring-1 focus:outline-none ring-gray-300 focus:ring-gray-800 rounded"
-                :class="{'bg-gray-100 text-gray-500 cursor-not-allowed' : disabled}"
-                :disabled="disabled"
+                :class="{'bg-gray-100 text-gray-500 cursor-not-allowed' : inputDisabled}"
+                :disabled="inputDisabled"
                 :label="optionLabel"
                 :multiple="multiple"
                 :name="name"
@@ -174,7 +174,19 @@ export default {
     computed: {
         hasRuleRequired () {
             return this.rules.includes('required')
-        }
+        },
+        currentUserIsFirstIn() {
+            return this.$store.getters['echo/currentUserIsFirstIn']
+        },
+        inputDisabled() {
+            if(this.disabled) {
+                return true
+            }
+            if(! this.currentUserIsFirstIn) {
+                return true
+            }
+            return false
+        },
     },
     mounted () {
         if (this.defaultValue && !this.value) {
