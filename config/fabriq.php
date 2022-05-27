@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 
 return [
     /**
@@ -94,6 +95,7 @@ return [
     'aws_lambda_access_key' => env('AWS_LAMBDA_ACCESS_KEY_ID'),
     'aws_lambda_secret_key' => env('AWS_LAMBDA_SECRET_ACCESS_KEY'),
 
+    'ws_prefix' => env('IKONCEPT_WS_IDENTIFIER', Str::slug(env('APP_NAME', 'laravel'), '_').'_ws'),
 
     /**
      * Model mapping

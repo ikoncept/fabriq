@@ -5,7 +5,9 @@ namespace Ikoncept\Fabriq\Models;
 use DOMDocument;
 use DOMXPath;
 use Ikoncept\Fabriq\Database\Factories\CommentFactory;
+use Ikoncept\Fabriq\Events\CommentDeleted;
 use Ikoncept\Fabriq\Events\CommentPosted;
+use Ikoncept\Fabriq\Events\UserMentionedInComment;
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -45,18 +47,20 @@ class Comment extends Model
             $doc->loadHTML($model->comment);
             $xpath = new DOMXPath($doc);
             $filtered = $xpath->query("//span[@data-email]");
+            $notification = new Notification();
             if($filtered) {
                 foreach($filtered as $filter) {
                     $email = $filter->getAttribute('data-email');
-                    $user = User::whereEmail($email)->first();
+                    $user = Fabriq::getModelClass('user')->whereEmail($email)->first();
                     if($user) {
                         $notification = $model->notifications()->create([
                             'user_id' => $user->id,
                         ]);
-                        CommentPosted::dispatch($notification, $model);
+                        UserMentionedInComment::dispatch($model, $notification);
                     }
                 }
             }
+            CommentPosted::dispatch($model);
         });
 
         static::deleting(function ($model) {
@@ -72,6 +76,7 @@ class Comment extends Model
         // If the last child comment is deleted on a deleted
         // parent, the parent should be deleted
         static::deleted(function ($model) {
+            CommentDeleted::dispatch($model);
             if(! $model->parent_id) {
                 return;
             }

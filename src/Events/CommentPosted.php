@@ -4,8 +4,6 @@ namespace Ikoncept\Fabriq\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -22,23 +20,14 @@ class CommentPosted implements ShouldBroadcast
     public $comment;
 
     /**
-     * The notification
-     *
-     * @var mixed
-     */
-    public $notification;
-
-    /**
      * Create a new event instance.
      *
      * @param mixed $comment
-     * @param mixed $notification
      * @return void
      */
-    public function __construct($comment, $notification)
+    public function __construct($comment)
     {
         $this->comment = $comment;
-        $this->notification = $notification;
     }
 
     public function broadcastAs() : string
@@ -53,14 +42,8 @@ class CommentPosted implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('user.'. $this->notification->user_id);
-    }
+        $prefix = config('fabriq.ws_prefix');
 
-    public function broadcastWith() : array
-    {
-        return [
-            'comment' => $this->comment,
-            'notification' => $this->notification,
-        ];
+        return new Channel($prefix . '.comments');
     }
 }

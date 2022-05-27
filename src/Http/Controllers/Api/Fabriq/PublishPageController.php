@@ -23,8 +23,13 @@ class PublishPageController extends ApiController
      */
     public function store(int $pageId) : JsonResponse
     {
-        $page = Fabriq::getModelClass('page')->findOrFail($pageId);
-        $page->publish($page->revision);
+        $page = Fabriq::getFqnModel('page')::withoutEvents(function() use ($pageId) {
+            $page = Fabriq::getFqnModel('page')::findOrFail($pageId);
+            $page->publish($page->revision);
+
+            return $page;
+        });
+
 
         return $this->respondWithItem($page, new PageTransformer);
     }

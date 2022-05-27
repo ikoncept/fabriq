@@ -194,6 +194,9 @@ class PagesFeatureTest extends AdminUserTestCase
             'page_content' => '<p>sweet</p>',
             'boxes' => [['title' => 'One box']]
         ]);
+        $this->assertDatabaseHas('pages', [
+            'updated_by' => $this->user->id
+        ]);
         $this->assertDatabaseHas('slugs', [
             'model_id' => $page->id,
             'model_type' => \Ikoncept\Fabriq\Models\Page::class,
@@ -226,7 +229,8 @@ class PagesFeatureTest extends AdminUserTestCase
         $this->assertDatabaseHas('pages', [
             'name' => 'Ny sida',
             'template_id' => 1,
-            'parent_id' => $root->id
+            'parent_id' => $root->id,
+            'updated_by' => $this->user->id
         ]);
     }
 

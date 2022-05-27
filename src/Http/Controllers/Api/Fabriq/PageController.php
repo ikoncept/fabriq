@@ -76,6 +76,7 @@ class PageController extends ApiController
         $page->name = $request->name;
         $page->touch();
         $page->localizedContent = $request->localizedContent;
+        $page->updated_by = $request->user()->id;
 
         $page->save();
 
@@ -98,6 +99,7 @@ class PageController extends ApiController
         $page->name = $request->name;
         $page->template_id = $request->template_id;
         $page->parent_id = $pageRoot->id;
+        $page->updated_by = $request->user()->id;
         $page->save();
 
         return $this->respondWithItem($page, new PageTransformer, 201);
