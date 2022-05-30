@@ -37,12 +37,12 @@ function afterEach (to, from) {
         const identifier = roomName + '.' + id
         const wsPrefix = window.fabriqCms.pusher.ws_prefix
         Echo.leave(wsPrefix + '.presence.' + identifier)
+        store.commit('echo/USER_LEAVING', { identifier: identifier, user: store.getters['user/user'] })
 
         if (from.meta.broadcastName) {
             const broadcastName = from.meta.broadcastName
             const capitalizedBroadcastName = broadcastName[0].toUpperCase() + broadcastName.slice(1)
 
-            // console.log('byenye', capitalizedBroadcastName, `${wsPrefix}-${broadcastName}.${id}`, `${capitalizedBroadcastName}Updated`)
             Echo.channel(`${wsPrefix}-${broadcastName}.${id}`)
                 .stopListening(`.${capitalizedBroadcastName}Updated`)
 
