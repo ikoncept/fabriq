@@ -46,7 +46,20 @@
         <UiSectionHeader class="mb-4">
             Bilder
             <template #tools>
-                <div class="flex flex-col items-end space-y-2">
+                <div class="flex items-end space-x-2">
+                    <div>
+                        <AddImageFromUrlModal
+                            name="addFromUrlModal"
+                            @image-added="fetchImages"
+                        />
+                        <button
+                            type="button"
+                            class="inline-flex items-center px-2 py-1 text-xs fabriq-btn btn-gold"
+                            @click="$vfm.show('addFromUrlModal')"
+                        >
+                            Lägg till från URL
+                        </button>
+                    </div>
                     <FUpload
                         v-if="uploadInit"
                         class=""
@@ -64,19 +77,6 @@
                             </button>
                         </template>
                     </FUpload>
-                    <div>
-                        <AddImageFromUrlModal
-                            name="addFromUrlModal"
-                            @image-added="fetchImages"
-                        />
-                        <button
-                            type="button"
-                            class="inline-flex items-center px-2 py-1 text-xs fabriq-btn btn-gold"
-                            @click="$vfm.show('addFromUrlModal')"
-                        >
-                            Lägg till från URL
-                        </button>
-                    </div>
                 </div>
             </template>
         </UiSectionHeader>

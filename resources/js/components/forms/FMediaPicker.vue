@@ -36,15 +36,32 @@
                                             class="flex-1 text-lg font-medium text-gray-900"
                                             v-text="mediaType == 'image' ? 'Välj bild' : 'Välj fil'"
                                         />
-                                        <div class="flex items-center ml-3 h-7">
-                                            <FUpload
+                                        <div class="flex items-center ml-3 ">
+                                            <div
                                                 v-if="mediaType === 'image'"
-                                                class="mr-10"
-                                                endpoint="/api/admin/uploads/images"
-                                                types="image/*"
-                                                upload-name="image"
-                                                @upload-queue-complete="fetchImages"
-                                            />
+                                                class="flex items-end mr-10 space-x-2"
+                                            >
+                                                <div>
+                                                    <AddImageFromUrlModal
+                                                        name="addFromUrlModal"
+                                                        @image-added="fetchImages"
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        class="inline-flex items-center px-2 py-1 text-xs fabriq-btn btn-gold whitespace-nowrap"
+                                                        @click="$vfm.show('addFromUrlModal')"
+                                                    >
+                                                        Lägg till från URL
+                                                    </button>
+                                                </div>
+                                                <FUpload
+                                                    endpoint="/api/admin/uploads/images"
+                                                    types="image/*"
+                                                    upload-name="image"
+                                                    @upload-queue-complete="fetchImages"
+                                                />
+                                            </div>
+
                                             <FUpload
                                                 v-else-if="mediaType === 'video'"
                                                 class="mr-10"
@@ -122,27 +139,29 @@
                                             </div>
                                         </template>
                                         <template #default="{ row: item, prop }">
-                                            <span v-if="prop == 'image'">
+                                            <span
+                                                v-if="prop == 'image'"
+                                                class="block w-20"
+                                            >
                                                 <UiImagePresenter
                                                     :image="item"
                                                     thumbnail
-                                                    class="w-20 max-h-16"
+                                                    class="w-20 cursor-pointer max-h-16"
                                                 />
                                             </span>
                                             <span v-else-if="prop == 'created_at'">
                                                 {{ item.created_at | localTime }}
-                                            </span>
-                                            <span
-                                                v-else-if="prop == 'alt_text'"
-                                                class="pb-1 font-medium border-b-2 border-gray-500 border-dotted text-royal-500"
-                                            >
-                                                Lägg till alt-text
                                             </span>
                                             <span v-else-if="prop == 'c_name'">
                                                 <span v-text="item.c_name.length > 40 ? item.c_name.substring(0,40) + '...' : item.c_name" />
                                             </span>
                                             <span v-else-if="prop == 'size'">
                                                 {{ item.size | filesize }}
+                                            </span>
+                                            <span v-else-if="prop == 'dimensions'">
+                                                <UiBadge v-show="item.width">
+                                                    {{ item.width }}×{{ item.height }}px
+                                                </UiBadge>
                                             </span>
                                             <span
                                                 v-else-if="prop == 'tags'"
@@ -177,8 +196,10 @@
 import Image from '~/models/Image'
 import File from '~/models/File'
 import Video from '~/models/Video'
+import AddImageFromUrlModal from '~/images/AddImageFromUrlModal'
 export default {
     name: 'FMediaPicker',
+    components: { AddImageFromUrlModal },
     props: {
         mediaType: {
             type: String,
@@ -223,6 +244,11 @@ export default {
                     key: 'size',
                     title: 'Storlek',
                     sortable: true
+                },
+                {
+                    key: 'dimensions',
+                    title: 'Storlek',
+                    sortable: false
                 },
                 {
                     key: 'edit',
