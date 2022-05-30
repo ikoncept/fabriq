@@ -9,6 +9,8 @@
         :srcset="image.srcset"
         :title="image.caption"
         :style="[customCrop]"
+        :width="image.width"
+        :height="image.height"
         sizes="1px"
     >
     <img
