@@ -520,10 +520,12 @@ export default {
         },
         async previewPage () {
             try {
-                // this.$store.commit('config/SET_ACTIVE_LOCALE', 'sv')
                 await this.updateContent()
                 const data = await Page.signedPreview(this.id)
-                const url = this.config.front_end_domain + data.computed_path + '?preview=' + data.encoded_signed_url
+                let url = this.config.front_end_domain + data.computed_path + '?preview=' + data.encoded_signed_url
+                if(Object.keys(this.locales).length > 1) {
+                    url =  this.config.front_end_domain + '/' + this.activeLocale + data.computed_path + '?preview=' + data.encoded_signed_url
+                }
                 window.open(url, 'fabriq-previw')
             } catch (error) {
                 console.error(error)
