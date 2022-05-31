@@ -1,8 +1,11 @@
 <template>
-    <div class="flex space-x-12">
+    <div
+        class="flex "
+        :class="columnLayout ? 'flex-col space-y-4  p-2 border' : 'flex-row space-x-12'"
+    >
         <FInput
             v-model="localButton.text"
-            class="w-80"
+            :class="{'w-80' : ! columnLayout}"
             :disabled="disabled"
             label="Knapptext"
         />
@@ -79,6 +82,10 @@ export default {
             }
         },
         disabled: {
+            type: Boolean,
+            default: false
+        },
+        columnLayout: {
             type: Boolean,
             default: false
         }
