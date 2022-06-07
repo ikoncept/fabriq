@@ -4,6 +4,7 @@ namespace Ikoncept\Fabriq\Models;
 
 use Ikoncept\Fabriq\Database\Factories\UserFactory;
 use Ikoncept\Fabriq\Fabriq;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -147,5 +148,12 @@ class User extends Authenticatable implements MustVerifyEmail
         $parts = explode(' ', $this->name);
 
         return array_pop($parts);
+    }
+
+    public function receivesBroadcastNotificationsOn()
+    {
+        $channel = config('fabriq.ws_prefix') . '.user.' . $this->id;
+
+        return [new Channel($channel)];
     }
 }
