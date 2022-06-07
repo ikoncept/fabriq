@@ -150,7 +150,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return array_pop($parts);
     }
 
-    public function receivesBroadcastNotificationsOn()
+    public function receivesBroadcastNotificationsOn() : array
     {
         $channel = config('fabriq.ws_prefix') . '.user.' . $this->id;
 

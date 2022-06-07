@@ -4,6 +4,7 @@ namespace Ikoncept\Fabriq\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -12,7 +13,14 @@ class LeaveDeclinedNotification extends Notification
 {
     use Queueable;
 
+    /**
+     * @var Model
+     */
     public $causer;
+
+    /**
+     * @var string
+     */
     public $pageIdentifier;
 
     /**
@@ -20,7 +28,7 @@ class LeaveDeclinedNotification extends Notification
      *
      * @return void
      */
-    public function __construct($causer, string $pageIdentifier)
+    public function __construct(Model $causer, string $pageIdentifier)
     {
         $this->causer = $causer;
         $this->pageIdentifier = $pageIdentifier;
