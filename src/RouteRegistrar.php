@@ -282,6 +282,10 @@ class RouteRegistrar
 
     public function forNotifications()
     {
+        Route::post('/notifications/ask-to-leave/{userId}', \Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AskToLeaveNotificationController::class)
+            ->name('notifications.ask-to-leave');
+        Route::post('/notifications/decline-to-leave/{userId}', \Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\DeclineToLeaveNotificationController::class)
+            ->name('notifications.decline-to-leave');
         Route::get('/user/notifications', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\NotificationController::class, 'index']);
         Route::patch('/user/notifications/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\NotificationController::class, 'update']);
     }
