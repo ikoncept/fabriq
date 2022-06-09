@@ -1,4 +1,4 @@
-// import '~/plugins/laravel-echo'
+import '~/plugins/laravel-echo'
 import '~/plugins/toast'
 import '~/plugins/v-calendar'
 import '~/plugins/v-mask'
@@ -9,3 +9,4 @@ import '~/plugins/vue-nestable'
 import '~/plugins/vue-number-animation'
 import '~/plugins/vue-select'
 import '~/plugins/vue-slide-up-down'
+
