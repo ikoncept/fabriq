@@ -21,6 +21,16 @@
                 class="relative w-full max-w-sm rounded-lg shadow-lg pointer-events-auto"
             >
                 <div
+                    v-if="countdown"
+                    class="absolute bottom-0 w-full"
+                >
+                    <!-- <pre>{{ timeRemaining }}</pre> -->
+                    <div
+                        :style="{width: 100 - ((timeRemaining / duration) * 100) + '%'}"
+                        class="h-1 ml-0.5 transition-all duration-100 rounded-bl-lg bg-royal-300 track"
+                    />
+                </div>
+                <div
                     :class="{'ring-2 ring-red-500 ring-inset': type == 'error'}"
                     class="overflow-hidden rounded-lg shadow-xs"
                 >
@@ -131,6 +141,14 @@ export default {
             type: Function,
             default: () => null
         },
+        onDismissed: {
+            type: Function,
+            default: () => null
+        },
+        countdown: {
+            type: Boolean,
+            default: false
+        },
         queue: Boolean,
         pauseOnHover: {
             type: Boolean,
@@ -145,7 +163,8 @@ export default {
         return {
             isActive: false,
             parent: null,
-            isHovered: false
+            isHovered: false,
+            timeRemaining: 0
         }
     },
     computed: {
@@ -188,7 +207,10 @@ export default {
             }
 
             return 'sm:items-start sm:justify-center items-end justify-center'
-        }
+        },
+        // percentageCountdown() {
+
+        // }
     },
     beforeMount () {
         this.setupContainer()
@@ -216,6 +238,12 @@ export default {
 
             const container = document.body
             container.appendChild(this.parent)
+            this.timeRemaining = this.duration
+            setInterval(this.updateTimeRemaining, 10);
+        },
+
+        updateTimeRemaining() {
+            this.timeRemaining = this.timeRemaining - 10
         },
 
         shouldQueue () {
@@ -230,6 +258,8 @@ export default {
             this.isActive = false
 
             // Timeout for the animation complete before destroying
+            this.onDismissed.apply(null, arguments)
+
             setTimeout(() => {
                 // this.onClose.apply(null, arguments)
                 this.$destroy()

@@ -18,17 +18,22 @@
         </template>
 
 
-        <template #actions>
-            <div class="flex justify-center space-x-4">
-                <div>
-                    <FButton
-                        :click="refreshPage"
-                        class="px-8 py-2.5 leading-none fabriq-btn btn-royal"
-                    >
-                        Ladda om sidan
-                    </FButton>
+        <template #actions="{ params }">
+            <slot
+                name="actions"
+                :params="params"
+            >
+                <div class="flex justify-center space-x-4">
+                    <div>
+                        <FButton
+                            :click="refreshPage"
+                            class="px-8 py-2.5 leading-none fabriq-btn btn-royal"
+                        >
+                            Ladda om sidan
+                        </FButton>
+                    </div>
                 </div>
-            </div>
+            </slot>
         </template>
     </FModal>
 </template>

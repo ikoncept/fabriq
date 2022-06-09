@@ -15,6 +15,9 @@ export default {
         },
         warning: {
             icon: '😳'
+        },
+        declined: {
+            icon: '🙅‍♂️'
         }
     },
     nonPurgedClasses: {

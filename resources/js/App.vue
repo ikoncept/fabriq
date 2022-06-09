@@ -6,6 +6,7 @@
         <UiSidebar />
         <UiDesktopSidebar />
         <UiTopbar />
+
         <div class="flex flex-col flex-1 w-0 mt-12 overflow-hidden lg:mt-0">
             <main
                 class="relative flex-1 overflow-y-auto focus:outline-none"
@@ -44,6 +45,7 @@ import FileModal from '~/files/FileModal'
 import BlockTypeModal from '~/pages/BlockTypeModal'
 import VideoModal from '~/videos/VideoModal'
 import CommentSection from '~/comments/CommentSection'
+import axios from 'axios'
 export default {
     name: 'App',
     components: {
@@ -58,7 +60,9 @@ export default {
     },
     data () {
         return {
-            pollingNotifications: null
+            pollingNotifications: null,
+            countdown: 0,
+            cancelReload: false
         }
     },
     computed: {
@@ -109,6 +113,15 @@ export default {
                 .listen(`.notification.deleted`, (event) => {
                     this.$eventBus.$emit('user-mentioned-echo', event)
                     this.$store.dispatch('user/notifications')
+                })
+                .notification((notification) => {
+                    // broadcast.ask-to-leave
+                    if(notification.type === 'broadcast.ask-to-leave') {
+                        this.$eventBus.$emit('user-asked-to-leave-echo', notification)
+                    }
+                    if(notification.type === 'broadcast.leave-declined') {
+                        this.$eventBus.$emit('user-declined-to-leave-echo', notification)
+                    }
                 })
         }
     }

@@ -39,6 +39,11 @@ const Api = (Vue, globalOptions = {}) => {
                 type: 'warning'
             }, options))
         },
+        declined (options = {}) {
+            return this.open(Object.assign({}, {
+                type: 'declined'
+            }, options))
+        },
         default (options = {}) {
             return this.open(Object.assign({}, {
                 type: 'default'
