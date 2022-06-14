@@ -93,6 +93,16 @@
                                         {{ item.template.name }}
                                     </UiBadge>
                                 </div>
+                                <button
+                                    v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Klona sida' }"
+                                    class="focus:outline-none"
+                                    @click.stop="clonePage(item)"
+                                >
+                                    <CloneIcon
+                                        thin
+                                        class="h-6"
+                                    />
+                                </button>
                                 <RouterLink
                                     :to="{name: 'pages.edit', params: {id: item.id }}"
                                     class="flex items-center justify-end link"
@@ -190,10 +200,10 @@ export default {
     name: 'PagesIndex',
     data () {
         return {
-            email: '',
             pages: [],
             pageTree: [],
             pagination: {},
+            pageToClone: {},
             newPage: {
                 name: '',
                 template_id: null
@@ -239,7 +249,8 @@ export default {
                     key: 'edit',
                     tdClasses: 'text-right '
                 }
-            ]
+            ],
+            localizedContent: {}
         }
     },
     activated () {
@@ -273,6 +284,42 @@ export default {
                 this.pagination = meta.pagination
             } catch (error) {
                 console.log(error)
+            }
+        },
+        async clonePage(page) {
+            await this.fetchPage(page.id)
+
+            let localizedContent = {}
+            Object.keys(this.pageToClone.localizedContent.data).forEach((item) => {
+                localizedContent[item] = { ...this.pageToClone.localizedContent.data[item].content }
+            })
+            await Page.clone(page.id, { localizedContent: localizedContent })
+            this.$toast.success({ title: 'Sidan har klonats!' })
+            this.fetchPageTree()
+        },
+        async fetchPage (id) {
+            const payload = {
+                params: {
+                    include: 'localizedContent',
+                    locale: 'all',
+                    append: 'paths'
+                }
+            }
+            try {
+                const { data } = await Page.show(id, payload)
+                this.pageToClone = data
+                console.log(this.pageToClone)
+                // this.page = data
+                // this.fields = data.template.data.fields
+                // this.groupedFields = data.template.data.groupedFields.data
+                // localizedContent = { ...data.localizedContent.data }
+                // console.log(localizedContent)
+
+                // Object.keys(localizedContent).forEach((item) => {
+                //     this.$set(this.localizedContent, item, { ...localizedContent[item].content })
+                // })
+            } catch (error) {
+                console.error(error)
             }
         },
         async deletePage (page) {

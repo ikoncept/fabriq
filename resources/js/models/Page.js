@@ -50,8 +50,15 @@ export default {
 
         return data
     },
+
     async paths (id, payload) {
         const { data } = await axios.get(this.endpoint + id + '/paths', payload)
+
+        return data
+    },
+
+    async clone (id, payload) {
+        const { data } = await axios.post(this.endpoint + id + '/clone', payload)
 
         return data
     }

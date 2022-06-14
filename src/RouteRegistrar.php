@@ -233,6 +233,8 @@ class RouteRegistrar
         Route::get('pages/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageController::class, 'show']);
         Route::patch('pages/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageController::class, 'update']);
         Route::delete('pages/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageController::class, 'destroy']);
+        Route::post('pages/{id}/clone', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ClonePageController::class, 'store'])
+            ->name('pages.clone.store');
         Route::post('pages/{id}/publish', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PublishPageController::class, 'store']);
         Route::get('pages/{id}/signed-url', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageSignedUrlController::class, 'show']);
     }

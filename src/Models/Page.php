@@ -246,5 +246,4 @@ class Page extends Model implements HasMedia
             $this->updateContent($localeContent, (string) $key);
         }
     }
-
 }
