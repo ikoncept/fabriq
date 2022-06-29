@@ -1,9 +1,9 @@
+import routes from '@/routes/fabriq-routes'
+import userRoutes from '@/routes/routes'
+import store from '@/store'
+import * as types from '@/store/mutation-types'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import routes from '~/routes/fabriq-routes'
-import userRoutes from '~/routes/routes'
-import store from '~/store'
-import * as types from '~/store/mutation-types'
 
 Vue.use(VueRouter)
 const router = createRouter()

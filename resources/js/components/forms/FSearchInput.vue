@@ -7,7 +7,7 @@
     >
 </template>
 <script>
-import { debounce } from '~/helpers/debounce'
+import { debounce } from '@/helpers/debounce.js'
 export default {
     name: 'FSearchInput',
     props: {

@@ -139,8 +139,8 @@
     </div>
 </template>
 <script>
-import Tag from '~/models/Tag'
-import Contact from '~/models/Contact'
+import Tag from '@/models/Tag.js'
+import Contact from '@/models/Contact.js'
 export default {
     name: 'ContactsEdit',
     beforeRouteLeave (from, to, next) {

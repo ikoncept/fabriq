@@ -159,9 +159,9 @@
     </FModal>
 </template>
 <script>
-import Download from '~/models/Download'
-import Image from '~/models/Image'
-import Tag from '~/models/Tag'
+import Download from '@/models/Download.js'
+import Image from '@/models/Image.js'
+import Tag from '@/models/Tag.js'
 export default {
     name: 'BlockTypeModal',
     props: {

@@ -64,7 +64,7 @@
     </FModal>
 </template>
 <script>
-import Page from '~/models/BlockType'
+import Page from '@/models/BlockType.js'
 function defaultCreationObject () {
     return {
         name: '',

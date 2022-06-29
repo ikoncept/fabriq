@@ -1,17 +1,18 @@
 import Vue from 'vue'
 
-import axiosSetup from '~/config/api'
+import axiosSetup from '@/config/api.js'
 
-import router from '~/routes/router'
-import store from '~/store'
+import router from '@/routes/router.js'
+import store from '@/store'
 
-import App from '~/App'
-import '~/directives'
-import '~/filters'
-import '~/icons'
-import '~/plugins'
-import '~/components/common-components'
-import '~/block-types'
+import '@/../css/app.css'
+import App from '@/App.vue'
+import '@/block-types/index.js'
+import '@/components/common-components.js'
+import '@/directives/index.js'
+import '@/filters/index.js'
+import '@/icons/index.js'
+import '@/plugins/index.js'
 
 Vue.prototype.$eventBus = new Vue()
 

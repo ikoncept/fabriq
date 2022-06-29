@@ -61,7 +61,7 @@
                         <img
                             alt="Fabriq CMS Logotyp"
                             class="w-full px-12"
-                            src="/dist/images/fabriq-cms-logo.svg"
+                            src="@/../images/fabriq-cms-logo.svg"
                         >
                     </div>
                     <div class="flex-1 h-0 mt-5 overflow-y-auto">
@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import * as types from '~/store/mutation-types'
+import * as types from '@/store/mutation-types'
 export default {
     name: 'UiSidebar',
     computed: {

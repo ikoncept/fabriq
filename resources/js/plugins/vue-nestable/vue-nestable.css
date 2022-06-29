@@ -58,7 +58,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(8, 44, 68, .3);
+    background-color: rgba(8, 44, 68, .1);
     border: 1px dashed #082c44;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -82,7 +82,9 @@
     top: 0;
     left: 0;
     padding: 0;
-    background-color: rgba(106, 127, 233, 0.274);
+    opacity: 0.8;
+    background-color: #fff;
+    /* background-color: rgba(231, 74, 22, 0.274); */
 }
 
 .nestable-rtl .nestable-drag-layer>.nestable-list {

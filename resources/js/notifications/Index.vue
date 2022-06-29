@@ -83,8 +83,8 @@
     </div>
 </template>
 <script>
-import Notification from '~/models/Notification'
-import PageComment from '~/notifications/PageComment'
+import Notification from '@/models/Notification.js'
+import PageComment from '@/notifications/PageComment.vue'
 export default {
     name: 'NotificationsIndex',
     components: {

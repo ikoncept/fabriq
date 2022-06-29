@@ -47,7 +47,7 @@
     </span>
 </template>
 <script>
-import File from '~/models/File'
+import File from '@/models/File.js'
 export default {
     name: 'FFileInput',
     props: {

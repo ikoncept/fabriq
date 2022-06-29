@@ -18,7 +18,7 @@ import { Editor, EditorContent, VueRenderer } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 import Mention from '@tiptap/extension-mention'
-import MentionList from '~/components/forms/extensions/MentionList'
+import MentionList from '@/components/forms/extensions/MentionList.vue'
 
 const CustomMention = Mention.extend({
     addAttributes () {

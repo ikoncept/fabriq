@@ -60,7 +60,7 @@
     </div>
 </template>
 <script>
-import PageTree from '~/models/PageTree'
+import PageTree from '@/models/PageTree.js'
 export default {
     name: 'FButtonItem',
     props: {

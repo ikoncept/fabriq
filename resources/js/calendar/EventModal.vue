@@ -138,7 +138,7 @@
     </FModal>
 </template>
 <script>
-import Event from '~/models/Event'
+import Event from '@/models/Event.js'
 function defaultCreationObject () {
     return {
         title: '',

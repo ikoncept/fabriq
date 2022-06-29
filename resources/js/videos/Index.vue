@@ -214,9 +214,9 @@
     </div>
 </template>
 <script>
-import Download from '~/models/Download'
-import Video from '~/models/Video'
-import Tag from '~/models/Tag'
+import Download from '@/models/Download.js'
+import Video from '@/models/Video.js'
+import Tag from '@/models/Tag.js'
 export default {
     name: 'VideosIndex',
     beforeRouteLeave (from, to, next) {

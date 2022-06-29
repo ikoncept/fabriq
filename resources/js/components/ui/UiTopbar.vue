@@ -109,8 +109,8 @@
     </div>
 </template>
 <script>
-import * as types from '~/store/mutation-types'
-import LogoutForm from '~/components/LogoutForm'
+import * as types from '@/store/mutation-types'
+import LogoutForm from '@/components/LogoutForm.vue'
 export default {
     name: 'UiTopbar',
     components: { LogoutForm },

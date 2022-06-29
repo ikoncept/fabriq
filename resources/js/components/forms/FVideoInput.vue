@@ -89,7 +89,7 @@
     </span>
 </template>
 <script>
-import Video from '~/models/Video'
+import Video from '@/models/Video.js'
 export default {
     name: 'FVideoInput',
     props: {

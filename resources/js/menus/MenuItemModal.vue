@@ -116,9 +116,9 @@
     </FModal>
 </template>
 <script>
-import MenuItem from '~/models/MenuItem'
-import PageTree from '~/models/PageTree'
-// import OperatingHour from '~/models/OperatingHour'
+import MenuItem from '@/models/MenuItem.js'
+import PageTree from '@/models/PageTree.js'
+// import OperatingHour from '@/models/OperatingHour.js'
 function defaultCreationObject () {
     return {
         id: 0,

@@ -24,7 +24,7 @@
     </div>
 </template>
 <script>
-import Page from '~/models/Page'
+import Page from '@/models/Page.js'
 export default {
     name: 'PagePaths',
     data() {

@@ -43,7 +43,6 @@ class FabriqCoreServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
-
             $this->publishes([
                 __DIR__.'/../config/fabriq.php' => config_path('fabriq.php'),
             ], 'config');
@@ -72,7 +71,6 @@ class FabriqCoreServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/views' => resource_path('views'),
             ], 'fabriq-views');
         }
-
     }
 
 
@@ -101,7 +99,8 @@ class FabriqCoreServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(FortifyServiceProvider::class);
 
-        $this->app->get('config')->set('media-library',
+        $this->app->get('config')->set(
+            'media-library',
             array_merge($this->app->get('config')->get('media-library'), $this->app->get('config')->get('fabriq.media-library'))
         );
 
@@ -161,12 +160,12 @@ class FabriqCoreServiceProvider extends ServiceProvider
     {
         $resourceDirectories = (array) glob(__DIR__.'/../resources/js/*');
 
-        list($updateFolders, $installFolders) = collect($resourceDirectories)->mapWithKeys(function($item) {
-                $path = pathinfo((string)$item, PATHINFO_BASENAME);
+        list($updateFolders, $installFolders) = collect($resourceDirectories)->mapWithKeys(function ($item) {
+            $path = pathinfo((string)$item, PATHINFO_BASENAME);
 
-                return [__DIR__.'/../resources/js/' . $path => resource_path('js/' . $path)];
-            })
-            ->partition(function($item, $key) {
+            return [__DIR__.'/../resources/js/' . $path => resource_path('js/' . $path)];
+        })
+            ->partition(function ($item, $key) {
                 return ! Str::contains((string) $key, 'routes');
             });
         return [$updateFolders, $installFolders];
@@ -174,13 +173,12 @@ class FabriqCoreServiceProvider extends ServiceProvider
 
     protected function standardPaths() : array
     {
-       return [
-            __DIR__.'/../resources/images' => resource_path('images'),
-            __DIR__.'/../resources/fonts' => resource_path('fonts'),
+        return [
+            __DIR__.'/../resources/images' => public_path('images'),
+            __DIR__.'/../resources/fonts' => public_path('fonts'),
             __DIR__.'/../resources/css' => resource_path('css'),
             __DIR__.'/../tailwind.config.js' => 'tailwind.config.js',
-            __DIR__.'/../webpack.mix.js' => 'webpack.mix.js',
-            __DIR__.'/../webpack.config.js' => 'webpack.config.js',
+            __DIR__.'/../vite.config.js' => 'vite.config.js',
             __DIR__.'/../postcss.config.js' => 'postcss.config.js',
             __DIR__.'/../package.json' => 'package.json',
             __DIR__.'/../jsconfig.json' => 'jsconfig.json',

@@ -1,5 +1,5 @@
+import * as types from '@/store/mutation-types'
 import axios from 'axios'
-import * as types from '~/store/mutation-types'
 
 export const state = {
     config: {

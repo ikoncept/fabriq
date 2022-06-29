@@ -74,8 +74,8 @@
     </div>
 </template>
 <script>
-import PageTree from '~/models/PageTree'
-import Menu from '~/models/Menu'
+import PageTree from '@/models/PageTree.js'
+import Menu from '@/models/Menu.js'
 export default {
     name: 'FButtonList',
     props: {

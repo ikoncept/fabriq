@@ -235,10 +235,10 @@
     </div>
 </template>
 <script>
-import Tag from '~/models/Tag'
-import Image from '~/models/Image'
-import Download from '~/models/Download'
-import AddImageFromUrlModal from '~/images/AddImageFromUrlModal'
+import Tag from '@/models/Tag.js'
+import Image from '@/models/Image.js'
+import Download from '@/models/Download.js'
+import AddImageFromUrlModal from '@/images/AddImageFromUrlModal.vue'
 export default {
     name: 'ImagesIndex',
     components: { AddImageFromUrlModal },

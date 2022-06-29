@@ -37,7 +37,7 @@
     </div>
 </template>
 <script>
-import Image from '~/models/Image'
+import Image from '@/models/Image.js'
 export default {
     name: 'AddImageFromUrlModal',
     props: {

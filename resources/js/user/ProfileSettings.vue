@@ -127,7 +127,7 @@
     </div>
 </template>
 <script>
-import AuthenticatedUser from '~/models/AuthenticatedUser'
+import AuthenticatedUser from '@/models/AuthenticatedUser.js'
 
 export default {
     name: 'ProfileSettings',

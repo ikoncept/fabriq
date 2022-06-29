@@ -187,9 +187,12 @@
     </div>
 </template>
 <script>
-import Page from '~/models/Page'
-import PageTree from '~/models/PageTree'
-import Template from '~/models/Template'
+import Page from '@/models/Page.js'
+import PageTree from '@/models/PageTree.js'
+import Template from '@/models/Template.js'
+import VueNestable from '@/plugins/vue-nestable/VueNestable.vue'
+import VueNestableHandle from '@/plugins/vue-nestable/VueNestableHandle.vue'
+import '@/plugins/vue-nestable/vue-nestable.css';
 function defaultCreationObject () {
     return {
         name: '',
@@ -198,6 +201,7 @@ function defaultCreationObject () {
 }
 export default {
     name: 'PagesIndex',
+    components: { VueNestable, VueNestableHandle },
     data () {
         return {
             pages: [],
