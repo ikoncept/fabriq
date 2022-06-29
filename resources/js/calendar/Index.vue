@@ -125,8 +125,8 @@
     </div>
 </template>
 <script>
-import Event from '~/models/Event'
-import EventModal from '~/calendar/EventModal'
+import Event from '@/models/Event.js'
+import EventModal from '@/calendar/EventModal.vue'
 import { endOfMonth, startOfMonth, format } from 'date-fns'
 export default {
     name: 'CalendarIndex',

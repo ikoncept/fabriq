@@ -46,7 +46,7 @@
     </div>
 </template>
 <script>
-import Menu from '~/models/Menu'
+import Menu from '@/models/Menu.js'
 export default {
     name: 'MenusIndex',
     data () {

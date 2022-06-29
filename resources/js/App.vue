@@ -37,15 +37,14 @@
     </div>
 </template>
 <script>
-import UiSidebar from '~/components/ui/UiSidebar'
-import UiTopbar from '~/components/ui/UiTopbar'
-import UiDesktopSidebar from '~/components/ui/UiDesktopSidebar'
-import ImageModal from '~/images/ImageModal'
-import FileModal from '~/files/FileModal'
-import BlockTypeModal from '~/pages/BlockTypeModal'
-import VideoModal from '~/videos/VideoModal'
-import CommentSection from '~/comments/CommentSection'
-import axios from 'axios'
+import UiSidebar from '@/components/ui/UiSidebar.vue'
+import UiTopbar from '@/components/ui/UiTopbar.vue'
+import UiDesktopSidebar from '@/components/ui/UiDesktopSidebar.vue'
+import ImageModal from '@/images/ImageModal.vue'
+import FileModal from '@/files/FileModal.vue'
+import BlockTypeModal from '@/pages/BlockTypeModal.vue'
+import VideoModal from '@/videos/VideoModal.vue'
+import CommentSection from '@/comments/CommentSection.vue'
 export default {
     name: 'App',
     components: {

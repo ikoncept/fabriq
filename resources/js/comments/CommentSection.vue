@@ -68,9 +68,9 @@
     </div>
 </template>
 <script>
-import CommentItem from '~/comments/CommentItem'
-import Comment from '~/models/Comment'
-import User from '~/models/User'
+import CommentItem from '@/comments/CommentItem.vue'
+import Comment from '@/models/Comment.js'
+import User from '@/models/User.js'
 export default {
     name: 'CommentSection',
     components: { CommentItem },

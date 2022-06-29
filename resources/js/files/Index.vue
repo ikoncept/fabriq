@@ -219,9 +219,9 @@
     </div>
 </template>
 <script>
-import Download from '~/models/Download'
-import File from '~/models/File'
-import Tag from '~/models/Tag'
+import Download from '@/models/Download.js'
+import File from '@/models/File.js'
+import Tag from '@/models/Tag.js'
 export default {
     name: 'FilesIndex',
     beforeRouteLeave (from, to, next) {

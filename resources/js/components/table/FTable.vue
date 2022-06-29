@@ -129,7 +129,7 @@
     </div>
 </template>
 <script>
-import FPaginator from '~/components/table/FPaginator'
+import FPaginator from '@/components/table/FPaginator.vue'
 export default {
     name: 'FTable',
     components: { FPaginator },

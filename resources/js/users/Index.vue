@@ -175,8 +175,8 @@ function newUserObject() {
         role_list: []
     }
 }
-import User from '~/models/User'
-import Invitation from '~/models/Invitation'
+import User from '@/models/User.js'
+import Invitation from '@/models/Invitation.js'
 export default {
     name: 'UsersIndex',
     data () {

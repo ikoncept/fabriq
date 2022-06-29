@@ -80,7 +80,7 @@
     </div>
 </template>
 <script>
-import RefreshObjectModal from '~/components/modals/RefreshObjectModal.vue'
+import RefreshObjectModal from '@/components/modals/RefreshObjectModal.vue'
 import axios from 'axios'
 export default {
     name: 'PresenceInfo',

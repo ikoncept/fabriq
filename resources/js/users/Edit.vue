@@ -63,9 +63,9 @@
     </div>
 </template>
 <script>
-import AuthenticatedUser from '~/models/AuthenticatedUser'
-import User from '~/models/User'
-import Role from '~/models/Role'
+import AuthenticatedUser from '@/models/AuthenticatedUser.js'
+import User from '@/models/User.js'
+import Role from '@/models/Role.js'
 export default {
     name: 'UsersEdit',
     data () {

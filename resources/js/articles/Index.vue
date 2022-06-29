@@ -117,7 +117,7 @@
     </div>
 </template>
 <script>
-import Article from '~/models/Article'
+import Article from '@/models/Article.js'
 function defaultCreationObject () {
     return {
         name: ''

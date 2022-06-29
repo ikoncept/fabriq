@@ -168,7 +168,7 @@
     </div>
 </template>
 <script>
-import SmartBlock from '~/models/SmartBlock'
+import SmartBlock from '@/models/SmartBlock.js'
 import Draggable from 'vuedraggable'
 export default {
     name: 'SmartBlocksEdit',

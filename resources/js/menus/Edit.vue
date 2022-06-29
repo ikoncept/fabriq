@@ -121,9 +121,9 @@
     </div>
 </template>
 <script>
-import MenuItemModal from '~/menus/MenuItemModal'
-import Menu from '~/models/Menu'
-import MenuItem from '~/models/MenuItem'
+import MenuItemModal from '@/menus/MenuItemModal.vue'
+import Menu from '@/models/Menu.js'
+import MenuItem from '@/models/MenuItem.js'
 export default {
     name: 'MenusEdit',
     components: { MenuItemModal },

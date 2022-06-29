@@ -80,7 +80,7 @@
     </div>
 </template>
 <script>
-import SmartBlock from '~/models/SmartBlock'
+import SmartBlock from '@/models/SmartBlock.js'
 function defaultCreationObject () {
     return {
         name: ''

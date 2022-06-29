@@ -106,7 +106,7 @@
     </div>
 </template>
 <script>
-import Comment from '~/models/Comment'
+import Comment from '@/models/Comment.js'
 export default {
     name: 'CommentItem',
     props: {

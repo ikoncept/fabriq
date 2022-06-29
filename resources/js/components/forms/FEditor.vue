@@ -583,9 +583,9 @@ import Link from '@tiptap/extension-link'
 import Image from '@tiptap/extension-image'
 import TextAlign from '@tiptap/extension-text-align'
 import Typography from '@tiptap/extension-typography'
-import CustomIframe from '~/components/forms/extensions/CustomIframe'
-import ImageAPI from '~/models/Image'
-import FileAPI from '~/models/File'
+import CustomIframe from '@/components/forms/extensions/CustomIframe.js'
+import ImageAPI from '@/models/Image.js'
+import FileAPI from '@/models/File.js'
 
 const CustomImage = Image.extend({
     addAttributes () {
@@ -1452,9 +1452,9 @@ import Link from '@tiptap/extension-link'
 import Image from '@tiptap/extension-image'
 import TextAlign from '@tiptap/extension-text-align'
 import Typography from '@tiptap/extension-typography'
-import CustomIframe from '~/components/forms/extensions/CustomIframe'
-import ImageAPI from '~/models/Image'
-import FileAPI from '~/models/File'
+import CustomIframe from '@/components/forms/extensions/CustomIframe.js'
+import ImageAPI from '@/models/Image.js'
+import FileAPI from '@/models/File.js'
 
 const CustomImage = Image.extend({
     addAttributes () {

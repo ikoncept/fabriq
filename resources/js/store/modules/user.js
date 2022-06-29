@@ -1,6 +1,6 @@
-import AuthenticatedUser from '~/models/AuthenticatedUser'
-import Notification from '~/models/Notification'
-import * as types from '~/store/mutation-types'
+import AuthenticatedUser from '@/models/AuthenticatedUser.js'
+import Notification from '@/models/Notification.js'
+import * as types from '@/store/mutation-types'
 
 export const state = {
     user: {

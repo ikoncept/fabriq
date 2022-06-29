@@ -36,7 +36,7 @@
                 rel="noreferrer noopener"
             >
                 <img
-                    src="/dist/images/ikoncept-logo.svg"
+                    src="@/../images/ikoncept-logo.svg"
                     alt="Ikoncept logotyp"
                     class="block h-12 mt-2"
                 >
@@ -45,11 +45,11 @@
     </div>
 </template>
 <script>
-import StatsBox from '~/dashboard/StatsBox'
-import Page from '~/models/Page'
-import Article from '~/models/Article'
-import Image from '~/models/Image'
-import File from '~/models/File'
+import StatsBox from '@/dashboard/StatsBox.vue'
+import Page from '@/models/Page.js'
+import Article from '@/models/Article.js'
+import Image from '@/models/Image.js'
+import File from '@/models/File.js'
 export default {
     name: 'HomeIndex',
     components: {

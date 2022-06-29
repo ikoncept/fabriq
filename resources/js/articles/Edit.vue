@@ -120,7 +120,7 @@
     </div>
 </template>
 <script>
-import Article from '~/models/Article'
+import Article from '@/models/Article.js'
 export default {
     name: 'ArticlesEdit',
     data () {

@@ -1,5 +1,5 @@
-import SidebarItems from '~/routes/sidebar-items'
-import * as types from '~/store/mutation-types'
+import SidebarItems from '@/routes/sidebar-items.js'
+import * as types from '@/store/mutation-types.js'
 
 export const state = {
     menuItems: []

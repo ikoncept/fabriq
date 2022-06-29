@@ -193,10 +193,10 @@
     </Transition>
 </template>
 <script>
-import Image from '~/models/Image'
-import File from '~/models/File'
-import Video from '~/models/Video'
-import AddImageFromUrlModal from '~/images/AddImageFromUrlModal'
+import Image from '@/models/Image.js'
+import File from '@/models/File.js'
+import Video from '@/models/Video.js'
+import AddImageFromUrlModal from '@/images/AddImageFromUrlModal.vue'
 export default {
     name: 'FMediaPicker',
     components: { AddImageFromUrlModal },

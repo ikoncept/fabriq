@@ -91,7 +91,7 @@ import { removeElement } from './helpers.js'
 import Timer from './timer.js'
 import Positions from './positions.js'
 import eventBus from './bus.js'
-import config from '~/config/config'
+import config from '@/config/config.js'
 import './themes/toast.css'
 
 export default {

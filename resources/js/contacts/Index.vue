@@ -143,7 +143,7 @@
     </div>
 </template>
 <script>
-import Contact from '~/models/Contact'
+import Contact from '@/models/Contact.js'
 function defaultCreationObject () {
     return {
         name: ''
