@@ -1,7 +1,6 @@
-import laravel from 'laravel-vite-plugin'
-import { defineConfig } from 'vite'
-// import react from '@vitejs/plugin-react'
 import vue from '@vitejs/plugin-vue2'
+import laravel from 'laravel-vite-plugin'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
 
 export default defineConfig({
     plugins: [
@@ -10,6 +9,7 @@ export default defineConfig({
             'resources/js/main.js',
         ]),
         // react(),
+
         vue({
             template: {
                 transformAssetUrls: {
@@ -18,5 +18,6 @@ export default defineConfig({
                 },
             },
         }),
+        splitVendorChunkPlugin()
     ],
 })
