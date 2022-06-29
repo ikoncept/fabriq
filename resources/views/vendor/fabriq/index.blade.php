@@ -49,10 +49,5 @@
 </head>
 <body>
     <div id="app"></div>
-    {{-- <script src="{{ mix('js/manifest.js', 'dist') }}"></script>
-    <script src="{{ mix('js/vendor.js', 'dist') }}"></script>
-    <script src="{{ mix('js/app.js', 'dist') }}"></script>
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <script src="{{ mix('js/app.js') }}" defer></script> --}}
 </body>
 </html>
