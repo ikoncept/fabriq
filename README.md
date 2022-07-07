@@ -15,9 +15,14 @@ composer require ikoncept/fabriq
 ```
 
 If you're planning on using AWS s3:
-```
+```bash
+# Laravel > 9
 composer require --with-all-dependencies league/flysystem-aws-s3-v3 "^1.0"
+
+# Laravel 9+
+composer require league/flysystem-aws-s3-v3 "^3.0"
 ```
+
 
 Install [Laravel Sanctum](https://github.com/laravel/sanctum) as well for authentication
 ```
@@ -67,9 +72,9 @@ rm resources/js/app.js && rm resources/js/bootstrap.js
 ```
 
 
-Run `yarn install` and `yarn production` to build assets
+Run `pnpm install` and `pnpm production` to build assets
 ```
-$ yarn install && yarn production
+$ pnpm install && pnpm production
 ```
 
 ## Auth configuration 🗝
@@ -107,37 +112,39 @@ Enable the Laravel Sanctum middleware in `app\Http\Kernel.php`
 Register the routes that makes sense for your app. See below examples
 ```php
 // routes/api.php
+use Ikoncept\Fabriq\Fabriq;
 
-Fabriq::routes(function($router) {
+Fabriq::routes(function ($router) {
     $router->forDevProtected();
-},[
+}, [
     'middleware' => ['auth:sanctum', 'role:dev', 'verified'],
     'prefix' => 'dev'
 ]);
 
-Fabriq::routes(function($router) {
+Fabriq::routes(function ($router) {
     $router->forApiAdminProtected();
-},[
+}, [
     'middleware' => ['auth:sanctum', 'role:admin', 'verified'],
     'prefix' => 'admin'
 ]);
 
-Fabriq::routes(function($router) {
+Fabriq::routes(function ($router) {
     $router->forApiProtected();
-},[
+}, [
     'middleware' => ['auth:sanctum']
 ]);
 
-Fabriq::routes(function($router) {
+Fabriq::routes(function ($router) {
     $router->forPublicApi();
 });
+
 
 ```
 
 ```php
 // routes/web.php
 
-use Ikoncept\Fabriq;
+use Ikoncept\Fabriq\Fabriq;
 
 Fabriq::routes(
     function ($router) {
