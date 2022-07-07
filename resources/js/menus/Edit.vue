@@ -124,9 +124,12 @@
 import MenuItemModal from '@/menus/MenuItemModal.vue'
 import Menu from '@/models/Menu.js'
 import MenuItem from '@/models/MenuItem.js'
+import VueNestable from '@/plugins/vue-nestable/VueNestable.vue'
+import VueNestableHandle from '@/plugins/vue-nestable/VueNestableHandle.vue'
+import '@/plugins/vue-nestable/vue-nestable.css';
 export default {
     name: 'MenusEdit',
-    components: { MenuItemModal },
+    components: { MenuItemModal, VueNestable, VueNestableHandle },
     beforeRouteLeave (from, to, next) {
         this.$vfm.hide('menu-item-modal')
         this.$destroy()

@@ -3,6 +3,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
+        "production": "vite build",
         "lint": "eslint --fix --ext .js,.vue resources/js",
         "fetch": "bin/fetch"
     },

@@ -23,6 +23,11 @@ composer require --with-all-dependencies league/flysystem-aws-s3-v3 "^1.0"
 composer require league/flysystem-aws-s3-v3 "^3.0"
 ```
 
+Install the Mailgun driver
+```bash
+composer require symfony/mailgun-mailer symfony/http-client
+```
+
 
 Install [Laravel Sanctum](https://github.com/laravel/sanctum) as well for authentication
 ```
@@ -62,7 +67,7 @@ class User extends FabriqUser
 
 Run the `fabriq:install` command:
 ```
-$ php artisan fabriq:install
+php artisan fabriq:install
 ```
 This command will publish front end assets and views. It will also run the migrations
 
@@ -74,7 +79,7 @@ rm resources/js/app.js && rm resources/js/bootstrap.js
 
 Run `pnpm install` and `pnpm production` to build assets
 ```
-$ pnpm install && pnpm production
+pnpm install && pnpm production
 ```
 
 ## Auth configuration 🗝
@@ -166,12 +171,12 @@ Assets can be published using their respective tags. The tags that are available
 
 You can publish these assets using the command below:
 ```
-$ php artisan vendor:publish --provider="Ikoncept\Fabriq\FabriqCoreServiceProvider" --tag=the-tag
+php artisan vendor:publish --provider="Ikoncept\Fabriq\FabriqCoreServiceProvider" --tag=the-tag
 ```
 
 If you want to overwrite your old published assets with new ones (for example when the package has updated views) you can use the `--force` flag
 ```
-$ php artisan vendor:publish --provider="Ikoncept\Fabriq\FabriqCoreServiceProvider" --tag=fabriq-views --force
+php artisan vendor:publish --provider="Ikoncept\Fabriq\FabriqCoreServiceProvider" --tag=fabriq-views --force
 ```
 
 **Note** _Above tags have been published when the `fabriq:install` was run_
@@ -243,5 +248,5 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 ## Testing
 
 ```
-$ composer test
+composer test
 ```
