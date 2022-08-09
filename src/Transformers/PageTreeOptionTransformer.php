@@ -9,7 +9,7 @@ class PageTreeOptionTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
@@ -17,7 +17,7 @@ class PageTreeOptionTransformer extends TransformerAbstract
     ];
 
     /**
-     * Carry variable
+     * Carry variable.
      *
      * @var array
      */
@@ -25,7 +25,7 @@ class PageTreeOptionTransformer extends TransformerAbstract
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Collection  $tree
      * @return array
@@ -38,7 +38,7 @@ class PageTreeOptionTransformer extends TransformerAbstract
     }
 
     /**
-     * Walk page tree
+     * Walk page tree.
      *
      * @param Collection $tree
      * @param string $prefix
@@ -46,13 +46,14 @@ class PageTreeOptionTransformer extends TransformerAbstract
      */
     protected function walktree($tree, $prefix = '-')
     {
-        return $tree->transform(function($item) use ($prefix) {
-            $item->prefixed_name = $prefix . ' ' . $item->name;
+        return $tree->transform(function ($item) use ($prefix) {
+            $item->prefixed_name = $prefix.' '.$item->name;
             $item->depth = strlen($prefix);
             $this->carry[] = $item;
-            if($item->children->count()) {
-                $item->children = $this->walktree($item->children, $prefix . '-');
+            if ($item->children->count()) {
+                $item->children = $this->walktree($item->children, $prefix.'-');
             }
+
             return $item;
         });
     }

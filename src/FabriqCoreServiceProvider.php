@@ -7,8 +7,8 @@ use Ikoncept\Fabriq\Console\AddRoleToUserCommand;
 use Ikoncept\Fabriq\Console\ControllerMakeCommand;
 use Ikoncept\Fabriq\Console\CreateMenuCommand;
 use Ikoncept\Fabriq\Console\CreatePageRootCommand;
-use Ikoncept\Fabriq\Console\MakeRevisionField;
 use Ikoncept\Fabriq\Console\InstallFabriqCommand;
+use Ikoncept\Fabriq\Console\MakeRevisionField;
 use Ikoncept\Fabriq\Console\PublishNotification;
 use Ikoncept\Fabriq\Console\ResourceMakeCommand;
 use Ikoncept\Fabriq\Console\SendNotificationReminders;
@@ -25,13 +25,13 @@ use Ikoncept\Fabriq\Repositories\EloquentPageRepository;
 use Ikoncept\Fabriq\Repositories\Interfaces\PageRepositoryInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Infab\Core\CoreServiceProvider;
 use Infab\TranslatableRevisions\TranslatableRevisionsServiceProvider;
 use League\Fractal\Manager;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
 use Spatie\QueryBuilder\QueryBuilderServiceProvider;
-use Illuminate\Support\Str;
 
 class FabriqCoreServiceProvider extends ServiceProvider
 {
@@ -72,7 +72,6 @@ class FabriqCoreServiceProvider extends ServiceProvider
             ], 'fabriq-views');
         }
     }
-
 
     /**
      * Register the service provider.
@@ -120,18 +119,20 @@ class FabriqCoreServiceProvider extends ServiceProvider
             VueIndexTemplateMakeCommand::class,
             VueResourceMakeCommand::class,
             MakeUser::class,
-            UpdateFabriqCommand::class
+            UpdateFabriqCommand::class,
         ]);
 
         $this->app->singleton(PageRepositoryInterface::class, function () {
             $baseRepo = new EloquentPageRepository(Fabriq::getModelClass('slug'));
             $cachingRepo = new CachingPageRepository($baseRepo, $this->app->get('cache.store'));
+
             return $cachingRepo;
         });
 
         $this->app->singleton('Ikoncept\Fabriq\Repositories\Interfaces\MenuRepositoryInterface', function () {
             $baseRepo = new EloquentMenuRepository(new Manager(), Fabriq::getModelClass('menuItem'), Fabriq::getModelClass('menu'));
             $cachingRepo = new CachingMenuRepository($baseRepo, $this->app->get('cache.store'));
+
             return $cachingRepo;
         });
     }
@@ -142,7 +143,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
 
         $merged = array_merge($updatePaths->toArray(), [
             __DIR__.'/../resources/js/routes/fabriq-routes.js' => resource_path('js/routes/fabriq-routes.js'),
-            __DIR__.'/../resources/js/routes/router.js' => resource_path('js/routes/router.js')
+            __DIR__.'/../resources/js/routes/router.js' => resource_path('js/routes/router.js'),
         ]);
 
         return  array_merge($merged, $this->standardPaths());
@@ -153,6 +154,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
         list($updatePaths, $installPaths) = $this->resourceDirectories();
 
         $merged = array_merge($updatePaths->toArray(), $installPaths->toArray());
+
         return array_merge($merged, $this->standardPaths());
     }
 
@@ -161,13 +163,14 @@ class FabriqCoreServiceProvider extends ServiceProvider
         $resourceDirectories = (array) glob(__DIR__.'/../resources/js/*');
 
         list($updateFolders, $installFolders) = collect($resourceDirectories)->mapWithKeys(function ($item) {
-            $path = pathinfo((string)$item, PATHINFO_BASENAME);
+            $path = pathinfo((string) $item, PATHINFO_BASENAME);
 
-            return [__DIR__.'/../resources/js/' . $path => resource_path('js/' . $path)];
+            return [__DIR__.'/../resources/js/'.$path => resource_path('js/'.$path)];
         })
             ->partition(function ($item, $key) {
                 return ! Str::contains((string) $key, 'routes');
             });
+
         return [$updateFolders, $installFolders];
     }
 
@@ -187,7 +190,8 @@ class FabriqCoreServiceProvider extends ServiceProvider
             __DIR__.'/../.babelrc' => '.babelrc',
             __DIR__.'/../.styleci.yml' => '.styleci.yml',
             __DIR__.'/../pnpm-lock.yaml' => 'pnpm-lock.yaml',
-            __DIR__.'/../.npmrc' => '.npmrc'
+            __DIR__.'/../.npmrc' => '.npmrc',
+            __DIR__.'/../.php-cs-fixer.stub' => '.php-cs-fixer.php',
        ];
     }
 }

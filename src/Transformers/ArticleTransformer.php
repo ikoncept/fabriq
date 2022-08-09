@@ -11,17 +11,17 @@ class ArticleTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
-        'content', 'template', 'slugs'
+        'content', 'template', 'slugs',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Article  $article
      * @return array
@@ -38,12 +38,12 @@ class ArticleTransformer extends TransformerAbstract
             'unpublishes_at' => (string) ($article->unpublishes_at) ? $article->unpublishes_at->toISOString() : '',
             'has_unpublished_time' => (bool) $article->has_unpublished_time,
             'updated_at' => (string) $article->updated_at->toISOString(),
-            'created_at' => (string) $article->created_at->toISOString()
+            'created_at' => (string) $article->created_at->toISOString(),
         ];
     }
 
     /**
-     * Include content
+     * Include content.
      *
      * @param Article $article
      * @return Item
@@ -56,7 +56,7 @@ class ArticleTransformer extends TransformerAbstract
     }
 
     /**
-     * Include template
+     * Include template.
      *
      * @param Article $article
      * @return Item
@@ -67,7 +67,7 @@ class ArticleTransformer extends TransformerAbstract
     }
 
     /**
-     * Include slugs
+     * Include slugs.
      *
      * @param Article $article
      * @return Collection
@@ -76,5 +76,4 @@ class ArticleTransformer extends TransformerAbstract
     {
         return $this->collection($article->slugs, new SlugTransformer());
     }
-
 }

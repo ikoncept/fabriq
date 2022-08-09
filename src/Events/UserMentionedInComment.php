@@ -15,14 +15,14 @@ class UserMentionedInComment implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * The comment posted
+     * The comment posted.
      *
      * @var mixed
      */
     public $comment;
 
     /**
-     * The notification
+     * The notification.
      *
      * @var mixed
      */
@@ -55,7 +55,7 @@ class UserMentionedInComment implements ShouldBroadcast
     {
         $prefix = config('fabriq.ws_prefix');
 
-        return [new PrivateChannel($prefix . '.user.' . $this->notification->user_id)];
+        return [new PrivateChannel($prefix.'.user.'.$this->notification->user_id)];
     }
 
     public function broadcastWith() : array

@@ -32,7 +32,7 @@ class UpdateContactRequest extends FormRequest
             'sortindex' => 'nullable',
             'content' => 'array',
             'localizedContent' => 'nullable|array',
-            'tags' => 'array'
+            'tags' => 'array',
         ];
     }
 }

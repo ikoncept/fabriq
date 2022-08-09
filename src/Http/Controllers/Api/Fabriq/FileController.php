@@ -3,12 +3,12 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\File;
 use Ikoncept\Fabriq\QueryBuilders\FileSort;
 use Ikoncept\Fabriq\Transformers\FileTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
@@ -16,12 +16,10 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class FileController extends ApiController
 {
-
     use ApiControllerTrait;
 
-
     /**
-     * Get index of the resource
+     * Get index of the resource.
      *
      * @param Request $request
      * @return JsonResponse
@@ -33,14 +31,13 @@ class FileController extends ApiController
             ->allowedSorts([
                 'id', 'created_at', 'updated_at', 'alt_text',
                 AllowedSort::custom('file_name', new FileSort()),
-                AllowedSort::custom('size', new FileSort())
+                AllowedSort::custom('size', new FileSort()),
             ])
             ->allowedFilters([
-                AllowedFilter::scope('search')
+                AllowedFilter::scope('search'),
             ])
             ->with($eagerLoad)
             ->paginate($this->number);
-
 
         return $this->respondWithPaginator($files, new FileTransformer);
     }

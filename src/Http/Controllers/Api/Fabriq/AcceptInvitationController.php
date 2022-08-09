@@ -19,7 +19,7 @@ class AcceptInvitationController extends Controller
     use ApiControllerTrait;
 
     /**
-     * Show invitation view
+     * Show invitation view.
      *
      * @param Request $request
      * @param string $invitationUuid
@@ -35,15 +35,14 @@ class AcceptInvitationController extends Controller
             ->with('user')
             ->firstOrFail();
 
-
-        /** @var view-string $viewString **/
+        /** @var view-string $viewString * */
         $viewString = 'vendor.fabriq.auth.activate';
 
         return view($viewString, ['invitation' => $invitation]);
     }
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
      * @param AcceptInvitationRequest $request
      * @param string $invitationUuid
@@ -67,7 +66,7 @@ class AcceptInvitationController extends Controller
 
         $invitation->delete();
 
-        if(request()->wantsJson()) {
+        if (request()->wantsJson()) {
             return $this->respondWithSuccess('The user has accepted the invitation successfully');
         }
 

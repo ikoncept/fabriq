@@ -14,9 +14,10 @@ class DeleteCommentRequest extends FormRequest
      */
     public function authorize()
     {
-        if(request()->user()->hasAllRoles(['admin', 'dev'])) {
+        if (request()->user()->hasAllRoles(['admin', 'dev'])) {
             return true;
         }
+
         return (bool) Comment::where('id', $this->route('id'))
             ->where('user_id', request()->user()->id)
             ->first();

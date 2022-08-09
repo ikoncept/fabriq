@@ -1,8 +1,9 @@
 <?php
 
 namespace Ikoncept\Fabriq\Console;
-use Illuminate\Support\Str;
+
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 use Infab\Core\Console\ReplacesModelName;
 use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputOption;
@@ -76,9 +77,10 @@ class VueApiModelMakeCommand extends GeneratorCommand
             '{{ SwedishPluralName }}' => Str::studly($this->option('swedish-name-plural')),
         ];
 
-
         return str_replace(
-            array_keys($replace), array_values($replace), $stub
+            array_keys($replace),
+            array_values($replace),
+            $stub
         );
     }
 
@@ -120,7 +122,6 @@ class VueApiModelMakeCommand extends GeneratorCommand
             ['swedish-name-plural', 'sp', InputOption::VALUE_OPTIONAL, 'Swedish plural name'],
         ];
     }
-
 
     /**
      * Get the stub file for the generator.

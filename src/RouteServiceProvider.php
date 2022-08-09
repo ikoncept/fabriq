@@ -17,4 +17,3 @@ class RouteServiceProvider extends ServiceProvider
         $router->aliasMiddleware('role', RoleMiddleware::class);
     }
 }
-

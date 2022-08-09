@@ -13,7 +13,7 @@ class CommentDeleted implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets;
 
     /**
-     * The comment posted
+     * The comment posted.
      *
      * @var mixed
      */
@@ -44,6 +44,6 @@ class CommentDeleted implements ShouldBroadcast
     {
         $prefix = config('fabriq.ws_prefix');
 
-        return new Channel($prefix . '.comments');
+        return new Channel($prefix.'.comments');
     }
 }

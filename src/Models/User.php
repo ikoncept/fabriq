@@ -13,31 +13,31 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, HasRoles;
 
-    const RELATIONSHIPS = ['roles'];
+    public const RELATIONSHIPS = ['roles'];
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
     public $morphClass = 'user';
 
     /**
-     * Guard name
+     * Guard name.
      *
      * @var string
      */
     protected $guard_name = 'web';
 
     /**
-     * Create a new factory
+     * Create a new factory.
      *
      * @return UserFactory
      */
@@ -55,7 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'role_list'
+        'role_list',
     ];
 
     /**
@@ -78,7 +78,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * Set roles according to an array
+     * Set roles according to an array.
      *
      * @param array $value
      * @return void
@@ -94,7 +94,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Create a new invitation
+     * Create a new invitation.
      *
      * @param int|null $invitedBy
      * @return Invitation
@@ -103,14 +103,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $invitation = Invitation::create([
             'user_id' => $this->id,
-            'invited_by' => $invitedBy ?? auth()->user()->id
+            'invited_by' => $invitedBy ?? auth()->user()->id,
         ]);
 
         return $invitation;
     }
 
     /**
-     * Search for users
+     * Search for users.
      *
      * @param Builder $query
      * @param string $search
@@ -152,7 +152,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function receivesBroadcastNotificationsOn() : array
     {
-        $channel = config('fabriq.ws_prefix') . '.user.' . $this->id;
+        $channel = config('fabriq.ws_prefix').'.user.'.$this->id;
 
         return [new Channel($channel)];
     }

@@ -9,20 +9,19 @@ use League\Fractal\TransformerAbstract;
 
 class MenuTreeItemTransformer extends TransformerAbstract
 {
-
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
-        'children', 'page', 'content'
+        'children', 'page', 'content',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  MenuItem  $menuItem
      * @return array
@@ -34,9 +33,9 @@ class MenuTreeItemTransformer extends TransformerAbstract
             'title' => $menuItem->title,
             'slug' => $menuItem->getSlugString(),
             'path' => $menuItem->relativePath,
-            'localized_path' => '/' . app()->getLocale() . $menuItem->relativePath,
+            'localized_path' => '/'.app()->getLocale().$menuItem->relativePath,
             'parent_id' => ($menuItem->parent_id) ? (int) $menuItem->parent_id : null,
-            'type' => $menuItem->type
+            'type' => $menuItem->type,
         ];
     }
 
@@ -47,11 +46,11 @@ class MenuTreeItemTransformer extends TransformerAbstract
 
     public function includeChildren(MenuItem $tree) : Collection
     {
-        return $this->collection($tree->children, new MenuTreeItemTransformer);
+        return $this->collection($tree->children, new self);
     }
 
     /**
-     * Include content
+     * Include content.
      *
      * @param MenuItem $menuItem
      * @return Item

@@ -38,26 +38,26 @@ class PublishNotification extends Command
      */
     public function handle()
     {
-        $notificationText =  $this->ask('Enter the message you want to publish to the admins');
+        $notificationText = $this->ask('Enter the message you want to publish to the admins');
 
         $this->info('The message:');
         $this->info($notificationText);
         $confirmation = $this->confirm('Are you sure you wan\'t to publish this message?');
 
-        if(! $confirmation) {
+        if (! $confirmation) {
             $this->error('Aborted!');
+
             return 0;
         }
 
-        $admins = config('fabriq.models.user')::whereHas('roles', function(Builder $query) {
+        $admins = config('fabriq.models.user')::whereHas('roles', function (Builder $query) {
             return $query->where('name', 'admin');
-        })->get()->each(function($user) use ($notificationText) {
+        })->get()->each(function ($user) use ($notificationText) {
             config('fabriq.models.notification')::create([
                 'user_id' => $user->id,
-                'content' => $notificationText
+                'content' => $notificationText,
             ]);
         });
-
 
         return 0;
     }

@@ -21,10 +21,10 @@ class SmartBlock extends Model
 {
     use HasFactory, HasTranslatedRevisions;
 
-    const RELATIONSHIPS = [];
+    public const RELATIONSHIPS = [];
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
@@ -55,14 +55,14 @@ class SmartBlock extends Model
     }
 
     /**
-     * Set localized content
+     * Set localized content.
      *
      * @param array $value
      * @return void
      */
     public function setLocalizedContentAttribute($value)
     {
-        foreach($value as $key => $localeContent) {
+        foreach ($value as $key => $localeContent) {
             $this->updateContent($localeContent, (string) $key);
         }
     }
@@ -95,7 +95,7 @@ class SmartBlock extends Model
     }
 
     /**
-     * Getter for button
+     * Getter for button.
      *
      * @param RevisionMeta $meta
      * @return mixed
@@ -106,7 +106,7 @@ class SmartBlock extends Model
     }
 
     /**
-     * Getter for buttons
+     * Getter for buttons.
      *
      * @param RevisionMeta $meta
      * @return mixed
@@ -117,7 +117,7 @@ class SmartBlock extends Model
     }
 
     /**
-     * Search for smart blocks
+     * Search for smart blocks.
      *
      * @param Builder $query
      * @param string $search
@@ -127,5 +127,4 @@ class SmartBlock extends Model
     {
         return $query->whereLike(['name'], $search);
     }
-
 }

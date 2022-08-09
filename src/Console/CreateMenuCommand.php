@@ -38,17 +38,19 @@ class CreateMenuCommand extends Command
      */
     public function handle()
     {
-        $name = $this->ask("What is the new name of the menu?") ?: '';
+        $name = $this->ask('What is the new name of the menu?') ?: '';
 
-        $slug = $this->ask("Provide a slug for the menu") ?: '';
+        $slug = $this->ask('Provide a slug for the menu') ?: '';
 
-        if(! $name) {
+        if (! $name) {
             $this->error('Name is required, exiting');
+
             return 1;
         }
 
-        if(! $slug) {
+        if (! $slug) {
             $this->error('Slug is required, exiting');
+
             return 1;
         }
 

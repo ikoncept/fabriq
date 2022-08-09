@@ -14,9 +14,10 @@ class ClearNotificationRequest extends FormRequest
      */
     public function authorize()
     {
-        if(request()->user()->hasAllRoles(['admin', 'dev'])) {
+        if (request()->user()->hasAllRoles(['admin', 'dev'])) {
             return true;
         }
+
         return (bool) Notification::where('id', $this->route('id'))
             ->where('user_id', request()->user()->id)
             ->first();
@@ -30,7 +31,7 @@ class ClearNotificationRequest extends FormRequest
     public function rules()
     {
         return [
-            'clear' => 'required|boolean'
+            'clear' => 'required|boolean',
         ];
     }
 }

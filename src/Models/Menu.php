@@ -12,10 +12,10 @@ class Menu extends Model
 {
     use HasFactory;
 
-    const RELATIONSHIPS = [];
+    public const RELATIONSHIPS = [];
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */

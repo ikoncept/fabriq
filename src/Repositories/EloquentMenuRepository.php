@@ -12,9 +12,8 @@ use League\Fractal\Scope;
 
 class EloquentMenuRepository implements MenuRepositoryInterface
 {
-
     /**
-     * Menu model
+     * Menu model.
      *
      * @var mixed
      */
@@ -33,7 +32,7 @@ class EloquentMenuRepository implements MenuRepositoryInterface
     }
 
     /**
-     * Find by slug
+     * Find by slug.
      *
      * @param string $slug
      * @return mixed
@@ -56,7 +55,7 @@ class EloquentMenuRepository implements MenuRepositoryInterface
     }
 
     /**
-     * Create data
+     * Create data.
      *
      * @param object $collection
      * @param mixed $callback
@@ -69,5 +68,5 @@ class EloquentMenuRepository implements MenuRepositoryInterface
         $scope = $this->fractal->createData($resource);
 
         return $scope;
-   }
+    }
 }

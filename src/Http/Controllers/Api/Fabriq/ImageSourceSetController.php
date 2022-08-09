@@ -2,9 +2,9 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\Image;
 use Illuminate\Http\JsonResponse;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -13,9 +13,9 @@ class ImageSourceSetController extends ApiController
     use ApiControllerTrait;
 
     /**
-     * Get src set data
+     * Get src set data.
      *
-     * @param integer $id
+     * @param int $id
      * @return JsonResponse
      */
     public function show(int $id) : JsonResponse
@@ -31,7 +31,7 @@ class ImageSourceSetController extends ApiController
         $width = ($media->responsiveImages()->files->first()) ? $media->responsiveImages()->files->first()->width() : null;
         $height = ($media->responsiveImages()->files->first()) ? $media->responsiveImages()->files->first()->height() : null;
 
-        /** @var view-string $viewString **/
+        /** @var view-string $viewString * */
         $viewString = 'vendor.fabriq._partials.srcset';
         $srcset = view($viewString, compact(
             'media',
@@ -51,8 +51,8 @@ class ImageSourceSetController extends ApiController
                 'src' => $media->getUrl(),
                 'width' => $width,
                 'height' => $height,
-                'alt_text' => $image->alt_text
-            ]
+                'alt_text' => $image->alt_text,
+            ],
         ]);
     }
 }

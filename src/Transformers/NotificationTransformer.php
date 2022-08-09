@@ -9,17 +9,17 @@ class NotificationTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
-        'notifiable'
+        'notifiable',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Notification  $notification
      * @return array
@@ -33,14 +33,14 @@ class NotificationTransformer extends TransformerAbstract
     }
 
     /**
-     * Include notifiable
+     * Include notifiable.
      *
      * @param Notification $notification
      * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
      */
     public function includeNotifiable(Notification $notification)
     {
-        if(! $notification->notifiable) {
+        if (! $notification->notifiable) {
             return $this->null();
         }
 

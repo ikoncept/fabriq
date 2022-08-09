@@ -9,7 +9,7 @@ class TagTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
@@ -18,7 +18,7 @@ class TagTransformer extends TransformerAbstract
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Tag  $tag
      * @return array
@@ -29,7 +29,7 @@ class TagTransformer extends TransformerAbstract
             'id' => $tag->id,
             'name' => $tag->name,
             'value' => $tag->id,
-            'type' => $tag->type
+            'type' => $tag->type,
         ];
     }
 }

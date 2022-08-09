@@ -48,7 +48,6 @@ class ResourceMakeCommand extends GeneratorCommand
                         : __DIR__.$stub;
     }
 
-
     /**
      * Get the console command arguments.
      *
@@ -142,7 +141,6 @@ class ResourceMakeCommand extends GeneratorCommand
         ]);
     }
 
-
     /**
      * Get the default namespace for the class.
      *
@@ -179,7 +177,4 @@ class ResourceMakeCommand extends GeneratorCommand
             '--model' => $this->qualifyClass($this->getNameInput()),
         ]);
     }
-
-
-
 }

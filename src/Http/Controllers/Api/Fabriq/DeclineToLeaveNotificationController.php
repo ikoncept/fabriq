@@ -10,10 +10,8 @@ use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 
-
 class DeclineToLeaveNotificationController extends ApiController
 {
-
     use ApiControllerTrait;
 
     public function __invoke(Request $request, int $userId) : JsonResponse

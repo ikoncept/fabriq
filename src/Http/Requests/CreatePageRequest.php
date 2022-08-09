@@ -25,7 +25,7 @@ class CreatePageRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'template_id' => 'required|numeric|min:1'
+            'template_id' => 'required|numeric|min:1',
         ];
     }
 }

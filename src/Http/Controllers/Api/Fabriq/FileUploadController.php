@@ -3,10 +3,10 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\File;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 
 class FileUploadController extends ApiController

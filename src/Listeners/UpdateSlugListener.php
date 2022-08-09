@@ -25,24 +25,24 @@ class UpdateSlugListener
      */
     public function handle($event)
     {
-        if(! $event->model->templateSluggable) {
+        if (! $event->model->templateSluggable) {
             return;
         }
-        $sluggableDefinitions = $event->definitions->filter(function($def, $key) use ($event) {
+        $sluggableDefinitions = $event->definitions->filter(function ($def, $key) use ($event) {
             return $key === implode(',', $event->model->templateSluggable);
             // return Str::contains(implode(',', $event->model->templateSluggable), $key);
         });
 
-        foreach($sluggableDefinitions as $item) {
+        foreach ($sluggableDefinitions as $item) {
             $slug = Slug::firstOrNew([
                 'model_id' => $event->model->id,
                 'locale' => $item['definition']->locale,
-                'model_type' => get_class($event->model)
+                'model_type' => get_class($event->model),
             ], [
                 'source_key' => $item['term']->key,
             ]);
-            if(! $item['definition']->content) {
-                $item['definition']->content = 'no_slug_yet_' . Str::random(6);
+            if (! $item['definition']->content) {
+                $item['definition']->content = 'no_slug_yet_'.Str::random(6);
             }
             $slug->source_string = $item['definition']->content;
             $slug->source_key = $item['term']->key;

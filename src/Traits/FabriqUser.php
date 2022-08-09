@@ -15,14 +15,14 @@ trait FabriqUser
     use HasFactory, Notifiable, HasRoles;
 
     /**
-     * Guard name
+     * Guard name.
      *
      * @var string
      */
     protected $guard_name = 'web';
 
     /**
-     * Create a new factory
+     * Create a new factory.
      *
      * @return UserFactory
      */
@@ -31,9 +31,8 @@ trait FabriqUser
     //     return UserFactory::new();
     // }
 
-
     /**
-     * Set roles according to an array
+     * Set roles according to an array.
      *
      * @param array $value
      * @return void
@@ -44,7 +43,7 @@ trait FabriqUser
     }
 
     /**
-     * Search for users
+     * Search for users.
      *
      * @param Builder $query
      * @param string $search
@@ -52,8 +51,8 @@ trait FabriqUser
      */
     public function scopeSearch(Builder $query, string $search) : Builder
     {
-        return $query->where('name', 'LIKE', '%' . $search . '%')
-            ->orWhere('email', 'LIKE', '%' . $search . '%');
+        return $query->where('name', 'LIKE', '%'.$search.'%')
+            ->orWhere('email', 'LIKE', '%'.$search.'%');
     }
 
     public function notifications() : HasMany
@@ -69,7 +68,7 @@ trait FabriqUser
     }
 
     /**
-     * Display first name
+     * Display first name.
      *
      * @return string
      */

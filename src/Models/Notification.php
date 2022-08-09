@@ -14,7 +14,7 @@ class Notification extends Model
     use HasFactory;
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
@@ -25,7 +25,7 @@ class Notification extends Model
         return NotificationFactory::new();
     }
 
-    const RELATIONSHIPS = ['notifiable', 'notifiable.user', 'notifiable.commentable'];
+    public const RELATIONSHIPS = ['notifiable', 'notifiable.user', 'notifiable.commentable'];
 
     protected $fillable = ['user_id', 'content'];
 

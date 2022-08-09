@@ -247,20 +247,20 @@ class ArticlesFeatureTest extends AdminUserTestCase
                'slug' => 'article'
            ]);
 
-       $metaField = RevisionTemplateField::factory()->create([
+        $metaField = RevisionTemplateField::factory()->create([
            'template_id' => $template->id,
            'translated' => false,
            'key' => 'header',
            'type' => 'text'
        ]);
-       $article = \Ikoncept\Fabriq\Models\Article::factory()->create([
+        $article = \Ikoncept\Fabriq\Models\Article::factory()->create([
            'revision' => 1,
            'template_id' => $template->id
        ]);
-       $article->updateContent([
+        $article->updateContent([
            'header' => 'A nice header right'
        ]);
-       $article->save();
+        $article->save();
 
         // Act
         $content = $article->getFieldContent(1, 'sv');

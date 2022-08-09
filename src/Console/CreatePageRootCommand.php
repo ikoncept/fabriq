@@ -40,12 +40,13 @@ class CreatePageRootCommand extends Command
     public function handle()
     {
         $name = 'root';
-        if(! $this->option('silent')) {
+        if (! $this->option('silent')) {
             $name = $this->ask('Provide a name for the page root', 'root');
         }
 
-        if(Fabriq::getModelClass('page')->whereName('root')->first()) {
+        if (Fabriq::getModelClass('page')->whereName('root')->first()) {
             $this->info('Root already exists');
+
             return 0;
         }
 
@@ -55,6 +56,7 @@ class CreatePageRootCommand extends Command
         $page->save();
 
         $this->info('Page root has been created successfully');
+
         return 0;
     }
 
@@ -66,7 +68,7 @@ class CreatePageRootCommand extends Command
     protected function getOptions()
     {
         return [
-            ['silent', 's', InputOption::VALUE_NONE, 'Generate a root named root']
+            ['silent', 's', InputOption::VALUE_NONE, 'Generate a root named root'],
         ];
     }
 }

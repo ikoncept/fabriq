@@ -8,9 +8,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media as MediaLibraryMedia;
 
 class Media extends MediaLibraryMedia
 {
-
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */

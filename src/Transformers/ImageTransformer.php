@@ -3,26 +3,26 @@
 namespace Ikoncept\Fabriq\Transformers;
 
 use Ikoncept\Fabriq\Models\Image;
-use League\Fractal\TransformerAbstract;
 use Illuminate\Support\Str;
 use League\Fractal\Resource\Collection;
+use League\Fractal\TransformerAbstract;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ImageTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
-        'tags'
+        'tags',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Image  $image
      * @return array
@@ -30,9 +30,9 @@ class ImageTransformer extends TransformerAbstract
     public function transform(Image $image)
     {
         $media = $image->getFirstMedia('images');
-        if(! $media) {
+        if (! $media) {
             return [
-                'id' => $image->id
+                'id' => $image->id,
             ];
         }
 
@@ -40,7 +40,7 @@ class ImageTransformer extends TransformerAbstract
             'id' => $image->id,
             'uuid' => $media->uuid,
             'name' => $media->name,
-            'c_name' => $media->name . '.' . Str::afterLast($media->file_name, '.'),
+            'c_name' => $media->name.'.'.Str::afterLast($media->file_name, '.'),
             'extension' => Str::afterLast($media->file_name, '.'),
             'file_name' => $media->file_name,
             'thumb_src' => $media->getUrl('thumb'),
@@ -67,17 +67,17 @@ class ImageTransformer extends TransformerAbstract
     }
 
     /**
-     * Get width
+     * Get width.
      *
      * @param Media $media
      * @return mixed
      */
     protected function getWidth(Media $media)
     {
-        if($media->getCustomProperty('width')) {
-           return $media->getCustomProperty('width');
+        if ($media->getCustomProperty('width')) {
+            return $media->getCustomProperty('width');
         }
-        if($media->responsiveImages()->files->first()) {
+        if ($media->responsiveImages()->files->first()) {
             return $media->responsiveImages()->files->first()->width();
         }
 
@@ -85,17 +85,17 @@ class ImageTransformer extends TransformerAbstract
     }
 
     /**
-     * Get height
+     * Get height.
      *
      * @param Media $media
      * @return mixed
      */
     protected function getHeight(Media $media)
     {
-        if($media->getCustomProperty('height')) {
-           return $media->getCustomProperty('height');
+        if ($media->getCustomProperty('height')) {
+            return $media->getCustomProperty('height');
         }
-        if($media->responsiveImages()->files->first()) {
+        if ($media->responsiveImages()->files->first()) {
             return $media->responsiveImages()->files->first()->height();
         }
 

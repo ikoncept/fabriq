@@ -13,21 +13,21 @@ class UserTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
-        'roles', 'invitation'
+        'roles', 'invitation',
     ];
 
     protected $defaultIncludes = [
-        'image'
+        'image',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  User  $user
      * @return array
@@ -42,12 +42,12 @@ class UserTransformer extends TransformerAbstract
             'timezone' => 'Europe/Stockholm',
             // 'email_verified_at' => ($user->email_verified_at) ? $user->email_verified_at->toISOString()  : false,
             'email_verified_at' => ($user->email_verified_at) ? (string) $user->email_verified_at : null,
-            'updated_at' => $user->updated_at
+            'updated_at' => $user->updated_at,
         ];
     }
 
     /**
-     * Include roles
+     * Include roles.
      *
      * @param User $user
      * @return Collection
@@ -58,7 +58,7 @@ class UserTransformer extends TransformerAbstract
     }
 
     /**
-     * Include image
+     * Include image.
      *
      * @param User $user
      * @return Item
@@ -68,10 +68,9 @@ class UserTransformer extends TransformerAbstract
         return $this->item($user->image, new UserImageTransformer());
     }
 
-
     public function includeInvitation(User $user) : Item|NullResource
     {
-        if(! $user->invitation) {
+        if (! $user->invitation) {
             return $this->null();
         }
 
@@ -79,14 +78,14 @@ class UserTransformer extends TransformerAbstract
     }
 
     /**
-     * Get roles
+     * Get roles.
      *
      * @param User $user
      * @return IlluminateCollection
      */
     public function getRoles(User $user) : IlluminateCollection
     {
-        if(auth()->user()->id == $user->id) {
+        if (auth()->user()->id == $user->id) {
             return $user->roles->pluck('name');
         }
 

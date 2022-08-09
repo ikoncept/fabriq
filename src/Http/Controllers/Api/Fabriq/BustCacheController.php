@@ -2,9 +2,9 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 
 class BustCacheController extends ApiController

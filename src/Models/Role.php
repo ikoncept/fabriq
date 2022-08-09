@@ -12,7 +12,7 @@ class Role extends SpatieRole
     use HasFactory;
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */

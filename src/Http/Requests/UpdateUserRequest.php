@@ -29,9 +29,9 @@ class UpdateUserRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique(\Ikoncept\Fabriq\Models\User::class, 'email')->ignore($this->get('id'), 'id')
+                Rule::unique(\Ikoncept\Fabriq\Models\User::class, 'email')->ignore($this->get('id'), 'id'),
             ],
-            'role_list' => 'array'
+            'role_list' => 'array',
         ];
     }
 }

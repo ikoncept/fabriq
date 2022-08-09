@@ -17,10 +17,10 @@ class MenuItem extends Model
 {
     use HasFactory, NodeTrait, HasTranslatedRevisions;
 
-    const RELATIONSHIPS = ['page'];
+    public const RELATIONSHIPS = ['page'];
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
@@ -69,21 +69,21 @@ class MenuItem extends Model
             ->registerCacheTagsToFlush(['cms_menu']);
     }
 
-
     public function page() : BelongsTo
     {
         return $this->belongsTo(Fabriq::getFqnModel('page'));
     }
 
     /**
-     * Get the title attribute
+     * Get the title attribute.
      *
      * @return string
      */
     public function getTitleAttribute() : string
     {
-        if($this->type === 'external') {
+        if ($this->type === 'external') {
             $content = $this->getFieldContent(null, 'sv');
+
             return $content['title'] ?? '';
         }
 
@@ -91,7 +91,7 @@ class MenuItem extends Model
     }
 
     /**
-     * Get string of the slug
+     * Get string of the slug.
      *
      * @return string
      */
@@ -101,14 +101,14 @@ class MenuItem extends Model
     }
 
     /**
-     * Get the slug
+     * Get the slug.
      *
      * @param string $locale
      * @return mixed
      */
     public function getSlug(string $locale = '')
     {
-        if(! $locale) {
+        if (! $locale) {
             $locale = app()->getLocale();
         }
         try {
@@ -120,39 +120,39 @@ class MenuItem extends Model
 
     public function getRelativePathAttribute() : string
     {
-        if($this->ancestors->count()) {
+        if ($this->ancestors->count()) {
             $collection = new Collection($this->ancestors);
-            return $collection->reduce(function($carry, $subItem) {
-                /** @var MenuItem $subItem **/
-                if(! $subItem->page) {
+
+            return $collection->reduce(function ($carry, $subItem) {
+                /** @var MenuItem $subItem * */
+                if (! $subItem->page) {
                     return;
                 }
-                return  $carry .'/'. $subItem->getSlugString();
-            }, '') . '/' . $this->getSlugString();
+
+                return  $carry.'/'.$subItem->getSlugString();
+            }, '').'/'.$this->getSlugString();
         }
 
         return $this->getSlugString();
     }
 
     /**
-     * Skip setting title
+     * Skip setting title.
      *
      * @param mixed $value
      * @return void
      */
     public function setTitleAttribute($value) : void
     {
-
     }
 
     /**
-     * Skip setting page attribute
+     * Skip setting page attribute.
      *
      * @param mixed $value
      * @return void
      */
     public function setPageAttribute($value) : void
     {
-
     }
 }

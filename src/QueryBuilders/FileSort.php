@@ -7,9 +7,8 @@ use Spatie\QueryBuilder\Sorts\Sort;
 
 class FileSort implements Sort
 {
-
     /**
-     * Sort custom columns
+     * Sort custom columns.
      *
      * @param Builder $query
      * @param mixed $descending
@@ -23,7 +22,6 @@ class FileSort implements Sort
         return $query->select('files.*')
             ->join('media', 'media.model_id', '=', 'files.id')
             ->where('collection_name', 'files')
-            ->orderBy('media.' . $keyName, $descending ? 'desc' : 'asc');
+            ->orderBy('media.'.$keyName, $descending ? 'desc' : 'asc');
     }
-
 }

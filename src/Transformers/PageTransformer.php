@@ -13,18 +13,18 @@ class PageTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
         'content', 'template', 'slugs',
-        'localizedContent', 'children'
+        'localizedContent', 'children',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Page  $page
      * @return array
@@ -35,7 +35,7 @@ class PageTransformer extends TransformerAbstract
     }
 
     /**
-     * Include content
+     * Include content.
      *
      * @param Page $page
      * @return Item
@@ -48,7 +48,7 @@ class PageTransformer extends TransformerAbstract
     }
 
     /**
-     * Include page template
+     * Include page template.
      *
      * @param Page $page
      * @return Item
@@ -59,7 +59,7 @@ class PageTransformer extends TransformerAbstract
     }
 
     /**
-     * Include slugs
+     * Include slugs.
      *
      * @param Page $page
      * @return Collection
@@ -71,7 +71,6 @@ class PageTransformer extends TransformerAbstract
 
     public function includeLocalizedContent(Page $page) : Item
     {
-
         $enabledLocales = I18nLocale::where('enabled', 1)
             ->select('iso_code')
             ->orderBy('id', 'desc')->get();
@@ -81,6 +80,6 @@ class PageTransformer extends TransformerAbstract
 
     public function includeChildren(Page $page) : Collection
     {
-        return $this->collection($page->children, new  PageTransformer);
+        return $this->collection($page->children, new  self);
     }
 }

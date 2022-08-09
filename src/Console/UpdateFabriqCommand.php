@@ -3,8 +3,8 @@
 namespace Ikoncept\Fabriq\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 
 class UpdateFabriqCommand extends Command
 {
@@ -43,10 +43,11 @@ class UpdateFabriqCommand extends Command
         $this->info('Checking if working directory is clean');
         $result = exec('git status --short');
 
-        if(!! $result) {
+        if ((bool) $result) {
             $answer = $this->ask('Working directory not clean, continue anyways?', 'yes', ['yes', 'no']);
-            if($answer == 'no') {
+            if ($answer == 'no') {
                 $this->info('Okay, exiting');
+
                 return 0;
             }
         }
@@ -54,20 +55,19 @@ class UpdateFabriqCommand extends Command
         $this->call('vendor:publish', [
             '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
             '--tag' => 'fabriq-frontend-assets',
-            '--force' => true
+            '--force' => true,
         ]);
 
         $this->call('vendor:publish', [
             '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
             '--tag' => 'fabriq-views',
-            '--force' => true
+            '--force' => true,
         ]);
 
         $this->info('Front end assets has been installed');
 
         $this->info('Migrating...');
         $this->call('migrate');
-
 
         $this->info('Fabriq has been updated');
 

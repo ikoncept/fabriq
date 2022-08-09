@@ -44,7 +44,7 @@ class TransformerMakeCommand extends GeneratorCommand
         return $model ? $this->replaceModel($stub, $model) : $stub;
     }
 
-        /**
+    /**
      * Replace the model for the given stub.
      *
      * @param  string  $stub
@@ -68,7 +68,9 @@ class TransformerMakeCommand extends GeneratorCommand
         ];
 
         return str_replace(
-            array_keys($replace), array_values($replace), $stub
+            array_keys($replace),
+            array_values($replace),
+            $stub
         );
     }
 
@@ -109,7 +111,6 @@ class TransformerMakeCommand extends GeneratorCommand
     {
         return $rootNamespace.'\Transformers';
     }
-
 
     /**
      * Get the console command arguments.

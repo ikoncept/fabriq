@@ -9,27 +9,27 @@ use Infab\TranslatableRevisions\Models\RevisionMeta;
 class FileGetter
 {
     /**
-     * Return a representation of an image
+     * Return a representation of an image.
      *
      * @param RevisionMeta $meta
-     * @param boolean $publishing
+     * @param bool $publishing
      * @return mixed
      */
     public static function get(RevisionMeta $meta, $publishing = false)
     {
-        if(empty($meta->toArray())) {
+        if (empty($meta->toArray())) {
             return [
-                'meta_id' => $meta->id
+                'meta_id' => $meta->id,
             ];
         }
 
         $file = Fabriq::getModelClass('file')
             ->whereIn('id', (array) $meta->meta_value)->first();
 
-        if(! $file) {
+        if (! $file) {
             return null;
         }
-        if($publishing) {
+        if ($publishing) {
             return [$file->id];
         }
         $media = $file->getFirstMedia('files');
@@ -39,7 +39,7 @@ class FileGetter
             'uuid' => $media->uuid,
             'name' => $media->name,
             'file_name' => $media->file_name,
-            'thumb_src' => ($media->hasGeneratedConversion('file_thumb')) ? $media->getUrl('file_thumb')  : '',
+            'thumb_src' => ($media->hasGeneratedConversion('file_thumb')) ? $media->getUrl('file_thumb') : '',
             'src' => $media->getUrl(),
             'readable_name' => $file->readable_name,
             'caption' => $file->caption,

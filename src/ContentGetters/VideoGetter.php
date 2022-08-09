@@ -9,27 +9,27 @@ use Infab\TranslatableRevisions\Models\RevisionMeta;
 class VideoGetter
 {
     /**
-     * Return a representation of an video
+     * Return a representation of an video.
      *
      * @param RevisionMeta $meta
-     * @param boolean $publishing
+     * @param bool $publishing
      * @return mixed
      */
     public static function get(RevisionMeta $meta, $publishing = false)
     {
-        if(empty($meta->toArray())) {
+        if (empty($meta->toArray())) {
             return [
-                'meta_id' => $meta->id
+                'meta_id' => $meta->id,
             ];
         }
 
         $video = Fabriq::getModelClass('video')
             ->whereIn('id', (array) $meta->meta_value)->first();
 
-        if(! $video) {
+        if (! $video) {
             return null;
         }
-        if($publishing) {
+        if ($publishing) {
             return [$video->id];
         }
         $media = $video->getFirstMedia('videos');
@@ -44,7 +44,7 @@ class VideoGetter
             'caption' => $video->caption,
             'mime_type' => $media->mime_type,
             'size' => $media->size,
-            'meta_id' => $meta->id
+            'meta_id' => $meta->id,
         ];
     }
 }

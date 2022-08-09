@@ -3,25 +3,25 @@
 namespace Ikoncept\Fabriq\Transformers;
 
 use Ikoncept\Fabriq\Models\Video;
-use League\Fractal\TransformerAbstract;
 use Illuminate\Support\Str;
 use League\Fractal\Resource\Collection;
+use League\Fractal\TransformerAbstract;
 
 class VideoTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
-        'tags'
+        'tags',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Video  $video
      * @return array
@@ -29,9 +29,9 @@ class VideoTransformer extends TransformerAbstract
     public function transform(Video $video)
     {
         $media = $video->getFirstMedia('videos');
-        if(! $media) {
+        if (! $media) {
             return [
-                'id' => $video->id
+                'id' => $video->id,
             ];
         }
 
@@ -39,7 +39,7 @@ class VideoTransformer extends TransformerAbstract
             'id' => $video->id,
             'uuid' => $media->uuid,
             'name' => $media->name,
-            'c_name' => $media->name . '.' . Str::afterLast($media->file_name, '.'),
+            'c_name' => $media->name.'.'.Str::afterLast($media->file_name, '.'),
             'extension' => Str::afterLast($media->file_name, '.'),
             'file_name' => $media->file_name,
             'thumb_src' => $media->getUrl('thumb'),

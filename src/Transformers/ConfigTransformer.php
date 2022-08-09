@@ -2,22 +2,21 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use League\Fractal\TransformerAbstract;
 use Illuminate\Support\Str;
+use League\Fractal\TransformerAbstract;
 
 class ConfigTransformer extends TransformerAbstract
 {
-
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
-     * @param  Array  $config
+     * @param  array  $config
      * @return array
      */
     public function transform(array $config)
     {
-        return collect($config)->filter(function($item, $key) {
+        return collect($config)->filter(function ($item, $key) {
             return ! Str::contains($key, ['key']);
         })->toArray();
         // return $config;

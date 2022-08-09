@@ -15,23 +15,22 @@ use Infab\TranslatableRevisions\Events\TranslatedRevisionUpdated;
 
 class EventServiceProvider extends ServiceProvider
 {
-
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
         DefinitionsUpdated::class => [
-            UpdateSlugListener::class
+            UpdateSlugListener::class,
         ],
         DefinitionsPublished::class => [
-            BustPageCacheListener::class
+            BustPageCacheListener::class,
         ],
         TranslatedRevisionDeleted::class => [
-            FlushTagCacheListener::class
+            FlushTagCacheListener::class,
         ],
         TranslatedRevisionUpdated::class => [
-            FlushTagCacheListener::class
-        ]
+            FlushTagCacheListener::class,
+        ],
     ];
 
     /**

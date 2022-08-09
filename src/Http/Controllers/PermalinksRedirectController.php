@@ -15,7 +15,7 @@ class PermalinksRedirectController extends Controller
     use ApiControllerTrait;
 
     /**
-     * Return redirect or paths
+     * Return redirect or paths.
      *
      * @param Request $request
      * @param string $hash
@@ -31,9 +31,9 @@ class PermalinksRedirectController extends Controller
 
         $paths = $page->transformPaths();
 
-        if(request()->wantsJson()) {
+        if (request()->wantsJson()) {
             return $this->respondWithArray([
-                'data' => $paths
+                'data' => $paths,
             ]);
         }
 

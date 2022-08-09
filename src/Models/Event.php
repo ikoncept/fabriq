@@ -21,15 +21,14 @@ class Event extends Model
     protected $dates = ['start', 'end'];
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
     public $morphClass = 'event';
 
-
     /**
-     * Create a new factory
+     * Create a new factory.
      */
     protected static function newFactory() : EventFactory
     {
@@ -46,7 +45,7 @@ class Event extends Model
     }
 
     /**
-     * Set the date attribute
+     * Set the date attribute.
      *
      * @param array|null $value
      * @return void
@@ -58,7 +57,7 @@ class Event extends Model
     }
 
     /**
-     * Get the title for the event
+     * Get the title for the event.
      *
      * @return string|null
      */
@@ -66,11 +65,11 @@ class Event extends Model
     {
         $delimiter = $this->getDelimiter();
 
-        return $this->translateByKey('events'. $delimiter . $this->id . $delimiter . $delimiter .'title', 'sv');
+        return $this->translateByKey('events'.$delimiter.$this->id.$delimiter.$delimiter.'title', 'sv');
     }
 
     /**
-     * Scope events between dates
+     * Scope events between dates.
      *
      * @param Builder $query
      * @param string ...$dates

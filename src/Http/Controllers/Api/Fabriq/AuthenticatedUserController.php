@@ -12,7 +12,6 @@ use Infab\Core\Traits\ApiControllerTrait;
 
 class AuthenticatedUserController extends Controller
 {
-
     use ApiControllerTrait;
 
     public function index(Request $request) : JsonResponse
@@ -23,7 +22,7 @@ class AuthenticatedUserController extends Controller
     public function update(Request $request) : JsonResponse
     {
         $user = $request->user();
-        if($request->input('password', false)) {
+        if ($request->input('password', false)) {
             $updateUserPassword = new UpdateUserPassword();
             $updateUserPassword->update($user, $request->all());
         }

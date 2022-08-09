@@ -6,31 +6,29 @@ use Ikoncept\Fabriq\Database\Factories\FileFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Tags\HasTags;
-use Illuminate\Support\Str;
 
 class File extends Model implements HasMedia
 {
     use HasFactory, HasTags, InteractsWithMedia;
 
-    const RELATIONSHIPS = ['tags'];
+    public const RELATIONSHIPS = ['tags'];
 
     protected $with = ['media'];
 
-
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
     public $morphClass = 'file';
 
-
     /**
-     * Create a new factory
+     * Create a new factory.
      */
     protected static function newFactory() : FileFactory
     {
@@ -46,14 +44,14 @@ class File extends Model implements HasMedia
     }
 
     /**
-     * Set tags
+     * Set tags.
      *
      * @param array $value
      * @return void
      */
     public function setFileTagsAttribute($value)
     {
-        if($value) {
+        if ($value) {
             $this->syncTagsWithType($value, 'files');
         } else {
             $this->syncTagsWithType([], 'files');
@@ -61,7 +59,7 @@ class File extends Model implements HasMedia
     }
 
     /**
-     * Search for an image
+     * Search for an image.
      *
      * @param Builder $query
      * @param string|null $search
@@ -72,10 +70,9 @@ class File extends Model implements HasMedia
         $searchColumns = ['media.file_name', 'media.name', 'readable_name'];
 
         return $query->whereLike($searchColumns, $search)
-            ->orWhereHas('tags', function($query) use ($search) {
-                return $query->where('name->sv', 'like', '%' . $search . '%')
-                    ->orWhere('name->en', 'like', '%' . $search . '%');
+            ->orWhereHas('tags', function ($query) use ($search) {
+                return $query->where('name->sv', 'like', '%'.$search.'%')
+                    ->orWhere('name->en', 'like', '%'.$search.'%');
             });
     }
-
 }

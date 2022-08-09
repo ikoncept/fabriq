@@ -47,7 +47,6 @@ class VueResourceMakeCommand extends GeneratorCommand
                         : __DIR__.$stub;
     }
 
-
     /**
      * Get the console command arguments.
      *
@@ -82,10 +81,8 @@ class VueResourceMakeCommand extends GeneratorCommand
      */
     public function handle()
     {
-
         $this->swedishSingularName = $this->ask('Swedish singular name .eg "Artikel"');
         $this->swedishPluralName = $this->ask('Swedish plural name .eg "Artiklar"');
-
 
         if ($this->option('all')) {
             $this->input->setOption('index', true);
@@ -93,57 +90,55 @@ class VueResourceMakeCommand extends GeneratorCommand
             $this->input->setOption('api-model', true);
         }
 
-        if($this->option('index')) {
+        if ($this->option('index')) {
             $this->createIndexComponent();
         }
 
-        if($this->option('edit')) {
+        if ($this->option('edit')) {
             $this->createEditComponent();
         }
 
-        if($this->option('api-model')) {
+        if ($this->option('api-model')) {
             $this->createApiModel();
         }
 
-
-        if($this->option('index') || $this->option('edit')) {
+        if ($this->option('index') || $this->option('edit')) {
             $this->info('Add below to your routes file');
             $this->info('Imports:');
         }
-        if($this->option('index')) {
+        if ($this->option('index')) {
             $this->comment("import {$this->replaceModel($this->argument('name'), '{{ pluralModel }}')}Index from '~/{$this->replaceModel($this->argument('name'), '{{ pluralModelVariable }}')}/Index'");
         }
-        if($this->option('edit')) {
+        if ($this->option('edit')) {
             $this->comment("import {$this->replaceModel($this->argument('name'), '{{ pluralModel }}')}Edit from '~/{$this->replaceModel($this->argument('name'), '{{ pluralModelVariable }}')}/Edit'");
         }
 
-        if($this->option('index') || $this->option('edit')) {
+        if ($this->option('index') || $this->option('edit')) {
             $this->info('Routes:');
         }
 
-
-        if($this->option('index')) {
+        if ($this->option('index')) {
             $this->comment('{');
             $this->comment("    path: '/{$this->replaceModel($this->argument('name'), '{{ pluralModelVariable }}')}',");
             $this->comment("    name: '{$this->replaceModel($this->argument('name'), '{{ pluralModelVariable }}')}.index',");
             $this->comment("    component: {$this->replaceModel($this->argument('name'), '{{ pluralModel }}')}Index,");
-            $this->comment("    meta: {");
-            $this->comment("        middleware: roles,");
+            $this->comment('    meta: {');
+            $this->comment('        middleware: roles,');
             $this->comment("        roles: ['admin']");
-            $this->comment("    }");
-            $this->comment("},");
+            $this->comment('    }');
+            $this->comment('},');
         }
 
-        if($this->option('edit')) {
+        if ($this->option('edit')) {
             $this->comment('{');
             $this->comment("    path: '/{$this->replaceModel($this->argument('name'), '{{ pluralModelVariable }}')}/:id/edit',");
             $this->comment("    name: '{$this->replaceModel($this->argument('name'), '{{ pluralModelVariable }}')}.edit',");
             $this->comment("    component: {$this->replaceModel($this->argument('name'), '{{ pluralModel }}')}Edit,");
-            $this->comment("    meta: {");
-            $this->comment("        middleware: roles,");
+            $this->comment('    meta: {');
+            $this->comment('        middleware: roles,');
             $this->comment("        roles: ['admin']");
-            $this->comment("    }");
-            $this->comment("}");
+            $this->comment('    }');
+            $this->comment('}');
         }
 
         return 0;
@@ -160,7 +155,7 @@ class VueResourceMakeCommand extends GeneratorCommand
         $this->call('make:vue-index-template', [
             'name' => $name,
             '--swedish-name' => $this->swedishSingularName,
-            '--swedish-name-plural' => $this->swedishPluralName
+            '--swedish-name-plural' => $this->swedishPluralName,
         ]);
     }
 
@@ -175,7 +170,7 @@ class VueResourceMakeCommand extends GeneratorCommand
         $this->call('make:vue-edit-template', [
             'name' => $name,
             '--swedish-name' => $this->swedishSingularName,
-            '--swedish-name-plural' => $this->swedishPluralName
+            '--swedish-name-plural' => $this->swedishPluralName,
         ]);
     }
 
@@ -188,7 +183,7 @@ class VueResourceMakeCommand extends GeneratorCommand
     {
         $name = Str::studly($this->argument('name'));
         $this->call('make:vue-api-model-template', [
-            'name' => $name
+            'name' => $name,
         ]);
     }
 
@@ -257,9 +252,10 @@ class VueResourceMakeCommand extends GeneratorCommand
             // '{{ SwedishPluralName }}' => Str::studly($this->option('swedish-name-plural')),
         ];
 
-
         return str_replace(
-            array_keys($replace), array_values($replace), $value
+            array_keys($replace),
+            array_values($replace),
+            $value
         );
     }
 
@@ -279,5 +275,4 @@ class VueResourceMakeCommand extends GeneratorCommand
 
         return $this->qualifyModel($model);
     }
-
 }

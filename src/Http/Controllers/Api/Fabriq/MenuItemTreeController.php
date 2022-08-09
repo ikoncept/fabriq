@@ -2,7 +2,6 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\Menu;
 use Ikoncept\Fabriq\Models\MenuItem;
 use Ikoncept\Fabriq\Repositories\Decorators\CachingMenuRepository;
@@ -10,19 +9,18 @@ use Ikoncept\Fabriq\Transformers\MenuTreeItemTransformer;
 use Ikoncept\Fabriq\Transformers\MenuTreeTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 
 class MenuItemTreeController extends ApiController
 {
-
     use ApiControllerTrait;
 
-
     /**
-     * Return index of the resource
+     * Return index of the resource.
      *
      * @param Request $request
-     * @param integer $id
+     * @param int $id
      * @return JsonResponse
      */
     public function index(Request $request, int $id) : JsonResponse
@@ -38,10 +36,10 @@ class MenuItemTreeController extends ApiController
     }
 
     /**
-     * Update the resoource
+     * Update the resoource.
      *
      * @param Request $request
-     * @param integer $id
+     * @param int $id
      * @return JsonResponse
      */
     public function update(Request $request, int $id) : JsonResponse
@@ -57,7 +55,7 @@ class MenuItemTreeController extends ApiController
     }
 
     /**
-     * Return specific menu
+     * Return specific menu.
      *
      * @param Request $request
      * @param string $slug

@@ -3,12 +3,12 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\Video;
 use Ikoncept\Fabriq\QueryBuilders\VideoSort;
 use Ikoncept\Fabriq\Transformers\VideoTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
@@ -16,7 +16,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class VideoController extends ApiController
 {
-
     use ApiControllerTrait;
 
     public function index(Request $request) : JsonResponse
@@ -24,12 +23,12 @@ class VideoController extends ApiController
         $eagerLoad = $this->getEagerLoad(Video::RELATIONSHIPS);
         $videos = QueryBuilder::for(Fabriq::getFqnModel('video'))
             ->allowedFilters([
-                AllowedFilter::scope('search')
+                AllowedFilter::scope('search'),
             ])
             ->allowedSorts([
                 'id', 'created_at', 'updated_at', 'alt_text',
                 AllowedSort::custom('file_name', new VideoSort()),
-                AllowedSort::custom('size', new VideoSort())
+                AllowedSort::custom('size', new VideoSort()),
             ])
             ->with($eagerLoad)
             ->paginate($this->number);
@@ -45,7 +44,6 @@ class VideoController extends ApiController
 
         return $this->respondWithItem($video, new VideoTransformer);
     }
-
 
     public function update(Request $request, int $id) : JsonResponse
     {

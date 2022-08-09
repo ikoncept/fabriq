@@ -1,8 +1,9 @@
 <?php
 
 namespace Ikoncept\Fabriq\Console;
-use Illuminate\Support\Str;
+
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 use Infab\Core\Console\ReplacesModelName;
 use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputOption;
@@ -47,7 +48,7 @@ class ControllerMakeCommand extends GeneratorCommand
         return $model ? $this->replaceModel($stub, $model) : $stub;
     }
 
-        /**
+    /**
      * Replace the model for the given stub.
      *
      * @param  string  $stub
@@ -71,7 +72,9 @@ class ControllerMakeCommand extends GeneratorCommand
         ];
 
         return str_replace(
-            array_keys($replace), array_values($replace), $stub
+            array_keys($replace),
+            array_values($replace),
+            $stub
         );
     }
 
@@ -105,7 +108,6 @@ class ControllerMakeCommand extends GeneratorCommand
         ];
     }
 
-
     /**
      * Get the stub file for the generator.
      *
@@ -115,7 +117,6 @@ class ControllerMakeCommand extends GeneratorCommand
     {
         return __DIR__.'/stubs/controller.stub';
     }
-
 
     /**
      * Get the default namespace for the class.
@@ -128,7 +129,7 @@ class ControllerMakeCommand extends GeneratorCommand
         return $rootNamespace.'\Http\Controllers\Api';
     }
 
-    /**
+    /*
      * Create basic tests for the api endpoints
      *
      * @param  string  $rootNamespace
@@ -142,5 +143,4 @@ class ControllerMakeCommand extends GeneratorCommand
     //         '--model' => $model,
     //     ]);
     // }
-
 }

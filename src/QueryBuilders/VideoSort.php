@@ -7,9 +7,8 @@ use Spatie\QueryBuilder\Sorts\Sort;
 
 class VideoSort implements Sort
 {
-
     /**
-     * Sort custom columns
+     * Sort custom columns.
      *
      * @param Builder $query
      * @param mixed $descending
@@ -23,7 +22,6 @@ class VideoSort implements Sort
         return $query->select('videos.*')
             ->join('media', 'media.model_id', '=', 'videos.id')
             ->where('collection_name', 'videos')
-            ->orderBy('media.' . $keyName, $descending ? 'desc' : 'asc');
+            ->orderBy('media.'.$keyName, $descending ? 'desc' : 'asc');
     }
-
 }

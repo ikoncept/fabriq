@@ -3,13 +3,13 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\UpdateImageRequest;
 use Ikoncept\Fabriq\Models\Image;
 use Ikoncept\Fabriq\QueryBuilders\ImageSort;
 use Ikoncept\Fabriq\Transformers\ImageTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
@@ -17,11 +17,10 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class ImageController extends ApiController
 {
-
     use ApiControllerTrait;
 
     /**
-     * Get index of the resource
+     * Get index of the resource.
      *
      * @param Request $request
      * @return JsonResponse
@@ -33,22 +32,20 @@ class ImageController extends ApiController
             ->allowedSorts([
                 'id', 'created_at', 'updated_at', 'alt_text',
                 AllowedSort::custom('file_name', new ImageSort()),
-                AllowedSort::custom('size', new ImageSort())
+                AllowedSort::custom('size', new ImageSort()),
             ])
             ->allowedFilters([
-                AllowedFilter::scope('search')
+                AllowedFilter::scope('search'),
             ])
             ->has('mediaImages')
             ->with($eagerLoad)
             ->paginate($this->number);
 
-
         return $this->respondWithPaginator($images, new ImageTransformer);
     }
 
-
     /**
-     * Get a single image
+     * Get a single image.
      *
      * @param Request $request
      * @param int $id
@@ -74,7 +71,6 @@ class ImageController extends ApiController
         return $this->respondWithItem($image, new ImageTransformer);
     }
 
-
     public function destroy(Request $request, int $id) : JsonResponse
     {
         $image = Fabriq::getFqnModel('image')::findOrFail($id);
@@ -82,5 +78,4 @@ class ImageController extends ApiController
 
         return $this->respondWithSuccess('The image has been deleted');
     }
-
 }

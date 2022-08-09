@@ -2,16 +2,16 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
-use Infab\Core\Http\Controllers\Api\ApiController;
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreateEventRequest;
 use Ikoncept\Fabriq\Models\Event;
 use Ikoncept\Fabriq\Services\CalendarService;
 use Ikoncept\Fabriq\Transformers\EventTransformer;
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
-use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -47,7 +47,7 @@ class EventController extends ApiController
         $event->fill($request->validated());
         $event->save();
 
-        foreach($request['localizedContent'] as $locale => $content) {
+        foreach ($request['localizedContent'] as $locale => $content) {
             $event->updateContent($content, $locale);
         }
 
@@ -60,7 +60,7 @@ class EventController extends ApiController
         $event->fill($request->validated());
         $event->save();
 
-        foreach($request['localizedContent'] as $locale => $content) {
+        foreach ($request['localizedContent'] as $locale => $content) {
             $event->updateContent($content, $locale);
         }
 

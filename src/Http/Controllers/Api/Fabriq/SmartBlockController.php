@@ -3,23 +3,22 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\CreateSmartBlockRequest;
 use Ikoncept\Fabriq\Models\SmartBlock;
 use Ikoncept\Fabriq\Transformers\SmartBlockTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class SmartBlockController extends ApiController
 {
-
     use ApiControllerTrait;
 
     /**
-     * Get index of the resource
+     * Get index of the resource.
      * @param  Request $request
      * @return JsonResponse
      */
@@ -29,7 +28,7 @@ class SmartBlockController extends ApiController
         $paginator = QueryBuilder::for(Fabriq::getFqnModel('smartBlock'))
             ->allowedSorts('name', 'updated_at')
             ->allowedFilters([
-                AllowedFilter::scope('search')
+                AllowedFilter::scope('search'),
             ])
             ->with($eagerLoad)
             ->paginate($this->number);

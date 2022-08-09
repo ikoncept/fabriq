@@ -12,23 +12,21 @@ class NotifyAboutNotification extends Notification
     use Queueable;
 
     /**
-     * Notifications count
+     * Notifications count.
      *
      * @var int
      */
     public $count;
 
-
     /**
-     * User
+     * User.
      *
      * @var mixed
      */
     public $user;
 
     /**
-     *
-     * @param integer $count
+     * @param int $count
      * @param mixed $user
      */
     public function __construct(int $count, $user)
@@ -57,10 +55,11 @@ class NotifyAboutNotification extends Notification
     public function toMail($notifiable)
     {
         $countString = 'Du har en oläst notis. Klicka på knappen nedan för att komma till notisen';
-        if($this->count > 1) {
-            $countString = 'Du har ' . $this->count . ' olästa notiser. Klicka på knappen nedan för att läsa notiserna';
+        if ($this->count > 1) {
+            $countString = 'Du har '.$this->count.' olästa notiser. Klicka på knappen nedan för att läsa notiserna';
         }
         $appName = config('app.name');
+
         return (new MailMessage)
                     ->subject("({$this->count}) Olästa notiser - {$appName}")
                     ->greeting("Hej {$this->user->firstName}!")

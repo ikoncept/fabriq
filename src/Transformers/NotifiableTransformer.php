@@ -10,17 +10,17 @@ class NotifiableTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
-        'user', 'page'
+        'user', 'page',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Model  $notifiable
      * @return array
@@ -37,14 +37,14 @@ class NotifiableTransformer extends TransformerAbstract
     }
 
     /**
-     * Include user
+     * Include user.
      *
      * @param Model $notifiable
      * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
      */
     public function includeUser(Model $notifiable)
     {
-        if(! $notifiable->user) {
+        if (! $notifiable->user) {
             return $this->null();
         }
 
@@ -52,16 +52,17 @@ class NotifiableTransformer extends TransformerAbstract
     }
 
     /**
-     * Include page
+     * Include page.
      *
      * @param Model $notifiable
      * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
      */
     public function includePage(Model $notifiable)
     {
-        if(! $notifiable->commentable) {
+        if (! $notifiable->commentable) {
             return $this->null();
         }
+
         return $this->item($notifiable->commentable, new PageTransformer);
     }
 }

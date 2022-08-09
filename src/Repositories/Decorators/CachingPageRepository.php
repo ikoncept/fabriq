@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Log;
 class CachingPageRepository implements PageRepositoryInterface
 {
     /**
-     * Page repository interface
+     * Page repository interface.
      *
      * @var PageRepositoryInterface
      */
     protected $repository;
 
     /**
-     * Cache repository
+     * Cache repository.
      *
      * @var Cache
      */
@@ -28,9 +28,8 @@ class CachingPageRepository implements PageRepositoryInterface
         $this->cache = $cache;
     }
 
-
     /**
-     * Find by slug
+     * Find by slug.
      *
      * @param string $slug
      * @return mixed
@@ -38,9 +37,10 @@ class CachingPageRepository implements PageRepositoryInterface
     public function findBySlug(string $slug)
     {
         $locale = 'sv';
-        $page = $this->cache->tags(['cms_pages', 'cms_page_' . $slug])
+        $page = $this->cache->tags(['cms_pages', 'cms_page_'.$slug])
             ->rememberForever($locale, function () use ($slug) {
-                Log::info('Caching page', ['cache_key' => 'cms_page_' . $slug, 'cms_page']);
+                Log::info('Caching page', ['cache_key' => 'cms_page_'.$slug, 'cms_page']);
+
                 return $this->repository->findBySlug($slug);
             });
 
@@ -48,7 +48,7 @@ class CachingPageRepository implements PageRepositoryInterface
     }
 
     /**
-     * Find preview by slug
+     * Find preview by slug.
      *
      * @param string $slug
      * @return mixed
@@ -56,9 +56,10 @@ class CachingPageRepository implements PageRepositoryInterface
     public function findPreviewBySlug(string $slug)
     {
         $locale = 'sv';
-        $page = $this->cache->tags(['cms_page_' . $slug, 'cms_page'])
+        $page = $this->cache->tags(['cms_page_'.$slug, 'cms_page'])
             ->rememberForever($locale, function () use ($slug) {
-                Log::info('Caching page', ['cache_key' => 'cms_page_' . $slug, 'cms_page']);
+                Log::info('Caching page', ['cache_key' => 'cms_page_'.$slug, 'cms_page']);
+
                 return $this->repository->findPreviewBySlug($slug);
             });
 
@@ -66,7 +67,7 @@ class CachingPageRepository implements PageRepositoryInterface
     }
 
     /**
-     * Find pages by ids
+     * Find pages by ids.
      *
      * @param array $ids
      * @return mixed

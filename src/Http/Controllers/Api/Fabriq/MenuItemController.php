@@ -2,22 +2,21 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\UpdateMenuItemRequest;
 use Ikoncept\Fabriq\Models\Menu;
 use Ikoncept\Fabriq\Models\MenuItem;
 use Ikoncept\Fabriq\Transformers\MenuItemTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 
 class MenuItemController extends ApiController
 {
-
     use ApiControllerTrait;
 
     /**
-     * Show a single item
+     * Show a single item.
      *
      * @param Request $request
      * @param int $id
@@ -33,9 +32,8 @@ class MenuItemController extends ApiController
         return $this->respondWithItem($item, new MenuItemTransformer());
     }
 
-
     /**
-     * Update a menu item
+     * Update a menu item.
      *
      * @param UpdateMenuItemRequest $request
      * @param int $id
@@ -48,7 +46,7 @@ class MenuItemController extends ApiController
         $item->page_id = $request->input('item.page_id');
         $item->type = $request->input('item.type');
         $item->page_id = $request->input('item.page_id');
-        if($item->type === 'external') {
+        if ($item->type === 'external') {
             $item->page_id = null;
         }
         $item->save();
@@ -57,10 +55,10 @@ class MenuItemController extends ApiController
     }
 
     /**
-     * Store a new menu item
+     * Store a new menu item.
      *
      * @param UpdateMenuItemRequest $request
-     * @param integer $menuId
+     * @param int $menuId
      * @return JsonResponse
      */
     public function store(UpdateMenuItemRequest $request, int $menuId) : JsonResponse
@@ -80,9 +78,9 @@ class MenuItemController extends ApiController
     }
 
     /**
-     * Delete a menu item
+     * Delete a menu item.
      *
-     * @param integer $id
+     * @param int $id
      * @return JsonResponse
      */
     public function destroy(int $id) : JsonResponse

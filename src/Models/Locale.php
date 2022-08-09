@@ -9,11 +9,10 @@ use Illuminate\Support\Facades\Cache;
 
 class Locale extends Model
 {
-
     protected $table = 'i18n_locales';
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
@@ -26,12 +25,12 @@ class Locale extends Model
 
     public function cachedLocales() : Collection
     {
-        return Cache::rememberForever('locales', function() {
+        return Cache::rememberForever('locales', function () {
             return self::enabled()->orderBy('sort_index')
                 ->get()
                 ->mapWithKeys(function ($item) {
                     return [$item->iso_code => $item];
-            });
+                });
         });
     }
 }

@@ -34,10 +34,10 @@ class Page extends Model implements HasMedia
 {
     use HasFactory, HasTranslatedRevisions, InteractsWithMedia, NodeTrait, Commentable, HasPaths, BroadcastsModelEvents;
 
-    const RELATIONSHIPS = ['template', 'template.fields'];
+    public const RELATIONSHIPS = ['template', 'template.fields'];
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
@@ -56,7 +56,7 @@ class Page extends Model implements HasMedia
     ];
 
     /**
-     * Create a new factory
+     * Create a new factory.
      */
     protected static function newFactory() : PageFactory
     {
@@ -71,7 +71,7 @@ class Page extends Model implements HasMedia
     protected static function booted()
     {
         static::deleting(function ($page) {
-            MenuItem::where('page_id', $page->id)->get()->each(function($item) {
+            MenuItem::where('page_id', $page->id)->get()->each(function ($item) {
                 $item->delete();
             });
             DB::table('slugs')->where('model_id', $page->id)
@@ -80,13 +80,13 @@ class Page extends Model implements HasMedia
         });
         static::created(function ($page) {
             $content = [
-                'page_title' => $page->name
+                'page_title' => $page->name,
             ];
             $localPage = Fabriq::getModelClass('page')
                 ->select('id')
                 ->find($page->id);
             $supportedLocales = Fabriq::getModelClass('locale')->cachedLocales();
-            $supportedLocales->each(function($locale, $key) use ($content, $localPage) {
+            $supportedLocales->each(function ($locale, $key) use ($content, $localPage) {
                 $localPage->updateContent($content, $key, 1);
             });
         });
@@ -109,12 +109,12 @@ class Page extends Model implements HasMedia
                 'video' => 'getVideos',
                 'button' => 'getButton',
                 'buttons' => 'getButtons',
-                'smartBlock' => 'getSmartBlock'
+                'smartBlock' => 'getSmartBlock',
             ]);
     }
 
     /**
-     * Getter for images
+     * Getter for images.
      *
      * @param RevisionMeta $meta
      * @return mixed
@@ -125,7 +125,7 @@ class Page extends Model implements HasMedia
     }
 
     /**
-     * Getter for files
+     * Getter for files.
      *
      * @param RevisionMeta $meta
      * @return mixed
@@ -136,7 +136,7 @@ class Page extends Model implements HasMedia
     }
 
     /**
-     * Getter for videos
+     * Getter for videos.
      *
      * @param RevisionMeta $meta
      * @return mixed
@@ -147,7 +147,7 @@ class Page extends Model implements HasMedia
     }
 
     /**
-     * Getter for button
+     * Getter for button.
      *
      * @param RevisionMeta $meta
      * @return mixed
@@ -158,7 +158,7 @@ class Page extends Model implements HasMedia
     }
 
     /**
-     * Getter for buttons
+     * Getter for buttons.
      *
      * @param RevisionMeta $meta
      * @return mixed
@@ -168,9 +168,8 @@ class Page extends Model implements HasMedia
         return ButtonsGetter::get($meta, $this->isPublishing);
     }
 
-
     /**
-     * Getter for buttons
+     * Getter for buttons.
      *
      * @param RevisionMeta $meta
      * @return mixed
@@ -191,7 +190,7 @@ class Page extends Model implements HasMedia
     }
 
     /**
-     * Relation for slugs
+     * Relation for slugs.
      *
      * @return MorphMany
      */
@@ -207,7 +206,6 @@ class Page extends Model implements HasMedia
         });
     }
 
-
     /**
      * Scope query to find by Slug.
      *
@@ -217,13 +215,13 @@ class Page extends Model implements HasMedia
      */
     public function scopeWhereSlug(Builder $query, string $slug) : Builder
     {
-        return $query->whereHas('slugs', function(Builder $query) use ($slug) {
+        return $query->whereHas('slugs', function (Builder $query) use ($slug) {
             $query->where('slug', $slug);
         });
     }
 
     /**
-     * Search for pages
+     * Search for pages.
      *
      * @param Builder $query
      * @param string $search
@@ -231,18 +229,18 @@ class Page extends Model implements HasMedia
      */
     public function scopeSearch(Builder $query, string $search) : Builder
     {
-        return $query->whereLike(['name','template.name'], $search);
+        return $query->whereLike(['name', 'template.name'], $search);
     }
 
     /**
-     * Set localized content
+     * Set localized content.
      *
      * @param array $value
      * @return void
      */
     public function setLocalizedContentAttribute($value)
     {
-        foreach($value as $key => $localeContent) {
+        foreach ($value as $key => $localeContent) {
             $this->updateContent($localeContent, (string) $key);
         }
     }

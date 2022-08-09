@@ -3,8 +3,8 @@
 namespace Ikoncept\Fabriq\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 
 class InstallFabriqCommand extends Command
 {
@@ -43,13 +43,13 @@ class InstallFabriqCommand extends Command
         $this->call('vendor:publish', [
             '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
             '--tag' => 'fabriq-frontend-install-assets',
-            '--force' => true
+            '--force' => true,
         ]);
 
         $this->call('vendor:publish', [
             '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
             '--tag' => 'fabriq-views',
-            '--force' => true
+            '--force' => true,
         ]);
 
         $this->info('Front end assets has been installed');
@@ -69,16 +69,15 @@ class InstallFabriqCommand extends Command
 
         if (config('app.env') != 'testing') {
             $this->call('fabriq:create-page-root', [
-                '--silent' => true
+                '--silent' => true,
             ]);
             $answer = $this->ask('Do you want to create a new user?', 'yes');
 
-            if($answer === 'yes') {
+            if ($answer === 'yes') {
                 $this->call('make:user');
                 $this->call('fabriq:add-role-to-user');
             }
         }
-
 
         $this->info('Fabriq has been installed');
 

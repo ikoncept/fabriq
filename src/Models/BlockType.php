@@ -11,22 +11,21 @@ class BlockType extends Model
     use HasFactory;
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
     public $morphClass = 'block_type';
 
     /**
-     * Create a new factory
+     * Create a new factory.
      */
     protected static function newFactory() : BlockTypeFactory
     {
         return BlockTypeFactory::new();
     }
 
-
     protected $casts = [
-        'has_children' => 'boolean'
+        'has_children' => 'boolean',
     ];
 }

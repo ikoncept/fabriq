@@ -3,25 +3,24 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\CreateUserRequest;
 use Ikoncept\Fabriq\Http\Requests\UpdateUserRequest;
 use Ikoncept\Fabriq\Models\User;
 use Ikoncept\Fabriq\Transformers\UserTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Infab\Core\Traits\ApiControllerTrait;
-use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Str;
+use Infab\Core\Http\Controllers\Api\ApiController;
+use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class UserController extends ApiController
 {
-
     use ApiControllerTrait;
 
     /**
-     * Returns an index of users
+     * Returns an index of users.
      *
      * @param Request $request
      * @return JsonResponse
@@ -32,7 +31,7 @@ class UserController extends ApiController
         $paginator = QueryBuilder::for(Fabriq::getFqnModel('user'))
             ->allowedSorts('name', 'email', 'id', 'updated_at')
             ->allowedFilters([
-                AllowedFilter::scope('search')
+                AllowedFilter::scope('search'),
             ])
             ->with('roles')
             ->with($eagerLoad)
@@ -54,10 +53,10 @@ class UserController extends ApiController
     }
 
     /**
-     * Show a single user
+     * Show a single user.
      *
      * @param Request $request
-     * @param integer $id
+     * @param int $id
      * @return JsonResponse
      */
     public function show(Request $request, int $id) : JsonResponse
@@ -72,7 +71,7 @@ class UserController extends ApiController
 
     public function update(UpdateUserRequest $request, int $id) : JsonResponse
     {
-        $user =  Fabriq::getModelClass('user')->findOrFail($id);
+        $user = Fabriq::getModelClass('user')->findOrFail($id);
         $user->fill($request->validated());
         $user->save();
 
@@ -81,7 +80,7 @@ class UserController extends ApiController
 
     public function destroy(Request $request, int $id) : JsonResponse
     {
-        if($id === $request->user()->id) {
+        if ($id === $request->user()->id) {
             return $this->errorWrongArgs('Du kan inte radera dig själv');
         }
         $user = User::findOrFail($id);

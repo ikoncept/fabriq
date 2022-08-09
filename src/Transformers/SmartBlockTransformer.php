@@ -11,17 +11,17 @@ class SmartBlockTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
-        'localizedContent', 'content'
+        'localizedContent', 'content',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  SmartBlock  $smartBlock
      * @return array
@@ -44,7 +44,7 @@ class SmartBlockTransformer extends TransformerAbstract
     }
 
     /**
-     * Include content
+     * Include content.
      *
      * @param SmartBlock $smartblock
      * @return Item

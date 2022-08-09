@@ -30,7 +30,7 @@ class UpdateImageRequest extends FormRequest
             'x_position' => 'required|max:4|string',
             'y_position' => 'required|max:4|string',
             'custom_crop' => 'required|boolean',
-            'tags' => 'array'
+            'tags' => 'array',
         ];
     }
 }

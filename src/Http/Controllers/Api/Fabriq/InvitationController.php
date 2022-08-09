@@ -4,7 +4,6 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Mail\AccountInvitation;
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\BlockType;
 use Ikoncept\Fabriq\Models\Invitation;
 use Ikoncept\Fabriq\Transformers\BlockTypeTransformer;
@@ -12,6 +11,7 @@ use Ikoncept\Fabriq\Transformers\InvitationTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\QueryBuilder;
 

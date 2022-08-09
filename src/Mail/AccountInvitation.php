@@ -38,11 +38,11 @@ class AccountInvitation extends Mailable
 
         $this->inviteUrl = $signedURL;
 
-        /** @var view-string $viewString **/
+        /** @var view-string $viewString * */
         $viewString = 'vendor.mail.account-invitation';
 
         return $this->replyTo($this->invitation->invitedBy->email)
-            ->subject('Acceptera din inbjudan till Fabriq CMS - ' . config('app.name'))
+            ->subject('Acceptera din inbjudan till Fabriq CMS - '.config('app.name'))
             ->markdown($viewString);
     }
 }

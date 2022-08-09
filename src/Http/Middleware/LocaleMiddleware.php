@@ -18,11 +18,11 @@ class LocaleMiddleware
     {
         $locale = $request->headers->get('X-LOCALE');
 
-        if(! $locale) {
+        if (! $locale) {
             $locale = app()->getLocale();
         }
 
-        if($locale != app()->getLocale()) {
+        if ($locale != app()->getLocale()) {
             app()->setLocale($locale);
         }
 

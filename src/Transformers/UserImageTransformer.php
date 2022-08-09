@@ -9,7 +9,7 @@ class UserImageTransformer extends TransformerAbstract
 {
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Image  $image
      * @return array
@@ -22,9 +22,9 @@ class UserImageTransformer extends TransformerAbstract
 
         $media = $image->getFirstMedia('profile_image');
 
-        if(! $media) {
+        if (! $media) {
             return [
-                'id' => $image->id
+                'id' => $image->id,
             ];
         }
 

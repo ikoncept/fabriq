@@ -29,7 +29,7 @@ class CreateEventRequest extends FormRequest
             'end_time' => 'nullable|max:5',
             'full_day' => 'boolean',
             'localizedContent' => 'required|array',
-            'daily_interval' => 'nullable'
+            'daily_interval' => 'nullable',
             // 'localizedContent.*.title' => 'required'
         ];
     }

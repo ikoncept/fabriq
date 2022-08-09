@@ -2,13 +2,13 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\DeleteCommentRequest;
 use Ikoncept\Fabriq\Http\Requests\UpdateCommentRequest;
 use Ikoncept\Fabriq\Models\Comment;
 use Ikoncept\Fabriq\Transformers\CommentTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 
 class CommentController extends ApiController
@@ -31,7 +31,7 @@ class CommentController extends ApiController
             ->with('notifications')
             ->firstOrFail();
 
-        $comment->notifications->each(function($item) {
+        $comment->notifications->each(function ($item) {
             $item->delete();
         });
 

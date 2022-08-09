@@ -10,7 +10,7 @@ class LocaleContentTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
@@ -18,14 +18,13 @@ class LocaleContentTransformer extends TransformerAbstract
     ];
 
     /**
-     * The content model
+     * The content model.
      *
      * @var mixed
      */
     protected $contentModel;
 
     /**
-     *
      * @param mixed $contentModel
      */
     public function __construct($contentModel)
@@ -34,7 +33,7 @@ class LocaleContentTransformer extends TransformerAbstract
     }
 
     /**
-     * Transform
+     * Transform.
      *
      * @param Collection $locales
      * @return array
@@ -43,8 +42,9 @@ class LocaleContentTransformer extends TransformerAbstract
     {
         $localeContent = $locales->mapWithKeys(function ($locale) {
             $content = $this->contentModel->getFieldContent($this->contentModel->revision, $locale->iso_code);
+
             return [
-                $locale->iso_code => ['content' => $content]
+                $locale->iso_code => ['content' => $content],
             ];
         });
 

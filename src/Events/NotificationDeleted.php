@@ -15,7 +15,7 @@ class NotificationDeleted implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets;
 
     /**
-     * The notification
+     * The notification.
      *
      * @var mixed
      */
@@ -46,7 +46,7 @@ class NotificationDeleted implements ShouldBroadcast
     {
         $prefix = config('fabriq.ws_prefix');
 
-        return new PrivateChannel($prefix . '.user.'. $this->notification->user_id);
+        return new PrivateChannel($prefix.'.user.'.$this->notification->user_id);
     }
 
     public function broadcastWith() : array

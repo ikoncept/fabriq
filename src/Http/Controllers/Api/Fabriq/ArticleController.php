@@ -16,7 +16,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class ArticleController extends Controller
 {
-
     use ApiControllerTrait;
 
     public function index(Request $request) : JsonResponse
@@ -26,7 +25,7 @@ class ArticleController extends Controller
             ->allowedSorts(['name', 'updated_at', 'publishes_at'])
             ->allowedFilters([
                 AllowedFilter::scope('search'),
-                AllowedFilter::scope('published')
+                AllowedFilter::scope('published'),
             ])
             ->with($eagerLoad)
             ->paginate($this->number);

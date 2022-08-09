@@ -48,9 +48,9 @@ class RouteRegistrar
             config('fabriq.models.user')::find(1)->sendEmailVerificationNotification();
 
             return 'ok';
+
             return back()->with('message', 'Verification link sent!');
         })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
 
         Route::get('/invitations/accept/{token}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AcceptInvitationController::class, 'show'])->name('invitation.accept');
         Route::post('/invitations/accept/{token}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AcceptInvitationController::class, 'store'])->name('invitation.accept.store');
@@ -311,5 +311,4 @@ class RouteRegistrar
             ->name('pages.paths.index')
             ->middleware('locale');
     }
-
 }

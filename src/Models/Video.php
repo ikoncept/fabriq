@@ -6,22 +6,21 @@ use Ikoncept\Fabriq\Database\Factories\VideoFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Tags\HasTags;
-use Illuminate\Support\Str;
 
 class Video extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, HasTags;
 
-
-    const RELATIONSHIPS = ['tags'];
+    public const RELATIONSHIPS = ['tags'];
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
@@ -48,14 +47,14 @@ class Video extends Model implements HasMedia
     }
 
     /**
-     * Set tags
+     * Set tags.
      *
      * @param array $value
      * @return void
      */
     public function setVideoTagsAttribute($value)
     {
-        if($value) {
+        if ($value) {
             $this->syncTagsWithType($value, 'videos');
         } else {
             $this->syncTagsWithType([], 'videos');
@@ -63,7 +62,7 @@ class Video extends Model implements HasMedia
     }
 
     /**
-     * Search for a video
+     * Search for a video.
      *
      * @param Builder $query
      * @param string|null $search
@@ -74,9 +73,9 @@ class Video extends Model implements HasMedia
         $searchColumns = ['media.file_name', 'media.name', 'alt_text'];
 
         return $query->whereLike($searchColumns, $search)
-            ->orWhereHas('tags', function($query) use ($search) {
-                return $query->where('name->sv', 'like', '%' . $search . '%')
-                    ->orWhere('name->en', 'like', '%' . $search . '%');
+            ->orWhereHas('tags', function ($query) use ($search) {
+                return $query->where('name->sv', 'like', '%'.$search.'%')
+                    ->orWhere('name->en', 'like', '%'.$search.'%');
             });
     }
 }

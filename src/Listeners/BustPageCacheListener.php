@@ -32,13 +32,13 @@ class BustPageCacheListener
         Log::info('Flushing menu cache');
         Cache::tags('cms_menu')->flush();
 
-        if(! $event->model->slugs) {
+        if (! $event->model->slugs) {
             return;
         }
 
-        foreach($event->model->slugs as $slug) {
-            Log::info('Flushing page cache', ['name' => $event->model->name, 'key' => 'cms_' . $tagName . '_' . $slug->slug]);
-            Cache::tags('cms_' . $tagName . '_' . $slug->slug)->flush();
+        foreach ($event->model->slugs as $slug) {
+            Log::info('Flushing page cache', ['name' => $event->model->name, 'key' => 'cms_'.$tagName.'_'.$slug->slug]);
+            Cache::tags('cms_'.$tagName.'_'.$slug->slug)->flush();
         }
     }
 }

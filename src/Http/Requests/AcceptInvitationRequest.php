@@ -4,7 +4,6 @@ namespace Ikoncept\Fabriq\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
 class AcceptInvitationRequest extends FormRequest
 {
     /**
@@ -26,7 +25,7 @@ class AcceptInvitationRequest extends FormRequest
     {
         return [
             'password' => 'required|min:8|confirmed:password_confirmation',
-            'password_confirmation' => 'required'
+            'password_confirmation' => 'required',
         ];
     }
 }

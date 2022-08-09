@@ -29,7 +29,7 @@ class UpdateArticleRequest extends FormRequest
             'unpublishes_at' => 'date|nullable',
             'has_unpublished_time' => 'boolean',
             'content.title' => 'required|max:255',
-            'content' => 'array'
+            'content' => 'array',
         ];
     }
 }

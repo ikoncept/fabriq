@@ -15,7 +15,7 @@ class MediaPathGenerator implements PathGenerator
      */
     public function getPath(Media $media) : string
     {
-        return config('fabriq.bucket_prefix') . '/' . $media->uuid .'/';
+        return config('fabriq.bucket_prefix').'/'.$media->uuid.'/';
     }
 
     /*
@@ -29,6 +29,6 @@ class MediaPathGenerator implements PathGenerator
 
     public function getPathForResponsiveImages(Media $media) : string
     {
-        return $this->getPath($media) . 'responsive-images/';
+        return $this->getPath($media).'responsive-images/';
     }
 }

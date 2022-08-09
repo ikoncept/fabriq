@@ -11,17 +11,17 @@ class TemplateTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
-        'fields', 'groupedFields'
+        'fields', 'groupedFields',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  RevisionTemplate  $template
      * @return array
@@ -32,7 +32,7 @@ class TemplateTransformer extends TransformerAbstract
     }
 
     /**
-     * Include template fields
+     * Include template fields.
      *
      * @param RevisionTemplate $template
      * @return Collection
@@ -43,7 +43,7 @@ class TemplateTransformer extends TransformerAbstract
     }
 
     /**
-     * Return grouped fields
+     * Return grouped fields.
      *
      * @param RevisionTemplate $template
      * @return Item

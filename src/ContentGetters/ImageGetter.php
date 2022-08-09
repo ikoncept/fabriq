@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\ContentGetters;
 
+use Ikoncept\Fabriq\ContentGetters\BaseGetter;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Image;
 use Illuminate\Database\Eloquent\Builder;
@@ -9,7 +10,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
-use Ikoncept\Fabriq\ContentGetters\BaseGetter;
 
 class ImageGetter extends BaseGetter implements GetterInterface
 {
@@ -18,26 +18,25 @@ class ImageGetter extends BaseGetter implements GetterInterface
      */
     public static function get(RevisionMeta $meta, bool $publishing = false)
     {
-        if(empty($meta->toArray())) {
+        if (empty($meta->toArray())) {
             return [
-                'meta_id' => $meta->id
+                'meta_id' => $meta->id,
             ];
         }
 
         $image = Fabriq::getModelClass('image')
             ->whereIn('id', (array) $meta->meta_value);
 
-         $image = self::getObjectOnce(self::getHash($image), $image);
+        $image = self::getObjectOnce(self::getHash($image), $image);
 
-        if(! $image) {
+        if (! $image) {
             return null;
         }
-        if($publishing) {
+        if ($publishing) {
             return [$image->id];
         }
 
-
-        /** @var Image $image **/
+        /** @var Image $image * */
         $media = $image->getFirstMedia('images');
 
         return [
@@ -56,8 +55,7 @@ class ImageGetter extends BaseGetter implements GetterInterface
             'custom_crop' => (bool) $image->custom_crop,
             'x_position' => (string) $image->x_position,
             'y_position' => (string) $image->y_position,
-            'meta_id' => $meta->id
+            'meta_id' => $meta->id,
         ];
     }
-
 }

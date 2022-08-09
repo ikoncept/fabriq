@@ -13,7 +13,7 @@ class I18nDefinition extends BaseI18nDefinition implements HasMedia
     use InteractsWithMedia;
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */

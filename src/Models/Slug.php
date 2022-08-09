@@ -14,7 +14,7 @@ class Slug extends Model
     protected $guarded = ['id'];
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
@@ -34,5 +34,4 @@ class Slug extends Model
     {
         return $this->morphTo();
     }
-
 }

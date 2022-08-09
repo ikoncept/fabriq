@@ -9,7 +9,6 @@ use Ikoncept\Fabriq\Exceptions\LambdaException;
 
 class LambdaService
 {
-
     public static function call(string $function, array $payload) : array
     {
         $accessKey = config('fabriq.aws_lambda_access_key');
@@ -19,21 +18,19 @@ class LambdaService
         $client = new LambdaClient([
             'credentials' => $credentials,
             'region' => 'eu-north-1',
-            'version' => 'latest'
+            'version' => 'latest',
         ]);
 
         $result = $client->invoke([
             'FunctionName' => $function,
             'InvocationType' => 'RequestResponse',
-            'Payload' => json_encode($payload)
+            'Payload' => json_encode($payload),
         ]);
-
 
         $response = json_decode($result->get('Payload')->getContents(), true);
 
-
         if (array_key_exists('errorType', $response)) {
-            logger()->error('LambdaError ' . $response['errorMessage'], $response['trace']);
+            logger()->error('LambdaError '.$response['errorMessage'], $response['trace']);
 
             throw new LambdaException($response['errorMessage']);
         }
@@ -42,7 +39,7 @@ class LambdaService
     }
 
     /**
-     * Build function
+     * Build function.
      *
      * @param string $function
      * @param array $payload
@@ -59,13 +56,13 @@ class LambdaService
         $client = new LambdaClient([
             'credentials' => $credentials,
             'region' => 'eu-north-1',
-            'version' => 'latest'
+            'version' => 'latest',
         ]);
 
         return $client->invokeAsync([
             'FunctionName' => $function,
             'InvocationType' => 'RequestResponse',
-            'Payload' => json_encode($payload)
+            'Payload' => json_encode($payload),
         ]);
     }
 }

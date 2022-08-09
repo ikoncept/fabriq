@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait Commentable
 {
-
     public function comments() : MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable')
@@ -22,7 +21,7 @@ trait Commentable
     }
 
     /**
-     * Comment as a user
+     * Comment as a user.
      *
      * @param Model $user
      * @param string $comment
@@ -34,7 +33,7 @@ trait Commentable
         return $this->newComment([
             'comment' => $comment,
             'user_id' => $user->getKey(),
-            'parent_id' => $parentId
+            'parent_id' => $parentId,
         ]);
     }
 

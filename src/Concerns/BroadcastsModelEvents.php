@@ -23,17 +23,18 @@ trait BroadcastsModelEvents
         $reflect = new ReflectionClass($this);
         $classSlug = Str::slug($reflect->getShortName());
 
-        return [new Channel($prefix. '-' . $classSlug), new Channel($prefix. '-' . $classSlug . '.' . $this->id)];
+        return [new Channel($prefix.'-'.$classSlug), new Channel($prefix.'-'.$classSlug.'.'.$this->id)];
     }
 
     public function broadcastWith() : array
     {
         $updatedBy = [];
-        if($this->updatedByUser) {
+        if ($this->updatedByUser) {
             $updatedBy = [
-                'updatedByName' => $this->updatedByUser->name
+                'updatedByName' => $this->updatedByUser->name,
             ];
         }
+
         return [
             'model' => array_merge($this->toArray(), $updatedBy),
         ];

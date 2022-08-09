@@ -12,17 +12,17 @@ class ContactTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
-        'localizedContent', 'content', 'tags'
+        'localizedContent', 'content', 'tags',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Contact  $contact
      * @return array
@@ -42,7 +42,7 @@ class ContactTransformer extends TransformerAbstract
     }
 
     /**
-     * Include content
+     * Include content.
      *
      * @param Contact $contact
      * @return Item
@@ -58,5 +58,4 @@ class ContactTransformer extends TransformerAbstract
     {
         return $this->collection($contact->tags, new TagTransformer);
     }
-
 }

@@ -11,17 +11,17 @@ class EventTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
-        'localizedContent', 'content'
+        'localizedContent', 'content',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Event  $event
      * @return array
@@ -36,7 +36,7 @@ class EventTransformer extends TransformerAbstract
             'start_time' => (string) $event->start_time,
             'end_time' => (string) $event->end_time,
             'daily_interval' => (int) $event->daily_interval,
-            'has_interval' => (boolean) $event->daily_interval,
+            'has_interval' => (bool) $event->daily_interval,
             'updated_at' => $event->updated_at->toISOString(),
         ];
     }
@@ -50,7 +50,6 @@ class EventTransformer extends TransformerAbstract
 
     public function includeLocalizedContent(Event $event) : Item
     {
-
         $enabledLocales = I18nLocale::where('enabled', 1)
             ->select('iso_code')
             ->orderBy('id', 'desc')->get();

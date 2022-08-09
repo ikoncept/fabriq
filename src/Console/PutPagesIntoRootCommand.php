@@ -46,9 +46,10 @@ class PutPagesIntoRootCommand extends Command
         config('fabriq.models.page')::fixTree();
         $pages = config('fabriq.models.page')::where('id', '!=', $root->id)->get();
 
-        foreach($pages as $page) {
+        foreach ($pages as $page) {
             $page->appendToNode($root)->save();
         }
+
         return 0;
     }
 }

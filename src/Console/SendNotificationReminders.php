@@ -41,15 +41,15 @@ class SendNotificationReminders extends Command
      */
     public function handle()
     {
-        $users = Fabriq::getModelClass('user')->whereHas('fabriqNotifications', function(Builder $query) {
+        $users = Fabriq::getModelClass('user')->whereHas('fabriqNotifications', function (Builder $query) {
             return $query->whereNull('cleared_at')
                 ->whereNull('notified_at');
         })->withCount('notificationsToBeNotified')->with('notificationsToBeNotified')->get();
 
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $user->notify(new NotifyAboutNotification($user->notificationsToBeNotified->count(), $user));
             $this->clearNotifications($user->notificationsToBeNotified);
-            $this->info('Sending notification to ' . $user->email);
+            $this->info('Sending notification to '.$user->email);
         }
 
         return 0;
@@ -57,7 +57,7 @@ class SendNotificationReminders extends Command
 
     protected function clearNotifications(Collection $notifications) : void
     {
-        $notifications->each(function($item) {
+        $notifications->each(function ($item) {
             $item->notified_at = now();
             $item->save();
         });

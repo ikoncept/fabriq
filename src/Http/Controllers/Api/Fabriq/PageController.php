@@ -3,12 +3,12 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Http\Requests\CreatePageRequest;
 use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Transformers\PageTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 use Infab\TranslatableRevisions\Models\I18nLocale;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -16,11 +16,10 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class PageController extends ApiController
 {
-
     use ApiControllerTrait;
 
     /**
-     * Return index of pages
+     * Return index of pages.
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -32,7 +31,7 @@ class PageController extends ApiController
             ->allowedSorts('name', 'slug', 'id', 'created_at', 'updated_at')
             ->allowedFilters([
                 AllowedFilter::scope('search'),
-                AllowedFilter::exact('template_id')
+                AllowedFilter::exact('template_id'),
             ])
             ->with($eagerLoad)
             ->paginate($this->number);
@@ -60,7 +59,7 @@ class PageController extends ApiController
     }
 
     /**
-     * Update the specified resource
+     * Update the specified resource.
      *
      * @param Request $request
      * @param int $id
@@ -84,7 +83,7 @@ class PageController extends ApiController
     }
 
     /**
-     * Create a new resource
+     * Create a new resource.
      *
      * @param CreatePageRequest $request
      * @return \Illuminate\Http\JsonResponse
@@ -106,7 +105,7 @@ class PageController extends ApiController
     }
 
     /**
-     * Create a new resource
+     * Create a new resource.
      *
      * @param int $id
      * @return \Illuminate\Http\JsonResponse

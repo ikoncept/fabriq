@@ -8,7 +8,7 @@ use Infab\TranslatableRevisions\Models\RevisionMeta;
 interface GetterInterface
 {
     /**
-     * Get transformed data
+     * Get transformed data.
      *
      * @return array|null
      */

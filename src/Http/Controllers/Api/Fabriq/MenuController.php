@@ -2,21 +2,20 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\Menu;
 use Ikoncept\Fabriq\Models\MenuItem;
 use Ikoncept\Fabriq\Transformers\MenuTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 
 class MenuController extends ApiController
 {
-
     use ApiControllerTrait;
 
     /**
-     * Get index of the resource
+     * Get index of the resource.
      *
      * @param Request $request
      * @return JsonResponse
@@ -30,10 +29,10 @@ class MenuController extends ApiController
     }
 
     /**
-     * Get a single resource
+     * Get a single resource.
      *
      * @param Request $request
-     * @param integer $id
+     * @param int $id
      * @return JsonResponse
      */
     public function show(Request $request, int $id) : JsonResponse
@@ -47,7 +46,7 @@ class MenuController extends ApiController
     }
 
     /**
-     * Create a new resource
+     * Create a new resource.
      *
      * @param Request $request
      * @return JsonResponse
@@ -59,14 +58,14 @@ class MenuController extends ApiController
         $menu->save();
 
         MenuItem::create([
-            'menu_id' => $menu->id
+            'menu_id' => $menu->id,
         ]);
 
         return $this->respondWithItem($menu, new MenuTransformer(), 201);
     }
 
     /**
-     * Update a resource
+     * Update a resource.
      *
      * @param Request $request
      * @param int $id
@@ -85,9 +84,9 @@ class MenuController extends ApiController
     }
 
     /**
-     * Destroy a resource
+     * Destroy a resource.
      *
-     * @param integer $id
+     * @param int $id
      * @return JsonResponse
      */
     public function destroy(int $id) : JsonResponse

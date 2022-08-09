@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Log;
 class CachingMenuRepository implements MenuRepositoryInterface
 {
     /**
-     * Menu repository interface
+     * Menu repository interface.
      *
      * @var MenuRepositoryInterface
      */
     protected $repository;
 
     /**
-     * Cache repository
+     * Cache repository.
      *
      * @var Cache
      */
@@ -28,9 +28,8 @@ class CachingMenuRepository implements MenuRepositoryInterface
         $this->cache = $cache;
     }
 
-
     /**
-     * Find by slug
+     * Find by slug.
      *
      * @param string $slug
      * @return mixed
@@ -38,12 +37,12 @@ class CachingMenuRepository implements MenuRepositoryInterface
     public function findBySlug(string $slug)
     {
         $locale = app()->getLocale();
-        $menu = $this->cache->tags(['cms_menu_' . $slug, 'cms_menu'])
+        $menu = $this->cache->tags(['cms_menu_'.$slug, 'cms_menu'])
             ->rememberForever($locale, function () use ($slug) {
-                Log::info('Caching menu', ['cache_key' => 'cms_menu_' . $slug, 'cms_menu']);
+                Log::info('Caching menu', ['cache_key' => 'cms_menu_'.$slug, 'cms_menu']);
+
                 return $this->repository->findBySlug($slug);
             });
-
 
         return $menu;
     }

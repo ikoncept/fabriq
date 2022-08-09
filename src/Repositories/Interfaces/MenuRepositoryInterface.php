@@ -5,7 +5,7 @@ namespace Ikoncept\Fabriq\Repositories\Interfaces;
 interface MenuRepositoryInterface
 {
     /**
-     * Find by slug
+     * Find by slug.
      *
      * @param string $slug
      * @return mixed

@@ -24,7 +24,6 @@ class UserImageController extends Controller
             $user = $request->user();
             $user->image_id = $image->id;
             $user->save();
-
         } catch (\Throwable $exception) {
             $image->delete();
 
@@ -41,6 +40,7 @@ class UserImageController extends Controller
         $user->image->delete();
         $user->image_id = null;
         $user->save();
+
         return $this->respondWithSuccess('Image was deleted successfully');
     }
 }

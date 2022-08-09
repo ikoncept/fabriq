@@ -2,8 +2,8 @@
 
 namespace Ikoncept\Fabriq\Models;
 
-use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Carbon\Carbon;
+use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Ikoncept\Fabriq\Database\Factories\ArticleFactory;
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Broadcasting\Channel;
@@ -20,7 +20,7 @@ class Article extends Model
 {
     use HasFactory, HasTranslatedRevisions, BroadcastsEvents;
 
-    const RELATIONSHIPS = ['template', 'template.fields', 'slugs'];
+    public const RELATIONSHIPS = ['template', 'template.fields', 'slugs'];
 
     protected $guarded = ['content'];
 
@@ -29,14 +29,14 @@ class Article extends Model
     public array $templateSluggable = ['title'];
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
     public $morphClass = 'article';
 
     /**
-     * Create a new factory
+     * Create a new factory.
      */
     protected static function newFactory() : ArticleFactory
     {
@@ -52,12 +52,12 @@ class Article extends Model
             ->registerDefaultTemplate('article')
             ->registerSpecialTypes(['image'])
             ->registerGetters([
-                'image' => 'getImages'
+                'image' => 'getImages',
             ]);
     }
 
     /**
-     * Relation for slugs
+     * Relation for slugs.
      *
      * @return MorphMany
      */
@@ -67,7 +67,7 @@ class Article extends Model
     }
 
     /**
-     * Getter for images
+     * Getter for images.
      *
      * @param RevisionMeta $meta
      * @return mixed
@@ -77,18 +77,17 @@ class Article extends Model
         return ImageGetter::get($meta, $this->isPublishing);
     }
 
-
     public function getIsPublishedAttribute() : bool
     {
-        if(! isset($this->attributes['publishes_at'])) {
+        if (! isset($this->attributes['publishes_at'])) {
             return false;
         }
 
-        if($this->attributes['has_unpublished_time'] && now()->isAfter(Carbon::parse($this->attributes['unpublishes_at']))) {
+        if ($this->attributes['has_unpublished_time'] && now()->isAfter(Carbon::parse($this->attributes['unpublishes_at']))) {
             return false;
         }
 
-        if(now()->isAfter(Carbon::parse($this->attributes['publishes_at']))) {
+        if (now()->isAfter(Carbon::parse($this->attributes['publishes_at']))) {
             return true;
         }
 
@@ -98,7 +97,7 @@ class Article extends Model
     protected function getTimeZone() : string
     {
         $header = request()->header('X-TIMEZONE', 'Europe/Stockholm');
-        if(is_array($header)) {
+        if (is_array($header)) {
             return 'Europe/Stockholm';
         }
 
@@ -106,7 +105,7 @@ class Article extends Model
     }
 
     /**
-     * Set publishes at attribute
+     * Set publishes at attribute.
      *
      * @param string|null $value
      * @return void
@@ -116,9 +115,8 @@ class Article extends Model
         ($value) ? $this->attributes['publishes_at'] = Carbon::parse($value, $this->getTimeZone())->shiftTimezone('UTC')->toDateTimeString() : $this->attributes['publishes_at'] = null;
     }
 
-
     /**
-     * Set publishes at attribute
+     * Set publishes at attribute.
      *
      * @param string|null $value
      * @return void
@@ -129,7 +127,7 @@ class Article extends Model
     }
 
     /**
-     * Search for articles
+     * Search for articles.
      *
      * @param Builder $query
      * @param string $search
@@ -141,7 +139,7 @@ class Article extends Model
     }
 
     /**
-     * Scope for published articles
+     * Scope for published articles.
      *
      * @param Builder $query
      * @return Builder
@@ -149,8 +147,8 @@ class Article extends Model
     public function scopePublished(Builder $query) : Builder
     {
         return $query->where('publishes_at', '<=', now())
-            ->where(function(Builder $query) {
-                $query->where('unpublishes_at',  '>=', now())
+            ->where(function (Builder $query) {
+                $query->where('unpublishes_at', '>=', now())
                     ->orWhereNull('unpublishes_at');
             })
             ->orderBy('publishes_at', 'DESC');
@@ -166,6 +164,6 @@ class Article extends Model
     {
         $prefix = config('broadcasting.connections.pusher.key');
 
-        return [new Channel($prefix.'-article'), new Channel('article.' . $this->id)];
+        return [new Channel($prefix.'-article'), new Channel('article.'.$this->id)];
     }
 }

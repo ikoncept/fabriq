@@ -17,7 +17,7 @@ class Invitation extends Model
     {
         static::creating(function ($model) {
             $model->uuid = Str::uuid();
-            self::where('user_id', $model->user_id)->get()->each(function($item) {
+            self::where('user_id', $model->user_id)->get()->each(function ($item) {
                 $item->delete();
             });
         });

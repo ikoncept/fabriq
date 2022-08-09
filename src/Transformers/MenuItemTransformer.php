@@ -11,17 +11,17 @@ class MenuItemTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
     protected $availableIncludes = [
-        'content', 'page', 'localizedContent'
+        'content', 'page', 'localizedContent',
     ];
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  MenuItem  $menuItem
      * @return array
@@ -32,8 +32,8 @@ class MenuItemTransformer extends TransformerAbstract
             'id' => (int) $menuItem->id,
             'type' => (string) $menuItem->type,
             'parent_id' => $menuItem->parent_id,
-            'is_external' => (boolean) $menuItem->is_external,
-            'redirect' => (boolean) $menuItem->redirect,
+            'is_external' => (bool) $menuItem->is_external,
+            'redirect' => (bool) $menuItem->redirect,
             'external_url' => (string) $menuItem->external_url,
             'page_id' =>  $menuItem->page_id,
             'created_at' => (string) $menuItem->created_at,
@@ -42,7 +42,7 @@ class MenuItemTransformer extends TransformerAbstract
     }
 
     /**
-     * Include content
+     * Include content.
      *
      * @param MenuItem $menuItem
      * @return Item
@@ -61,7 +61,6 @@ class MenuItemTransformer extends TransformerAbstract
 
     public function includeLocalizedContent(MenuItem $menuItem) : Item
     {
-
         $enabledLocales = I18nLocale::where('enabled', 1)
             ->select('iso_code')
             ->orderBy('id', 'desc')->get();

@@ -3,11 +3,11 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Infab\Core\Http\Controllers\Api\ApiController;
 use Ikoncept\Fabriq\Models\Image;
 use Ikoncept\Fabriq\Transformers\TagTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -17,7 +17,7 @@ class TagController extends ApiController
 {
     use ApiControllerTrait;
 
-    const TAGGABLE_TYPES = [
+    public const TAGGABLE_TYPES = [
         'images' => 'Ikoncept\Fabriq\Models\Image',
         'files' => 'Ikoncept\Fabriq\Models\File',
         'videos' => 'Ikoncept\Fabriq\Models\Video',
@@ -28,7 +28,7 @@ class TagController extends ApiController
     {
         $tags = QueryBuilder::for(Fabriq::getFqnModel('tag'))
             ->allowedFilters([
-                AllowedFilter::scope('type', 'withType')
+                AllowedFilter::scope('type', 'withType'),
             ])
             ->get();
 
@@ -36,7 +36,7 @@ class TagController extends ApiController
     }
 
     /**
-     * Associate a model with a tag
+     * Associate a model with a tag.
      *
      * @param Request $request
      * @return JsonResponse
@@ -44,13 +44,13 @@ class TagController extends ApiController
     public function store(Request $request) : JsonResponse
     {
         $modelName = self::TAGGABLE_TYPES[$request->model_type] ?? null;
-        if(! $modelName) {
+        if (! $modelName) {
             return $this->errorWrongArgs('This type is not taggable');
         }
 
         $tags = $request->tags;
-        foreach($tags as $tag) {
-            /** @var Tag $newTag **/
+        foreach ($tags as $tag) {
+            /** @var Tag $newTag * */
             $newTag = Tag::findOrCreate($tag, $request->model_type);
             $newTag->save();
         }
@@ -58,7 +58,7 @@ class TagController extends ApiController
         $modelName::whereIn('id', $request->models)
             ->select('id')
             ->get()
-            ->each(function($item) use ($tags, $request) {
+            ->each(function ($item) use ($tags, $request) {
                 $item->attachTags($tags, $request->model_type);
             });
 

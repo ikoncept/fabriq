@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class CalendarService
 {
     /**
-     * Get daily intervals
+     * Get daily intervals.
      *
      * @param mixed $events
      * @param CarbonImmutable $endDate
@@ -19,8 +19,8 @@ class CalendarService
     {
         $now = CarbonImmutable::now();
         $computedEvents = collect([]);
-        foreach($events as $event) {
-            if($event->daily_interval) {
+        foreach ($events as $event) {
+            if ($event->daily_interval) {
                 $toBeModified = Carbon::make($event->start);
                 $toBeModifiedEnd = Carbon::make($event->end);
                 while ($endDate->timestamp >= $toBeModified->timestamp) {
@@ -35,6 +35,7 @@ class CalendarService
                 }
             }
         }
+
         return $computedEvents;
     }
 }

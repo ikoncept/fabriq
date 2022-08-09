@@ -25,7 +25,7 @@ class CreateCommentRequest extends FormRequest
     {
         return [
             'comment' => 'required|max:5000',
-            'parent_id' => 'sometimes|integer'
+            'parent_id' => 'sometimes|integer',
         ];
     }
 }

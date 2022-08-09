@@ -45,7 +45,6 @@ class AskToLeaveNotification extends Notification
         return ['broadcast'];
     }
 
-
     /**
      * Get the broadcastable representation of the notification.
      *
@@ -59,7 +58,7 @@ class AskToLeaveNotification extends Notification
             'timeout' => 10,
             'can_decline' => true,
             'identifier' => $this->pageIdentifier,
-            'text' => $this->causer->first_name . ' vill redigera denna sidan. '
+            'text' => $this->causer->first_name.' vill redigera denna sidan. ',
         ]);
     }
 

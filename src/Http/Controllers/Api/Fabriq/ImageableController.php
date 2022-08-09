@@ -2,24 +2,23 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
-use Infab\Core\Http\Controllers\Api\ApiController;
-use Ikoncept\Fabriq\Models\Image;
-use Ikoncept\Fabriq\Transformers\ImageTransformer;
 use Exception;
 use Ikoncept\Fabriq\Fabriq;
+use Ikoncept\Fabriq\Models\Image;
+use Ikoncept\Fabriq\Transformers\ImageTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Infab\Core\Traits\ApiControllerTrait;
 use Illuminate\Support\Str;
+use Infab\Core\Http\Controllers\Api\ApiController;
+use Infab\Core\Traits\ApiControllerTrait;
 use InvalidArgumentException;
 
 class ImageableController extends ApiController
 {
-
     use ApiControllerTrait;
 
     /**
-     * Get associated images for another model
+     * Get associated images for another model.
      *
      * @param Request $request
      * @param string $model
@@ -30,10 +29,10 @@ class ImageableController extends ApiController
     public function index(Request $request, $model, $modelId) : JsonResponse
     {
         $guess = Str::lower(Str::studly(Str::singular($model)));
-        $relatedModelClass = config('fabriq.models.'. $guess);
+        $relatedModelClass = config('fabriq.models.'.$guess);
 
-        if(! class_exists($relatedModelClass)) {
-            throw new InvalidArgumentException('The related model was not found, you might want to add a mapping in your ' . Fabriq::getFqnModel('image') . ' model');
+        if (! class_exists($relatedModelClass)) {
+            throw new InvalidArgumentException('The related model was not found, you might want to add a mapping in your '.Fabriq::getFqnModel('image').' model');
         }
 
         $relatedModel = $relatedModelClass::findOrFail($modelId);
@@ -42,7 +41,7 @@ class ImageableController extends ApiController
     }
 
     /**
-     * Associate an image with another model
+     * Associate an image with another model.
      *
      * @param Request $request
      * @param int $imageId
@@ -54,10 +53,10 @@ class ImageableController extends ApiController
         $modelId = $request->model_id;
         $image = Image::findOrFail($imageId);
         $guess = Str::lower(Str::studly(Str::singular($model)));
-        $relatedModelClass = config('fabriq.models.'. $guess);
+        $relatedModelClass = config('fabriq.models.'.$guess);
 
-        if(! class_exists($relatedModelClass)) {
-            throw new InvalidArgumentException('The related model was not found, you might want to add a mapping in your ' . Fabriq::getFqnModel('image') . ' model');
+        if (! class_exists($relatedModelClass)) {
+            throw new InvalidArgumentException('The related model was not found, you might want to add a mapping in your '.Fabriq::getFqnModel('image').' model');
         }
 
         $relatedModel = $relatedModelClass::findOrFail($modelId);
@@ -65,7 +64,7 @@ class ImageableController extends ApiController
         try {
             $relatedModel->images()->attach($image, ['sortindex' => $relatedModel->images->count()]);
         } catch (Exception $e) {
-            return $this->errorWrongArgs('Image has no relation to ' . $model);
+            return $this->errorWrongArgs('Image has no relation to '.$model);
         }
 
         return $this->respondWithItem($image, new ImageTransformer(), 201);

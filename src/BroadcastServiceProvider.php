@@ -2,9 +2,9 @@
 
 namespace Ikoncept\Fabriq;
 
-use Illuminate\Support\Facades\Broadcast;
-// use Illuminate\Support\ServiceProvider;
 use Illuminate\Broadcasting\BroadcastServiceProvider as ServiceProvider;
+// use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Broadcast;
 
 class BroadcastServiceProvider extends ServiceProvider
 {

@@ -4,8 +4,8 @@ namespace Ikoncept\Fabriq\Console;
 
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 
 class AddRoleToUserCommand extends Command
 {
@@ -44,7 +44,7 @@ class AddRoleToUserCommand extends Command
 
         $id = $this->option('id');
 
-        if(! $id) {
+        if (! $id) {
             $id = Fabriq::getModelClass('user')
                 ->orderBy('created_at', 'desc')
                 ->first()->id;
@@ -54,14 +54,15 @@ class AddRoleToUserCommand extends Command
             ->where('id', $id)
             ->firstOrFail();
 
-        $choices = $roleOptions->map(function($item) {
-            return $item->name . ' | id: ' . $item->id;
+        $choices = $roleOptions->map(function ($item) {
+            return $item->name.' | id: '.$item->id;
         });
 
         $role = $this->choice('Which role do you want to attach?', $choices->toArray());
 
-        if(! preg_match_all('/id: ([\d]+)/', $role, $matches)) {
+        if (! preg_match_all('/id: ([\d]+)/', $role, $matches)) {
             $this->error('Failed to extract id, exiting');
+
             return 1;
         }
 
@@ -73,7 +74,7 @@ class AddRoleToUserCommand extends Command
         $user->email_verified_at = now();
         $user->save();
 
-        $this->info('Assinged role ' . $roleToBeAssigned->name . ' to ' . $user->email);
+        $this->info('Assinged role '.$roleToBeAssigned->name.' to '.$user->email);
 
         return 0;
     }

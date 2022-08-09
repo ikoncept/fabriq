@@ -19,25 +19,24 @@ class Contact extends Model
 {
     use HasFactory, HasTranslatedRevisions, HasTags, BroadcastsEvents;
 
-    const RELATIONSHIPS = ['images', 'tags'];
+    public const RELATIONSHIPS = ['images', 'tags'];
 
     protected $guarded = ['content', 'localizedContent'];
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
     public $morphClass = 'contact';
 
     /**
-     * Create a new factory
+     * Create a new factory.
      */
     protected static function newFactory() : ContactFactory
     {
         return ContactFactory::new();
     }
-
 
     /**
      * Get the options for the revisions.
@@ -53,7 +52,7 @@ class Contact extends Model
     }
 
     /**
-     * Getter for images
+     * Getter for images.
      *
      * @param mixed $meta
      * @return mixed
@@ -76,7 +75,7 @@ class Contact extends Model
     }
 
     /**
-     * Search for contacts
+     * Search for contacts.
      *
      * @param Builder $query
      * @param string $search
@@ -85,20 +84,20 @@ class Contact extends Model
     public function scopeSearch(Builder $query, string $search) : Builder
     {
         return $query->whereLike(['name', 'email', 'phone'], $search)
-            ->orWhereHas('tags', function($query) use ($search) {
-                return $query->where('name->sv', 'like', '%' . $search . '%');
+            ->orWhereHas('tags', function ($query) use ($search) {
+                return $query->where('name->sv', 'like', '%'.$search.'%');
             });
     }
 
     /**
-     * Set tags
+     * Set tags.
      *
      * @param array $value
      * @return void
      */
     public function setContactTagsAttribute($value)
     {
-        if($value) {
+        if ($value) {
             $this->syncTagsWithType($value, 'contacts');
         } else {
             $this->syncTagsWithType([], 'contacts');
@@ -106,29 +105,30 @@ class Contact extends Model
     }
 
     /**
-     * Set localized content
+     * Set localized content.
      *
      * @param array $value
      * @return void
      */
     public function setLocalizedContentAttribute($value)
     {
-        foreach($value as $key => $localeContent) {
+        foreach ($value as $key => $localeContent) {
             $this->updateContent($localeContent, (string) $key);
         }
     }
 
     /**
-     * Get the title for the event
+     * Get the title for the event.
      *
      * @return string|null
      */
     public function getImageAttribute()
     {
         $meta = $this->meta()->where('meta_key', 'image')->first();
-        if(! $meta) {
-           return null;
+        if (! $meta) {
+            return null;
         }
+
         return $this->getImages($meta);
     }
 
@@ -142,6 +142,6 @@ class Contact extends Model
     {
         $prefix = config('fabriq.ws_prefix');
 
-        return [new Channel($prefix.'-contact'), new Channel('contact.' . $this->id)];
+        return [new Channel($prefix.'-contact'), new Channel('contact.'.$this->id)];
     }
 }

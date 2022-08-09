@@ -45,7 +45,6 @@ class LeaveDeclinedNotification extends Notification
         return ['broadcast'];
     }
 
-
     /**
      * Get the broadcastable representation of the notification.
      *
@@ -58,7 +57,7 @@ class LeaveDeclinedNotification extends Notification
             'causer' => $this->causer,
             'declined' => true,
             'identifier' => $this->pageIdentifier,
-            'text' => $this->causer->first_name . ' ville inte lämna över redigering.'
+            'text' => $this->causer->first_name.' ville inte lämna över redigering.',
         ]);
     }
 

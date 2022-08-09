@@ -8,19 +8,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Str;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Tags\HasTags;
-use Illuminate\Support\Str;
 
 class Image extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, HasTags;
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
@@ -29,7 +29,7 @@ class Image extends Model implements HasMedia
     protected $fillable = ['alt_text', 'caption', 'custom_crop', 'x_position', 'y_position'];
 
     /**
-     * Create a new factory
+     * Create a new factory.
      */
     protected static function newFactory() : ImageFactory
     {
@@ -38,7 +38,7 @@ class Image extends Model implements HasMedia
 
     protected $with = ['media'];
 
-    const RELATIONSHIPS = ['tags'];
+    public const RELATIONSHIPS = ['tags'];
 
     public function imageable() : MorphTo
     {
@@ -54,7 +54,7 @@ class Image extends Model implements HasMedia
               ->format(config('fabriq.enable_webp') ? 'webp' : 'jpg')
               ->quality(80);
 
-        if(config('fabriq.enable_webp')) {
+        if (config('fabriq.enable_webp')) {
             $this->addMediaConversion('webp')
                 ->format('webp')
                 ->quality(85);
@@ -68,7 +68,7 @@ class Image extends Model implements HasMedia
     }
 
     /**
-     * Search for an image
+     * Search for an image.
      *
      * @param Builder $query
      * @param string|null $search
@@ -79,35 +79,36 @@ class Image extends Model implements HasMedia
         $searchColumns = ['media.file_name', 'media.name', 'alt_text'];
 
         return $query->whereLike($searchColumns, $search)
-            ->orWhereHas('tags', function($query) use ($search) {
-                return $query->where('name->sv', 'like', '%' . $search . '%')
-                    ->orWhere('name->en', 'like', '%' . $search . '%');
+            ->orWhereHas('tags', function ($query) use ($search) {
+                return $query->where('name->sv', 'like', '%'.$search.'%')
+                    ->orWhere('name->en', 'like', '%'.$search.'%');
             });
     }
 
     /**
-     * Set tags
+     * Set tags.
      *
      * @param array $value
      * @return void
      */
     public function setImageTagsAttribute($value)
     {
-        if($value) {
+        if ($value) {
             $this->syncTagsWithType($value, 'images');
         } else {
             $this->syncTagsWithType([], 'images');
         }
     }
 
-    public function saveMedia(bool $fromUrl = false, string $collection = 'images' , string $url = '') : void
+    public function saveMedia(bool $fromUrl = false, string $collection = 'images', string $url = '') : void
     {
-        if($fromUrl) {
+        if ($fromUrl) {
             list($width, $height) = getimagesize(request()->input('url', $url));
             $this->addMediaFromUrl(request()->input('url', $url))
                 ->withResponsiveImages()
                 ->withCustomProperties(['width' => $width, 'height' => $height])
                 ->toMediaCollection($collection);
+
             return;
         }
         list($width, $height) = getimagesize(request()->file('image'));

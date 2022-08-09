@@ -26,7 +26,7 @@ class UploadImageRequest extends FormRequest
     {
         return [
             'url' => 'required_without:image',
-            'image' => 'required_without:url|image'
+            'image' => 'required_without:url|image',
         ];
     }
 }

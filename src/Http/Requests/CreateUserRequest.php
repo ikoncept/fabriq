@@ -28,7 +28,7 @@ class CreateUserRequest extends FormRequest
         return [
             'name' => ['required', 'max:255'],
             'email' => ['required', 'email', Rule::unique(User::class)],
-            'role_list' => 'array'
+            'role_list' => 'array',
         ];
     }
 }

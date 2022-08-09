@@ -9,7 +9,7 @@ class InvitationTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
@@ -18,7 +18,7 @@ class InvitationTransformer extends TransformerAbstract
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Invitation  $invitation
      * @return array
@@ -26,7 +26,7 @@ class InvitationTransformer extends TransformerAbstract
     public function transform(Invitation $invitation)
     {
         return array_merge([
-            'is_valid' => (bool) $invitation->created_at->diffInHours(now()) < 48
+            'is_valid' => (bool) $invitation->created_at->diffInHours(now()) < 48,
         ], $invitation->toArray());
     }
 }

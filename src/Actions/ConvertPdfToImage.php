@@ -14,9 +14,9 @@ class ConvertPdfToImage
             -dOptimize=true \
             -dColorConversionStrategy=/sRGB \
             -dProcessColorModel=/DeviceRGB  \
-            -dFirstPage=' . $firstPage . ' \
-            -dLastPage=' . $lastPage . ' \
-            -sOutputFile='. $outputPath  .'-%d.png16m '. $inputPath);
+            -dFirstPage='.$firstPage.' \
+            -dLastPage='.$lastPage.' \
+            -sOutputFile='.$outputPath.'-%d.png16m '.$inputPath);
 
         exec($command);
 

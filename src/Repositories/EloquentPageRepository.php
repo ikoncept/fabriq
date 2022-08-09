@@ -10,7 +10,7 @@ use Ikoncept\Fabriq\Repositories\Interfaces\PageRepositoryInterface;
 class EloquentPageRepository implements PageRepositoryInterface
 {
     /**
-     * Page model
+     * Page model.
      *
      * @var Page
      */
@@ -23,14 +23,14 @@ class EloquentPageRepository implements PageRepositoryInterface
     }
 
     /**
-     * Find by slug
+     * Find by slug.
      *
      * @param string $slug
      * @return mixed
      */
     public function findBySlug(string $slug)
     {
-        $model = $this->model->whereHas('slugs', function($query) use ($slug) {
+        $model = $this->model->whereHas('slugs', function ($query) use ($slug) {
             $query->where('slug', $slug);
         })->firstOrFail();
 
@@ -43,7 +43,7 @@ class EloquentPageRepository implements PageRepositoryInterface
 
     public function findPreviewBySlug(string $slug)
     {
-        $model = $this->model->whereHas('slugs', function($query) use ($slug) {
+        $model = $this->model->whereHas('slugs', function ($query) use ($slug) {
             $query->where('slug', $slug);
         })->firstOrFail();
 
@@ -54,12 +54,12 @@ class EloquentPageRepository implements PageRepositoryInterface
         return $model;
     }
 
-
     public function findByIds(array $ids)
     {
         $models = $this->model->whereIn('id', $ids)
-            ->get()->transform(function($model) {
+            ->get()->transform(function ($model) {
                 $model->content = $model->getFieldContent($model->revision);
+
                 return $model;
             });
 

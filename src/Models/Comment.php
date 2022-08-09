@@ -9,31 +9,31 @@ use Ikoncept\Fabriq\Events\CommentDeleted;
 use Ikoncept\Fabriq\Events\CommentPosted;
 use Ikoncept\Fabriq\Events\UserMentionedInComment;
 use Ikoncept\Fabriq\Fabriq;
+use Ikoncept\Fabriq\Models\Notification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Ikoncept\Fabriq\Models\Notification;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Comment extends Model
 {
     use HasFactory;
 
     /**
-     * Morph class
+     * Morph class.
      *
      * @var string
      */
     public $morphClass = 'comment';
 
     protected $dates = [
-        'anonymized_at'
+        'anonymized_at',
     ];
 
     /**
-     * Create a new factory
+     * Create a new factory.
      */
     protected static function newFactory() : CommentFactory
     {
@@ -46,13 +46,13 @@ class Comment extends Model
             $doc = new DOMDocument();
             $doc->loadHTML($model->comment);
             $xpath = new DOMXPath($doc);
-            $filtered = $xpath->query("//span[@data-email]");
+            $filtered = $xpath->query('//span[@data-email]');
             $notification = new Notification();
-            if($filtered) {
-                foreach($filtered as $filter) {
+            if ($filtered) {
+                foreach ($filtered as $filter) {
                     $email = $filter->getAttribute('data-email');
                     $user = Fabriq::getModelClass('user')->whereEmail($email)->first();
-                    if($user) {
+                    if ($user) {
                         $notification = $model->notifications()->create([
                             'user_id' => $user->id,
                         ]);
@@ -64,7 +64,7 @@ class Comment extends Model
         });
 
         static::deleting(function ($model) {
-            if($model->children->count()) {
+            if ($model->children->count()) {
                 $model->comment = 'Borttagen kommentar';
                 $model->anonymized_at = now();
                 $model->save();
@@ -77,15 +77,14 @@ class Comment extends Model
         // parent, the parent should be deleted
         static::deleted(function ($model) {
             CommentDeleted::dispatch($model);
-            if(! $model->parent_id) {
+            if (! $model->parent_id) {
                 return;
             }
-            if($model->parent->anonymized_at && ! $model->parent->children->count()) {
+            if ($model->parent->anonymized_at && ! $model->parent->children->count()) {
                 $model->parent->delete();
             }
         });
     }
-
 
     protected $fillable = [
         'user_id',

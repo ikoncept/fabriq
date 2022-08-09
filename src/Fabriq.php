@@ -2,13 +2,13 @@
 
 namespace Ikoncept\Fabriq;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
 use InvalidArgumentException;
-use Illuminate\Database\Eloquent\Model;
 
 class Fabriq
 {
-     /**
+    /**
      * Binds the Fabriq routes into the controller.
      *
      * @param  callable|null  $callback
@@ -32,7 +32,7 @@ class Fabriq
     }
 
     /**
-     * Return a new instance of a model
+     * Return a new instance of a model.
      *
      * @param string $key
      * @param mixed ...$arguments
@@ -40,25 +40,25 @@ class Fabriq
      */
     public static function getModelClass(string $key, ...$arguments)
     {
-        $class = config('fabriq.models.' . $key);
-        if(! $class) {
-            throw new InvalidArgumentException('The model key was not found: ' . $key);
+        $class = config('fabriq.models.'.$key);
+        if (! $class) {
+            throw new InvalidArgumentException('The model key was not found: '.$key);
         }
 
         return new $class($arguments);
     }
 
     /**
-     * Return the fully qualified model name
+     * Return the fully qualified model name.
      *
      * @param string $key
      * @return mixed
      */
     public static function getFqnModel(string $key)
     {
-        $class = config('fabriq.models.' . $key);
-        if(! $class) {
-            throw new InvalidArgumentException('The model key was not found: ' . $key);
+        $class = config('fabriq.models.'.$key);
+        if (! $class) {
+            throw new InvalidArgumentException('The model key was not found: '.$key);
         }
 
         return $class;

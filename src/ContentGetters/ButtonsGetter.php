@@ -9,26 +9,27 @@ use Infab\TranslatableRevisions\Models\RevisionMeta;
 class ButtonsGetter
 {
     /**
-     * Return a representation of an image
+     * Return a representation of an image.
      *
      * @param RevisionMeta $meta
-     * @param boolean $publishing
+     * @param bool $publishing
      * @return mixed
      */
     public static function get(RevisionMeta $meta, $publishing = false)
     {
-        if(empty($meta->toArray())) {
+        if (empty($meta->toArray())) {
             return [
-                'meta_id' => $meta->id
+                'meta_id' => $meta->id,
             ];
         }
         $value = new Collection($meta->meta_value);
 
-        $buttons = $value->map(function($button) {
+        $buttons = $value->map(function ($button) {
             $tempMeta = RevisionMeta::make([
-                'meta_value' => $button
+                'meta_value' => $button,
             ]);
             $button = ButtonGetter::get($tempMeta);
+
             return $button;
         });
 

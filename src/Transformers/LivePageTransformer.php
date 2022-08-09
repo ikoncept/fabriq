@@ -9,7 +9,7 @@ class LivePageTransformer extends TransformerAbstract
 {
     /**
      * Determines which objects
-     * that can be included
+     * that can be included.
      *
      * @var array
      */
@@ -18,7 +18,7 @@ class LivePageTransformer extends TransformerAbstract
 
     /**
      * Transform the given object
-     * to the required format
+     * to the required format.
      *
      * @param  Page  $page
      * @return array
