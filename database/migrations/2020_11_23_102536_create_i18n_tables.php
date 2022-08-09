@@ -29,6 +29,7 @@ class CreateI18nTables extends Migration
         Schema::create($prefix . 'i18n_terms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('key')->unique();
+            $table->nullableMorphs('model', 'term_model');
             $table->string('description');
             $table->string('group')->default('ungrouped');
             $table->timestamps();
