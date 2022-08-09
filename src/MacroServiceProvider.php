@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 class MacroServiceProvider extends ServiceProvider
 {
     /**
-     * Like statmement.
+     * Like statmement
      *
      * @var string
      */
@@ -37,7 +37,7 @@ class MacroServiceProvider extends ServiceProvider
         $likeStatement = $this->likeStatement;
 
         Builder::macro('whereLike', function ($attributes, string $searchTerm) use ($likeStatement) {
-            /* @var Builder $this **/
+            /** @var Builder $this **/
             $this->where(function (Builder $query) use ($attributes, $searchTerm, $likeStatement) {
                 foreach (Arr::wrap($attributes) as $attribute) {
                     $query->when(
@@ -54,7 +54,6 @@ class MacroServiceProvider extends ServiceProvider
                     );
                 }
             });
-
             return $this;
         });
     }
@@ -63,6 +62,6 @@ class MacroServiceProvider extends ServiceProvider
     {
         $connection = config('database.default');
         $driver = config("database.connections.{$connection}.driver");
-        $this->likeStatement = ($driver === 'pgsql') ? 'ILIKE' : 'LIKE';
+        $this->likeStatement =  ($driver === 'pgsql') ? 'ILIKE' : 'LIKE';
     }
 }
