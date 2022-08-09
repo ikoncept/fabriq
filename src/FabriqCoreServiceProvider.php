@@ -174,10 +174,10 @@ class FabriqCoreServiceProvider extends ServiceProvider
     protected function standardPaths() : array
     {
         return [
-            __DIR__.'/../resources/images' => public_path('images'),
-            __DIR__.'/../resources/images' => resource_path('images'),
-            __DIR__.'/../resources/fonts' => public_path('fonts'),
             __DIR__.'/../resources/css' => resource_path('css'),
+            __DIR__.'/../resources/images' => public_path('images'),
+            __DIR__.'/../resources/js' => resource_path('js'),
+            __DIR__.'/../resources/fonts' => public_path('fonts'),
             __DIR__.'/../tailwind.config.js' => 'tailwind.config.js',
             __DIR__.'/../vite.config.js' => 'vite.config.js',
             __DIR__.'/../postcss.config.js' => 'postcss.config.js',

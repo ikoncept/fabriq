@@ -1,0 +1,23 @@
+{
+    "resources/js/main.js": {
+      "file": "assets/main.f4f5d0a1.js",
+      "src": "resources/js/main.js",
+      "isEntry": true,
+      "imports": [
+        "_vendor.99dbdb1e.js"
+      ],
+      "css": [
+        "assets/main.387ec448.css"
+      ],
+      "assets": [
+        "assets/ikoncept-logo.1abf4988.svg",
+        "assets/fabriq-cms-logo.4bb6f3c3.svg"
+      ]
+    },
+    "_vendor.99dbdb1e.js": {
+      "file": "assets/vendor.99dbdb1e.js",
+      "css": [
+        "assets/vendor.4a5fa02d.css"
+      ]
+    }
+  }
