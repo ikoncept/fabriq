@@ -18,13 +18,13 @@ class AddHiddenToRolesTable extends Migration
             $table->boolean('hidden')->after('guard_name')->default(0);
         });
         DB::table('roles')->insert([
-            'name'         => 'dev',
-            'description'  => 'Developers',
+            'name' => 'dev',
+            'description' => 'Developers',
             'display_name' => 'Dev',
-            'guard_name'   => 'web',
-            'hidden'       => true,
-            'created_at'   => now(),
-            'updated_at'   => now()
+            'guard_name' => 'web',
+            'hidden' => true,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 

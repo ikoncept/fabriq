@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Support\Str;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -31,7 +30,7 @@ class Image extends Model implements HasMedia
     /**
      * Create a new factory.
      */
-    protected static function newFactory() : ImageFactory
+    protected static function newFactory(): ImageFactory
     {
         return ImageFactory::new();
     }
@@ -40,7 +39,7 @@ class Image extends Model implements HasMedia
 
     public const RELATIONSHIPS = ['tags'];
 
-    public function imageable() : MorphTo
+    public function imageable(): MorphTo
     {
         return $this->morphTo();
     }
@@ -74,7 +73,7 @@ class Image extends Model implements HasMedia
      * @param string|null $search
      * @return Builder
      */
-    public function scopeSearch(Builder $query, $search) : Builder
+    public function scopeSearch(Builder $query, $search): Builder
     {
         $searchColumns = ['media.file_name', 'media.name', 'alt_text'];
 
@@ -100,10 +99,10 @@ class Image extends Model implements HasMedia
         }
     }
 
-    public function saveMedia(bool $fromUrl = false, string $collection = 'images', string $url = '') : void
+    public function saveMedia(bool $fromUrl = false, string $collection = 'images', string $url = ''): void
     {
         if ($fromUrl) {
-            list($width, $height) = getimagesize(request()->input('url', $url));
+            [$width, $height] = getimagesize(request()->input('url', $url));
             $this->addMediaFromUrl(request()->input('url', $url))
                 ->withResponsiveImages()
                 ->withCustomProperties(['width' => $width, 'height' => $height])
@@ -111,7 +110,7 @@ class Image extends Model implements HasMedia
 
             return;
         }
-        list($width, $height) = getimagesize(request()->file('image'));
+        [$width, $height] = getimagesize(request()->file('image'));
         $this->addMediaFromRequest('image')
             ->withResponsiveImages()
             ->withCustomProperties(['width' => $width, 'height' => $height])

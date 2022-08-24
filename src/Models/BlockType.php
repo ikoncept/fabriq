@@ -20,7 +20,7 @@ class BlockType extends Model
     /**
      * Create a new factory.
      */
-    protected static function newFactory() : BlockTypeFactory
+    protected static function newFactory(): BlockTypeFactory
     {
         return BlockTypeFactory::new();
     }

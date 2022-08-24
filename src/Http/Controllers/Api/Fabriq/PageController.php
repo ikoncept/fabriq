@@ -6,11 +6,9 @@ use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreatePageRequest;
 use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Transformers\PageTransformer;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
-use Infab\TranslatableRevisions\Models\I18nLocale;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 

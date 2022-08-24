@@ -33,7 +33,7 @@ class Contact extends Model
     /**
      * Create a new factory.
      */
-    protected static function newFactory() : ContactFactory
+    protected static function newFactory(): ContactFactory
     {
         return ContactFactory::new();
     }
@@ -41,7 +41,7 @@ class Contact extends Model
     /**
      * Get the options for the revisions.
      */
-    public function getRevisionOptions() : RevisionOptions
+    public function getRevisionOptions(): RevisionOptions
     {
         return RevisionOptions::create()
             ->registerDefaultTemplate('contact')
@@ -67,7 +67,7 @@ class Contact extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function images() : MorphToMany
+    public function images(): MorphToMany
     {
         return $this->morphToMany(Fabriq::getFqnModel('image'), 'imageable')
             ->withPivot('id', 'sortindex')
@@ -81,7 +81,7 @@ class Contact extends Model
      * @param string $search
      * @return Builder
      */
-    public function scopeSearch(Builder $query, string $search) : Builder
+    public function scopeSearch(Builder $query, string $search): Builder
     {
         return $query->whereLike(['name', 'email', 'phone'], $search)
             ->orWhereHas('tags', function ($query) use ($search) {

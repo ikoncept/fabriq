@@ -22,7 +22,7 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'comment' => $this->faker->paragraph
+            'comment' => $this->faker->paragraph,
         ];
     }
 }

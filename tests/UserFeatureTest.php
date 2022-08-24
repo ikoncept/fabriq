@@ -2,17 +2,12 @@
 
 namespace Tests\Feature;
 
-
-use Illuminate\Foundation\Testing\WithFaker;
+use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
-use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
 
 class UserFeatureTest extends AdminUserTestCase
 {
-
-
     /** @test **/
     public function it_can_get_all_users()
     {
@@ -34,7 +29,7 @@ class UserFeatureTest extends AdminUserTestCase
         // Arrange
         $this->withoutExceptionHandling();
         $user = \Ikoncept\Fabriq\Models\User::factory()->create([
-            'name' => 'Zebra Green'
+            'name' => 'Zebra Green',
         ]);
         $users = \Ikoncept\Fabriq\Models\User::factory()->count(1)->create();
 
@@ -64,7 +59,7 @@ class UserFeatureTest extends AdminUserTestCase
         $this->assertDatabaseHas('users', [
             'name' => 'Ralf Edström',
             'email' => 'ralf@spray.se',
-            'email_verified_at' => null
+            'email_verified_at' => null,
         ]);
     }
 
@@ -74,7 +69,7 @@ class UserFeatureTest extends AdminUserTestCase
         // Arrange
         app()->setLocale('sv');
         $user = \Ikoncept\Fabriq\Models\User::factory()->create([
-            'email' => 'ralf@spray.se'
+            'email' => 'ralf@spray.se',
         ]);
 
         // Act
@@ -86,7 +81,7 @@ class UserFeatureTest extends AdminUserTestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(['email', 'name']);
         $response->assertJsonFragment([
-            'E-post används redan.'
+            'E-post används redan.',
         ]);
     }
 
@@ -118,14 +113,13 @@ class UserFeatureTest extends AdminUserTestCase
         ]);
         $user->assignRole('peasant');
 
-
         // Act
-        $response = $this->json('GET', '/users/' . $user->id . '?include=roles');
+        $response = $this->json('GET', '/users/'.$user->id.'?include=roles');
 
         // Assert
         $response->assertOk();
         $response->assertJsonFragment([
-            'role_list' => ['peasant']
+            'role_list' => ['peasant'],
         ]);
     }
 
@@ -144,10 +138,10 @@ class UserFeatureTest extends AdminUserTestCase
         $editorRole = Role::where('name', 'editor')->first();
 
         // Act
-        $response = $this->json('PATCH', '/users/' . $user->id, [
+        $response = $this->json('PATCH', '/users/'.$user->id, [
             'name' => 'Alfons Åberg',
             'email' => 'alfons@aaberg.se',
-            'role_list' => ['editor']
+            'role_list' => ['editor'],
         ]);
 
         // Assert
@@ -158,7 +152,7 @@ class UserFeatureTest extends AdminUserTestCase
         ]);
         $this->assertDatabaseHas('model_has_roles', [
             'role_id' => $editorRole->id,
-            'model_id' => $user->id
+            'model_id' => $user->id,
         ]);
     }
 
@@ -167,10 +161,10 @@ class UserFeatureTest extends AdminUserTestCase
     {
         // Arrange
         $user = \Ikoncept\Fabriq\Models\User::factory()->create([
-            'name' => 'Alfons'
+            'name' => 'Alfons',
         ]);
         $user = \Ikoncept\Fabriq\Models\User::factory()->create([
-            'name' => 'Jörgen'
+            'name' => 'Jörgen',
         ]);
 
         // Act
@@ -190,7 +184,7 @@ class UserFeatureTest extends AdminUserTestCase
         $user = \Ikoncept\Fabriq\Models\User::factory()->create();
 
         // Act
-        $response = $this->json('DELETE', '/users/' . $user->id);
+        $response = $this->json('DELETE', '/users/'.$user->id);
 
         // Assert
         $response->assertOk();

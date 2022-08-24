@@ -4,8 +4,6 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreateCommentRequest;
-use Ikoncept\Fabriq\Models\Comment;
-use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Transformers\CommentTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,7 +23,7 @@ class CommentableController extends ApiController
         'pages' => 'page',
     ];
 
-    public function index(Request $request, string $modelName, int $modelId) : JsonResponse
+    public function index(Request $request, string $modelName, int $modelId): JsonResponse
     {
         if (! array_key_exists($modelName, $this->modelMap)) {
             return $this->errorWrongArgs('The specified model is not commentable');
@@ -39,7 +37,7 @@ class CommentableController extends ApiController
         return $this->respondWithCollection($model->comments, new CommentTransformer);
     }
 
-    public function store(CreateCommentRequest $request, string $modelName, int $modelId) : JsonResponse
+    public function store(CreateCommentRequest $request, string $modelName, int $modelId): JsonResponse
     {
         if (! array_key_exists($modelName, $this->modelMap)) {
             return $this->errorWrongArgs('The specified model is not commentable');

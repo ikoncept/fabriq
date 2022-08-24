@@ -2,13 +2,10 @@
 
 namespace Ikoncept\Fabriq\Events;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Queue\SerializesModels;
 
 class NotificationDeleted implements ShouldBroadcast
 {
@@ -32,7 +29,7 @@ class NotificationDeleted implements ShouldBroadcast
         $this->notification = $notification;
     }
 
-    public function broadcastAs() : string
+    public function broadcastAs(): string
     {
         return 'notification.deleted';
     }
@@ -49,7 +46,7 @@ class NotificationDeleted implements ShouldBroadcast
         return new PrivateChannel($prefix.'.user.'.$this->notification->user_id);
     }
 
-    public function broadcastWith() : array
+    public function broadcastWith(): array
     {
         return [
             'notification' => $this->notification,

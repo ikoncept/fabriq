@@ -3,14 +3,10 @@
 namespace Tests\Feature;
 
 use Ikoncept\Fabriq\Models\Notification;
-use Illuminate\Foundation\Testing\WithFaker;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
 
 class UserNotificationFeatureTest extends AdminUserTestCase
 {
-
-
     /** @test **/
     public function it_can_show_a_users_notifications()
     {
@@ -46,15 +42,15 @@ class UserNotificationFeatureTest extends AdminUserTestCase
         $notification = Notification::where('notifiable_id', $comment->id)->first();
 
         // Act
-        $response = $this->actingAs($user)->json('PATCH', '/user/notifications/' . $notification->id, [
-            'clear' => true
+        $response = $this->actingAs($user)->json('PATCH', '/user/notifications/'.$notification->id, [
+            'clear' => true,
         ]);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseMissing('notifications', [
             'id' => 1,
-            'cleared_at' => null
+            'cleared_at' => null,
         ]);
     }
 }

@@ -18,7 +18,7 @@ class VideoController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Video::RELATIONSHIPS);
         $videos = QueryBuilder::for(Fabriq::getFqnModel('video'))
@@ -36,7 +36,7 @@ class VideoController extends ApiController
         return $this->respondWithPaginator($videos, new VideoTransformer);
     }
 
-    public function show(Request $request, int $id) : JsonResponse
+    public function show(Request $request, int $id): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Video::RELATIONSHIPS);
 
@@ -45,7 +45,7 @@ class VideoController extends ApiController
         return $this->respondWithItem($video, new VideoTransformer);
     }
 
-    public function update(Request $request, int $id) : JsonResponse
+    public function update(Request $request, int $id): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad();
         $video = Fabriq::getFqnModel('video')::where('id', $id)->with($eagerLoad)->firstOrFail();
@@ -63,7 +63,7 @@ class VideoController extends ApiController
         return $this->respondWithItem($video, new VideoTransformer);
     }
 
-    public function destroy(int $id) : JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $video = Fabriq::getFqnModel('video')::findOrFail($id);
         $video->delete();

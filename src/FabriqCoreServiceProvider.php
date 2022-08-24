@@ -23,7 +23,6 @@ use Ikoncept\Fabriq\Repositories\Decorators\CachingPageRepository;
 use Ikoncept\Fabriq\Repositories\EloquentMenuRepository;
 use Ikoncept\Fabriq\Repositories\EloquentPageRepository;
 use Ikoncept\Fabriq\Repositories\Interfaces\PageRepositoryInterface;
-use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Infab\Core\CoreServiceProvider;
@@ -78,7 +77,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register() : void
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/fabriq.php', 'fabriq');
         $this->mergeConfigFrom(__DIR__.'/../config/fortify.php', 'fortify');
@@ -137,9 +136,9 @@ class FabriqCoreServiceProvider extends ServiceProvider
         });
     }
 
-    protected function updatePaths() : array
+    protected function updatePaths(): array
     {
-        list($updatePaths, $installPaths) = $this->resourceDirectories();
+        [$updatePaths, $installPaths] = $this->resourceDirectories();
 
         $merged = array_merge($updatePaths->toArray(), [
             __DIR__.'/../resources/js/routes/fabriq-routes.js' => resource_path('js/routes/fabriq-routes.js'),
@@ -149,20 +148,20 @@ class FabriqCoreServiceProvider extends ServiceProvider
         return  array_merge($merged, $this->standardPaths());
     }
 
-    protected function installPaths() : array
+    protected function installPaths(): array
     {
-        list($updatePaths, $installPaths) = $this->resourceDirectories();
+        [$updatePaths, $installPaths] = $this->resourceDirectories();
 
         $merged = array_merge($updatePaths->toArray(), $installPaths->toArray());
 
         return array_merge($merged, $this->standardPaths());
     }
 
-    protected function resourceDirectories() : array
+    protected function resourceDirectories(): array
     {
         $resourceDirectories = (array) glob(__DIR__.'/../resources/js/*');
 
-        list($updateFolders, $installFolders) = collect($resourceDirectories)->mapWithKeys(function ($item) {
+        [$updateFolders, $installFolders] = collect($resourceDirectories)->mapWithKeys(function ($item) {
             $path = pathinfo((string) $item, PATHINFO_BASENAME);
 
             return [__DIR__.'/../resources/js/'.$path => resource_path('js/'.$path)];
@@ -174,7 +173,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
         return [$updateFolders, $installFolders];
     }
 
-    protected function standardPaths() : array
+    protected function standardPaths(): array
     {
         return [
             __DIR__.'/../resources/css' => resource_path('css'),
@@ -192,6 +191,6 @@ class FabriqCoreServiceProvider extends ServiceProvider
             __DIR__.'/../pnpm-lock.yaml' => 'pnpm-lock.yaml',
             __DIR__.'/../.npmrc' => '.npmrc',
             __DIR__.'/../.php-cs-fixer.stub' => '.php-cs-fixer.php',
-       ];
+        ];
     }
 }

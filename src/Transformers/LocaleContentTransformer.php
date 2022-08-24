@@ -3,7 +3,6 @@
 namespace Ikoncept\Fabriq\Transformers;
 
 use Illuminate\Support\Collection;
-use Infab\TranslatableRevisions\Models\I18nLocale;
 use League\Fractal\TransformerAbstract;
 
 class LocaleContentTransformer extends TransformerAbstract
@@ -14,7 +13,7 @@ class LocaleContentTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
     ];
 
     /**
@@ -38,7 +37,7 @@ class LocaleContentTransformer extends TransformerAbstract
      * @param Collection $locales
      * @return array
      */
-    public function transform(Collection $locales) : array
+    public function transform(Collection $locales): array
     {
         $localeContent = $locales->mapWithKeys(function ($locale) {
             $content = $this->contentModel->getFieldContent($this->contentModel->revision, $locale->iso_code);

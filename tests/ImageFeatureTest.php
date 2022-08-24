@@ -2,16 +2,11 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Storage;
-use InvalidArgumentException;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
+use Illuminate\Support\Facades\Storage;
 
 class ImageFeatureTest extends AdminUserTestCase
 {
-
-
     /** @test **/
     public function it_can_get_a_single_image()
     {
@@ -20,7 +15,7 @@ class ImageFeatureTest extends AdminUserTestCase
         $image = \Ikoncept\Fabriq\Models\Image::factory()->create();
 
         // Act
-        $response = $this->json('GET', '/images/' . $image->id);
+        $response = $this->json('GET', '/images/'.$image->id);
 
         // Assert
         $response->assertOk();
@@ -35,15 +30,15 @@ class ImageFeatureTest extends AdminUserTestCase
         $image = \Ikoncept\Fabriq\Models\Image::factory()->create();
 
         // Act
-        $response = $this->json('POST', '/images/'. $image->id . '/contacts', [
-            'model_id' => $product->id
+        $response = $this->json('POST', '/images/'.$image->id.'/contacts', [
+            'model_id' => $product->id,
         ]);
 
         // Assert
         $response->assertStatus(201);
         $this->assertDatabaseHas('imageables', [
             'imageable_id' => $product->id,
-            'image_id' => $image->id
+            'image_id' => $image->id,
         ]);
     }
 
@@ -55,8 +50,8 @@ class ImageFeatureTest extends AdminUserTestCase
         $image = \Ikoncept\Fabriq\Models\Image::factory()->create();
 
         // Act
-        $response = $this->json('POST', '/images/'. $image->id . '/whatever', [
-            'model_id' => 912839
+        $response = $this->json('POST', '/images/'.$image->id.'/whatever', [
+            'model_id' => 912839,
         ]);
 
         // Assert
@@ -70,8 +65,8 @@ class ImageFeatureTest extends AdminUserTestCase
         $image = \Ikoncept\Fabriq\Models\Image::factory()->create();
 
         // Act
-        $response = $this->json('POST', '/images/'. $image->id . '/users', [
-            'model_id' => $this->user->id
+        $response = $this->json('POST', '/images/'.$image->id.'/users', [
+            'model_id' => $this->user->id,
         ]);
 
         // Assert
@@ -89,7 +84,7 @@ class ImageFeatureTest extends AdminUserTestCase
             ->create();
 
         // Act
-        $response = $this->json('GET', '/contacts/'. $product->id . '/images');
+        $response = $this->json('GET', '/contacts/'.$product->id.'/images');
 
         // Assert
         $response->assertStatus(200);
@@ -104,7 +99,6 @@ class ImageFeatureTest extends AdminUserTestCase
         $contact = \Ikoncept\Fabriq\Models\Contact::factory()->create();
         $image = \Ikoncept\Fabriq\Models\Image::factory()->create();
         $contact->images()->attach($image);
-
 
         // Act
         $result = $image->imageable()->get();
@@ -137,7 +131,7 @@ class ImageFeatureTest extends AdminUserTestCase
 
         // Assert
         $response->assertJsonFragment([
-            'count' => 5
+            'count' => 5,
         ]);
     }
 
@@ -166,7 +160,6 @@ class ImageFeatureTest extends AdminUserTestCase
         // Arrange
         $images = \Ikoncept\Fabriq\Models\Image::factory()->count(5)->create();
 
-
         // Act
         $response = $this->json('GET', '/images?sort=-id');
 
@@ -183,15 +176,14 @@ class ImageFeatureTest extends AdminUserTestCase
         // Arrange
         $images = \Ikoncept\Fabriq\Models\Image::factory()->count(5)->create();
 
-
         // Act
-        $response = $this->json('GET', '/images?filter[search]=' . $images->first()->media->first()->name);
+        $response = $this->json('GET', '/images?filter[search]='.$images->first()->media->first()->name);
 
         // Assert
         $response->assertOk();
         $response->assertJsonCount(1, 'data');
         $response->assertJsonFragment([
-            'file_name' => $images->first()->media->first()->file_name
+            'file_name' => $images->first()->media->first()->file_name,
         ]);
     }
 
@@ -200,7 +192,6 @@ class ImageFeatureTest extends AdminUserTestCase
     {
         // Arrange
         $images = \Ikoncept\Fabriq\Models\Image::factory()->count(2)->create();
-
 
         // Act
         $response = $this->json('GET', '/images?sort=-file_name');
@@ -217,7 +208,7 @@ class ImageFeatureTest extends AdminUserTestCase
         $image = \Ikoncept\Fabriq\Models\Image::factory()->create();
 
         // Act
-        $response = $this->json('PATCH', '/images/' . $image->id, [
+        $response = $this->json('PATCH', '/images/'.$image->id, [
             'name' => 'Nytt bildnamn',
             'alt_text' => 'Beskriver bilden',
             'caption' => 'Fotograf: Arp',
@@ -229,7 +220,7 @@ class ImageFeatureTest extends AdminUserTestCase
         // Assert
         $response->assertOk();
         $response->assertJsonFragment([
-            'c_name' => 'Nytt bildnamn.txt'
+            'c_name' => 'Nytt bildnamn.txt',
         ]);
         $this->assertDatabaseHas('images', [
             'alt_text' => 'Beskriver bilden',
@@ -247,16 +238,16 @@ class ImageFeatureTest extends AdminUserTestCase
         $image = \Ikoncept\Fabriq\Models\Image::factory()->create();
 
         // Act
-        $response = $this->json('DELETE', '/images/' . $image->id);
+        $response = $this->json('DELETE', '/images/'.$image->id);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseMissing('images', [
-            'id' => $image->id
+            'id' => $image->id,
         ]);
         $this->assertDatabaseMissing('media', [
             'model_id' => $image->id,
-            'model_type' => 'Ikoncept\Fabriq\Models\Image'
+            'model_type' => 'Ikoncept\Fabriq\Models\Image',
         ]);
         // $test = Storage::disk('public')->exists('image1.jpg');
         $test = Storage::disk('__test')->allFiles();
@@ -271,20 +262,20 @@ class ImageFeatureTest extends AdminUserTestCase
         $this->withoutExceptionHandling();
 
         // Act
-        $response = $this->json('PATCH', '/images/' . $image->id, [
+        $response = $this->json('PATCH', '/images/'.$image->id, [
             'name' => 'Wow',
             'custom_crop' => true,
             'x_position' => '40%',
             'y_position' => '100%',
             'tags' => [
-                'Logo', 'Administration'
-            ]
+                'Logo', 'Administration',
+            ],
         ]);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseHas('tags', [
-            'type' => 'images'
+            'type' => 'images',
         ]);
     }
 }

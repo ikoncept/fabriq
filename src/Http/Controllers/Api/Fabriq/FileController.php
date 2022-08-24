@@ -24,7 +24,7 @@ class FileController extends ApiController
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(File::RELATIONSHIPS);
         $files = QueryBuilder::for(Fabriq::getFqnModel('file'))
@@ -42,7 +42,7 @@ class FileController extends ApiController
         return $this->respondWithPaginator($files, new FileTransformer);
     }
 
-    public function show(Request $request, int $id) : JsonResponse
+    public function show(Request $request, int $id): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(File::RELATIONSHIPS);
         $file = Fabriq::getFqnModel('file')::where('id', $id)
@@ -52,7 +52,7 @@ class FileController extends ApiController
         return $this->respondWithItem($file, new FileTransformer);
     }
 
-    public function update(Request $request, int $id) : JsonResponse
+    public function update(Request $request, int $id): JsonResponse
     {
         $file = Fabriq::getFqnModel('file')::findOrFail($id);
 
@@ -67,7 +67,7 @@ class FileController extends ApiController
         return $this->respondWithItem($file, new FileTransformer);
     }
 
-    public function destroy(Request $request, int $id) : JsonResponse
+    public function destroy(Request $request, int $id): JsonResponse
     {
         $file = Fabriq::getFqnModel('file')::findOrFail($id);
         $file->delete();

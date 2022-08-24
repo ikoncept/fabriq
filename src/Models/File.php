@@ -6,7 +6,6 @@ use Ikoncept\Fabriq\Database\Factories\FileFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -30,7 +29,7 @@ class File extends Model implements HasMedia
     /**
      * Create a new factory.
      */
-    protected static function newFactory() : FileFactory
+    protected static function newFactory(): FileFactory
     {
         return FileFactory::new();
     }
@@ -65,7 +64,7 @@ class File extends Model implements HasMedia
      * @param string|null $search
      * @return Builder
      */
-    public function scopeSearch(Builder $query, $search) : Builder
+    public function scopeSearch(Builder $query, $search): Builder
     {
         $searchColumns = ['media.file_name', 'media.name', 'readable_name'];
 

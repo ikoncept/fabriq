@@ -18,7 +18,7 @@ class ImageSourceSetController extends ApiController
      * @param int $id
      * @return JsonResponse
      */
-    public function show(int $id) : JsonResponse
+    public function show(int $id): JsonResponse
     {
         $image = Image::findOrFail($id);
 

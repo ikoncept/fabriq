@@ -11,7 +11,7 @@ class BustCacheController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function store() : JsonResponse
+    public function store(): JsonResponse
     {
         Cache::flush();
 

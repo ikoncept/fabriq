@@ -9,7 +9,6 @@ use Ikoncept\Fabriq\Events\CommentDeleted;
 use Ikoncept\Fabriq\Events\CommentPosted;
 use Ikoncept\Fabriq\Events\UserMentionedInComment;
 use Ikoncept\Fabriq\Fabriq;
-use Ikoncept\Fabriq\Models\Notification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,12 +34,12 @@ class Comment extends Model
     /**
      * Create a new factory.
      */
-    protected static function newFactory() : CommentFactory
+    protected static function newFactory(): CommentFactory
     {
         return CommentFactory::new();
     }
 
-    protected static function booted() : void
+    protected static function booted(): void
     {
         static::saved(function ($model) {
             $doc = new DOMDocument();
@@ -94,28 +93,28 @@ class Comment extends Model
         'user_agent',
     ];
 
-    public function commentable() : MorphTo
+    public function commentable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(Fabriq::getFqnModel('user'));
     }
 
-    public function notifications() : MorphMany
+    public function notifications(): MorphMany
     {
         return $this->morphMany(Fabriq::getFqnModel('notification'), 'notifiable');
     }
 
-    public function children() : HasMany
+    public function children(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id', 'id')
             ->orderBy('created_at');
     }
 
-    public function parent() : BelongsTo
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id', 'id');
     }

@@ -4,7 +4,7 @@ namespace Ikoncept\Fabriq\Actions;
 
 class ConvertPdfToImage
 {
-    public function __invoke(string $outputPath, string $inputPath, int $firstPage = 1, int $lastPage = 1) : string
+    public function __invoke(string $outputPath, string $inputPath, int $firstPage = 1, int $lastPage = 1): string
     {
         $command = ('gs -sDEVICE=png16m \
             -dBATCH \

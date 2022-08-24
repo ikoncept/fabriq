@@ -17,7 +17,7 @@ class NotificationController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Fabriq::getFqnModel('notification')::RELATIONSHIPS);
         $notifications = QueryBuilder::for(Fabriq::getFqnModel('notification'))
@@ -33,7 +33,7 @@ class NotificationController extends ApiController
         return $this->respondWithPaginator($notifications, new NotificationTransformer);
     }
 
-    public function update(ClearNotificationRequest $request, int $id) : JsonResponse
+    public function update(ClearNotificationRequest $request, int $id): JsonResponse
     {
         $notification = Notification::findOrFail($id);
         $notification->cleared_at = now();

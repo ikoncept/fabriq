@@ -2,17 +2,10 @@
 
 namespace Tests\Feature;
 
-
-use Illuminate\Foundation\Testing\WithFaker;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
-
-use function Orchestra\Testbench\artisan;
 
 class PageTreeFeatureTest extends AdminUserTestCase
 {
-
-
     // public function setUp() : void
     // {
     //     parent::setUp();
@@ -61,7 +54,6 @@ class PageTreeFeatureTest extends AdminUserTestCase
     //         'name' => 'subpage',
     //         'parent_id' => 1
     //     ]);
-
 
     //     // Act
     //     $response = $this->json('PATCH', '/pages-tree', [

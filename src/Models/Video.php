@@ -6,7 +6,6 @@ use Ikoncept\Fabriq\Database\Factories\VideoFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -26,7 +25,7 @@ class Video extends Model implements HasMedia
      */
     public $morphClass = 'video';
 
-    protected static function newFactory() : VideoFactory
+    protected static function newFactory(): VideoFactory
     {
         return VideoFactory::new();
     }
@@ -68,7 +67,7 @@ class Video extends Model implements HasMedia
      * @param string|null $search
      * @return Builder
      */
-    public function scopeSearch(Builder $query, $search) : Builder
+    public function scopeSearch(Builder $query, $search): Builder
     {
         $searchColumns = ['media.file_name', 'media.name', 'alt_text'];
 

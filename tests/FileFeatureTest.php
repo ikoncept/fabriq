@@ -2,16 +2,11 @@
 
 namespace Tests\Feature;
 
-
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Storage;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
+use Illuminate\Support\Facades\Storage;
 
 class FileFeatureTest extends AdminUserTestCase
 {
-
-
     protected $endpoint = '/files/';
 
     /** @test **/
@@ -38,7 +33,7 @@ class FileFeatureTest extends AdminUserTestCase
         $file = \Ikoncept\Fabriq\Models\File::factory()->create();
 
         // Act
-        $response = $this->json('GET', $this->endpoint . $file->id);
+        $response = $this->json('GET', $this->endpoint.$file->id);
 
         // Assert
         $response->assertOk();
@@ -58,19 +53,19 @@ class FileFeatureTest extends AdminUserTestCase
         $this->withoutExceptionHandling();
 
         // Act
-        $response = $this->json('PATCH', '/files/' . $file->id, [
+        $response = $this->json('PATCH', '/files/'.$file->id, [
             'name' => 'Wow',
             'readable_name' => 'Ett läsbart namn',
             'caption' => 'Okej',
             'tags' => [
-                'Logo', 'Administration'
-            ]
+                'Logo', 'Administration',
+            ],
         ]);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseHas('tags', [
-            'type' => 'files'
+            'type' => 'files',
         ]);
     }
 
@@ -81,16 +76,16 @@ class FileFeatureTest extends AdminUserTestCase
         $file = \Ikoncept\Fabriq\Models\File::factory()->create();
 
         // Act
-        $response = $this->json('DELETE', '/files/' . $file->id);
+        $response = $this->json('DELETE', '/files/'.$file->id);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseMissing('files', [
-            'id' => $file->id
+            'id' => $file->id,
         ]);
         $this->assertDatabaseMissing('media', [
             'model_id' => $file->id,
-            'model_type' => 'Ikoncept\Fabriq\Models\File'
+            'model_type' => 'Ikoncept\Fabriq\Models\File',
         ]);
         // $test = Storage::disk('public')->exists('file1.jpg');
         $test = Storage::disk('__test')->allFiles();
@@ -103,15 +98,14 @@ class FileFeatureTest extends AdminUserTestCase
         // Arrange
         $files = \Ikoncept\Fabriq\Models\File::factory()->count(5)->create();
 
-
         // Act
-        $response = $this->json('GET', '/files?filter[search]=' . $files->first()->media->first()->name);
+        $response = $this->json('GET', '/files?filter[search]='.$files->first()->media->first()->name);
 
         // Assert
         $response->assertOk();
         $response->assertJsonCount(1, 'data');
         $response->assertJsonFragment([
-            'file_name' => $files->first()->media->first()->file_name
+            'file_name' => $files->first()->media->first()->file_name,
         ]);
     }
 
@@ -120,7 +114,6 @@ class FileFeatureTest extends AdminUserTestCase
     {
         // Arrange
         $files = \Ikoncept\Fabriq\Models\File::factory()->count(2)->create();
-
 
         // Act
         $response = $this->json('GET', '/files?sort=-file_name');

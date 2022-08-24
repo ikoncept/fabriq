@@ -3,7 +3,6 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Ikoncept\Fabriq\Models\Page;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -14,7 +13,7 @@ class PageSignedUrlController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function show(Request $request, int $id) : JsonResponse
+    public function show(Request $request, int $id): JsonResponse
     {
         $page = Fabriq::getModelClass('page')->findOrFail($id);
 

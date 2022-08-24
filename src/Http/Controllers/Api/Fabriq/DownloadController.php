@@ -20,7 +20,7 @@ class DownloadController extends ApiController
         'videos' => 'Ikoncept\Fabriq\Models\Video',
     ];
 
-    public function index(Request $request) : BinaryFileResponse
+    public function index(Request $request): BinaryFileResponse
     {
         $type = self::DOWNLOADABLE_TYPES[$request->type];
         $files = $type::whereIn('id', $request->items)->get();

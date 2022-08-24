@@ -21,14 +21,13 @@ class CreateSmartBlocksTable extends Migration
             $table->timestamps();
         });
 
-
         $template = RevisionTemplate::factory()->create([
             'name' => 'Smart Block',
             'slug' => 'smart_block',
-            'type' => 'smart_block'
+            'type' => 'smart_block',
         ]);
 
-       RevisionTemplateField::factory()->create([
+        RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'translated' => true,
             'name' => 'Box',

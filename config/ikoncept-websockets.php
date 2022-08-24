@@ -12,7 +12,7 @@ return [
             'encrypted' => true,
             'host' => 'ws.ikoncept.io',
             'port' => 443,
-            'scheme' => 'https'
-        ]
-    ]
+            'scheme' => 'https',
+        ],
+    ],
 ];

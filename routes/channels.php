@@ -12,21 +12,21 @@ use Illuminate\Support\Facades\Broadcast;
 | used to check if an authenticated user can listen to the channel.
 |
 */
-Broadcast::channel(config('fabriq.ws_prefix') . '.user.{id}', function ($user, $id) {
+Broadcast::channel(config('fabriq.ws_prefix').'.user.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel(config('fabriq.ws_prefix') . '.presence.*.*.*', function ($user) {
+Broadcast::channel(config('fabriq.ws_prefix').'.presence.*.*.*', function ($user) {
     $imageProps = [];
 
-    if($user->image) {
+    if ($user->image) {
         $media = $user->image->getFirstMedia('profile_image');
         $imageProps = [
             'image' => [
                 'data' => [
-                    'src' => (string) ($media->hasGeneratedConversion('webp')) ? $media->getUrl('webp') : $media->getUrl()
-                ]
-            ]
+                    'src' => (string) ($media->hasGeneratedConversion('webp')) ? $media->getUrl('webp') : $media->getUrl(),
+                ],
+            ],
         ];
     }
 
@@ -35,9 +35,9 @@ Broadcast::channel(config('fabriq.ws_prefix') . '.presence.*.*.*', function ($us
         'name' => $user->name,
         'email' => $user->email,
         'image' => [
-            'data' => []
+            'data' => [],
         ],
-        'timestamp' => round(microtime(true) * 1000)
+        'timestamp' => round(microtime(true) * 1000),
     ];
 
     return array_merge($data, $imageProps);

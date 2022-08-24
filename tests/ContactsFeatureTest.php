@@ -2,16 +2,10 @@
 
 namespace Tests\Feature;
 
-
-use Illuminate\Foundation\Testing\WithFaker;
-use League\CommonMark\Block\Element\ThematicBreak;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
 
 class ContactsFeatureTest extends AdminUserTestCase
 {
-
-
     protected $endpoint = '/contacts/';
 
     /** @test **/
@@ -35,7 +29,7 @@ class ContactsFeatureTest extends AdminUserTestCase
         $contact = \Ikoncept\Fabriq\Models\Contact::factory()->create();
 
         // Act
-        $response = $this->json('GET', $this->endpoint . $contact->id);
+        $response = $this->json('GET', $this->endpoint.$contact->id);
 
         // Assert
         $response->assertOk();
@@ -49,7 +43,7 @@ class ContactsFeatureTest extends AdminUserTestCase
 
         // Act
         $response = $this->json('POST', $this->endpoint, [
-            'name' => 'Rolf Lassgård'
+            'name' => 'Rolf Lassgård',
         ]);
 
         // Assert
@@ -64,7 +58,7 @@ class ContactsFeatureTest extends AdminUserTestCase
         $this->withoutExceptionHandling();
 
         // Act
-        $response = $this->json('PATCH', $this->endpoint . $contact->id . '?include=localizedContent', [
+        $response = $this->json('PATCH', $this->endpoint.$contact->id.'?include=localizedContent', [
             'name' => 'Janne Josefsson',
             'email' => 'janne@svt.se',
             'phone' => '070-991100',
@@ -72,16 +66,16 @@ class ContactsFeatureTest extends AdminUserTestCase
             'locale' => 'sv',
             'sortindex' => 100,
             'content' => [
-                'body' => '<p>a nice text</p>'
+                'body' => '<p>a nice text</p>',
             ],
             'localizedContent' => [
                 'sv' => [
-                    'body' => '<p>en fin text text</p>'
+                    'body' => '<p>en fin text text</p>',
                 ],
                 'en' => [
-                    'body' => '<p>a nice text</p>'
-                ]
-            ]
+                    'body' => '<p>a nice text</p>',
+                ],
+            ],
         ]);
 
         // Assert
@@ -90,10 +84,10 @@ class ContactsFeatureTest extends AdminUserTestCase
             'name' => 'Janne Josefsson',
             'email' => 'janne@svt.se',
             'phone' => '070-991100',
-            'published' => true
+            'published' => true,
         ]);
         $response->assertJsonFragment([
-            'body' => '<p>en fin text text</p>'
+            'body' => '<p>en fin text text</p>',
         ]);
         $this->assertDatabaseHas('contacts', [
             'name' => 'Janne Josefsson',
@@ -104,11 +98,11 @@ class ContactsFeatureTest extends AdminUserTestCase
         ]);
         $this->assertDatabaseHas('i18n_definitions', [
             'content' => json_encode('<p>en fin text text</p>'),
-            'locale' => 'sv'
+            'locale' => 'sv',
         ]);
         $this->assertDatabaseHas('i18n_definitions', [
             'content' => json_encode('<p>a nice text</p>'),
-            'locale' => 'en'
+            'locale' => 'en',
         ]);
     }
 
@@ -119,12 +113,12 @@ class ContactsFeatureTest extends AdminUserTestCase
         $contact = \Ikoncept\Fabriq\Models\Contact::factory()->create();
 
         // Act
-        $response = $this->json('DELETE', $this->endpoint . $contact->id);
+        $response = $this->json('DELETE', $this->endpoint.$contact->id);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseMissing('contacts', [
-            'id' => $contact->id
+            'id' => $contact->id,
         ]);
     }
 
@@ -136,19 +130,19 @@ class ContactsFeatureTest extends AdminUserTestCase
         $this->withoutExceptionHandling();
 
         // Act
-        $response = $this->json('PATCH', $this->endpoint . $contact->id, [
+        $response = $this->json('PATCH', $this->endpoint.$contact->id, [
             'name' => 'Chris Moltisanti',
             'tags' => [
-                'Reception', 'Administration'
+                'Reception', 'Administration',
             ],
             'content' => [],
-            'localizedContent' => []
+            'localizedContent' => [],
         ]);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseHas('tags', [
-            'type' => 'contacts'
+            'type' => 'contacts',
         ]);
     }
 }

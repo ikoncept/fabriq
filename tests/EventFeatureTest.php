@@ -3,51 +3,42 @@
 namespace Tests\Feature;
 
 use Carbon\CarbonImmutable;
-
-use Illuminate\Foundation\Testing\WithFaker;
+use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Infab\TranslatableRevisions\Models\I18nLocale;
-use Infab\TranslatableRevisions\Models\I18nTerm;
 use Infab\TranslatableRevisions\Models\RevisionTemplate;
 use Infab\TranslatableRevisions\Models\RevisionTemplateField;
-use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
-use Infab\TranslatableRevisions\Models\I18nDefinition;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
 
 class EventFeatureTest extends AdminUserTestCase
 {
-
-
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
         $template = RevisionTemplate::factory()->create([
             'name' => 'Event item',
-            'slug' => 'event-item'
+            'slug' => 'event-item',
         ]);
         $templateField = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'translated' => true,
             'name' => 'title',
             'key' => 'title',
-            'type' => 'text'
+            'type' => 'text',
         ]);
         $templateField = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'translated' => true,
             'name' => 'description',
             'key' => 'description',
-            'type' => 'text'
+            'type' => 'text',
         ]);
         $templateField = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'translated' => true,
             'name' => 'location',
             'key' => 'location',
-            'type' => 'text'
+            'type' => 'text',
         ]);
     }
-
 
     /** @test **/
     public function it_can_store_a_new_event()
@@ -70,14 +61,14 @@ class EventFeatureTest extends AdminUserTestCase
                 'en' => [
                     'title' => 'Shop is closed',
                     'description' => 'Shop is closed for the public',
-                    'location' => 'By the lake'
+                    'location' => 'By the lake',
                 ],
                 'sv' => [
                     'title' => 'Banan är stängd',
                     'description' => 'Banan är stängd för allmänheten',
-                    'location' => 'Vid sjön'
-                ]
-            ]
+                    'location' => 'Vid sjön',
+                ],
+            ],
         ]);
 
         // Assert
@@ -87,11 +78,11 @@ class EventFeatureTest extends AdminUserTestCase
             'end' => now()->addDays(2)->startOfDay()->toDateTimeString(),
             'start_time' => '08:00',
             'end_time' => '10:00',
-            'full_day' => 1
+            'full_day' => 1,
         ]);
         $this->assertDatabaseHas('i18n_definitions', [
             'content' => json_encode('Shop is closed'),
-            'locale' => 'en'
+            'locale' => 'en',
         ]);
     }
 
@@ -108,14 +99,14 @@ class EventFeatureTest extends AdminUserTestCase
             'title' => 'Stängt hus',
         ], 'sv');
         $event2 = \Ikoncept\Fabriq\Models\Event::factory()->create([
-            'start' => now()->startOfDay()->subYears(30)->toDateTimeString()
+            'start' => now()->startOfDay()->subYears(30)->toDateTimeString(),
         ]);
         $event2->updateContent([
             'title' => 'Rivet hus',
         ], 'sv');
 
         // Act
-        $response = $this->json('GET', '/events?append=title&filter[dateRange]=1999-01-01,' . now()->toDateString());
+        $response = $this->json('GET', '/events?append=title&filter[dateRange]=1999-01-01,'.now()->toDateString());
 
         // Assert
         $response->assertOk();
@@ -135,18 +126,17 @@ class EventFeatureTest extends AdminUserTestCase
         $event0 = \Ikoncept\Fabriq\Models\Event::factory()->create();
         $event0->updateContent([
             'title' => 'Öppet hus',
-            'description' => 'Öppet hus hela dagen'
+            'description' => 'Öppet hus hela dagen',
         ]);
 
         // Act
-        $response = $this->json('GET', '/events/' . $event0->id . '?include=content');
-
+        $response = $this->json('GET', '/events/'.$event0->id.'?include=content');
 
         // Assert
         $response->assertOk();
         $response->assertJsonFragment([
             'title' => 'Öppet hus',
-            'description' => 'Öppet hus hela dagen'
+            'description' => 'Öppet hus hela dagen',
         ]);
     }
 
@@ -157,22 +147,21 @@ class EventFeatureTest extends AdminUserTestCase
         $event0 = \Ikoncept\Fabriq\Models\Event::factory()->create();
         $event0->updateContent([
             'title' => 'Öppet hus',
-            'description' => 'Öppet hus hela dagen'
+            'description' => 'Öppet hus hela dagen',
         ]);
 
         // Act
-        $response = $this->json('DELETE', '/events/' . $event0->id);
+        $response = $this->json('DELETE', '/events/'.$event0->id);
 
         // Assert
         $response->assertOk();
         $delimiter = $event0->getDelimiter();
         $this->assertDatabaseMissing('events', [
-            'id' => $event0->id
+            'id' => $event0->id,
         ]);
         $this->assertDatabaseMissing('i18n_terms', [
-            'key' => "events{$delimiter}1{$delimiter}{$delimiter}title"
+            'key' => "events{$delimiter}1{$delimiter}{$delimiter}title",
         ]);
-
     }
 
     /** @test **/
@@ -182,11 +171,11 @@ class EventFeatureTest extends AdminUserTestCase
         $event0 = \Ikoncept\Fabriq\Models\Event::factory()->create();
         $event0->updateContent([
             'title' => 'Öppet hus',
-            'description' => 'Öppet hus hela dagen'
+            'description' => 'Öppet hus hela dagen',
         ]);
 
         // Act
-        $response = $this->json('PATCH', '/events/' . $event0->id . '?include=localizedContent', [
+        $response = $this->json('PATCH', '/events/'.$event0->id.'?include=localizedContent', [
             'date' => [
                 'start' => now()->subWeek()->startOfDay()->toDateTimeString(),
                 'end' => now()->addDays(2)->startOfDay()->toDateTimeString(),
@@ -198,16 +187,15 @@ class EventFeatureTest extends AdminUserTestCase
                 'en' => [
                     'title' => 'Shop is closed',
                     'description' => 'Shop is closed for the public',
-                    'location' => 'By the lake'
+                    'location' => 'By the lake',
                 ],
                 'sv' => [
                     'title' => 'Banan är stängd',
                     'description' => 'Banan är stängd för allmänheten',
-                    'location' => 'Vid sjön'
-                ]
-            ]
+                    'location' => 'Vid sjön',
+                ],
+            ],
         ]);
-
 
         // Assert
         $response->assertOk();
@@ -218,12 +206,12 @@ class EventFeatureTest extends AdminUserTestCase
         $response->assertJsonFragment([
             'title' => 'Shop is closed',
             'description' => 'Shop is closed for the public',
-            'location' => 'By the lake'
+            'location' => 'By the lake',
         ]);
         $response->assertJsonFragment([
             'title' => 'Banan är stängd',
             'description' => 'Banan är stängd för allmänheten',
-            'location' => 'Vid sjön'
+            'location' => 'Vid sjön',
         ]);
     }
 
@@ -234,7 +222,7 @@ class EventFeatureTest extends AdminUserTestCase
         $start = CarbonImmutable::make('1999-01-01')->startOfDay();
         $event = \Ikoncept\Fabriq\Models\Event::factory()->create([
             'start' => $start->addDays(5),
-            'daily_interval' => 7
+            'daily_interval' => 7,
         ]);
         $start = CarbonImmutable::make('1999-01-01')->startOfDay();
         $end = $start->addMonths(3);
@@ -247,11 +235,11 @@ class EventFeatureTest extends AdminUserTestCase
         $response->assertJsonCount(14, 'data');
         $response->assertJsonFragment([
             'id' => $event->id,
-            'start' => $start->addDays(7+5)->toISOString()
+            'start' => $start->addDays(7 + 5)->toISOString(),
         ]);
         $response->assertJsonFragment([
             'id' => $event->id,
-            'start' => $start->addDays(7+7+5)->toISOString()
+            'start' => $start->addDays(7 + 7 + 5)->toISOString(),
         ]);
     }
 }

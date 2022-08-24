@@ -1,13 +1,11 @@
 <?php
 
-use Ikoncept\Fabriq\Models\Page;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class AddNestedSetFieldsToPagesTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -22,7 +20,7 @@ class AddNestedSetFieldsToPagesTable extends Migration
             $table->unsignedInteger('_lft')->after('id')->default(0);
 
             $table->index([
-                '_lft', '_rgt', 'parent_id'
+                '_lft', '_rgt', 'parent_id',
             ]);
         });
     }

@@ -15,7 +15,7 @@ class RevisionTemplateController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $templates = QueryBuilder::for(RevisionTemplate::class)
             ->allowedFilters(

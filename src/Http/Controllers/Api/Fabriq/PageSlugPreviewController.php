@@ -13,7 +13,7 @@ class PageSlugPreviewController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function show(EloquentPageRepository $repo, Request $request, string $slug) : JsonResponse
+    public function show(EloquentPageRepository $repo, Request $request, string $slug): JsonResponse
     {
         if (! $request->hasValidSignature()) {
             return $this->errorUnauthorized('The signature for the link is not valid');

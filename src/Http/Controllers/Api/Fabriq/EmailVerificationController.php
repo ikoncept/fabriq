@@ -11,7 +11,7 @@ class EmailVerificationController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function store(Request $request) : JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $request->user()->sendEmailVerificationNotification();
 

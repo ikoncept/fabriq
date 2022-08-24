@@ -15,7 +15,7 @@ class ArticleTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'content', 'template', 'slugs',
     ];
 
@@ -48,7 +48,7 @@ class ArticleTransformer extends TransformerAbstract
      * @param Article $article
      * @return Item
      */
-    public function includeContent(Article $article) : Item
+    public function includeContent(Article $article): Item
     {
         $content = $article->getFieldContent($article->revision);
 
@@ -61,7 +61,7 @@ class ArticleTransformer extends TransformerAbstract
      * @param Article $article
      * @return Item
      */
-    public function includeTemplate(Article $article) : Item
+    public function includeTemplate(Article $article): Item
     {
         return $this->item($article->template, new TemplateTransformer());
     }
@@ -72,7 +72,7 @@ class ArticleTransformer extends TransformerAbstract
      * @param Article $article
      * @return Collection
      */
-    public function includeSlugs(Article $article) : Collection
+    public function includeSlugs(Article $article): Collection
     {
         return $this->collection($article->slugs, new SlugTransformer());
     }

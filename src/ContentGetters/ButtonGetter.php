@@ -3,7 +3,6 @@
 namespace Ikoncept\Fabriq\ContentGetters;
 
 use Ikoncept\Fabriq\Fabriq;
-use Ikoncept\Fabriq\Models\Page;
 use Illuminate\Support\Collection;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 

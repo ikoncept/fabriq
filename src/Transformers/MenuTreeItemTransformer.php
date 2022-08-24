@@ -15,7 +15,7 @@ class MenuTreeItemTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'children', 'page', 'content',
     ];
 
@@ -26,7 +26,7 @@ class MenuTreeItemTransformer extends TransformerAbstract
      * @param  MenuItem  $menuItem
      * @return array
      */
-    public function transform(MenuItem $menuItem) : array
+    public function transform(MenuItem $menuItem): array
     {
         return [
             'id' => $menuItem->id,
@@ -39,12 +39,12 @@ class MenuTreeItemTransformer extends TransformerAbstract
         ];
     }
 
-    public function includePage(MenuItem $tree) : Item
+    public function includePage(MenuItem $tree): Item
     {
         return $this->item($tree->page, new PageTransformer);
     }
 
-    public function includeChildren(MenuItem $tree) : Collection
+    public function includeChildren(MenuItem $tree): Collection
     {
         return $this->collection($tree->children, new self);
     }
@@ -55,7 +55,7 @@ class MenuTreeItemTransformer extends TransformerAbstract
      * @param MenuItem $menuItem
      * @return Item
      */
-    public function includeContent(MenuItem $menuItem) : Item
+    public function includeContent(MenuItem $menuItem): Item
     {
         $content = $menuItem->getFieldContent($menuItem->revision);
 

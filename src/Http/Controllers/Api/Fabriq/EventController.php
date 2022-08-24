@@ -2,7 +2,6 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
-use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreateEventRequest;
@@ -20,7 +19,7 @@ class EventController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $events = QueryBuilder::for(Fabriq::getFqnModel('event'))
             ->allowedFilters(AllowedFilter::scope('dateRange'))
@@ -34,14 +33,14 @@ class EventController extends ApiController
         return $this->respondWithCollection($mergedEvents, new EventTransformer);
     }
 
-    public function show(Request $request, int $id) : JsonResponse
+    public function show(Request $request, int $id): JsonResponse
     {
         $event = Event::where('id', $id)->firstOrFail();
 
         return $this->respondWithItem($event, new EventTransformer);
     }
 
-    public function store(CreateEventRequest $request) : JsonResponse
+    public function store(CreateEventRequest $request): JsonResponse
     {
         $event = new Event;
         $event->fill($request->validated());
@@ -54,7 +53,7 @@ class EventController extends ApiController
         return $this->respondWithItem($event, new EventTransformer, 201);
     }
 
-    public function update(CreateEventRequest $request, int $id) : JsonResponse
+    public function update(CreateEventRequest $request, int $id): JsonResponse
     {
         $event = Event::findOrFail($id);
         $event->fill($request->validated());
@@ -67,7 +66,7 @@ class EventController extends ApiController
         return $this->respondWithItem($event, new EventTransformer);
     }
 
-    public function destroy(int $id) : JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $event = Event::findOrFail($id);
         $event->delete();

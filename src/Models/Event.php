@@ -7,8 +7,6 @@ use Ikoncept\Fabriq\Database\Factories\EventFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Infab\TranslatableRevisions\Models\I18nTerm;
-use Infab\TranslatableRevisions\Models\RevisionTemplateField;
 use Infab\TranslatableRevisions\Traits\HasTranslatedRevisions;
 use Infab\TranslatableRevisions\Traits\RevisionOptions;
 
@@ -30,7 +28,7 @@ class Event extends Model
     /**
      * Create a new factory.
      */
-    protected static function newFactory() : EventFactory
+    protected static function newFactory(): EventFactory
     {
         return EventFactory::new();
     }
@@ -38,7 +36,7 @@ class Event extends Model
     /**
      * Get the options for the revisions.
      */
-    public function getRevisionOptions() : RevisionOptions
+    public function getRevisionOptions(): RevisionOptions
     {
         return RevisionOptions::create()
             ->registerDefaultTemplate('event-item');
@@ -50,7 +48,7 @@ class Event extends Model
      * @param array|null $value
      * @return void
      */
-    public function setDateAttribute($value) : void
+    public function setDateAttribute($value): void
     {
         $this->attributes['start'] = Carbon::parse($value['start']);
         $this->attributes['end'] = Carbon::parse($value['end']);
@@ -75,7 +73,7 @@ class Event extends Model
      * @param string ...$dates
      * @return Builder
      */
-    public function scopeDateRange(Builder $query, ...$dates) : Builder
+    public function scopeDateRange(Builder $query, ...$dates): Builder
     {
         $startDate = Carbon::parse($dates[0]);
         $endDate = Carbon::parse($dates[1]);

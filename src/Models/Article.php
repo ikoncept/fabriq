@@ -38,7 +38,7 @@ class Article extends Model
     /**
      * Create a new factory.
      */
-    protected static function newFactory() : ArticleFactory
+    protected static function newFactory(): ArticleFactory
     {
         return ArticleFactory::new();
     }
@@ -46,7 +46,7 @@ class Article extends Model
     /**
      * Get the options for the revisions.
      */
-    public function getRevisionOptions() : RevisionOptions
+    public function getRevisionOptions(): RevisionOptions
     {
         return RevisionOptions::create()
             ->registerDefaultTemplate('article')
@@ -61,7 +61,7 @@ class Article extends Model
      *
      * @return MorphMany
      */
-    public function slugs() : MorphMany
+    public function slugs(): MorphMany
     {
         return $this->morphMany(Fabriq::getFqnModel('slug'), 'model');
     }
@@ -77,7 +77,7 @@ class Article extends Model
         return ImageGetter::get($meta, $this->isPublishing);
     }
 
-    public function getIsPublishedAttribute() : bool
+    public function getIsPublishedAttribute(): bool
     {
         if (! isset($this->attributes['publishes_at'])) {
             return false;
@@ -94,7 +94,7 @@ class Article extends Model
         return false;
     }
 
-    protected function getTimeZone() : string
+    protected function getTimeZone(): string
     {
         $header = request()->header('X-TIMEZONE', 'Europe/Stockholm');
         if (is_array($header)) {
@@ -110,7 +110,7 @@ class Article extends Model
      * @param string|null $value
      * @return void
      */
-    public function setPublishesAtAttribute($value) : void
+    public function setPublishesAtAttribute($value): void
     {
         ($value) ? $this->attributes['publishes_at'] = Carbon::parse($value, $this->getTimeZone())->shiftTimezone('UTC')->toDateTimeString() : $this->attributes['publishes_at'] = null;
     }
@@ -121,7 +121,7 @@ class Article extends Model
      * @param string|null $value
      * @return void
      */
-    public function setUnPublishesAtAttribute($value) : void
+    public function setUnPublishesAtAttribute($value): void
     {
         ($value) ? $this->attributes['unpublishes_at'] = Carbon::parse($value, $this->getTimeZone())->shiftTimezone('UTC')->toDateTimeString() : $this->attributes['unpublishes_at'] = null;
     }
@@ -133,7 +133,7 @@ class Article extends Model
      * @param string $search
      * @return Builder
      */
-    public function scopeSearch(Builder $query, string $search) : Builder
+    public function scopeSearch(Builder $query, string $search): Builder
     {
         return $query->whereLike(['name', 'publishes_at'], $search);
     }
@@ -144,7 +144,7 @@ class Article extends Model
      * @param Builder $query
      * @return Builder
      */
-    public function scopePublished(Builder $query) : Builder
+    public function scopePublished(Builder $query): Builder
     {
         return $query->where('publishes_at', '<=', now())
             ->where(function (Builder $query) {

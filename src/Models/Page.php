@@ -13,8 +13,6 @@ use Ikoncept\Fabriq\ContentGetters\VideoGetter;
 use Ikoncept\Fabriq\Database\Factories\PageFactory;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Traits\Commentable;
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -58,7 +56,7 @@ class Page extends Model implements HasMedia
     /**
      * Create a new factory.
      */
-    protected static function newFactory() : PageFactory
+    protected static function newFactory(): PageFactory
     {
         return PageFactory::new();
     }
@@ -95,7 +93,7 @@ class Page extends Model implements HasMedia
     /**
      * Get the options for the revisions.
      */
-    public function getRevisionOptions() : RevisionOptions
+    public function getRevisionOptions(): RevisionOptions
     {
         return RevisionOptions::create()
             ->registerSpecialTypes(['image', 'video', 'file', 'smartBlock', 'button', 'buttons'])
@@ -179,12 +177,12 @@ class Page extends Model implements HasMedia
         return SmartBlockGetter::get($meta, $this->isPublishing);
     }
 
-    public function menuItems() : HasMany
+    public function menuItems(): HasMany
     {
         return $this->hasMany(Fabriq::getFqnModel('menuItem'));
     }
 
-    public function updatedByUser() : BelongsTo
+    public function updatedByUser(): BelongsTo
     {
         return $this->belongsTo(Fabriq::getFqnModel('user'), 'updated_by', 'id');
     }
@@ -194,12 +192,12 @@ class Page extends Model implements HasMedia
      *
      * @return MorphMany
      */
-    public function slugs() : MorphMany
+    public function slugs(): MorphMany
     {
         return $this->morphMany(Fabriq::getFqnModel('slug'), 'model');
     }
 
-    public function latestSlug() : MorphOne
+    public function latestSlug(): MorphOne
     {
         return $this->morphOne(Fabriq::getFqnModel('slug'), 'model')->ofMany([], function ($query) {
             $query->where('locale', app()->getLocale());
@@ -213,7 +211,7 @@ class Page extends Model implements HasMedia
      * @param string $slug
      * @return Builder
      */
-    public function scopeWhereSlug(Builder $query, string $slug) : Builder
+    public function scopeWhereSlug(Builder $query, string $slug): Builder
     {
         return $query->whereHas('slugs', function (Builder $query) use ($slug) {
             $query->where('slug', $slug);
@@ -227,7 +225,7 @@ class Page extends Model implements HasMedia
      * @param string $search
      * @return Builder
      */
-    public function scopeSearch(Builder $query, string $search) : Builder
+    public function scopeSearch(Builder $query, string $search): Builder
     {
         return $query->whereLike(['name', 'template.name'], $search);
     }

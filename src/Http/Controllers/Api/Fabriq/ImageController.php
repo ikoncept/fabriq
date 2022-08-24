@@ -25,7 +25,7 @@ class ImageController extends ApiController
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Image::RELATIONSHIPS);
         $images = QueryBuilder::for(Fabriq::getFqnModel('image'))
@@ -51,14 +51,14 @@ class ImageController extends ApiController
      * @param int $id
      * @return JsonResponse
      */
-    public function show(Request $request, $id) : JsonResponse
+    public function show(Request $request, $id): JsonResponse
     {
         $image = Fabriq::getFqnModel('image')::findOrFail($id);
 
         return $this->respondWithItem($image, new ImageTransformer);
     }
 
-    public function update(UpdateImageRequest $request, int $id) : JsonResponse
+    public function update(UpdateImageRequest $request, int $id): JsonResponse
     {
         $image = Fabriq::getFqnModel('image')::findOrFail($id);
         $image->fill($request->validated());
@@ -71,7 +71,7 @@ class ImageController extends ApiController
         return $this->respondWithItem($image, new ImageTransformer);
     }
 
-    public function destroy(Request $request, int $id) : JsonResponse
+    public function destroy(Request $request, int $id): JsonResponse
     {
         $image = Fabriq::getFqnModel('image')::findOrFail($id);
         $image->delete();

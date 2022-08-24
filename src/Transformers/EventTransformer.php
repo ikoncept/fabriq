@@ -15,7 +15,7 @@ class EventTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'localizedContent', 'content',
     ];
 
@@ -41,14 +41,14 @@ class EventTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeContent(Event $event) : Item
+    public function includeContent(Event $event): Item
     {
         $content = $event->getFieldContent();
 
         return $this->item($content, new ContentTransformer());
     }
 
-    public function includeLocalizedContent(Event $event) : Item
+    public function includeLocalizedContent(Event $event): Item
     {
         $enabledLocales = I18nLocale::where('enabled', 1)
             ->select('iso_code')

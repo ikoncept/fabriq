@@ -13,7 +13,7 @@ class CommentTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'user', 'page', 'children',
     ];
 

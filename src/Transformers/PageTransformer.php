@@ -4,7 +4,6 @@ namespace Ikoncept\Fabriq\Transformers;
 
 use Ikoncept\Fabriq\Models\Page;
 use Infab\TranslatableRevisions\Models\I18nLocale;
-use League\CommonMark\Block\Element\ThematicBreak;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
@@ -17,7 +16,7 @@ class PageTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'content', 'template', 'slugs',
         'localizedContent', 'children',
     ];
@@ -29,7 +28,7 @@ class PageTransformer extends TransformerAbstract
      * @param  Page  $page
      * @return array
      */
-    public function transform(Page $page) : array
+    public function transform(Page $page): array
     {
         return $page->toArray();
     }
@@ -40,7 +39,7 @@ class PageTransformer extends TransformerAbstract
      * @param Page $page
      * @return Item
      */
-    public function includeContent(Page $page) : Item
+    public function includeContent(Page $page): Item
     {
         $content = $page->getFieldContent($page->revision);
 
@@ -53,7 +52,7 @@ class PageTransformer extends TransformerAbstract
      * @param Page $page
      * @return Item
      */
-    public function includeTemplate(Page $page) : Item
+    public function includeTemplate(Page $page): Item
     {
         return $this->item($page->template, new TemplateTransformer());
     }
@@ -64,12 +63,12 @@ class PageTransformer extends TransformerAbstract
      * @param Page $page
      * @return Collection
      */
-    public function includeSlugs(Page $page) : Collection
+    public function includeSlugs(Page $page): Collection
     {
         return $this->collection($page->slugs, new SlugTransformer());
     }
 
-    public function includeLocalizedContent(Page $page) : Item
+    public function includeLocalizedContent(Page $page): Item
     {
         $enabledLocales = I18nLocale::where('enabled', 1)
             ->select('iso_code')
@@ -78,7 +77,7 @@ class PageTransformer extends TransformerAbstract
         return $this->item($enabledLocales, new LocaleContentTransformer($page));
     }
 
-    public function includeChildren(Page $page) : Collection
+    public function includeChildren(Page $page): Collection
     {
         return $this->collection($page->children, new  self);
     }

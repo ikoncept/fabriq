@@ -21,12 +21,12 @@ class Menu extends Model
      */
     public $morphClass = 'menu';
 
-    protected static function newFactory() : MenuFactory
+    protected static function newFactory(): MenuFactory
     {
         return MenuFactory::new();
     }
 
-    public function items() : HasMany
+    public function items(): HasMany
     {
         return $this->hasMany(Fabriq::getFqnModel('menuItem'));
     }

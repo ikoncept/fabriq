@@ -4,12 +4,11 @@ namespace Ikoncept\Fabriq\Services;
 
 use Aws\Credentials\Credentials;
 use Aws\Lambda\LambdaClient;
-use GuzzleHttp\Promise\Promise;
 use Ikoncept\Fabriq\Exceptions\LambdaException;
 
 class LambdaService
 {
-    public static function call(string $function, array $payload) : array
+    public static function call(string $function, array $payload): array
     {
         $accessKey = config('fabriq.aws_lambda_access_key');
         $secretKey = config('fabriq.aws_lambda_secret_key');

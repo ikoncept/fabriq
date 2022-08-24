@@ -13,7 +13,7 @@ class RoleController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $roles = Role::orderBy('display_name')
             ->notHidden()

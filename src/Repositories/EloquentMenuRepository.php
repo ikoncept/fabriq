@@ -61,7 +61,7 @@ class EloquentMenuRepository implements MenuRepositoryInterface
      * @param mixed $callback
      * @return Scope
      */
-    public function getCollection($collection, $callback) : Scope
+    public function getCollection($collection, $callback): Scope
     {
         $resource = new Collection($collection, $callback, 'data');
 

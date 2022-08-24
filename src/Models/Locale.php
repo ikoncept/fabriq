@@ -18,12 +18,12 @@ class Locale extends Model
      */
     public $morphClass = 'locale';
 
-    public function scopeEnabled(Builder $query) : Builder
+    public function scopeEnabled(Builder $query): Builder
     {
         return $query->where('enabled', 1);
     }
 
-    public function cachedLocales() : Collection
+    public function cachedLocales(): Collection
     {
         return Cache::rememberForever('locales', function () {
             return self::enabled()->orderBy('sort_index')

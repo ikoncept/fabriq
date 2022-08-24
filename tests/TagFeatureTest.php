@@ -2,17 +2,11 @@
 
 namespace Tests\Feature;
 
-
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\DB;
-use Spatie\Tags\Tag;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
+use Spatie\Tags\Tag;
 
 class TagFeatureTest extends AdminUserTestCase
 {
-
-
     protected $endpoint = '/tags/';
 
     /** @test **/
@@ -26,19 +20,19 @@ class TagFeatureTest extends AdminUserTestCase
         $contact->save();
 
         // Act
-        $response = $this->json('GET', $this->endpoint . '?filter[type]=contacts');
+        $response = $this->json('GET', $this->endpoint.'?filter[type]=contacts');
 
         // Assert
         $response->assertOk();
         $response->assertJsonCount(3, 'data');
         $response->assertJsonFragment([
-            'name' => 'One'
+            'name' => 'One',
         ]);
         $response->assertJsonFragment([
-            'name' => 'Two'
+            'name' => 'Two',
         ]);
         $response->assertJsonFragment([
-            'name' => 'Three'
+            'name' => 'Three',
         ]);
     }
 }

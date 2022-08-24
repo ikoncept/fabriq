@@ -15,7 +15,7 @@ class FileTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'tags',
     ];
 
@@ -53,7 +53,7 @@ class FileTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeTags(File $file) : Collection
+    public function includeTags(File $file): Collection
     {
         return $this->collection($file->tags, new TagTransformer);
     }

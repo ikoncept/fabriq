@@ -26,7 +26,7 @@ class ImageableController extends ApiController
      * @return JsonResponse
      * @throws InvalidArgumentException
      */
-    public function index(Request $request, $model, $modelId) : JsonResponse
+    public function index(Request $request, $model, $modelId): JsonResponse
     {
         $guess = Str::lower(Str::studly(Str::singular($model)));
         $relatedModelClass = config('fabriq.models.'.$guess);
@@ -48,7 +48,7 @@ class ImageableController extends ApiController
      * @param string $model
      * @return JsonResponse
      */
-    public function store(Request $request, $imageId, $model) : JsonResponse
+    public function store(Request $request, $imageId, $model): JsonResponse
     {
         $modelId = $request->model_id;
         $image = Image::findOrFail($imageId);

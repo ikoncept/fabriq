@@ -5,7 +5,6 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreateContactRequest;
 use Ikoncept\Fabriq\Http\Requests\UpdateContactRequest;
-use Ikoncept\Fabriq\Models\Contact;
 use Ikoncept\Fabriq\Transformers\ContactTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -24,7 +23,7 @@ class ContactController extends ApiController
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Fabriq::getFqnModel('contact')::RELATIONSHIPS);
         $contacts = QueryBuilder::for(Fabriq::getFqnModel('contact'))
@@ -38,7 +37,7 @@ class ContactController extends ApiController
         return $this->respondWithPaginator($contacts, new ContactTransformer);
     }
 
-    public function show(Request $request, int $id) : JsonResponse
+    public function show(Request $request, int $id): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Fabriq::getFqnModel('contact')::RELATIONSHIPS);
         $contact = Fabriq::getFqnModel('contact')::where('id', $id)
@@ -48,7 +47,7 @@ class ContactController extends ApiController
         return $this->respondWithItem($contact, new ContactTransformer);
     }
 
-    public function store(CreateContactRequest $request) : JsonResponse
+    public function store(CreateContactRequest $request): JsonResponse
     {
         $contact = Fabriq::getModelClass('contact');
         $contact->name = $request->name;
@@ -57,7 +56,7 @@ class ContactController extends ApiController
         return $this->respondWithItem($contact, new ContactTransformer, 201);
     }
 
-    public function update(UpdateContactRequest $request, int $id) : JsonResponse
+    public function update(UpdateContactRequest $request, int $id): JsonResponse
     {
         $contact = Fabriq::getFqnModel('contact')::findOrFail($id);
         $contact->fill($request->validated());
@@ -74,7 +73,7 @@ class ContactController extends ApiController
         return $this->respondWithItem($contact, new ContactTransformer);
     }
 
-    public function destroy(int $id) : JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $contact = Fabriq::getFqnModel('contact')::findOrFail($id);
         $contact->delete();

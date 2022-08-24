@@ -2,16 +2,11 @@
 
 namespace Tests\Feature;
 
-
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\UploadedFile;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
+use Illuminate\Http\UploadedFile;
 
 class UploadFeatureTest extends AdminUserTestCase
 {
-
-
     /** @test **/
     public function it_can_upload_an_image_and_persist_it()
     {
@@ -19,17 +14,16 @@ class UploadFeatureTest extends AdminUserTestCase
 
         // Act
         $response = $this->json('POST', '/uploads/images', [
-            'image' => UploadedFile::fake()->image('new-image.png', 230, 120)->size(300)
+            'image' => UploadedFile::fake()->image('new-image.png', 230, 120)->size(300),
         ]);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseHas('media', [
             'file_name' => 'new-image.png',
-            'model_type' => 'Ikoncept\Fabriq\Models\Image'
+            'model_type' => 'Ikoncept\Fabriq\Models\Image',
         ]);
     }
-
 
     /** @test **/
     public function it_can_upload_a_file_and_persist_it()
@@ -38,14 +32,14 @@ class UploadFeatureTest extends AdminUserTestCase
 
         // Act
         $response = $this->json('POST', '/uploads/files', [
-            'file' => UploadedFile::fake()->create('document.txt', 240)
+            'file' => UploadedFile::fake()->create('document.txt', 240),
         ]);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseHas('media', [
             'file_name' => 'document.txt',
-            'model_type' => 'Ikoncept\Fabriq\Models\File'
+            'model_type' => 'Ikoncept\Fabriq\Models\File',
         ]);
     }
 
@@ -54,19 +48,19 @@ class UploadFeatureTest extends AdminUserTestCase
     {
         // Arrange
         $this->withoutExceptionHandling();
-        $fixturePath = __DIR__ . '/_fixtures/';
-        copy($fixturePath . 'fixture-video.mov', $fixturePath . 'video.mov');
+        $fixturePath = __DIR__.'/_fixtures/';
+        copy($fixturePath.'fixture-video.mov', $fixturePath.'video.mov');
 
         // Act
         $response = $this->json('POST', '/uploads/videos', [
-            'video' => new UploadedFile($fixturePath . 'video.mov', 'video.mov')
+            'video' => new UploadedFile($fixturePath.'video.mov', 'video.mov'),
         ]);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseHas('media', [
             'file_name' => 'video.mov',
-            'model_type' => 'Ikoncept\Fabriq\Models\Video'
+            'model_type' => 'Ikoncept\Fabriq\Models\Video',
         ]);
     }
 }

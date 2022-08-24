@@ -4,19 +4,14 @@ namespace Tests\Feature;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\I18nDefinition;
-
-use Illuminate\Foundation\Testing\WithFaker;
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
-use Infab\TranslatableRevisions\Models\RevisionTemplateField;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
 use Illuminate\Support\Facades\Event;
 use Infab\TranslatableRevisions\Events\TranslatedRevisionUpdated;
+use Infab\TranslatableRevisions\Models\RevisionTemplate;
+use Infab\TranslatableRevisions\Models\RevisionTemplateField;
 
 class MenuItemFeatureTest extends AdminUserTestCase
 {
-
-
     /** @test **/
     public function it_can_get_a_tree_representation_of_the_menu_items()
     {
@@ -29,25 +24,25 @@ class MenuItemFeatureTest extends AdminUserTestCase
         $first = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu->id,
             'sortindex' => 10,
-            'parent_id' => $root->id
+            'parent_id' => $root->id,
         ]);
         $second = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu->id,
-            'parent_id' => $first->id
+            'parent_id' => $first->id,
         ]);
         $third = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu->id,
-            'parent_id' => $second->id
+            'parent_id' => $second->id,
         ]);
         $standAlone = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu->id,
             'parent_id' => null,
             'sortindex' => 20,
-            'parent_id' => $root->id
+            'parent_id' => $root->id,
         ]);
 
         // Act
-        $response = $this->json('GET', '/menus/' . $menu->id . '/items/tree');
+        $response = $this->json('GET', '/menus/'.$menu->id.'/items/tree');
 
         // Assert
         $response->assertOk();
@@ -68,18 +63,18 @@ class MenuItemFeatureTest extends AdminUserTestCase
         $first = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu->id,
             'sortindex' => 10,
-            'parent_id' => $root->id
+            'parent_id' => $root->id,
         ]);
         $second = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu->id,
-            'parent_id' => $first->id
+            'parent_id' => $first->id,
         ]);
 
         $treeData = \Ikoncept\Fabriq\Models\MenuItem::descendantsOf($root->id)->toTree();
 
         // Act
-        $response = $this->json('PATCH', '/menus/' . $menu->id . '/items/tree', [
-            'tree' => $treeData->toArray()
+        $response = $this->json('PATCH', '/menus/'.$menu->id.'/items/tree', [
+            'tree' => $treeData->toArray(),
         ]);
 
         // Assert
@@ -100,28 +95,27 @@ class MenuItemFeatureTest extends AdminUserTestCase
         $first = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu->id,
             'sortindex' => 10,
-            'parent_id' => $root->id
+            'parent_id' => $root->id,
         ]);
 
-
         // Act
-        $response = $this->json('PATCH', '/menu-items/' . $first->id, [
+        $response = $this->json('PATCH', '/menu-items/'.$first->id, [
             'item' => [
                 'type' => 'internal',
-                'page_id' => $page->id
+                'page_id' => $page->id,
             ],
-            'content' => []
+            'content' => [],
         ]);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseHas('menu_items', [
             'page_id' => $page->id,
-            'type' => 'internal'
+            'type' => 'internal',
         ]);
         Event::assertDispatchedTimes(TranslatedRevisionUpdated::class, 2);
         Event::assertDispatched(function (TranslatedRevisionUpdated $event) {
-            if(get_class($event->model) === Fabriq::getFqnModel('menuItem')) {
+            if (get_class($event->model) === Fabriq::getFqnModel('menuItem')) {
                 return $event->model->getRevisionOptions()->cacheTagsToFlush[0] === 'cms_menu';
             }
         });
@@ -141,16 +135,16 @@ class MenuItemFeatureTest extends AdminUserTestCase
             'menu_id' => $menu->id,
             'sortindex' => 10,
             'parent_id' => $root->id,
-            'page_id' => $page->id
+            'page_id' => $page->id,
         ]);
 
         // Act
-        $response = $this->json('GET', '/menu-items/' . $first->id . '?include=page');
+        $response = $this->json('GET', '/menu-items/'.$first->id.'?include=page');
 
         // Assert
         $response->assertOk();
         $response->assertJsonFragment([
-            'name' => $page->name
+            'name' => $page->name,
         ]);
     }
 
@@ -166,12 +160,12 @@ class MenuItemFeatureTest extends AdminUserTestCase
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
 
         // Act
-        $response = $this->json('POST', '/menus/' . $menu->id . '/items', [
+        $response = $this->json('POST', '/menus/'.$menu->id.'/items', [
             'item' => [
                 'page_id' => $page->id,
                 'type' => 'internal',
             ],
-            'content' => []
+            'content' => [],
         ]);
 
         // Assert
@@ -193,32 +187,31 @@ class MenuItemFeatureTest extends AdminUserTestCase
         ]);
 
         $template = RevisionTemplate::factory()->create([
-            'slug' => 'menu-item'
+            'slug' => 'menu-item',
         ]);
         $field = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'key' => 'title',
             'type' => 'text',
-            'translated' => false
+            'translated' => false,
         ]);
         $field = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'key' => 'external_url',
             'type' => 'text',
-            'translated' => false
+            'translated' => false,
         ]);
 
-
         // Act
-        $response = $this->json('POST', '/menus/' . $menu->id . '/items', [
+        $response = $this->json('POST', '/menus/'.$menu->id.'/items', [
             'item' => [
                 'page_id' => null,
                 'type' => 'external',
             ],
             'content' => [
                 'title' => 'Sök på google',
-                'external_url' => 'https://google.se'
-            ]
+                'external_url' => 'https://google.se',
+            ],
         ]);
 
         // Assert
@@ -246,25 +239,24 @@ class MenuItemFeatureTest extends AdminUserTestCase
         ]);
         $item = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu->id,
-            'parent_id' => $root->id
+            'parent_id' => $root->id,
         ]);
         $subItem = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu->id,
-            'parent_id' => $item->id
+            'parent_id' => $item->id,
         ]);
 
-
         // Act
-        $response = $this->json('DELETE', '/menu-items/' . $item->id);
+        $response = $this->json('DELETE', '/menu-items/'.$item->id);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseMissing('menu_items', [
-            'id' => $item->id
+            'id' => $item->id,
         ]);
         // The childeren shall also be deleted
         $this->assertDatabaseMissing('menu_items', [
-            'id' => $subItem->id
+            'id' => $subItem->id,
         ]);
     }
 
@@ -278,23 +270,23 @@ class MenuItemFeatureTest extends AdminUserTestCase
         ]);
 
         $template = RevisionTemplate::factory()->create([
-            'slug' => 'menu-item'
+            'slug' => 'menu-item',
         ]);
         $field = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'key' => 'title',
             'type' => 'text',
-            'translated' => true
+            'translated' => true,
         ]);
         $field = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'key' => 'external_url',
             'type' => 'text',
-            'translated' => true
+            'translated' => true,
         ]);
         $menuItem = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu,
-            'type' => 'external'
+            'type' => 'external',
         ]);
         $menuItem->updateContent([
             'title' => 'Hello',
@@ -304,7 +296,7 @@ class MenuItemFeatureTest extends AdminUserTestCase
         ], 'sv');
 
         // Act
-        $response = $this->json('GET', '/menu-items/' . $menuItem->id . '?include=localizedContent');
+        $response = $this->json('GET', '/menu-items/'.$menuItem->id.'?include=localizedContent');
 
         //
         $response->assertOk();
@@ -313,15 +305,15 @@ class MenuItemFeatureTest extends AdminUserTestCase
             'sv' => [
                 'content' => [
                     'title' => 'Hej',
-                ]
-            ]
+                ],
+            ],
         ]);
         $response->assertJsonFragment([
             'en' => [
                 'content' => [
                     'title' => 'Hello',
-                ]
-            ]
+                ],
+            ],
         ]);
     }
 
@@ -335,23 +327,23 @@ class MenuItemFeatureTest extends AdminUserTestCase
         ]);
 
         $template = RevisionTemplate::factory()->create([
-            'slug' => 'menu-item'
+            'slug' => 'menu-item',
         ]);
         $field = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'key' => 'title',
             'type' => 'text',
-            'translated' => false
+            'translated' => false,
         ]);
         $field = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'key' => 'external_url',
             'type' => 'text',
-            'translated' => false
+            'translated' => false,
         ]);
         $menuItem = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu,
-            'type' => 'external'
+            'type' => 'external',
         ]);
         $menuItem->updateContent([
             'title' => 'Hello',
@@ -363,14 +355,14 @@ class MenuItemFeatureTest extends AdminUserTestCase
         $this->withoutExceptionHandling();
 
         // Act
-        $response = $this->json('PATCH', '/menu-items/' . $menuItem->id . '?include=content', [
+        $response = $this->json('PATCH', '/menu-items/'.$menuItem->id.'?include=content', [
             'item' => [
-                'type' => 'external'
+                'type' => 'external',
             ],
             'content' => [
                 'title' => 'En extern',
                 'external_url' => 'https://google.se',
-            ]
+            ],
         ]);
 
         // Assert
@@ -380,8 +372,8 @@ class MenuItemFeatureTest extends AdminUserTestCase
                 'data' => [
                     'title' => 'En extern',
                     'external_url' => 'https://google.se',
-                ]
-            ]
+                ],
+            ],
         ]);
     }
 
@@ -394,43 +386,42 @@ class MenuItemFeatureTest extends AdminUserTestCase
             'menu_id' => $menu->id,
         ]);
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create([
-            'template_id' => 3
+            'template_id' => 3,
         ]);
 
         RevisionTemplateField::factory()->create([
             'key' => 'page_title',
             'translated' => true,
-            'template_id' => 3
+            'template_id' => 3,
         ]);
         $page->updateContent(['page_title' => 'The root page'], 'en');
         $subPage = \Ikoncept\Fabriq\Models\Page::factory()->create([
             'template_id' => 3,
-            'parent_id' => $page->id
+            'parent_id' => $page->id,
         ]);
         $subPage->updateContent(['page_title' => 'The child page'], 'en');
         $menuItem = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu->id,
             'parent_id' => $root->id,
-            'page_id' => $page->id
+            'page_id' => $page->id,
         ]);
         $subMenuItem = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu->id,
             'parent_id' => $menuItem->id,
-            'page_id' => $subPage->id
+            'page_id' => $subPage->id,
         ]);
-
 
         // Act
         $response = $this->withHeaders(['X-LOCALE' => 'en'])
-                ->json('GET', '/menus/' . $menu->slug . '/public/' . '?include=children');
+                ->json('GET', '/menus/'.$menu->slug.'/public/'.'?include=children');
 
         // Assert
         $response->assertOk();
         $response->assertJsonFragment([
-            'path' => '/the-root-page/the-child-page'
+            'path' => '/the-root-page/the-child-page',
         ]);
         $response->assertJsonFragment([
-            'localized_path' => '/en/the-root-page/the-child-page'
+            'localized_path' => '/en/the-root-page/the-child-page',
         ]);
     }
 }

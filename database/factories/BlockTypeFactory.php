@@ -22,8 +22,8 @@ class BlockTypeFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name . ' -block' ,
-            'component_name' => $this->faker->domainWord
+            'name' => $this->faker->name.' -block',
+            'component_name' => $this->faker->domainWord,
         ];
     }
 }

@@ -4,8 +4,6 @@ namespace Ikoncept\Fabriq\Console;
 
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Str;
 
 class AddRoleToUserCommand extends Command
 {

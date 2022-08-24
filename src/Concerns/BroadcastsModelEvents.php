@@ -26,7 +26,7 @@ trait BroadcastsModelEvents
         return [new Channel($prefix.'-'.$classSlug), new Channel($prefix.'-'.$classSlug.'.'.$this->id)];
     }
 
-    public function broadcastWith() : array
+    public function broadcastWith(): array
     {
         $updatedBy = [];
         if ($this->updatedByUser) {

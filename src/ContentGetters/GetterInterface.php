@@ -2,7 +2,6 @@
 
 namespace Ikoncept\Fabriq\ContentGetters;
 
-use Illuminate\Database\Eloquent\Builder;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 
 interface GetterInterface

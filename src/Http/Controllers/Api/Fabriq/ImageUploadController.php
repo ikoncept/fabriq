@@ -4,9 +4,7 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\UploadImageRequest;
-use Ikoncept\Fabriq\Models\Image;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 
@@ -14,7 +12,7 @@ class ImageUploadController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function store(UploadImageRequest $request) : JsonResponse
+    public function store(UploadImageRequest $request): JsonResponse
     {
         $image = Fabriq::getModelClass('image');
         $image->save();

@@ -21,7 +21,7 @@ class AddAdminRolesToUsers extends Migration
             'description' => 'Administratörer',
         ]);
 
-        User::all()->each(function($user) {
+        User::all()->each(function ($user) {
             $user->assignRole('admin');
         });
     }

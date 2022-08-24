@@ -18,7 +18,7 @@ class AddContactRevisionTemplate extends Migration
         $template = RevisionTemplate::factory()->create([
             'name' => 'Kontakt',
             'slug' => 'contact',
-            'type' => 'contact'
+            'type' => 'contact',
         ]);
         $templateField = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
@@ -28,7 +28,7 @@ class AddContactRevisionTemplate extends Migration
             'translated' => true,
             'group' => 'contact',
             'repeater' => false,
-            'sort_index' => 10
+            'sort_index' => 10,
         ]);
         $templateField = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
@@ -38,7 +38,7 @@ class AddContactRevisionTemplate extends Migration
             'translated' => false,
             'group' => 'contact',
             'repeater' => false,
-            'sort_index' => 20
+            'sort_index' => 20,
         ]);
 
         $templateField = RevisionTemplateField::factory()->create([
@@ -49,13 +49,12 @@ class AddContactRevisionTemplate extends Migration
             'translated' => true,
             'group' => 'contact',
             'repeater' => false,
-            'sort_index' => 30
+            'sort_index' => 30,
         ]);
 
         Schema::table('contacts', function (Blueprint $table) {
             $table->dropColumn('body');
         });
-
     }
 
     /**

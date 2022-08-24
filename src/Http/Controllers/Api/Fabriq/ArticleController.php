@@ -18,7 +18,7 @@ class ArticleController extends Controller
 {
     use ApiControllerTrait;
 
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Fabriq::getFqnModel('article')::RELATIONSHIPS);
         $articles = QueryBuilder::for(Fabriq::getFqnModel('article'))
@@ -33,7 +33,7 @@ class ArticleController extends Controller
         return $this->respondWithPaginator($articles, new ArticleTransformer());
     }
 
-    public function show(Request $request, int $id) : JsonResponse
+    public function show(Request $request, int $id): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Article::RELATIONSHIPS);
         $article = Article::where('id', $id)
@@ -43,7 +43,7 @@ class ArticleController extends Controller
         return $this->respondWithItem($article, new ArticleTransformer());
     }
 
-    public function store(CreateArticleRequest $request) : JsonResponse
+    public function store(CreateArticleRequest $request): JsonResponse
     {
         $article = new Article();
         $article->fill($request->validated());
@@ -53,7 +53,7 @@ class ArticleController extends Controller
         return $this->respondWithItem($article, new ArticleTransformer, 201);
     }
 
-    public function update(UpdateArticleRequest $request, int $id) : JsonResponse
+    public function update(UpdateArticleRequest $request, int $id): JsonResponse
     {
         $article = Article::findOrFail($id);
         $article->fill($request->validated());
@@ -63,7 +63,7 @@ class ArticleController extends Controller
         return $this->respondWithItem($article, new ArticleTransformer());
     }
 
-    public function destroy(int $id) : JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $article = Article::findOrFail($id);
         $article->delete();

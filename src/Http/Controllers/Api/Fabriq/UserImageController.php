@@ -14,7 +14,7 @@ class UserImageController extends Controller
 {
     use ApiControllerTrait;
 
-    public function store(CreateUserImageRequest $request) : JsonResponse
+    public function store(CreateUserImageRequest $request): JsonResponse
     {
         $image = new Image();
         $image->save();
@@ -34,7 +34,7 @@ class UserImageController extends Controller
         return $this->respondWithItem($request->user(), new UserTransformer);
     }
 
-    public function destroy(Request $request) : JsonResponse
+    public function destroy(Request $request): JsonResponse
     {
         $user = $request->user();
         $user->image->delete();

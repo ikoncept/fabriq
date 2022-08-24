@@ -16,7 +16,7 @@ class ImageTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'tags',
     ];
 
@@ -61,7 +61,7 @@ class ImageTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeTags(Image $image) : Collection
+    public function includeTags(Image $image): Collection
     {
         return $this->collection($image->tags, new TagTransformer);
     }

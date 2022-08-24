@@ -15,7 +15,7 @@ class CalendarService
      * @param CarbonImmutable $endDate
      * @return Collection
      */
-    public static function getComputedDailyIntervals($events, CarbonImmutable $endDate) : Collection
+    public static function getComputedDailyIntervals($events, CarbonImmutable $endDate): Collection
     {
         $now = CarbonImmutable::now();
         $computedEvents = collect([]);

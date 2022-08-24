@@ -14,7 +14,7 @@ class BlockTypeController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function index(Request $requst) : JsonResponse
+    public function index(Request $requst): JsonResponse
     {
         $blockTypes = QueryBuilder::for(BlockType::where('active', 1))
             ->allowedSorts('name', 'id')

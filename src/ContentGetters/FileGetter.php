@@ -3,7 +3,6 @@
 namespace Ikoncept\Fabriq\ContentGetters;
 
 use Ikoncept\Fabriq\Fabriq;
-use Ikoncept\Fabriq\Models\File;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 
 class FileGetter

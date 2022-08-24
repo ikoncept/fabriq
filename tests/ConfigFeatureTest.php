@@ -2,16 +2,10 @@
 
 namespace Tests\Feature;
 
-
-use Illuminate\Foundation\Testing\WithFaker;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
 
 class ConfigFeatureTest extends AdminUserTestCase
 {
-
-
-
     public function testGetConfigData()
     {
         // Arrange
@@ -25,8 +19,8 @@ class ConfigFeatureTest extends AdminUserTestCase
         $response->assertJsonStructure([
             'data' => [
                 'modules' => [],
-                'supported_locales' => []
-            ]
+                'supported_locales' => [],
+            ],
         ]);
     }
 }

@@ -22,7 +22,7 @@ class SmartBlockController extends ApiController
      * @param  Request $request
      * @return JsonResponse
      */
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(SmartBlock::RELATIONSHIPS);
         $paginator = QueryBuilder::for(Fabriq::getFqnModel('smartBlock'))
@@ -36,7 +36,7 @@ class SmartBlockController extends ApiController
         return $this->respondWithPaginator($paginator, new SmartBlockTransformer);
     }
 
-    public function show(Request $request, int $id) : JsonResponse
+    public function show(Request $request, int $id): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(SmartBlock::RELATIONSHIPS);
         $smartBlock = SmartBlock::where('id', $id)
@@ -46,7 +46,7 @@ class SmartBlockController extends ApiController
         return $this->respondWithItem($smartBlock, new SmartBlockTransformer);
     }
 
-    public function store(CreateSmartBlockRequest $request) : JsonResponse
+    public function store(CreateSmartBlockRequest $request): JsonResponse
     {
         $smartBlock = new SmartBlock();
         $smartBlock->name = $request->name;
@@ -55,7 +55,7 @@ class SmartBlockController extends ApiController
         return $this->respondWithItem($smartBlock, new SmartBlockTransformer, 201);
     }
 
-    public function update(Request $request, int $id) : JsonResponse
+    public function update(Request $request, int $id): JsonResponse
     {
         $smartBlock = SmartBlock::findOrFail($id);
         $smartBlock->name = $request->name;
@@ -66,7 +66,7 @@ class SmartBlockController extends ApiController
         return $this->respondWithItem($smartBlock, new SmartBlockTransformer);
     }
 
-    public function destroy(int $id) : JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $smartBlock = SmartBlock::findOrFail($id);
 

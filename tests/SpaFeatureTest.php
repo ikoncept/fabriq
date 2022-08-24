@@ -4,13 +4,8 @@ namespace Tests\Feature;
 
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 
-use Illuminate\Foundation\Testing\WithFaker;
-use Ikoncept\Fabriq\Tests\TestCase;
-
 class SpaFeatureTest extends AdminUserTestCase
 {
-
-
     /** @test **/
     public function it_will_return_a_message_if_request_wants_json()
     {

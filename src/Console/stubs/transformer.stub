@@ -16,7 +16,7 @@ class {{ model }}Transformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [];
+    protected array $availableIncludes = [];
 
     /**
      * Transform the given object

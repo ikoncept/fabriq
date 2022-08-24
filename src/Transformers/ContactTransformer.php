@@ -16,7 +16,7 @@ class ContactTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'localizedContent', 'content', 'tags',
     ];
 
@@ -32,7 +32,7 @@ class ContactTransformer extends TransformerAbstract
         return $contact->toArray();
     }
 
-    public function includeLocalizedContent(Contact $contact) : Item
+    public function includeLocalizedContent(Contact $contact): Item
     {
         $enabledLocales = I18nLocale::where('enabled', 1)
             ->select('iso_code')
@@ -47,14 +47,14 @@ class ContactTransformer extends TransformerAbstract
      * @param Contact $contact
      * @return Item
      */
-    public function includeContent(Contact $contact) : Item
+    public function includeContent(Contact $contact): Item
     {
         $content = $contact->getFieldContent($contact->revision);
 
         return $this->item($content, new ContentTransformer());
     }
 
-    public function includeTags(Contact $contact) : Collection
+    public function includeTags(Contact $contact): Collection
     {
         return $this->collection($contact->tags, new TagTransformer);
     }

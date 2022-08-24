@@ -2,15 +2,10 @@
 
 namespace Tests\Feature;
 
-
-use Illuminate\Foundation\Testing\WithFaker;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 
 class VideoFeatureTest extends AdminUserTestCase
 {
-
-
-
     /** @test **/
     public function it_can_get_a_single_video()
     {
@@ -19,14 +14,14 @@ class VideoFeatureTest extends AdminUserTestCase
         $video = \Ikoncept\Fabriq\Models\Video::factory()->create();
 
         // Act
-        $response = $this->json('GET', '/videos/' . $video->id);
+        $response = $this->json('GET', '/videos/'.$video->id);
 
         // Assert
         $response->assertOk();
         $response->assertJsonFragment([
             'id' => $video->id,
             'caption' => $video->caption,
-            'alt_text' => $video->alt_text
+            'alt_text' => $video->alt_text,
         ]);
     }
 
@@ -53,17 +48,17 @@ class VideoFeatureTest extends AdminUserTestCase
         $this->withoutExceptionHandling();
 
         // Act
-        $response = $this->json('PATCH', '/videos/' . $video->id, [
+        $response = $this->json('PATCH', '/videos/'.$video->id, [
             'name' => 'Wow',
             'tags' => [
-                'Logo', 'Administration'
-            ]
+                'Logo', 'Administration',
+            ],
         ]);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseHas('tags', [
-            'type' => 'videos'
+            'type' => 'videos',
         ]);
     }
 
@@ -75,11 +70,11 @@ class VideoFeatureTest extends AdminUserTestCase
         $this->withoutExceptionHandling();
 
         // Act
-        $response = $this->json('PATCH', '/videos/' . $video->id, [
+        $response = $this->json('PATCH', '/videos/'.$video->id, [
             'name' => 'Fet video',
             'alt_text' => 'Det är en fet video',
             'caption' => 'Filmad av Jorge',
-            'tags' => []
+            'tags' => [],
         ]);
 
         // Assert
@@ -101,13 +96,13 @@ class VideoFeatureTest extends AdminUserTestCase
         $videos = \Ikoncept\Fabriq\Models\Video::factory()->count(5)->create();
 
         // Act
-        $response = $this->json('GET', '/videos?filter[search]=' . $videos->first()->media->first()->name);
+        $response = $this->json('GET', '/videos?filter[search]='.$videos->first()->media->first()->name);
 
         // Assert
         $response->assertOk();
         $response->assertJsonCount(1, 'data');
         $response->assertJsonFragment([
-            'file_name' => $videos->first()->media->first()->file_name
+            'file_name' => $videos->first()->media->first()->file_name,
         ]);
     }
 
@@ -118,16 +113,16 @@ class VideoFeatureTest extends AdminUserTestCase
         $video = \Ikoncept\Fabriq\Models\Video::factory()->create();
 
         // Act/Assert
-        $this->json('DELETE', '/videos/' . $video->id)
+        $this->json('DELETE', '/videos/'.$video->id)
             ->assertOk();
 
         // Assert
         $this->assertDatabaseMissing('videos', [
-            'id' => $video->id
+            'id' => $video->id,
         ]);
         $this->assertDatabaseMissing('media', [
             'model_id' => $video->id,
-            'model_type' => 'Ikoncept\Fabriq\Models\Video'
+            'model_type' => 'Ikoncept\Fabriq\Models\Video',
         ]);
     }
 
@@ -136,7 +131,6 @@ class VideoFeatureTest extends AdminUserTestCase
     {
         // Arrange
         $videos = \Ikoncept\Fabriq\Models\Video::factory()->count(5)->create();
-
 
         // Act
         $response = $this->json('GET', '/videos?sort=-id');
@@ -153,7 +147,6 @@ class VideoFeatureTest extends AdminUserTestCase
     {
         // Arrange
         $videos = \Ikoncept\Fabriq\Models\Video::factory()->count(2)->create();
-
 
         // Act
         $response = $this->json('GET', '/videos?sort=-file_name');
@@ -176,5 +169,4 @@ class VideoFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $response->assertJsonCount(2, 'data');
     }
-
 }

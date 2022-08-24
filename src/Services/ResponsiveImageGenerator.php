@@ -75,7 +75,7 @@ class ResponsiveImageGenerator extends SpatieResponsiveImageGenerator
         $temporaryDirectory->delete();
     }
 
-    protected function buildPayload(Collection $widths, Media $media) : Collection
+    protected function buildPayload(Collection $widths, Media $media): Collection
     {
         $generatorClass = config('fabriq.media-library.path_generator');
         $mediaPathGenerator = new $generatorClass();

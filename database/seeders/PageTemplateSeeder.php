@@ -18,7 +18,7 @@ class PageTemplateSeeder extends Seeder
     {
         $template = RevisionTemplate::factory()->create([
             'name' => 'Landningssida',
-            'slug' => 'startsida'
+            'slug' => 'startsida',
         ]);
         RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
@@ -28,7 +28,7 @@ class PageTemplateSeeder extends Seeder
             'options' => ['classes' => 'col-span-5'],
             'type' => 'text',
             'sort_index' => 10,
-            'translated' => true
+            'translated' => true,
         ]);
         RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
@@ -38,7 +38,7 @@ class PageTemplateSeeder extends Seeder
             'group' => 'meta',
             'type' => 'text',
             'sort_index' => 20,
-            'translated' => true
+            'translated' => true,
         ]);
         RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
@@ -48,7 +48,7 @@ class PageTemplateSeeder extends Seeder
             'options' => ['group' => 'meta_og_image', 'classes' => 'col-span-4'],
             'type' => 'image',
             'sort_index' => 30,
-            'translated' => true
+            'translated' => true,
         ]);
         RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
@@ -58,7 +58,7 @@ class PageTemplateSeeder extends Seeder
             'options' => ['classes' => 'hidden'],
             'type' => 'text',
             'sort_index' => 40,
-            'translated' => true
+            'translated' => true,
         ]);
         RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
@@ -68,7 +68,7 @@ class PageTemplateSeeder extends Seeder
             'options' => ['classes' => 'col-span-5'],
             'type' => 'text',
             'sort_index' => 40,
-            'translated' => true
+            'translated' => true,
         ]);
         RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
@@ -78,7 +78,7 @@ class PageTemplateSeeder extends Seeder
             'options' => ['group' => 'main_image', 'classes' => 'col-span-4'],
             'type' => 'image',
             'sort_index' => 50,
-            'translated' => true
+            'translated' => true,
         ]);
         RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
@@ -87,7 +87,7 @@ class PageTemplateSeeder extends Seeder
             'group' => 'main_content',
             'type' => 'html',
             'sort_index' => 60,
-            'translated' => true
+            'translated' => true,
         ]);
         RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
@@ -105,7 +105,7 @@ class PageTemplateSeeder extends Seeder
             'component_name' => 'DemoBlock',
             'active' => 1,
             'type' => 'block',
-            'has_children' => 1
+            'has_children' => 1,
         ]);
     }
 }

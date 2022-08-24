@@ -15,7 +15,7 @@ class SmartBlockTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'localizedContent', 'content',
     ];
 
@@ -34,7 +34,7 @@ class SmartBlockTransformer extends TransformerAbstract
         // ];
     }
 
-    public function includeLocalizedContent(SmartBlock $smartblock) : Item
+    public function includeLocalizedContent(SmartBlock $smartblock): Item
     {
         $enabledLocales = I18nLocale::where('enabled', 1)
             ->select('iso_code')
@@ -49,7 +49,7 @@ class SmartBlockTransformer extends TransformerAbstract
      * @param SmartBlock $smartblock
      * @return Item
      */
-    public function includeContent(SmartBlock $smartblock) : Item
+    public function includeContent(SmartBlock $smartblock): Item
     {
         $content = $smartblock->getFieldContent($smartblock->revision);
 

@@ -5,16 +5,11 @@ namespace Tests\Feature;
 use Ikoncept\Fabriq\ContentGetters\FileGetter;
 use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Ikoncept\Fabriq\ContentGetters\VideoGetter;
-
-use Illuminate\Foundation\Testing\WithFaker;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
+use Infab\TranslatableRevisions\Models\RevisionMeta;
 
 class SmartBlocksFeatureTest extends AdminUserTestCase
 {
-
-
     /** @test **/
     public function it_can_store_a_new_smart_block()
     {
@@ -33,7 +28,6 @@ class SmartBlocksFeatureTest extends AdminUserTestCase
         ]);
     }
 
-
     /** @test **/
     public function it_can_update_a_smart_block()
     {
@@ -44,9 +38,8 @@ class SmartBlocksFeatureTest extends AdminUserTestCase
         $file = \Ikoncept\Fabriq\Models\File::factory()->create();
         $file2 = \Ikoncept\Fabriq\Models\File::factory()->create();
 
-
         // Act
-        $response = $this->json('PATCH', '/smart-blocks/' . $smartBlock->id, [
+        $response = $this->json('PATCH', '/smart-blocks/'.$smartBlock->id, [
             'name' => 'Another name',
             'localizedContent' => [
                 'sv' => [
@@ -56,17 +49,17 @@ class SmartBlocksFeatureTest extends AdminUserTestCase
                             'image' => $this->getParsedImage($image),
                             'video' => $this->getParsedVideo($video),
                             'file' => $this->getParsedFile($file2),
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 'en' => [
                     'boxes' => [
                         [
-                            'name' => 'The super block'
-                        ]
-                    ]
-                ]
-            ]
+                            'name' => 'The super block',
+                        ],
+                    ],
+                ],
+            ],
         ]);
 
         // Assert
@@ -81,14 +74,14 @@ class SmartBlocksFeatureTest extends AdminUserTestCase
                     'name' => 'Superblocket',
                     'image' => [$image->id],
                     'video' => [$video->id],
-                    'file' => [$file2->id]
-                ]
+                    'file' => [$file2->id],
+                ],
             ]),
-            'locale' => 'sv'
+            'locale' => 'sv',
         ]);
         $this->assertDatabaseHas('i18n_definitions', [
             'content' => json_encode([['name' => 'The super block']]),
-            'locale' => 'en'
+            'locale' => 'en',
         ]);
     }
 
@@ -112,7 +105,7 @@ class SmartBlocksFeatureTest extends AdminUserTestCase
         // Arrange
         $smartBlocks = \Ikoncept\Fabriq\Models\SmartBlock::factory()->count(3)->create();
         $smartBlock = \Ikoncept\Fabriq\Models\SmartBlock::factory()->create([
-            'name' => '1st :)'
+            'name' => '1st :)',
         ]);
 
         // Act
@@ -130,7 +123,7 @@ class SmartBlocksFeatureTest extends AdminUserTestCase
         // Arrange
         $smartBlocks = \Ikoncept\Fabriq\Models\SmartBlock::factory()->count(3)->create();
         $smartBlock = \Ikoncept\Fabriq\Models\SmartBlock::factory()->create([
-            'name' => 'Find me'
+            'name' => 'Find me',
         ]);
 
         // Act
@@ -148,13 +141,13 @@ class SmartBlocksFeatureTest extends AdminUserTestCase
         $this->withoutExceptionHandling();
         $smartBlock = \Ikoncept\Fabriq\Models\SmartBlock::factory()->create();
         $image = \Ikoncept\Fabriq\Models\Image::factory()->create([
-            'alt_text' => 'Image alt text'
+            'alt_text' => 'Image alt text',
         ]);
         $video = \Ikoncept\Fabriq\Models\Video::factory()->create([
-            'alt_text' => 'Video alt text'
+            'alt_text' => 'Video alt text',
         ]);
         $file = \Ikoncept\Fabriq\Models\File::factory()->create([
-            'caption' =>  'File caption'
+            'caption' => 'File caption',
         ]);
         $smartBlock->localizedContent = [
             'sv' => [
@@ -163,36 +156,36 @@ class SmartBlocksFeatureTest extends AdminUserTestCase
                         'name' => 'Superblocket',
                         'image' => $this->getParsedImage($image),
                         'video' => $this->getParsedVideo($video),
-                        'file' => $this->getParsedFile($file)
-                    ]
-                ]
+                        'file' => $this->getParsedFile($file),
+                    ],
+                ],
             ],
             'en' => [
                 'boxes' => [
                     [
-                        'name' => 'The super block'
-                    ]
-                ]
-            ]
+                        'name' => 'The super block',
+                    ],
+                ],
+            ],
         ];
         $smartBlock->save();
 
         // Act
-        $response = $this->json('GET', '/smart-blocks/' . $smartBlock->id . '?include=localizedContent,content');
+        $response = $this->json('GET', '/smart-blocks/'.$smartBlock->id.'?include=localizedContent,content');
 
         // Assert
         $response->assertOk();
         $response->assertJsonFragment([
-            'name' => 'Superblocket'
+            'name' => 'Superblocket',
         ]);
         $response->assertJsonFragment([
-            'alt_text' => 'Image alt text'
+            'alt_text' => 'Image alt text',
         ]);
         $response->assertJsonFragment([
-            'alt_text' => 'Video alt text'
+            'alt_text' => 'Video alt text',
         ]);
         $response->assertJsonFragment([
-            'caption' =>  'File caption'
+            'caption' => 'File caption',
         ]);
     }
 
@@ -204,19 +197,19 @@ class SmartBlocksFeatureTest extends AdminUserTestCase
         $smartBlock = \Ikoncept\Fabriq\Models\SmartBlock::factory()->create();
 
         // Act
-        $response = $this->json('DELETE', '/smart-blocks/' . $smartBlock->id);
+        $response = $this->json('DELETE', '/smart-blocks/'.$smartBlock->id);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseMissing('smart_blocks', [
-            'id' => $smartBlock->id
+            'id' => $smartBlock->id,
         ]);
     }
 
     protected function getParsedImage($image)
     {
         $metaImage = RevisionMeta::make([
-            'meta_value' => [$image->id]
+            'meta_value' => [$image->id],
         ]);
 
         return ImageGetter::get($metaImage);
@@ -225,7 +218,7 @@ class SmartBlocksFeatureTest extends AdminUserTestCase
     protected function getParsedVideo($video)
     {
         $metaVideo = RevisionMeta::make([
-            'meta_value' => [$video->id]
+            'meta_value' => [$video->id],
         ]);
 
         return VideoGetter::get($metaVideo);
@@ -234,7 +227,7 @@ class SmartBlocksFeatureTest extends AdminUserTestCase
     protected function getParsedFile($file)
     {
         $metaFile = RevisionMeta::make([
-            'meta_value' => [$file->id]
+            'meta_value' => [$file->id],
         ]);
 
         return FileGetter::get($metaFile);

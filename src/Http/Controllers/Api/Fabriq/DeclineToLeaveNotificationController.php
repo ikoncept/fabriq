@@ -3,7 +3,6 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Models\User;
-use Ikoncept\Fabriq\Notifications\AskToLeaveNotification;
 use Ikoncept\Fabriq\Notifications\LeaveDeclinedNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,7 +13,7 @@ class DeclineToLeaveNotificationController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function __invoke(Request $request, int $userId) : JsonResponse
+    public function __invoke(Request $request, int $userId): JsonResponse
     {
         $request->validate([
             'path' => 'required|max:255',

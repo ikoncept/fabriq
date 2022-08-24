@@ -17,11 +17,11 @@ class UserTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'roles', 'invitation',
     ];
 
-    protected $defaultIncludes = [
+    protected array $defaultIncludes = [
         'image',
     ];
 
@@ -52,7 +52,7 @@ class UserTransformer extends TransformerAbstract
      * @param User $user
      * @return Collection
      */
-    public function includeRoles(User $user) : Collection
+    public function includeRoles(User $user): Collection
     {
         return $this->collection($user->roles, new RoleTransformer);
     }
@@ -63,12 +63,12 @@ class UserTransformer extends TransformerAbstract
      * @param User $user
      * @return Item
      */
-    public function includeImage(User $user) : Item
+    public function includeImage(User $user): Item
     {
         return $this->item($user->image, new UserImageTransformer());
     }
 
-    public function includeInvitation(User $user) : Item|NullResource
+    public function includeInvitation(User $user): Item|NullResource
     {
         if (! $user->invitation) {
             return $this->null();
@@ -83,7 +83,7 @@ class UserTransformer extends TransformerAbstract
      * @param User $user
      * @return IlluminateCollection
      */
-    public function getRoles(User $user) : IlluminateCollection
+    public function getRoles(User $user): IlluminateCollection
     {
         if (auth()->user()->id == $user->id) {
             return $user->roles->pluck('name');

@@ -24,7 +24,7 @@ class PageFactory extends Factory
     {
         return [
             'name' => $this->faker->words(3, true),
-            'template_id' => RevisionTemplate::factory()->create()->id
+            'template_id' => RevisionTemplate::factory()->create()->id,
         ];
     }
 }

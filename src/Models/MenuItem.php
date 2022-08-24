@@ -40,7 +40,7 @@ class MenuItem extends Model
         '_rgt' => 'int',
     ];
 
-    protected static function newFactory() : MenuItemFactory
+    protected static function newFactory(): MenuItemFactory
     {
         return MenuItemFactory::new();
     }
@@ -62,14 +62,14 @@ class MenuItem extends Model
     /**
      * Get the options for the revisions.
      */
-    public function getRevisionOptions() : RevisionOptions
+    public function getRevisionOptions(): RevisionOptions
     {
         return RevisionOptions::create()
             ->registerDefaultTemplate('menu-item')
             ->registerCacheTagsToFlush(['cms_menu']);
     }
 
-    public function page() : BelongsTo
+    public function page(): BelongsTo
     {
         return $this->belongsTo(Fabriq::getFqnModel('page'));
     }
@@ -79,7 +79,7 @@ class MenuItem extends Model
      *
      * @return string
      */
-    public function getTitleAttribute() : string
+    public function getTitleAttribute(): string
     {
         if ($this->type === 'external') {
             $content = $this->getFieldContent(null, 'sv');
@@ -118,7 +118,7 @@ class MenuItem extends Model
         }
     }
 
-    public function getRelativePathAttribute() : string
+    public function getRelativePathAttribute(): string
     {
         if ($this->ancestors->count()) {
             $collection = new Collection($this->ancestors);
@@ -142,7 +142,7 @@ class MenuItem extends Model
      * @param mixed $value
      * @return void
      */
-    public function setTitleAttribute($value) : void
+    public function setTitleAttribute($value): void
     {
     }
 
@@ -152,7 +152,7 @@ class MenuItem extends Model
      * @param mixed $value
      * @return void
      */
-    public function setPageAttribute($value) : void
+    public function setPageAttribute($value): void
     {
     }
 }

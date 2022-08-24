@@ -9,7 +9,7 @@ use Spatie\Permission\Middlewares\RoleMiddleware;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public function boot() : void
+    public function boot(): void
     {
         $router = $this->app->make(Router::class);
         $router->aliasMiddleware('locale', LocaleMiddleware::class);

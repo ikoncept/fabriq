@@ -23,12 +23,12 @@ class Invitation extends Model
         });
     }
 
-    public function user() : HasOne
+    public function user(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    public function invitedBy() : HasOne
+    public function invitedBy(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'invited_by');
     }

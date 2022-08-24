@@ -3,8 +3,6 @@
 namespace Ikoncept\Fabriq\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Str;
 
 class InstallFabriqCommand extends Command
 {

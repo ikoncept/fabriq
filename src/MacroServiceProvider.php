@@ -37,7 +37,7 @@ class MacroServiceProvider extends ServiceProvider
         $likeStatement = $this->likeStatement;
 
         Builder::macro('whereLike', function ($attributes, string $searchTerm) use ($likeStatement) {
-            /** @var Builder $this **/
+            /** @var Builder $this * */
             $this->where(function (Builder $query) use ($attributes, $searchTerm, $likeStatement) {
                 foreach (Arr::wrap($attributes) as $attribute) {
                     $query->when(
@@ -54,14 +54,15 @@ class MacroServiceProvider extends ServiceProvider
                     );
                 }
             });
+
             return $this;
         });
     }
 
-    protected function setLikeStatement() : void
+    protected function setLikeStatement(): void
     {
         $connection = config('database.default');
         $driver = config("database.connections.{$connection}.driver");
-        $this->likeStatement =  ($driver === 'pgsql') ? 'ILIKE' : 'LIKE';
+        $this->likeStatement = ($driver === 'pgsql') ? 'ILIKE' : 'LIKE';
     }
 }

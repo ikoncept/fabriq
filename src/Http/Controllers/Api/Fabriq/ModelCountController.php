@@ -23,7 +23,7 @@ class ModelCountController extends ApiController
         'articles' => 'article',
     ];
 
-    public function show(string $modelType) : JsonResponse
+    public function show(string $modelType): JsonResponse
     {
         if (! array_key_exists($modelType, $this->modelMap)) {
             return $this->errorWrongArgs('This model type can\'t be counted ('.$modelType.')');

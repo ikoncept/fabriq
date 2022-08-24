@@ -30,7 +30,7 @@ class CommentPosted implements ShouldBroadcast
         $this->comment = $comment;
     }
 
-    public function broadcastAs() : string
+    public function broadcastAs(): string
     {
         return 'comment.posted';
     }

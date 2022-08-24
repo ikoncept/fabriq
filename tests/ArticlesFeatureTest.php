@@ -2,17 +2,12 @@
 
 namespace Ikoncept\Fabriq\Tests\Feature;
 
+use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Infab\TranslatableRevisions\Models\RevisionTemplate;
 use Infab\TranslatableRevisions\Models\RevisionTemplateField;
-use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ArticlesFeatureTest extends AdminUserTestCase
 {
-
-
     /** @test **/
     public function it_can_store_a_new_article()
     {
@@ -21,7 +16,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
 
         // Act
         $response = $this->json('POST', '/articles/', [
-            'name' => 'En ny nyhet'
+            'name' => 'En ny nyhet',
         ]);
 
         // Assert
@@ -51,51 +46,51 @@ class ArticlesFeatureTest extends AdminUserTestCase
         $template = RevisionTemplate::factory()->create([
             'name' => 'Nyhet',
             'slug' => 'article',
-            'type' => 'article'
+            'type' => 'article',
         ]);
         $field = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'name' => 'Titel',
             'key' => 'title',
-            'translated' => true
+            'translated' => true,
         ]);
         $article = \Ikoncept\Fabriq\Models\Article::factory()->create([
             'template_id' => $template->id,
             'name' => 'News item',
-            'template_id' => $template->id
+            'template_id' => $template->id,
         ]);
         $this->withoutExceptionHandling();
 
         // Act
-        $response = $this->json('PATCH', '/articles/' . $article->id, [
+        $response = $this->json('PATCH', '/articles/'.$article->id, [
             'content' => [
-                'title' => 'A real title'
+                'title' => 'A real title',
             ],
             'name' => 'Nyhet',
             'publishes_at' => '2043-02-02 15:00:00',
             'has_unpublished_time' => true,
-            'unpublishes_at' => '2055-02-03 13:00:00'
+            'unpublishes_at' => '2055-02-03 13:00:00',
         ]);
 
         // Assert
         $response->assertOk();
         $response->assertJsonFragment([
             'is_published' => false,
-            'publishes_at' => '2043-02-02T15:00:00.000000Z'
+            'publishes_at' => '2043-02-02T15:00:00.000000Z',
         ]);
 
         $this->assertDatabaseHas('articles', [
             'name' => 'Nyhet',
             'publishes_at' => '2043-02-02 15:00:00',
             'has_unpublished_time' => 1,
-            'unpublishes_at' => '2055-02-03 13:00:00'
+            'unpublishes_at' => '2055-02-03 13:00:00',
         ]);
         $this->assertDatabaseHas('i18n_definitions', [
             'content' => json_encode('A real title'),
         ]);
         $this->assertDatabaseHas('slugs', [
             'slug' => 'a-real-title',
-            'locale' => 'en'
+            'locale' => 'en',
         ]);
     }
 
@@ -123,12 +118,12 @@ class ArticlesFeatureTest extends AdminUserTestCase
         $article = \Ikoncept\Fabriq\Models\Article::factory()->create();
 
         // Act
-        $response = $this->json('GET', '/articles/' . $article->id);
+        $response = $this->json('GET', '/articles/'.$article->id);
 
         // Assert
         $response->assertOk();
         $response->assertJsonFragment([
-            'name' => $article->name
+            'name' => $article->name,
         ]);
     }
 
@@ -137,7 +132,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
     {
         // Arrange
         $article = \Ikoncept\Fabriq\Models\Article::factory()->create([
-            'name' => 'Hoola'
+            'name' => 'Hoola',
         ]);
         $articles = \Ikoncept\Fabriq\Models\Article::factory()
             ->count(3)
@@ -159,47 +154,47 @@ class ArticlesFeatureTest extends AdminUserTestCase
             ->hasFields(1, [
                 'key' => 'title',
                 'type' => 'text',
-                'translated' => true
+                'translated' => true,
             ])
             ->create([
-                'slug' => 'article'
+                'slug' => 'article',
             ]);
 
         $metaField = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,
             'translated' => false,
             'key' => 'image',
-            'type' => 'image'
+            'type' => 'image',
         ]);
         $article = \Ikoncept\Fabriq\Models\Article::factory()->create([
             'revision' => 1,
-            'template_id' => $template->id
+            'template_id' => $template->id,
         ]);
 
         $content = [
             'title' => 'En titel',
-            'image' => [1]
+            'image' => [1],
         ];
         $article->updateContent($content);
 
         // Act
-        $response = $this->json('DELETE', '/articles/' . $article->id);
+        $response = $this->json('DELETE', '/articles/'.$article->id);
 
         // Assert
         // dd(RevisionMeta::all()->toArray());
         $response->assertOk();
         $this->assertDatabaseMissing('articles', [
-            'id' => $article->id
+            'id' => $article->id,
         ]);
         $this->assertDatabaseMissing('i18n_terms', [
-            'key' => 'articles_1_1_title'
+            'key' => 'articles_1_1_title',
         ]);
         $this->assertDatabaseMissing('i18n_definitions', [
-            'content' => 'En titel'
+            'content' => 'En titel',
         ]);
         $this->assertDatabaseMissing('revision_meta', [
             'model_id' => $article->id,
-            'model_type' => 'Ikoncept\Fabriq\Models\Article'
+            'model_type' => 'Ikoncept\Fabriq\Models\Article',
         ]);
     }
 
@@ -210,16 +205,16 @@ class ArticlesFeatureTest extends AdminUserTestCase
         $this->withoutExceptionHandling();
         $publishedArticle = \Ikoncept\Fabriq\Models\Article::factory()->create([
             'name' => 'Published',
-            'publishes_at' => now()->subYear()
+            'publishes_at' => now()->subYear(),
         ]);
         $notPublishedYetArticle = \Ikoncept\Fabriq\Models\Article::factory()->create([
             'name' => 'Not published yet',
-            'publishes_at' => now()->addYear()
+            'publishes_at' => now()->addYear(),
         ]);
         $hasBeenPublished = \Ikoncept\Fabriq\Models\Article::factory()->create([
             'name' => 'Has been published',
             'publishes_at' => now()->subYear(),
-            'unpublishes_at' => now()->subMonths(3)
+            'unpublishes_at' => now()->subMonths(3),
         ]);
 
         // Act
@@ -229,7 +224,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $response->assertJsonCount(1, 'data');
         $response->assertJsonFragment([
-            'publishes_at_date' => now()->subYear()->toDateString()
+            'publishes_at_date' => now()->subYear()->toDateString(),
         ]);
     }
 
@@ -241,25 +236,25 @@ class ArticlesFeatureTest extends AdminUserTestCase
            ->hasFields(1, [
                'key' => 'title',
                'type' => 'text',
-               'translated' => true
+               'translated' => true,
            ])
            ->create([
-               'slug' => 'article'
+               'slug' => 'article',
            ]);
 
         $metaField = RevisionTemplateField::factory()->create([
-           'template_id' => $template->id,
-           'translated' => false,
-           'key' => 'header',
-           'type' => 'text'
-       ]);
+            'template_id' => $template->id,
+            'translated' => false,
+            'key' => 'header',
+            'type' => 'text',
+        ]);
         $article = \Ikoncept\Fabriq\Models\Article::factory()->create([
-           'revision' => 1,
-           'template_id' => $template->id
-       ]);
+            'revision' => 1,
+            'template_id' => $template->id,
+        ]);
         $article->updateContent([
-           'header' => 'A nice header right'
-       ]);
+            'header' => 'A nice header right',
+        ]);
         $article->save();
 
         // Act
@@ -268,7 +263,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
         // Assert
         $this->assertEquals('A nice header right', $content->first());
         $this->assertDatabaseHas('revision_meta', [
-            'model_type' => $article->morphClass
+            'model_type' => $article->morphClass,
         ]);
     }
 }

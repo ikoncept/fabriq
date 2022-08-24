@@ -22,7 +22,7 @@ class MenuItemController extends ApiController
      * @param int $id
      * @return JsonResponse
      */
-    public function show(Request $request, int $id) : JsonResponse
+    public function show(Request $request, int $id): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(MenuItem::RELATIONSHIPS);
         $item = MenuItem::where('id', $id)
@@ -39,7 +39,7 @@ class MenuItemController extends ApiController
      * @param int $id
      * @return JsonResponse
      */
-    public function update(UpdateMenuItemRequest $request, int $id) : JsonResponse
+    public function update(UpdateMenuItemRequest $request, int $id): JsonResponse
     {
         $item = MenuItem::findOrFail($id);
         $item->updateMetaContent($request->content);
@@ -61,7 +61,7 @@ class MenuItemController extends ApiController
      * @param int $menuId
      * @return JsonResponse
      */
-    public function store(UpdateMenuItemRequest $request, int $menuId) : JsonResponse
+    public function store(UpdateMenuItemRequest $request, int $menuId): JsonResponse
     {
         $menuItemRoot = MenuItem::where('menu_id', $menuId)
             ->whereNull('parent_id')
@@ -83,7 +83,7 @@ class MenuItemController extends ApiController
      * @param int $id
      * @return JsonResponse
      */
-    public function destroy(int $id) : JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $menuItem = MenuItem::findOrFail($id);
         $menuItem->delete();

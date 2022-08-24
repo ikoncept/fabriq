@@ -4,19 +4,14 @@ namespace Tests\Feature;
 
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 
-use Illuminate\Foundation\Testing\WithFaker;
-use Ikoncept\Fabriq\Tests\TestCase;
-
 class AuthenticatedUserFeatureTest extends AdminUserTestCase
 {
-
-
     public function testAnAuhtenticatedUserCanGetInfoAboutSelf()
     {
         // Arrange
         $this->withoutExceptionHandling();
         $user = \Ikoncept\Fabriq\Models\User::factory([
-            'email_verified_at' => now()->subSeconds(30)
+            'email_verified_at' => now()->subSeconds(30),
         ])->create();
 
         // Act
@@ -27,7 +22,7 @@ class AuthenticatedUserFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $response->assertJsonFragment([
             'name' => $user->name,
-            'email' => $user->email
+            'email' => $user->email,
         ]);
     }
 
@@ -39,7 +34,7 @@ class AuthenticatedUserFeatureTest extends AdminUserTestCase
         // $this->withoutExceptionHandling();
         $user = \Ikoncept\Fabriq\Models\User::factory()->create([
             'password' => bcrypt('secret'),
-            'email_verified_at' => now()->subSeconds(30)
+            'email_verified_at' => now()->subSeconds(30),
         ]);
 
         // Act
@@ -48,7 +43,7 @@ class AuthenticatedUserFeatureTest extends AdminUserTestCase
             'email' => 'foppp@fep.com',
             'password' => 'newsecret12345',
             'password_confirmation' => 'newsecret12345',
-            'current_password' => 'secret'
+            'current_password' => 'secret',
         ]);
 
         // Assert

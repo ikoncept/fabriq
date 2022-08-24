@@ -49,18 +49,18 @@ trait FabriqUser
      * @param string $search
      * @return Builder
      */
-    public function scopeSearch(Builder $query, string $search) : Builder
+    public function scopeSearch(Builder $query, string $search): Builder
     {
         return $query->where('name', 'LIKE', '%'.$search.'%')
             ->orWhere('email', 'LIKE', '%'.$search.'%');
     }
 
-    public function notifications() : HasMany
+    public function notifications(): HasMany
     {
         return $this->hasMany(Notification::class);
     }
 
-    public function notificationsToBeNotified() : HasMany
+    public function notificationsToBeNotified(): HasMany
     {
         return $this->hasMany(Notification::class)
             ->whereNull('cleared_at')

@@ -7,7 +7,6 @@ use Ikoncept\Fabriq\Http\Requests\UpdateCommentRequest;
 use Ikoncept\Fabriq\Models\Comment;
 use Ikoncept\Fabriq\Transformers\CommentTransformer;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 
@@ -15,7 +14,7 @@ class CommentController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function update(UpdateCommentRequest $request, int $id) : JsonResponse
+    public function update(UpdateCommentRequest $request, int $id): JsonResponse
     {
         $comment = Comment::findOrFail($id);
         $comment->comment = $request->comment;
@@ -25,7 +24,7 @@ class CommentController extends ApiController
         return $this->respondWithItem($comment, new CommentTransformer);
     }
 
-    public function destroy(DeleteCommentRequest $request, int $id) : JsonResponse
+    public function destroy(DeleteCommentRequest $request, int $id): JsonResponse
     {
         $comment = Comment::whereId($id)
             ->with('notifications')

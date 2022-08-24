@@ -13,7 +13,7 @@ class GroupedTemplateFieldTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
     ];
 
     /**
@@ -23,7 +23,7 @@ class GroupedTemplateFieldTransformer extends TransformerAbstract
      * @param  Collection  $collection
      * @return array
      */
-    public function transform(Collection $collection) : array
+    public function transform(Collection $collection): array
     {
         return $collection->toArray();
     }

@@ -3,7 +3,6 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Ikoncept\Fabriq\Models\Image;
 use Ikoncept\Fabriq\Transformers\TagTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -24,7 +23,7 @@ class TagController extends ApiController
         'contacts' => 'Ikoncept\Fabriq\Models\Contact',
     ];
 
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $tags = QueryBuilder::for(Fabriq::getFqnModel('tag'))
             ->allowedFilters([
@@ -41,7 +40,7 @@ class TagController extends ApiController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request) : JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $modelName = self::TAGGABLE_TYPES[$request->model_type] ?? null;
         if (! $modelName) {

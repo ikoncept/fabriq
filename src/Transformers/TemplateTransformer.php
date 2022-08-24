@@ -15,7 +15,7 @@ class TemplateTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'fields', 'groupedFields',
     ];
 
@@ -26,7 +26,7 @@ class TemplateTransformer extends TransformerAbstract
      * @param  RevisionTemplate  $template
      * @return array
      */
-    public function transform(RevisionTemplate $template) : array
+    public function transform(RevisionTemplate $template): array
     {
         return $template->toArray();
     }
@@ -37,7 +37,7 @@ class TemplateTransformer extends TransformerAbstract
      * @param RevisionTemplate $template
      * @return Collection
      */
-    public function includeFields(RevisionTemplate $template) : Collection
+    public function includeFields(RevisionTemplate $template): Collection
     {
         return $this->collection($template->fields, new TemplateFieldTransformer());
     }
@@ -48,7 +48,7 @@ class TemplateTransformer extends TransformerAbstract
      * @param RevisionTemplate $template
      * @return Item
      */
-    public function includeGroupedFields(RevisionTemplate $template) : Item
+    public function includeGroupedFields(RevisionTemplate $template): Item
     {
         $grouped = $template->fields->groupBy('group');
 

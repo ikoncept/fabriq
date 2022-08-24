@@ -27,64 +27,64 @@ return [
             'route' => 'smartBlocks.index',
             'enabled' => env('FABRIQ_SMART_BLOCKS', true),
             'icon' => 'BrushFineIcon',
-            'roles' => ['admin']
+            'roles' => ['admin'],
         ],
         [
             'title' => 'Nyheter',
             'route' => 'articles.index',
             'enabled' => env('FABRIQ_ARTICLES', false),
             'icon' => 'NewspaperIcon',
-            'roles' => ['admin']
+            'roles' => ['admin'],
         ],
         [
             'title' => 'Kontakter',
             'route' => 'contacts.index',
             'enabled' => env('FABRIQ_CONTACTS', true),
             'icon' => 'UsersCrownIcon',
-            'roles' => ['admin']
+            'roles' => ['admin'],
         ],
         [
             'title' => 'Kalender',
             'route' => 'calendar.index',
             'enabled' => env('FABRIQ_EVENTS', false),
             'icon' => 'CalendarIcon',
-            'roles' => ['admin']
+            'roles' => ['admin'],
         ],
         [
             'title' => 'Användare',
             'route' => 'users.index',
             'enabled' => env('FABRIQ_USERS', true),
             'icon' => 'UsersGearIcon',
-            'roles' => ['admin']
+            'roles' => ['admin'],
         ],
         [
             'title' => 'Menyer',
             'route' => 'menus.index',
             'enabled' => env('FABRIQ_MENUS', true),
             'icon' => 'ListTreeIcon',
-            'roles' => ['admin']
+            'roles' => ['admin'],
         ],
         [
             'title' => 'Bilder',
             'route' => 'images.index',
             'enabled' => env('FABRIQ_IMAGES', true),
             'icon' => 'ImagesIcon',
-            'roles' => ['admin']
+            'roles' => ['admin'],
         ],
         [
             'title' => 'Videos',
             'route' => 'videos.index',
             'enabled' => env('FABRIQ_VIDEOS', true),
             'icon' => 'CameraMovieIcon',
-            'roles' => ['admin']
+            'roles' => ['admin'],
         ],
         [
             'title' => 'Filer',
             'route' => 'files.index',
             'enabled' => env('FABRIQ_FILES', true),
             'icon' => 'FilesIcon',
-            'roles' => ['admin']
-        ]
+            'roles' => ['admin'],
+        ],
     ],
     'front_end_domain' => env('FABRIQ_FRONT_END_DOMAIN', 'http://localhost:3000'),
     'bucket_prefix' => env('BUCKET_PREFIX', 'fabriq-dev'),
@@ -127,7 +127,7 @@ return [
         'max_file_size' => 1024 * 1024 * 500, // 500 MB,
         'jobs' => [
             'perform_conversions' => Spatie\MediaLibrary\Conversions\Jobs\PerformConversionsJob::class,
-            'generate_responsive_images' => \Ikoncept\Fabriq\Jobs\GenerateResponsiveImagesJob::class
+            'generate_responsive_images' => \Ikoncept\Fabriq\Jobs\GenerateResponsiveImagesJob::class,
         ],
         'path_generator' => \Ikoncept\Fabriq\Services\MediaPathGenerator::class,
         'remote' => [
@@ -135,14 +135,14 @@ return [
                 'CacheControl' => 'max-age=604800',
                 'ACL' => 'public-read',
             ],
-        ]
+        ],
     ],
 
     'fortify' => [
         'features' => [
             \Laravel\Fortify\Features::resetPasswords(),
             \Laravel\Fortify\Features::updateProfileInformation(),
-            \Laravel\Fortify\Features::updatePasswords()
-        ]
-    ]
+            \Laravel\Fortify\Features::updatePasswords(),
+        ],
+    ],
 ];

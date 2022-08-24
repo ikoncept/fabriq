@@ -15,7 +15,7 @@ class VideoTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'tags',
     ];
 
@@ -56,7 +56,7 @@ class VideoTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeTags(Video $video) : Collection
+    public function includeTags(Video $video): Collection
     {
         return $this->collection($video->tags, new TagTransformer);
     }

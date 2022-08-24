@@ -13,7 +13,7 @@ class PageTreeOptionTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
     ];
 
     /**
@@ -30,7 +30,7 @@ class PageTreeOptionTransformer extends TransformerAbstract
      * @param  Collection  $tree
      * @return array
      */
-    public function transform(Collection $tree) : array
+    public function transform(Collection $tree): array
     {
         $this->walktree($tree);
 

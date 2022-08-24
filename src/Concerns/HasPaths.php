@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 trait HasPaths
 {
-    public function scopeWhereHash(Builder $query, string $hash) : Builder
+    public function scopeWhereHash(Builder $query, string $hash): Builder
     {
         return $query->where($this->getWhereHashStatement(), $hash);
     }
@@ -23,14 +23,14 @@ trait HasPaths
      * @param string|null $path
      * @return string
      */
-    public function getAbsolutePath($path) : string
+    public function getAbsolutePath($path): string
     {
         return config('fabriq.front_end_domain')
             .$this->currentLocaleString()
             .($path ?? '/'.$this->latestSlug->slug);
     }
 
-    public function getPermalinkPath() : string
+    public function getPermalinkPath(): string
     {
         return config('fabriq.front_end_domain')
             .'/permalink/'
@@ -38,7 +38,7 @@ trait HasPaths
             .$this->currentLocaleString();
     }
 
-    public function transformPaths() : array
+    public function transformPaths(): array
     {
         return $this->paths->map(function ($item) {
             if (! isset($item[App::currentLocale()])) {
@@ -52,7 +52,7 @@ trait HasPaths
         })->filter()->first();
     }
 
-    protected function currentLocaleString() : string
+    protected function currentLocaleString(): string
     {
         $enabledLocales = Fabriq::getModelClass('locale')->cachedLocales();
         if ($enabledLocales->count() > 1) {
@@ -62,7 +62,7 @@ trait HasPaths
         return '';
     }
 
-    protected function getWhereHashStatement() : Expression
+    protected function getWhereHashStatement(): Expression
     {
         $connection = config('database.default');
         $driver = config("database.connections.{$connection}.driver");
@@ -70,7 +70,7 @@ trait HasPaths
         return ($driver === 'pgsql') ? DB::raw('md5(id::text)') : DB::raw('md5(id)');
     }
 
-    public function getPathsAttribute() : Collection
+    public function getPathsAttribute(): Collection
     {
         $slugGroups = collect([]);
 
@@ -97,7 +97,7 @@ trait HasPaths
         return $slugGroups;
     }
 
-    public function getLocalizedPathsAttribute() : Collection
+    public function getLocalizedPathsAttribute(): Collection
     {
         $slugGroups = collect([]);
         $localizedSlugs = $this->menuItems->map(function ($item) {

@@ -3,7 +3,6 @@
 namespace Ikoncept\Fabriq;
 
 use Illuminate\Contracts\Routing\Registrar as Router;
-use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -32,7 +31,7 @@ class RouteRegistrar
      *
      * @return void
      */
-    public function allWeb() : void
+    public function allWeb(): void
     {
         Route::get('/email/verify', function ($request) {
             return view('auth.verify-email', ['request' => $request]);
@@ -70,7 +69,7 @@ class RouteRegistrar
      *
      * @return void
      */
-    public function all() : void
+    public function all(): void
     {
         $this->forMiscRoutes();
         $this->forArticles();
@@ -137,22 +136,22 @@ class RouteRegistrar
         Route::post('bust-cache', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\BustCacheController::class, 'store']);
     }
 
-    public function forArticles() : void
+    public function forArticles(): void
     {
         Route::resource('articles', \Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ArticleController::class);
     }
 
-    public function forContacts() : void
+    public function forContacts(): void
     {
         Route::resource('contacts', \Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ContactController::class);
     }
 
-    public function forBlockTypes() : void
+    public function forBlockTypes(): void
     {
         Route::resource('block-types', \Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\BlockTypeController::class);
     }
 
-    public function forComments() : void
+    public function forComments(): void
     {
         Route::get('{model}/{id}/comments', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\CommentableController::class, 'index']);
         Route::post('{model}/{id}/comments', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\CommentableController::class, 'store']);
@@ -160,17 +159,17 @@ class RouteRegistrar
         Route::delete('comments/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\CommentController::class, 'destroy']);
     }
 
-    public function forConfig() : void
+    public function forConfig(): void
     {
         Route::get('config', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ConfigController::class, 'index']);
     }
 
-    public function forEvents() : void
+    public function forEvents(): void
     {
         Route::resource('events', \Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\EventController::class);
     }
 
-    public function forFiles() : void
+    public function forFiles(): void
     {
         Route::get('files', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\FileController::class, 'index']);
         Route::get('files/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\FileController::class, 'show']);
@@ -178,7 +177,7 @@ class RouteRegistrar
         Route::delete('files/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\FileController::class, 'destroy']);
     }
 
-    public function forImages() : void
+    public function forImages(): void
     {
         Route::get('images/{id}/src-set', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ImageSourceSetController::class, 'show']);
         Route::get('/{model}/{id}/images', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ImageableController::class, 'index']);
@@ -189,13 +188,13 @@ class RouteRegistrar
         Route::delete('images/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ImageController::class, 'destroy']);
     }
 
-    public function forDownloads() : void
+    public function forDownloads(): void
     {
         Route::get('downloads', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\DownloadController::class, 'index']);
         Route::get('downloads/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\DownloadController::class, 'show']);
     }
 
-    public function forMiscRoutes() : void
+    public function forMiscRoutes(): void
     {
         Route::get('templates', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\RevisionTemplateController::class, 'index']);
         Route::get('menus/{slug}/public', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\MenuItemTreeController::class, 'show']);
@@ -207,7 +206,7 @@ class RouteRegistrar
         Route::post('uploads/videos', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\VideoUploadController::class, 'store']);
     }
 
-    public function forMenus() : void
+    public function forMenus(): void
     {
         Route::get('menus', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\MenuController::class, 'index']);
         Route::post('menus', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\MenuController::class, 'store']);
@@ -223,7 +222,7 @@ class RouteRegistrar
         Route::delete('menu-items/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\MenuItemController::class, 'destroy']);
     }
 
-    public function forPages() : void
+    public function forPages(): void
     {
         Route::get('pages-tree', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageTreeController::class, 'index']);
         Route::patch('pages-tree', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageTreeController::class, 'update']);
@@ -239,7 +238,7 @@ class RouteRegistrar
         Route::get('pages/{id}/signed-url', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageSignedUrlController::class, 'show']);
     }
 
-    public function forInvitations() : void
+    public function forInvitations(): void
     {
         // Route::get('/invitations/accept/{token}', [Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AcceptInvitationController::class, 'show'])->name('invitation.accept');
         Route::post('invitations/{userId}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\InvitationController::class, 'store'])->name('invitations.store');
@@ -251,23 +250,23 @@ class RouteRegistrar
         Route::get('pages/{slug}/preview', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PageSlugPreviewController::class, 'show'])->name('pages.show.preview');
     }
 
-    public function forRoles() : void
+    public function forRoles(): void
     {
         Route::get('roles', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\RoleController::class, 'index']);
     }
 
-    public function forSmartBlocks() : void
+    public function forSmartBlocks(): void
     {
         Route::resource('smart-blocks', \Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\SmartBlockController::class);
     }
 
-    public function forTags() : void
+    public function forTags(): void
     {
         Route::get('tags', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\TagController::class, 'index']);
         Route::post('tags', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\TagController::class, 'store']);
     }
 
-    public function forAuthenticatedUsers() : void
+    public function forAuthenticatedUsers(): void
     {
         Route::get('user', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AuthenticatedUserController::class, 'index']);
         Route::patch('user', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AuthenticatedUserController::class, 'update']);
@@ -292,7 +291,7 @@ class RouteRegistrar
         Route::patch('/user/notifications/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\NotificationController::class, 'update']);
     }
 
-    public function forVideos() : void
+    public function forVideos(): void
     {
         Route::get('videos', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\VideoController::class, 'index']);
         Route::get('videos/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\VideoController::class, 'show']);
@@ -300,12 +299,12 @@ class RouteRegistrar
         Route::delete('videos/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\VideoController::class, 'destroy']);
     }
 
-    public function forImageSrcSet() : void
+    public function forImageSrcSet(): void
     {
         Route::get('images/{id}/src-set', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ImageSourceSetController::class, 'show']);
     }
 
-    public function forPagePaths() : void
+    public function forPagePaths(): void
     {
         Route::get('pages/{id}/paths', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\PagePathController::class, 'index'])
             ->name('pages.paths.index')

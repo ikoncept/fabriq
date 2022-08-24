@@ -2,7 +2,6 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use League\Fractal\TransformerAbstract;
 
@@ -14,7 +13,7 @@ class NotifiableTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'user', 'page',
     ];
 

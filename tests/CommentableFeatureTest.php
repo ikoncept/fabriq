@@ -6,18 +6,11 @@ use Ikoncept\Fabriq\Events\CommentDeleted;
 use Ikoncept\Fabriq\Events\CommentPosted;
 use Ikoncept\Fabriq\Events\NotificationDeleted;
 use Ikoncept\Fabriq\Events\UserMentionedInComment;
-use Ikoncept\Fabriq\Models\Notification;
-
-use Illuminate\Foundation\Testing\WithFaker;
-use Laravel\Sanctum\Sanctum;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
 use Illuminate\Support\Facades\Event;
 
 class CommentableFeatureTest extends AdminUserTestCase
 {
-
-
     /** @test **/
     public function it_can_attach_commentable_behaviour_to_a_model()
     {
@@ -101,7 +94,7 @@ class CommentableFeatureTest extends AdminUserTestCase
         ]);
         $this->assertDatabaseHas('comments', [
             'comment' => 'This is the answer on your special comment.',
-            'parent_id' => $parentComment->id
+            'parent_id' => $parentComment->id,
         ]);
         // $this->assertCount(2, $parentComment->children);
         // $this->assertEquals('This is the answer on your special comment.', $parentComment->children->first()->comment);
@@ -118,21 +111,20 @@ class CommentableFeatureTest extends AdminUserTestCase
             ->create([
                 'commentable_type' => 'Ikoncept\Fabriq\Models\Page',
                 'commentable_id' => $page->id,
-                'user_id' => \Ikoncept\Fabriq\Models\User::factory()->create()
+                'user_id' => \Ikoncept\Fabriq\Models\User::factory()->create(),
             ]);
         $firstComment = $comments->first();
         $user = \Ikoncept\Fabriq\Models\User::factory()->create();
         $childComment = $page->commentAs($user, 'This is the answer on your special comment.', $firstComment->id);
 
         // Act
-        $response = $this->json('GET', '/pages/' . $page->id . '/comments?include=children');
-
+        $response = $this->json('GET', '/pages/'.$page->id.'/comments?include=children');
 
         // Assert
         $response->assertOk();
         $response->assertJsonCount(5, 'data');
         $response->assertJsonFragment([
-            'comment' => 'This is the answer on your special comment.'
+            'comment' => 'This is the answer on your special comment.',
         ]);
     }
 
@@ -156,7 +148,7 @@ class CommentableFeatureTest extends AdminUserTestCase
 
         // Act
         $response = $this->json('POST', '/pagesrinoe/1/comments', [
-            'comment' => 'a comment!'
+            'comment' => 'a comment!',
         ]);
 
         // Assert
@@ -170,14 +162,14 @@ class CommentableFeatureTest extends AdminUserTestCase
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
 
         // Act
-        $response = $this->json('POST', '/pages/' . $page->id . '/comments', [
-            'comment' => '<p>I have no idea at all</p>'
+        $response = $this->json('POST', '/pages/'.$page->id.'/comments', [
+            'comment' => '<p>I have no idea at all</p>',
         ]);
 
         // Assert
         $response->assertStatus(201);
         $this->assertDatabaseHas('comments', [
-            'comment' => '<p>I have no idea at all</p>'
+            'comment' => '<p>I have no idea at all</p>',
         ]);
     }
 
@@ -190,30 +182,30 @@ class CommentableFeatureTest extends AdminUserTestCase
         $user = \Ikoncept\Fabriq\Models\User::factory()->create();
         $otherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
             'name' => 'Roger Pontare',
-            'email' => 'roger@pontare.se'
+            'email' => 'roger@pontare.se',
         ]);
         $anotherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
             'name' => 'Sven',
-            'email' => 'sven@pontare.se'
+            'email' => 'sven@pontare.se',
         ]);
         $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-email="roger@pontare.se">@Roger Pontare</span> <span data-mention="" class="mention" data-email="Sven">@Sven</span><p>');
 
         $this->actingAs($user);
 
         // Act
-        $response = $this->json('DELETE', '/comments/' . $page->comments->first()->id);
+        $response = $this->json('DELETE', '/comments/'.$page->comments->first()->id);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseMissing('comments', [
-            'comment' => 'This is my special comment!'
+            'comment' => 'This is my special comment!',
         ]);
         $this->assertDatabaseMissing('notifications', [
             'type' => 'comment',
-            'notifiable_id' => $page->id
+            'notifiable_id' => $page->id,
         ]);
         $this->assertDatabaseMissing('notifications', [
-            'user_id' => $otherUser->id
+            'user_id' => $otherUser->id,
         ]);
         Event::assertDispatched(NotificationDeleted::class);
     }
@@ -231,12 +223,12 @@ class CommentableFeatureTest extends AdminUserTestCase
         $this->actingAs($currentUser);
 
         // Act
-        $response = $this->json('DELETE', '/comments/' . $page->comments->first()->id);
+        $response = $this->json('DELETE', '/comments/'.$page->comments->first()->id);
 
         // Assert
         $response->assertStatus(403);
         $this->assertDatabaseHas('comments', [
-            'comment' => 'This is my special comment!'
+            'comment' => 'This is my special comment!',
         ]);
     }
 
@@ -253,12 +245,12 @@ class CommentableFeatureTest extends AdminUserTestCase
         $this->actingAs($currentUser);
 
         // Act
-        $response = $this->json('DELETE', '/comments/' . $page->comments->first()->id);
+        $response = $this->json('DELETE', '/comments/'.$page->comments->first()->id);
 
         // Assert
         $response->assertStatus(200);
         $this->assertDatabaseMissing('comments', [
-            'comment' => 'This is my special comment!'
+            'comment' => 'This is my special comment!',
         ]);
     }
 
@@ -274,24 +266,24 @@ class CommentableFeatureTest extends AdminUserTestCase
         $this->actingAs($user);
 
         // Act
-        $response = $this->json('PATCH', '/comments/' . $page->comments->first()->id, [
-            'comment' => 'edited!'
+        $response = $this->json('PATCH', '/comments/'.$page->comments->first()->id, [
+            'comment' => 'edited!',
         ]);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseMissing('comments', [
             'id' => $page->comments->first()->id,
-            'comment' => 'This is my special comment!'
+            'comment' => 'This is my special comment!',
         ]);
         $this->assertDatabaseMissing('comments', [
             'id' => $page->comments->first()->id,
             'comment' => 'edited!',
-            'edited_at' => null
+            'edited_at' => null,
         ]);
         $this->assertDatabaseHas('comments', [
             'id' => $page->comments->first()->id,
-            'comment' => 'edited!'
+            'comment' => 'edited!',
         ]);
     }
 
@@ -304,11 +296,11 @@ class CommentableFeatureTest extends AdminUserTestCase
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $otherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
             'name' => 'Roger Pontare',
-            'email' => 'roger@pontare.se'
+            'email' => 'roger@pontare.se',
         ]);
         $anotherUser = \Ikoncept\Fabriq\Models\User::factory()->create([
             'name' => 'Sven',
-            'email' => 'sven@pontare.se'
+            'email' => 'sven@pontare.se',
         ]);
         $user = \Ikoncept\Fabriq\Models\User::factory()->create();
         $comment = $page->commentAs($user, '<p>This is my special comment! <span data-mention="" class="mention" data-email="roger@pontare.se">@Roger Pontare</span> <span data-mention="" class="mention" data-email="sven@pontare.se">@Sven</span><p>');
@@ -319,11 +311,11 @@ class CommentableFeatureTest extends AdminUserTestCase
         ]);
         $this->assertDatabaseHas('notifications', [
             'notifiable_id' => $comment->id,
-            'user_id' => $otherUser->id
+            'user_id' => $otherUser->id,
         ]);
         $this->assertDatabaseHas('notifications', [
             'notifiable_id' => $comment->id,
-            'user_id' => $anotherUser->id
+            'user_id' => $anotherUser->id,
         ]);
         Event::assertDispatched(CommentPosted::class);
         Event::assertDispatched(UserMentionedInComment::class);
@@ -342,12 +334,12 @@ class CommentableFeatureTest extends AdminUserTestCase
         $this->actingAs($user);
 
         // Act
-        $response = $this->json('DELETE', '/comments/' . $childComment->id);
+        $response = $this->json('DELETE', '/comments/'.$childComment->id);
 
         // Assert
         $response->assertOk();
         $this->assertDatabaseMissing('comments', [
-            'id' => $comment->id
+            'id' => $comment->id,
         ]);
         Event::assertDispatched(CommentDeleted::class);
     }

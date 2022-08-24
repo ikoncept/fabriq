@@ -6,7 +6,6 @@ use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Controllers\Controller;
 use Ikoncept\Fabriq\Http\Requests\AcceptInvitationRequest;
 use Ikoncept\Fabriq\Models\Invitation;
-use Ikoncept\Fabriq\Transformers\InvitationTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

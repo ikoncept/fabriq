@@ -2,7 +2,6 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
-use Ikoncept\Fabriq\Repositories\Decorators\CachingPageRepository;
 use Ikoncept\Fabriq\Repositories\EloquentPageRepository;
 use Ikoncept\Fabriq\Transformers\LivePageTransformer;
 use Illuminate\Http\JsonResponse;
@@ -14,7 +13,7 @@ class PageSlugsController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function show(EloquentPageRepository $repo, Request $request, string $slug) : JsonResponse
+    public function show(EloquentPageRepository $repo, Request $request, string $slug): JsonResponse
     {
         $result = $repo->findBySlug($slug);
 

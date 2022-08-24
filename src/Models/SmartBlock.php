@@ -11,8 +11,6 @@ use Ikoncept\Fabriq\Database\Factories\SmartBlockFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
-use Infab\TranslatableRevisions\Events\DefinitionsPublished;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 use Infab\TranslatableRevisions\Traits\HasTranslatedRevisions;
 use Infab\TranslatableRevisions\Traits\RevisionOptions;
@@ -30,7 +28,7 @@ class SmartBlock extends Model
      */
     public $morphClass = 'smart_block';
 
-    protected static function newFactory() : SmartBlockFactory
+    protected static function newFactory(): SmartBlockFactory
     {
         return SmartBlockFactory::new();
     }
@@ -38,7 +36,7 @@ class SmartBlock extends Model
     /**
      * Get the options for the revisions.
      */
-    public function getRevisionOptions() : RevisionOptions
+    public function getRevisionOptions(): RevisionOptions
     {
         return RevisionOptions::create()
             ->registerSpecialTypes(['image', 'video', 'file', 'buttons', 'button'])
@@ -123,7 +121,7 @@ class SmartBlock extends Model
      * @param string $search
      * @return Builder
      */
-    public function scopeSearch(Builder $query, string $search) : Builder
+    public function scopeSearch(Builder $query, string $search): Builder
     {
         return $query->whereLike(['name'], $search);
     }

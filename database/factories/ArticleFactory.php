@@ -23,7 +23,7 @@ class ArticleFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence,
-            'template_id' => 2
+            'template_id' => 2,
         ];
     }
 }

@@ -9,8 +9,7 @@ use Infab\TranslatableRevisions\Models\RevisionTemplate;
 
 class ClonePageFeatureTest extends AdminUserTestCase
 {
-
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -19,17 +18,16 @@ class ClonePageFeatureTest extends AdminUserTestCase
         app(DatabaseSeeder::class)->call(PageTemplateSeeder::class);
     }
 
-
     /** @test **/
     public function it_can_clone_another_page()
     {
         // Arrange
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create([
             'name' => 'Den första startsidan',
-            'template_id' => RevisionTemplate::all()->first()->id
+            'template_id' => RevisionTemplate::all()->first()->id,
         ]);
         $image = \Ikoncept\Fabriq\Models\Image::factory()->create([
-            'id' => 12
+            'id' => 12,
         ]);
         $image->addMediaFromString('A nice media')
             ->toMediaCollection('profile_image');
@@ -38,15 +36,15 @@ class ClonePageFeatureTest extends AdminUserTestCase
         $page->save();
 
         // Act
-        $response = $this->json('POST', route('pages.clone.store', $page->id) . '?include=localizedContent', [
-            'localizedContent' => $this->pageData['localizedContent']
+        $response = $this->json('POST', route('pages.clone.store', $page->id).'?include=localizedContent', [
+            'localizedContent' => $this->pageData['localizedContent'],
         ]);
 
         // Assert
         $response->assertStatus(201);
         $this->assertDatabaseHas('pages', [
             'name' => 'Kopia av Den första startsidan',
-            'template_id' => 1
+            'template_id' => 1,
         ]);
         $response->assertJson([
             'data' => [
@@ -60,24 +58,24 @@ class ClonePageFeatureTest extends AdminUserTestCase
                                         'name' => 'El blocko',
                                         'block_type' => [
                                             'name' => 'Demo-block',
-                                            'has_children' => true
+                                            'has_children' => true,
                                         ],
                                         'children' => [
                                             [
                                                 'id' => 'if0i8d5',
                                                 'hasImage' => true,
                                                 'image' => [
-                                                    'id' => 12
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                                    'id' => 12,
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ]);
     }
 }

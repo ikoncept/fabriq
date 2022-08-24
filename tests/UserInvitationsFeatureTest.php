@@ -1,13 +1,9 @@
 <?php
 
-
 namespace Ikoncept\Fabriq\Tests;
 
 use Ikoncept\Fabriq\Mail\AccountInvitation;
-use Ikoncept\Fabriq\Models\Image;
 use Ikoncept\Fabriq\Models\User;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 
@@ -69,7 +65,7 @@ class UserInvitationsFeatureTest extends AdminUserTestCase
         // Arrange
         $this->user->assignRole('admin');
         $otherUser = User::factory()->create([
-            'email_verified_at' => null
+            'email_verified_at' => null,
         ]);
 
         $invitation = $otherUser->createInvitation();
@@ -86,13 +82,12 @@ class UserInvitationsFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $this->assertDatabaseMissing('users', [
             'id' => $invitation->user_id,
-            'email_verified_at' => null
+            'email_verified_at' => null,
         ]);
         $this->assertDatabaseMissing('invitations', [
             'user_id' => $invitation->user_id,
         ]);
     }
-
 
     /** @test **/
     public function it_can_show_the_create_account_view()
@@ -100,8 +95,8 @@ class UserInvitationsFeatureTest extends AdminUserTestCase
         // Arrange
         $this->user->assignRole('admin');
         $otherUser = User::factory()->create([
-                 'email_verified_at' => null
-            ]);
+            'email_verified_at' => null,
+        ]);
 
         $invitation = $otherUser->createInvitation();
         $url = URL::temporarySignedRoute('invitation.accept', now()->addHours(48), [$invitation->uuid]);

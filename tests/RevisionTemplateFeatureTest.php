@@ -2,16 +2,11 @@
 
 namespace Tests\Feature;
 
-
-use Illuminate\Foundation\Testing\WithFaker;
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
+use Infab\TranslatableRevisions\Models\RevisionTemplate;
 
 class RevisionTemplateFeatureTest extends AdminUserTestCase
 {
-
-
     /** @test **/
     public function it_can_get_all_templates()
     {

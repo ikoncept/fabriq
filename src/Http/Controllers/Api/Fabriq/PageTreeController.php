@@ -3,7 +3,6 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Transformers\PageTreeOptionTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,7 +13,7 @@ class PageTreeController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $pageRoot = Fabriq::getModelClass('page')
             ->whereNull('parent_id')->first();
@@ -33,7 +32,7 @@ class PageTreeController extends ApiController
         ]);
     }
 
-    public function update(Request $request) : JsonResponse
+    public function update(Request $request): JsonResponse
     {
         $pageRoot = Fabriq::getModelClass('page')->whereNull('parent_id')
             ->first();

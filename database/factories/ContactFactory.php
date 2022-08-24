@@ -22,10 +22,10 @@ class ContactFactory extends Factory
     public function definition()
     {
         return [
-            'name'      => $this->faker->name,
-            'email'     => $this->faker->email,
-            'phone'     => $this->faker->phoneNumber,
-            'mobile'    => $this->faker->phoneNumber,
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'phone' => $this->faker->phoneNumber,
+            'mobile' => $this->faker->phoneNumber,
         ];
     }
 }

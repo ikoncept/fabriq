@@ -23,7 +23,7 @@ class FileFactory extends Factory
     {
         return [
             'caption' => $this->faker->sentence,
-            'readable_name' => $this->faker->sentence(3)
+            'readable_name' => $this->faker->sentence(3),
         ];
     }
 

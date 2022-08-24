@@ -3,8 +3,6 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Ikoncept\Fabriq\Http\Requests\CreatePageRequest;
-use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Transformers\PageTransformer;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;

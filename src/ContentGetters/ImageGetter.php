@@ -2,13 +2,8 @@
 
 namespace Ikoncept\Fabriq\ContentGetters;
 
-use Ikoncept\Fabriq\ContentGetters\BaseGetter;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Image;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 
 class ImageGetter extends BaseGetter implements GetterInterface

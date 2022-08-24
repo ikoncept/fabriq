@@ -5,12 +5,7 @@ namespace Ikoncept\Fabriq\Tests\Feature;
 use Ikoncept\Fabriq\Models\User;
 use Ikoncept\Fabriq\Notifications\AskToLeaveNotification;
 use Ikoncept\Fabriq\Notifications\LeaveDeclinedNotification;
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
-use Infab\TranslatableRevisions\Models\RevisionTemplateField;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 
 class AskToLeaveFeatureTest extends AdminUserTestCase
@@ -24,12 +19,12 @@ class AskToLeaveFeatureTest extends AdminUserTestCase
 
         // Act
         $response = $this->json('POST', route('notifications.ask-to-leave', [$otherUser->id]), [
-            'path' => '/pages/7/edit'
+            'path' => '/pages/7/edit',
         ]);
 
         // Assert
         $response->assertOk();
-        Notification::assertSentTo($otherUser, AskToLeaveNotification::class, function($notifiable) {
+        Notification::assertSentTo($otherUser, AskToLeaveNotification::class, function ($notifiable) {
             return $notifiable->pageIdentifier === '/pages/7/edit'
                 && $notifiable->causer->email === $this->user->email;
         });
@@ -44,12 +39,12 @@ class AskToLeaveFeatureTest extends AdminUserTestCase
 
         // Act
         $response = $this->json('POST', route('notifications.decline-to-leave', [$otherUser->id]), [
-            'path' => '/pages/7/edit'
+            'path' => '/pages/7/edit',
         ]);
 
         // Assert
         $response->assertOk();
-        Notification::assertSentTo($otherUser, LeaveDeclinedNotification::class, function($notifiable) {
+        Notification::assertSentTo($otherUser, LeaveDeclinedNotification::class, function ($notifiable) {
             return $notifiable->pageIdentifier === '/pages/7/edit'
                 && $notifiable->causer->email === $this->user->email;
         });

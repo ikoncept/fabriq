@@ -3,12 +3,9 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Ikoncept\Fabriq\Models\Locale;
 use Ikoncept\Fabriq\Transformers\ConfigTransformer;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
 
@@ -21,7 +18,7 @@ class ConfigController extends ApiController
      *
      * @return JsonResponse
      */
-    public function index() : JsonResponse
+    public function index(): JsonResponse
     {
         $config = new Collection(config('fabriq'));
         $fabriqConfig = $config->only([

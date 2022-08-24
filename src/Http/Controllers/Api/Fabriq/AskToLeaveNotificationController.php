@@ -13,7 +13,7 @@ class AskToLeaveNotificationController extends ApiController
 {
     use ApiControllerTrait;
 
-    public function __invoke(Request $request, int $userId) : JsonResponse
+    public function __invoke(Request $request, int $userId): JsonResponse
     {
         $request->validate([
             'path' => 'required|max:255',

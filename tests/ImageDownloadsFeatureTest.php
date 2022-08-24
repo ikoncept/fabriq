@@ -2,16 +2,10 @@
 
 namespace Tests\Feature;
 
-
-use Illuminate\Foundation\Testing\WithFaker;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Ikoncept\Fabriq\Tests\TestCase;
 
 class ImageDownloadsFeatureTest extends AdminUserTestCase
 {
-
-
-
     /** @test **/
     public function it_can_download_a_bunch_of_files_as_a_zip()
     {
@@ -33,7 +27,7 @@ class ImageDownloadsFeatureTest extends AdminUserTestCase
         $image = \Ikoncept\Fabriq\Models\Image::factory()->create();
 
         // Act
-        $response = $this->json('GET', '/downloads/' . $image->id, ['type' => 'images']);
+        $response = $this->json('GET', '/downloads/'.$image->id, ['type' => 'images']);
 
         // Assert
         $response->assertOk();

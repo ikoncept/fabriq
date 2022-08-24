@@ -4,15 +4,9 @@ namespace Ikoncept\Fabriq\Tests;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Laravel\Sanctum\Sanctum;
-use Orchestra\Testbench\Concerns\CreatesApplication;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class AdminUserTestCase extends Orchestra
@@ -21,16 +15,16 @@ abstract class AdminUserTestCase extends Orchestra
 
     public $user;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
-        Fabriq::routes(function($router) {
+        Fabriq::routes(function ($router) {
             $router->all();
         });
 
-        Fabriq::routes(function($router) {
+        Fabriq::routes(function ($router) {
             $router->allWeb();
-        },[
+        }, [
             'middleware' => ['web'],
         ]);
 
@@ -39,20 +33,20 @@ abstract class AdminUserTestCase extends Orchestra
         Artisan::call('fabriq:install');
         Artisan::call('vendor:publish', [
             '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
-            '--tag' => 'fabriq-translations'
+            '--tag' => 'fabriq-translations',
         ]);
 
         $user = User::factory()->create([
             'name' => 'Albin N',
             'email' => 'albin@infab.io',
-            'password' => bcrypt('secret')
+            'password' => bcrypt('secret'),
         ]);
 
         $this->user = $user;
         $this->actingAs($user);
     }
 
-    public function tearDown() : void
+    public function tearDown(): void
     {
         $dir = storage_path('/app/public/__test');
         File::deleteDirectory($dir);
@@ -82,15 +76,14 @@ abstract class AdminUserTestCase extends Orchestra
             'url' => env('APP_URL').'/storage/__test',
             'visibility' => 'public',
         ]);
-        $app['config']->set('fabriq.models.user',  \Ikoncept\Fabriq\Models\User::class);
+        $app['config']->set('fabriq.models.user', \Ikoncept\Fabriq\Models\User::class);
     }
 
     protected function getPackageProviders($app)
     {
         return [
             \Ikoncept\Fabriq\FabriqCoreServiceProvider::class,
-            \Ikoncept\Fabriq\FortifyServiceProvider::class
+            \Ikoncept\Fabriq\FortifyServiceProvider::class,
         ];
     }
-
 }

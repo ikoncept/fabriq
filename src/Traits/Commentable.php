@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait Commentable
 {
-    public function comments() : MorphMany
+    public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable')
             ->whereNull('parent_id')
@@ -37,7 +37,7 @@ trait Commentable
         ]);
     }
 
-    private function newComment(array $data) : Model
+    private function newComment(array $data): Model
     {
         return $this->comments()->create(array_merge(
             $data,

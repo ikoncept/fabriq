@@ -20,7 +20,7 @@ class MenuController extends ApiController
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Menu::RELATIONSHIPS);
         $paginator = Menu::with($eagerLoad)->paginate($this->number);
@@ -35,7 +35,7 @@ class MenuController extends ApiController
      * @param int $id
      * @return JsonResponse
      */
-    public function show(Request $request, int $id) : JsonResponse
+    public function show(Request $request, int $id): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Menu::RELATIONSHIPS);
         $menu = Menu::where('id', $id)
@@ -51,7 +51,7 @@ class MenuController extends ApiController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request) : JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $menu = new Menu();
         $menu->name = $request->name;
@@ -71,7 +71,7 @@ class MenuController extends ApiController
      * @param int $id
      * @return JsonResponse
      */
-    public function update(Request $request, int $id) : JsonResponse
+    public function update(Request $request, int $id): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(Menu::RELATIONSHIPS);
         $menu = Menu::where('id', $id)
@@ -89,7 +89,7 @@ class MenuController extends ApiController
      * @param int $id
      * @return JsonResponse
      */
-    public function destroy(int $id) : JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $menu = Menu::where('id', $id)->firstOrFail();
         $menu->delete();

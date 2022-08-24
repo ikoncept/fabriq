@@ -20,7 +20,7 @@ class Notification extends Model
      */
     public $morphClass = 'notification';
 
-    protected static function newFactory() : NotificationFactory
+    protected static function newFactory(): NotificationFactory
     {
         return NotificationFactory::new();
     }
@@ -31,24 +31,24 @@ class Notification extends Model
 
     protected $dates = ['cleared_at', 'notified_at'];
 
-    protected static function booted() : void
+    protected static function booted(): void
     {
         static::deleted(function ($model) {
             NotificationDeleted::dispatch($model);
         });
     }
 
-    public function notifiable() : MorphTo
+    public function notifiable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function scopeUnseen(Builder $query) : Builder
+    public function scopeUnseen(Builder $query): Builder
     {
         return $query->whereNull('cleared_at');
     }
 
-    public function scopeSeen(Builder $query) : Builder
+    public function scopeSeen(Builder $query): Builder
     {
         return $query->whereNotNull('cleared_at');
     }

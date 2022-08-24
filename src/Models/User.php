@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -88,7 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail
         Fabriq::getModelClass('user')->find($this->id)->syncRoles($value);
     }
 
-    public function invitation() : HasOne
+    public function invitation(): HasOne
     {
         return $this->hasOne(Invitation::class)->latestOfMany();
     }
@@ -99,7 +98,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @param int|null $invitedBy
      * @return Invitation
      */
-    public function createInvitation($invitedBy = null) : Invitation
+    public function createInvitation($invitedBy = null): Invitation
     {
         $invitation = Invitation::create([
             'user_id' => $this->id,
@@ -116,17 +115,17 @@ class User extends Authenticatable implements MustVerifyEmail
      * @param string $search
      * @return Builder
      */
-    public function scopeSearch(Builder $query, string $search) : Builder
+    public function scopeSearch(Builder $query, string $search): Builder
     {
         return $query->whereLike(['name', 'email'], $search);
     }
 
-    public function fabriqNotifications() : HasMany
+    public function fabriqNotifications(): HasMany
     {
         return $this->hasMany(Fabriq::getFqnModel('notification'));
     }
 
-    public function notificationsToBeNotified() : HasMany
+    public function notificationsToBeNotified(): HasMany
     {
         return $this->hasMany(Fabriq::getFqnModel('notification'))
             ->whereNull('cleared_at')
@@ -138,19 +137,19 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Image::class);
     }
 
-    public function getFirstNameAttribute() : string
+    public function getFirstNameAttribute(): string
     {
         return explode(' ', $this->name, 2)[0];
     }
 
-    public function getLastNameAttribute() : string
+    public function getLastNameAttribute(): string
     {
         $parts = explode(' ', $this->name);
 
         return array_pop($parts);
     }
 
-    public function receivesBroadcastNotificationsOn() : array
+    public function receivesBroadcastNotificationsOn(): array
     {
         $channel = config('fabriq.ws_prefix').'.user.'.$this->id;
 

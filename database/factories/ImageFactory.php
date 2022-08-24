@@ -4,7 +4,6 @@ namespace Ikoncept\Fabriq\Database\Factories;
 
 use Ikoncept\Fabriq\Models\Image;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ImageFactory extends Factory
 {
@@ -24,10 +23,9 @@ class ImageFactory extends Factory
     {
         return [
             'caption' => $this->faker->sentence,
-            'alt_text' => $this->faker->sentence(3)
+            'alt_text' => $this->faker->sentence(3),
         ];
     }
-
 
     /**
      * Configure the model factory.
@@ -43,5 +41,4 @@ class ImageFactory extends Factory
                     ->toMediaCollection('images');
         });
     }
-
 }

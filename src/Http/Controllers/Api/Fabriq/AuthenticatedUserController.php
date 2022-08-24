@@ -14,12 +14,12 @@ class AuthenticatedUserController extends Controller
 {
     use ApiControllerTrait;
 
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return $this->respondWithItem($request->user(), new UserTransformer);
     }
 
-    public function update(Request $request) : JsonResponse
+    public function update(Request $request): JsonResponse
     {
         $user = $request->user();
         if ($request->input('password', false)) {
