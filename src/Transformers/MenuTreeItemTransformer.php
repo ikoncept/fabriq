@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\MenuItem;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;

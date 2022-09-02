@@ -68,6 +68,7 @@ class Fabriq
      * Return new transformer class.
      *
      * @param string $key
+     * @param mixed ...$arguments
      * @return mixed
      */
     public static function getTransformerFor(string $key, ...$arguments)

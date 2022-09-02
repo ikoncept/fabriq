@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Contact;
 use Infab\TranslatableRevisions\Models\I18nLocale;
 use League\Fractal\Resource\Collection;
