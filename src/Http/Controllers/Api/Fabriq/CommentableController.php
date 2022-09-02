@@ -4,7 +4,6 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreateCommentRequest;
-use Ikoncept\Fabriq\Transformers\CommentTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -34,7 +33,7 @@ class CommentableController extends ApiController
             ->with('comments', 'comments.user', 'comments.user.roles', 'comments.children', 'comments.children.user')
             ->firstOrFail();
 
-        return $this->respondWithCollection($model->comments, new CommentTransformer);
+        return $this->respondWithCollection($model->comments, Fabriq::getTransformerFor('comment'));
     }
 
     public function store(CreateCommentRequest $request, string $modelName, int $modelId): JsonResponse
@@ -48,6 +47,6 @@ class CommentableController extends ApiController
             ->firstOrFail();
         $comment = $model->commentAs($request->user(), $request->comment, $request->parent_id ?? null);
 
-        return $this->respondWithItem($comment, new CommentTransformer, 201);
+        return $this->respondWithItem($comment, Fabriq::getTransformerFor('comment'), 201);
     }
 }

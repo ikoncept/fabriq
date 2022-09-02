@@ -6,7 +6,6 @@ use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\UpdateImageRequest;
 use Ikoncept\Fabriq\Models\Image;
 use Ikoncept\Fabriq\QueryBuilders\ImageSort;
-use Ikoncept\Fabriq\Transformers\ImageTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -41,7 +40,7 @@ class ImageController extends ApiController
             ->with($eagerLoad)
             ->paginate($this->number);
 
-        return $this->respondWithPaginator($images, new ImageTransformer);
+        return $this->respondWithPaginator($images, Fabriq::getTransformerFor('image'));
     }
 
     /**
@@ -55,7 +54,7 @@ class ImageController extends ApiController
     {
         $image = Fabriq::getFqnModel('image')::findOrFail($id);
 
-        return $this->respondWithItem($image, new ImageTransformer);
+        return $this->respondWithItem($image, Fabriq::getTransformerFor('image'));
     }
 
     public function update(UpdateImageRequest $request, int $id): JsonResponse
@@ -68,7 +67,7 @@ class ImageController extends ApiController
         $media->save();
         $image->save();
 
-        return $this->respondWithItem($image, new ImageTransformer);
+        return $this->respondWithItem($image, Fabriq::getTransformerFor('image'));
     }
 
     public function destroy(Request $request, int $id): JsonResponse

@@ -41,7 +41,7 @@ class MenuTreeItemTransformer extends TransformerAbstract
 
     public function includePage(MenuItem $tree): Item
     {
-        return $this->item($tree->page, new PageTransformer);
+        return $this->item($tree->page, Fabriq::getTransformerFor('page'));
     }
 
     public function includeChildren(MenuItem $tree): Collection

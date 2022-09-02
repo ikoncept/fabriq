@@ -63,4 +63,20 @@ class Fabriq
 
         return $class;
     }
+
+    /**
+     * Return new transformer class.
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public static function getTransformerFor(string $key, ...$arguments)
+    {
+        $class = config('fabriq.transformers.'.$key);
+        if (! $class) {
+            throw new InvalidArgumentException('The transformer key was not found: '.$key);
+        }
+
+        return new $class($arguments);
+    }
 }

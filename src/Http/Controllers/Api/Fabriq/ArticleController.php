@@ -7,7 +7,6 @@ use Ikoncept\Fabriq\Http\Controllers\Controller;
 use Ikoncept\Fabriq\Http\Requests\CreateArticleRequest;
 use Ikoncept\Fabriq\Http\Requests\UpdateArticleRequest;
 use Ikoncept\Fabriq\Models\Article;
-use Ikoncept\Fabriq\Transformers\ArticleTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
@@ -30,7 +29,7 @@ class ArticleController extends Controller
             ->with($eagerLoad)
             ->paginate($this->number);
 
-        return $this->respondWithPaginator($articles, new ArticleTransformer());
+        return $this->respondWithPaginator($articles, Fabriq::getTransformerFor('article'));
     }
 
     public function show(Request $request, int $id): JsonResponse
@@ -40,7 +39,7 @@ class ArticleController extends Controller
             ->with($eagerLoad)
             ->firstOrFail();
 
-        return $this->respondWithItem($article, new ArticleTransformer());
+        return $this->respondWithItem($article, Fabriq::getTransformerFor('article'));
     }
 
     public function store(CreateArticleRequest $request): JsonResponse
@@ -50,7 +49,7 @@ class ArticleController extends Controller
         $article->template_id = 2;
         $article->save();
 
-        return $this->respondWithItem($article, new ArticleTransformer, 201);
+        return $this->respondWithItem($article, Fabriq::getTransformerFor('article'), 201);
     }
 
     public function update(UpdateArticleRequest $request, int $id): JsonResponse
@@ -60,7 +59,7 @@ class ArticleController extends Controller
         $article->updateContent($request->content);
         $article->save();
 
-        return $this->respondWithItem($article, new ArticleTransformer());
+        return $this->respondWithItem($article, Fabriq::getTransformerFor('article'));
     }
 
     public function destroy(int $id): JsonResponse

@@ -2,10 +2,10 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\DeleteCommentRequest;
 use Ikoncept\Fabriq\Http\Requests\UpdateCommentRequest;
 use Ikoncept\Fabriq\Models\Comment;
-use Ikoncept\Fabriq\Transformers\CommentTransformer;
 use Illuminate\Http\JsonResponse;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
@@ -21,7 +21,7 @@ class CommentController extends ApiController
         $comment->edited_at = now();
         $comment->save();
 
-        return $this->respondWithItem($comment, new CommentTransformer);
+        return $this->respondWithItem($comment, Fabriq::getTransformerFor('comment'));
     }
 
     public function destroy(DeleteCommentRequest $request, int $id): JsonResponse

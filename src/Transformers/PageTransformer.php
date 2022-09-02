@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Page;
 use Infab\TranslatableRevisions\Models\I18nLocale;
 use League\Fractal\Resource\Collection;
@@ -65,7 +66,7 @@ class PageTransformer extends TransformerAbstract
      */
     public function includeSlugs(Page $page): Collection
     {
-        return $this->collection($page->slugs, new SlugTransformer());
+        return $this->collection($page->slugs, Fabriq::getTransformerFor('slug'));
     }
 
     public function includeLocalizedContent(Page $page): Item
@@ -79,6 +80,6 @@ class PageTransformer extends TransformerAbstract
 
     public function includeChildren(Page $page): Collection
     {
-        return $this->collection($page->children, new  self);
+        return $this->collection($page->children, new self);
     }
 }

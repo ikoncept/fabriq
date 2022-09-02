@@ -5,7 +5,6 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreatePageRequest;
 use Ikoncept\Fabriq\Models\Page;
-use Ikoncept\Fabriq\Transformers\PageTransformer;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
@@ -34,7 +33,7 @@ class PageController extends ApiController
             ->with($eagerLoad)
             ->paginate($this->number);
 
-        return $this->respondWithPaginator($pages, new PageTransformer());
+        return $this->respondWithPaginator($pages, Fabriq::getTransformerFor('page'));
     }
 
     /**
@@ -53,7 +52,7 @@ class PageController extends ApiController
             ->with($eagerLoad)
             ->firstOrFail();
 
-        return $this->respondWithItem($page, new PageTransformer);
+        return $this->respondWithItem($page, Fabriq::getTransformerFor('page'));
     }
 
     /**
@@ -77,7 +76,7 @@ class PageController extends ApiController
 
         $page->save();
 
-        return $this->respondWithItem($page, new PageTransformer);
+        return $this->respondWithItem($page, Fabriq::getTransformerFor('page'));
     }
 
     /**
@@ -99,7 +98,7 @@ class PageController extends ApiController
         $page->updated_by = $request->user()->id;
         $page->save();
 
-        return $this->respondWithItem($page, new PageTransformer, 201);
+        return $this->respondWithItem($page, Fabriq::getTransformerFor('page'), 201);
     }
 
     /**

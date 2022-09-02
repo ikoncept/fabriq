@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\MenuItem;
 use Infab\TranslatableRevisions\Models\I18nLocale;
 use League\Fractal\Resource\Item;
@@ -56,7 +57,7 @@ class MenuItemTransformer extends TransformerAbstract
 
     public function includePage(MenuItem $menuItem): Item
     {
-        return $this->item($menuItem->page, new PageTransformer);
+        return $this->item($menuItem->page, Fabriq::getTransformerFor('page'));
     }
 
     public function includeLocalizedContent(MenuItem $menuItem): Item

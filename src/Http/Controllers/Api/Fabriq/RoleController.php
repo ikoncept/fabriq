@@ -2,8 +2,8 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Role;
-use Ikoncept\Fabriq\Transformers\RoleTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -19,6 +19,6 @@ class RoleController extends ApiController
             ->notHidden()
             ->get();
 
-        return $this->respondWithCollection($roles, new RoleTransformer);
+        return $this->respondWithCollection($roles, Fabriq::getTransformerFor('role'));
     }
 }

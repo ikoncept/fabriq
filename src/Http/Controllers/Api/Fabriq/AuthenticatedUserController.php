@@ -4,8 +4,8 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Actions\Fortify\UpdateUserPassword;
 use Ikoncept\Fabriq\Actions\Fortify\UpdateUserProfileInformation;
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Controllers\Controller;
-use Ikoncept\Fabriq\Transformers\UserTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
@@ -16,7 +16,7 @@ class AuthenticatedUserController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        return $this->respondWithItem($request->user(), new UserTransformer);
+        return $this->respondWithItem($request->user(), Fabriq::getTransformerFor('user'));
     }
 
     public function update(Request $request): JsonResponse
@@ -30,6 +30,6 @@ class AuthenticatedUserController extends Controller
         // Update the profile
         (new UpdateUserProfileInformation())->update($user, $request->all());
 
-        return $this->respondWithItem($request->user(), new UserTransformer);
+        return $this->respondWithItem($request->user(), Fabriq::getTransformerFor('user'));
     }
 }

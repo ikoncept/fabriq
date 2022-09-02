@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\File;
 use Illuminate\Support\Str;
 use League\Fractal\Resource\Collection;
@@ -55,6 +56,6 @@ class FileTransformer extends TransformerAbstract
 
     public function includeTags(File $file): Collection
     {
-        return $this->collection($file->tags, new TagTransformer);
+        return $this->collection($file->tags, Fabriq::getTransformerFor('tag'));
     }
 }

@@ -5,7 +5,6 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreateContactRequest;
 use Ikoncept\Fabriq\Http\Requests\UpdateContactRequest;
-use Ikoncept\Fabriq\Transformers\ContactTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -34,7 +33,7 @@ class ContactController extends ApiController
             ->with($eagerLoad)
             ->paginate($this->number);
 
-        return $this->respondWithPaginator($contacts, new ContactTransformer);
+        return $this->respondWithPaginator($contacts, Fabriq::getTransformerFor('contact'));
     }
 
     public function show(Request $request, int $id): JsonResponse
@@ -44,7 +43,7 @@ class ContactController extends ApiController
             ->with($eagerLoad)
             ->firstOrFail();
 
-        return $this->respondWithItem($contact, new ContactTransformer);
+        return $this->respondWithItem($contact, Fabriq::getTransformerFor('contact'));
     }
 
     public function store(CreateContactRequest $request): JsonResponse
@@ -53,7 +52,7 @@ class ContactController extends ApiController
         $contact->name = $request->name;
         $contact->save();
 
-        return $this->respondWithItem($contact, new ContactTransformer, 201);
+        return $this->respondWithItem($contact, Fabriq::getTransformerFor('contact'), 201);
     }
 
     public function update(UpdateContactRequest $request, int $id): JsonResponse
@@ -70,7 +69,7 @@ class ContactController extends ApiController
 
         $contact->save();
 
-        return $this->respondWithItem($contact, new ContactTransformer);
+        return $this->respondWithItem($contact, Fabriq::getTransformerFor('contact'));
     }
 
     public function destroy(int $id): JsonResponse

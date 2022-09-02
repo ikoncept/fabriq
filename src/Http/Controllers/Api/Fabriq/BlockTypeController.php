@@ -2,8 +2,8 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\BlockType;
-use Ikoncept\Fabriq\Transformers\BlockTypeTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -21,6 +21,6 @@ class BlockTypeController extends ApiController
             ->defaultSort('name')
             ->get();
 
-        return $this->respondWithCollection($blockTypes, new BlockTypeTransformer());
+        return $this->respondWithCollection($blockTypes, Fabriq::getTransformerFor('blockType'));
     }
 }

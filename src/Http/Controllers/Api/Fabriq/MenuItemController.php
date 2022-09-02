@@ -2,10 +2,10 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\UpdateMenuItemRequest;
 use Ikoncept\Fabriq\Models\Menu;
 use Ikoncept\Fabriq\Models\MenuItem;
-use Ikoncept\Fabriq\Transformers\MenuItemTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -25,11 +25,11 @@ class MenuItemController extends ApiController
     public function show(Request $request, int $id): JsonResponse
     {
         $eagerLoad = $this->getEagerLoad(MenuItem::RELATIONSHIPS);
-        $item = MenuItem::where('id', $id)
+        $item = Fabriq::getFqnModel('menuItem')::where('id', $id)
             ->with($eagerLoad)
             ->firstOrFail();
 
-        return $this->respondWithItem($item, new MenuItemTransformer());
+        return $this->respondWithItem($item, Fabriq::getTransformerFor('menuItem'));
     }
 
     /**
@@ -41,7 +41,7 @@ class MenuItemController extends ApiController
      */
     public function update(UpdateMenuItemRequest $request, int $id): JsonResponse
     {
-        $item = MenuItem::findOrFail($id);
+        $item = Fabriq::getFqnModel('menuItem')::findOrFail($id);
         $item->updateMetaContent($request->content);
         $item->page_id = $request->input('item.page_id');
         $item->type = $request->input('item.type');
@@ -51,7 +51,7 @@ class MenuItemController extends ApiController
         }
         $item->save();
 
-        return $this->respondWithItem($item, new MenuItemTransformer());
+        return $this->respondWithItem($item, Fabriq::getTransformerFor('menuItem'));
     }
 
     /**
@@ -63,10 +63,10 @@ class MenuItemController extends ApiController
      */
     public function store(UpdateMenuItemRequest $request, int $menuId): JsonResponse
     {
-        $menuItemRoot = MenuItem::where('menu_id', $menuId)
+        $menuItemRoot = Fabriq::getFqnModel('menuItem')::where('menu_id', $menuId)
             ->whereNull('parent_id')
             ->first();
-        $menuItem = new MenuItem();
+        $menuItem = Fabriq::getModelClass('menuItem');
         $menuItem->page_id = $request->input('item.page_id');
         $menuItem->parent_id = $menuItemRoot->id;
         $menuItem->menu_id = $menuId;
@@ -74,7 +74,7 @@ class MenuItemController extends ApiController
         $menuItem->save();
         $menuItem->updateMetaContent($request->content);
 
-        return $this->respondWithItem($menuItem, new MenuItemTransformer, 201);
+        return $this->respondWithItem($menuItem, Fabriq::getTransformerFor('menuItem'), 201);
     }
 
     /**
@@ -85,7 +85,7 @@ class MenuItemController extends ApiController
      */
     public function destroy(int $id): JsonResponse
     {
-        $menuItem = MenuItem::findOrFail($id);
+        $menuItem = Fabriq::getFqnModel('menuItem')::findOrFail($id);
         $menuItem->delete();
 
         return $this->respondWithSuccess('The menu item has been deleted');

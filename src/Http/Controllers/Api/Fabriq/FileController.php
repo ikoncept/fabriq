@@ -5,7 +5,6 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\File;
 use Ikoncept\Fabriq\QueryBuilders\FileSort;
-use Ikoncept\Fabriq\Transformers\FileTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -39,7 +38,7 @@ class FileController extends ApiController
             ->with($eagerLoad)
             ->paginate($this->number);
 
-        return $this->respondWithPaginator($files, new FileTransformer);
+        return $this->respondWithPaginator($files, Fabriq::getTransformerFor('file'));
     }
 
     public function show(Request $request, int $id): JsonResponse
@@ -49,7 +48,7 @@ class FileController extends ApiController
             ->with($eagerLoad)
             ->firstOrFail();
 
-        return $this->respondWithItem($file, new FileTransformer);
+        return $this->respondWithItem($file, Fabriq::getTransformerFor('file'));
     }
 
     public function update(Request $request, int $id): JsonResponse
@@ -64,7 +63,7 @@ class FileController extends ApiController
         $media->save();
         $file->save();
 
-        return $this->respondWithItem($file, new FileTransformer);
+        return $this->respondWithItem($file, Fabriq::getTransformerFor('file'));
     }
 
     public function destroy(Request $request, int $id): JsonResponse

@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Article;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
@@ -74,6 +75,6 @@ class ArticleTransformer extends TransformerAbstract
      */
     public function includeSlugs(Article $article): Collection
     {
-        return $this->collection($article->slugs, new SlugTransformer());
+        return $this->collection($article->slugs, Fabriq::getTransformerFor('slug')());
     }
 }

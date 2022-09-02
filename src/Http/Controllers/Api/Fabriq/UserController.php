@@ -6,7 +6,6 @@ use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreateUserRequest;
 use Ikoncept\Fabriq\Http\Requests\UpdateUserRequest;
 use Ikoncept\Fabriq\Models\User;
-use Ikoncept\Fabriq\Transformers\UserTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -37,7 +36,7 @@ class UserController extends ApiController
             ->with($eagerLoad)
             ->paginate($this->number);
 
-        return $this->respondWithPaginator($paginator, new UserTransformer);
+        return $this->respondWithPaginator($paginator, Fabriq::getTransformerFor('user'));
     }
 
     public function store(CreateUserRequest $request): JsonResponse
@@ -49,7 +48,7 @@ class UserController extends ApiController
         $user->save();
         $user->syncRoles($request->role_list);
 
-        return $this->respondWithItem($user, new UserTransformer, 201);
+        return $this->respondWithItem($user, Fabriq::getTransformerFor('user'), 201);
     }
 
     /**
@@ -66,7 +65,7 @@ class UserController extends ApiController
             ->with('roles')
             ->findOrFail($id);
 
-        return $this->respondWithItem($user, new UserTransformer);
+        return $this->respondWithItem($user, Fabriq::getTransformerFor('user'));
     }
 
     public function update(UpdateUserRequest $request, int $id): JsonResponse
@@ -75,7 +74,7 @@ class UserController extends ApiController
         $user->fill($request->validated());
         $user->save();
 
-        return $this->respondWithItem($user, new UserTransformer);
+        return $this->respondWithItem($user, Fabriq::getTransformerFor('user'));
     }
 
     public function destroy(Request $request, int $id): JsonResponse
@@ -83,7 +82,7 @@ class UserController extends ApiController
         if ($id === $request->user()->id) {
             return $this->errorWrongArgs('Du kan inte radera dig själv');
         }
-        $user = User::findOrFail($id);
+        $user = Fabriq::getModelClass('user')->findOrFail($id);
         $user->delete();
 
         return $this->respondWithSuccess('The user has been deleted');

@@ -5,7 +5,6 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreateSmartBlockRequest;
 use Ikoncept\Fabriq\Models\SmartBlock;
-use Ikoncept\Fabriq\Transformers\SmartBlockTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -33,7 +32,7 @@ class SmartBlockController extends ApiController
             ->with($eagerLoad)
             ->paginate($this->number);
 
-        return $this->respondWithPaginator($paginator, new SmartBlockTransformer);
+        return $this->respondWithPaginator($paginator, Fabriq::getTransformerFor('smartBlock'));
     }
 
     public function show(Request $request, int $id): JsonResponse
@@ -43,7 +42,7 @@ class SmartBlockController extends ApiController
             ->with($eagerLoad)
             ->firstOrFail();
 
-        return $this->respondWithItem($smartBlock, new SmartBlockTransformer);
+        return $this->respondWithItem($smartBlock, Fabriq::getTransformerFor('smartBlock'));
     }
 
     public function store(CreateSmartBlockRequest $request): JsonResponse
@@ -52,7 +51,7 @@ class SmartBlockController extends ApiController
         $smartBlock->name = $request->name;
         $smartBlock->save();
 
-        return $this->respondWithItem($smartBlock, new SmartBlockTransformer, 201);
+        return $this->respondWithItem($smartBlock, Fabriq::getTransformerFor('smartBlock'), 201);
     }
 
     public function update(Request $request, int $id): JsonResponse
@@ -63,7 +62,7 @@ class SmartBlockController extends ApiController
         $smartBlock->touch();
         $smartBlock->save();
 
-        return $this->respondWithItem($smartBlock, new SmartBlockTransformer);
+        return $this->respondWithItem($smartBlock, Fabriq::getTransformerFor('smartBlock'));
     }
 
     public function destroy(int $id): JsonResponse

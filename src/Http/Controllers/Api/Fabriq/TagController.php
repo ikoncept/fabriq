@@ -3,7 +3,6 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Ikoncept\Fabriq\Transformers\TagTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -31,7 +30,7 @@ class TagController extends ApiController
             ])
             ->get();
 
-        return $this->respondWithCollection($tags, new TagTransformer);
+        return $this->respondWithCollection($tags, Fabriq::getTransformerFor('tag'));
     }
 
     /**

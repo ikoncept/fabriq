@@ -7,7 +7,6 @@ use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreateEventRequest;
 use Ikoncept\Fabriq\Models\Event;
 use Ikoncept\Fabriq\Services\CalendarService;
-use Ikoncept\Fabriq\Transformers\EventTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -30,14 +29,14 @@ class EventController extends ApiController
 
         $mergedEvents = $events->toBase()->merge($computedEvents);
 
-        return $this->respondWithCollection($mergedEvents, new EventTransformer);
+        return $this->respondWithCollection($mergedEvents, Fabriq::getTransformerFor('event'));
     }
 
     public function show(Request $request, int $id): JsonResponse
     {
         $event = Event::where('id', $id)->firstOrFail();
 
-        return $this->respondWithItem($event, new EventTransformer);
+        return $this->respondWithItem($event, Fabriq::getTransformerFor('event'));
     }
 
     public function store(CreateEventRequest $request): JsonResponse
@@ -50,7 +49,7 @@ class EventController extends ApiController
             $event->updateContent($content, $locale);
         }
 
-        return $this->respondWithItem($event, new EventTransformer, 201);
+        return $this->respondWithItem($event, Fabriq::getTransformerFor('event'), 201);
     }
 
     public function update(CreateEventRequest $request, int $id): JsonResponse
@@ -63,7 +62,7 @@ class EventController extends ApiController
             $event->updateContent($content, $locale);
         }
 
-        return $this->respondWithItem($event, new EventTransformer);
+        return $this->respondWithItem($event, Fabriq::getTransformerFor('event'));
     }
 
     public function destroy(int $id): JsonResponse

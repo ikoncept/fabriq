@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Video;
 use Illuminate\Support\Str;
 use League\Fractal\Resource\Collection;
@@ -58,6 +59,6 @@ class VideoTransformer extends TransformerAbstract
 
     public function includeTags(Video $video): Collection
     {
-        return $this->collection($video->tags, new TagTransformer);
+        return $this->collection($video->tags, Fabriq::getTransformerFor('tag'));
     }
 }

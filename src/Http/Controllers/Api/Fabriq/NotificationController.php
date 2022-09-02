@@ -5,7 +5,6 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\ClearNotificationRequest;
 use Ikoncept\Fabriq\Models\Notification;
-use Ikoncept\Fabriq\Transformers\NotificationTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -30,7 +29,7 @@ class NotificationController extends ApiController
             ->orderBy('created_at', 'desc')
             ->paginate($this->number);
 
-        return $this->respondWithPaginator($notifications, new NotificationTransformer);
+        return $this->respondWithPaginator($notifications, Fabriq::getTransformerFor('notification'));
     }
 
     public function update(ClearNotificationRequest $request, int $id): JsonResponse
@@ -40,6 +39,6 @@ class NotificationController extends ApiController
 
         $notification->save();
 
-        return $this->respondWithItem($notification, new NotificationTransformer);
+        return $this->respondWithItem($notification, Fabriq::getTransformerFor('notification'));
     }
 }

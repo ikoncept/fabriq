@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\User;
 use Illuminate\Support\Collection as IlluminateCollection;
 use League\Fractal\Resource\Collection;
@@ -54,7 +55,7 @@ class UserTransformer extends TransformerAbstract
      */
     public function includeRoles(User $user): Collection
     {
-        return $this->collection($user->roles, new RoleTransformer);
+        return $this->collection($user->roles, Fabriq::getTransformerFor('role'));
     }
 
     /**

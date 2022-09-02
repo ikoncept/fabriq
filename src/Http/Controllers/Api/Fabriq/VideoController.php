@@ -5,7 +5,6 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Video;
 use Ikoncept\Fabriq\QueryBuilders\VideoSort;
-use Ikoncept\Fabriq\Transformers\VideoTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -33,7 +32,7 @@ class VideoController extends ApiController
             ->with($eagerLoad)
             ->paginate($this->number);
 
-        return $this->respondWithPaginator($videos, new VideoTransformer);
+        return $this->respondWithPaginator($videos, Fabriq::getTransformerFor('video'));
     }
 
     public function show(Request $request, int $id): JsonResponse
@@ -42,7 +41,7 @@ class VideoController extends ApiController
 
         $video = Fabriq::getFqnModel('video')::where('id', $id)->with($eagerLoad)->firstOrFail();
 
-        return $this->respondWithItem($video, new VideoTransformer);
+        return $this->respondWithItem($video, Fabriq::getTransformerFor('video'));
     }
 
     public function update(Request $request, int $id): JsonResponse
@@ -60,7 +59,7 @@ class VideoController extends ApiController
 
         $video->save();
 
-        return $this->respondWithItem($video, new VideoTransformer);
+        return $this->respondWithItem($video, Fabriq::getTransformerFor('video'));
     }
 
     public function destroy(int $id): JsonResponse

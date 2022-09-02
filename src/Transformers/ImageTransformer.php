@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Image;
 use Illuminate\Support\Str;
 use League\Fractal\Resource\Collection;
@@ -63,7 +64,7 @@ class ImageTransformer extends TransformerAbstract
 
     public function includeTags(Image $image): Collection
     {
-        return $this->collection($image->tags, new TagTransformer);
+        return $this->collection($image->tags, Fabriq::getTransformerFor('tag'));
     }
 
     /**

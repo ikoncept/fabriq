@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
+use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Database\Eloquent\Model;
 use League\Fractal\TransformerAbstract;
 
@@ -47,7 +48,7 @@ class NotifiableTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        return $this->item($notifiable->user, new UserTransformer);
+        return $this->item($notifiable->user, Fabriq::getTransformerFor('user'));
     }
 
     /**
@@ -62,6 +63,6 @@ class NotifiableTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        return $this->item($notifiable->commentable, new PageTransformer);
+        return $this->item($notifiable->commentable, Fabriq::getTransformerFor('page'));
     }
 }

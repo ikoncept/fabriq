@@ -4,7 +4,6 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Page;
-use Ikoncept\Fabriq\Transformers\PageTransformer;
 use Illuminate\Http\JsonResponse;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
@@ -28,6 +27,6 @@ class PublishPageController extends ApiController
             return $page;
         });
 
-        return $this->respondWithItem($page, new PageTransformer);
+        return $this->respondWithItem($page, Fabriq::getTransformerFor('page'));
     }
 }

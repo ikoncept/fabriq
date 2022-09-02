@@ -56,6 +56,6 @@ class ContactTransformer extends TransformerAbstract
 
     public function includeTags(Contact $contact): Collection
     {
-        return $this->collection($contact->tags, new TagTransformer);
+        return $this->collection($contact->tags, Fabriq::getTransformerFor('tag'));
     }
 }

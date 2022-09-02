@@ -3,7 +3,6 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
-use Ikoncept\Fabriq\Transformers\PageTransformer;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
@@ -33,6 +32,6 @@ class ClonePageController extends ApiController
         $page->localizedContent = $request->localizedContent;
         $page->save();
 
-        return $this->respondWithItem($page, new PageTransformer, 201);
+        return $this->respondWithItem($page, Fabriq::getTransformerFor('page'), 201);
     }
 }

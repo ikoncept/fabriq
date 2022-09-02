@@ -5,7 +5,6 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 use Exception;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Image;
-use Ikoncept\Fabriq\Transformers\ImageTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -37,7 +36,7 @@ class ImageableController extends ApiController
 
         $relatedModel = $relatedModelClass::findOrFail($modelId);
 
-        return $this->respondWithCollection($relatedModel->images, new ImageTransformer());
+        return $this->respondWithCollection($relatedModel->images, Fabriq::getTransformerFor('image'));
     }
 
     /**
@@ -67,6 +66,6 @@ class ImageableController extends ApiController
             return $this->errorWrongArgs('Image has no relation to '.$model);
         }
 
-        return $this->respondWithItem($image, new ImageTransformer(), 201);
+        return $this->respondWithItem($image, Fabriq::getTransformerFor('image'), 201);
     }
 }

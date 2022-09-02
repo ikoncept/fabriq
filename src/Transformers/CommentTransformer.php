@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Transformers;
 
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Comment;
 use League\Fractal\TransformerAbstract;
 
@@ -43,7 +44,7 @@ class CommentTransformer extends TransformerAbstract
      */
     public function includeUser(Comment $comment)
     {
-        return $this->item($comment->user, new UserTransformer);
+        return $this->item($comment->user, Fabriq::getTransformerFor('user'));
     }
 
     /**
