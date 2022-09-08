@@ -17,7 +17,7 @@ class ConfigTransformer extends TransformerAbstract
     public function transform(array $config)
     {
         return collect($config)->filter(function ($item, $key) {
-            return ! Str::contains($key, ['key']);
+            return ! Str::contains($key, 'key');
         })->toArray();
         // return $config;
     }
