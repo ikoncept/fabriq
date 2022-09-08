@@ -68,6 +68,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
 
             $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views'),
+                __DIR__.'/../resources/images' => public_path('images'),
             ], 'fabriq-views');
         }
     }
@@ -177,7 +178,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
     {
         return [
             __DIR__.'/../resources/css' => resource_path('css'),
-            __DIR__.'/../resources/images' => resource_path('images'),
+            __DIR__.'/../resources/images' => public_path('images'),
             __DIR__.'/../resources/js' => resource_path('js'),
             __DIR__.'/../resources/fonts' => public_path('fonts'),
             __DIR__.'/../tailwind.config.js' => 'tailwind.config.js',

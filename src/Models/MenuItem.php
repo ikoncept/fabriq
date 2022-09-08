@@ -81,13 +81,13 @@ class MenuItem extends Model
      */
     public function getTitleAttribute(): string
     {
-        if ($this->type === 'external') {
-            $content = $this->getFieldContent(null, 'sv');
-
-            return $content['title'] ?? '';
+        if($this->type === 'internal') {
+            return $this->getSlug()->source_string ?? '';
         }
 
-        return $this->getSlug()->source_string ?? '';
+        $content = $this->getFieldContent(null, 'sv');
+
+        return $content['title'] ?? '';
     }
 
     /**
