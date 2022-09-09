@@ -3,6 +3,7 @@
         v-model="show"
         name="block-type-modal"
         :click-to-close="false"
+        :width="! largeBlockPicker ? 'max-w-3xl' : 'max-w-6xl'"
         @before-open="fetchBlockTypes"
         @closed="resetCreateModal"
     >
@@ -32,10 +33,11 @@
         <div class="relative z-40 py-2">
             <ValidationObserver ref="observer">
                 <form
-                    class="grid grid-cols-1 gap-x-4 sm:grid-cols-2"
+                    class="grid grid-cols-1 gap-4 sm:grid-cols-2"
                     @submit.prevent="setBlockType"
                 >
                     <FSelect
+                        v-if="!largeBlockPicker"
                         ref="selectInput"
                         v-model="chosenBlock.block_type"
                         label="Blocktyp"
@@ -47,12 +49,44 @@
                         option-label="name"
                     />
                     <FInput
+                        v-if="largeBlockPicker"
+                        v-model="chosenBlock.block_type.name"
+                        name="block_type"
+                        rules="required|min:2"
+                        class="hidden"
+                        label="Blocktyp"
+                    />
+                    <FInput
                         ref="nameInput"
                         v-model="chosenBlock.name"
                         name="name"
                         rules="required"
                         label="Namn"
                     />
+                    <div
+                        v-if="largeBlockPicker"
+                        class="grid grid-cols-4 col-span-2 gap-4"
+                    >
+                        <div class="col-span-4 -mb-4">
+                            <FLabel>Välj blocktyp</FLabel>
+                        </div>
+                        <div
+                            v-for="blockType in blockTypes"
+                            :key="blockType.id"
+                            :class="blockType.id === chosenBlock.block_type.id ? 'border border-royal-500 rounded-md bg-royal-50' : 'opacity-60'"
+                            class="flex flex-col items-center pb-1 transition-all duration-200 border border-white cursor-pointer"
+                            @click="chosenBlock.block_type = blockType"
+                        >
+                            <img
+                                :src="`data:image/svg+xml;base64,` + blockType.base_64_svg"
+                                class="w-full"
+                                alt=""
+                            >
+                            <div class="text-xs">
+                                {{ blockType.name }}
+                            </div>
+                        </div>
+                    </div>
                     <button
                         class="hidden"
                         type="submit"
@@ -67,8 +101,12 @@
 import Page from '@/models/BlockType.js'
 function defaultCreationObject () {
     return {
+        id: 0,
         name: '',
-        block_type: null
+        block_type: {
+            id: 0,
+            name: 'Välj blocktyp',
+        }
     }
 }
 export default {
@@ -85,9 +123,24 @@ export default {
             show: false,
             blockTypes: [],
             chosenBlock: {
+                id: 0,
                 name: '',
-                block_type: null
+                block_type: {
+                    name: '',
+                    id: 0
+                }
             }
+        }
+    },
+    computed: {
+        largeBlockPicker() {
+            if(! this.config.ui) {
+                return false
+            }
+            return !!this.config.ui.large_block_picker
+        },
+        config() {
+            return this.$store.getters['config/config']
         }
     },
     methods: {
@@ -95,7 +148,7 @@ export default {
             try {
                 const payload = {
                     params: {
-                        field: 'id,name,component_name,has_children'
+                        field: 'id,name,component_name,has_children,base_64_svg'
                     }
                 }
                 const { data } = await Page.index(payload)
