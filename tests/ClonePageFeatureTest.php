@@ -22,6 +22,10 @@ class ClonePageFeatureTest extends AdminUserTestCase
     public function it_can_clone_another_page()
     {
         // Arrange
+        $root = \Ikoncept\Fabriq\Models\Page::factory()->create([
+            'name' => 'root',
+            'template_id' => RevisionTemplate::all()->first()->id,
+        ]);
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create([
             'name' => 'Den första startsidan',
             'template_id' => RevisionTemplate::all()->first()->id,
