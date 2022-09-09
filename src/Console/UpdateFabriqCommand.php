@@ -62,6 +62,12 @@ class UpdateFabriqCommand extends Command
             '--force' => true,
         ]);
 
+        $this->call('vendor:publish', [
+            '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
+            '--tag' => 'fabriq-images',
+            '--force' => true,
+        ]);
+
         $this->info('Front end assets has been installed');
 
         $this->info('Migrating...');
