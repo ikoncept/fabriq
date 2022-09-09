@@ -19,14 +19,17 @@ class ClonePageController extends ApiController
      */
     public function store(Request $request, int $id)
     {
+        $pageRoot = Fabriq::getModelClass('page')->whereNull('parent_id')
+            ->where('name', 'root')
+            ->select('id')
+            ->firstOrFail();
         $pageToClone = Fabriq::getModelClass('page')->findOrFail($id);
-        // dd($pageToClone->toArray());
         $page = Fabriq::getModelClass('page');
-        $page->name = 'Kopia av '.$pageToClone->name;
+        $page->name = $request->name ?? 'Kopia av '.$pageToClone->name;
         $page->template_id = $pageToClone->template_id;
         $page->revision = $pageToClone->revision;
         $page->published_version = $pageToClone->published_version;
-        $page->parent_id = $pageToClone->parent_id;
+        $page->parent_id = $pageRoot->id;
         $page->updated_by = $request->user()->id;
         $page->save();
         $page->localizedContent = $request->localizedContent;

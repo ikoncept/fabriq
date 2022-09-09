@@ -18,7 +18,7 @@ export default router
 function createRouter () {
     const router = new VueRouter({
         mode: 'history',
-        routes: [...routes, ...userRoutes]
+        routes: [...userRoutes, ...routes]
     })
 
     router.beforeEach(beforeEach)
