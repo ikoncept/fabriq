@@ -166,4 +166,7 @@ return [
             \Laravel\Fortify\Features::updatePasswords(),
         ],
     ],
+    'ui' => [
+        'large_block_picker' => true,
+    ],
 ];
