@@ -167,6 +167,6 @@ return [
         ],
     ],
     'ui' => [
-        'large_block_picker' => true,
+        'large_block_picker' => false,
     ],
 ];
