@@ -119,7 +119,7 @@
     @apply -mb-2;
 }
 .vs__selected-options span.vs__selected {
-    @apply  mb-2;
+    margin-bottom: 0.4rem;
 }
 .vs__selected-options .vs__search {
     @apply pb-2;
