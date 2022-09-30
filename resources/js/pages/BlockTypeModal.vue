@@ -73,8 +73,8 @@
                         <div
                             v-for="blockType in blockTypes"
                             :key="blockType.id"
-                            :class="blockType.id === chosenBlock.block_type.id ? 'border border-royal-500 rounded-md bg-royal-50' : 'opacity-60'"
-                            class="flex flex-col items-center pb-1 transition-all duration-200 border border-white cursor-pointer"
+                            :class="blockType.id === chosenBlock.block_type.id ? '  border-royal-500  bg-royal-50' : 'opacity-60 border-white'"
+                            class="flex flex-col items-center p-3 pb-1 transition-all duration-200 border rounded-md cursor-pointer"
                             @click="chosenBlock.block_type = blockType"
                         >
                             <img
@@ -82,7 +82,7 @@
                                 class="w-full"
                                 alt=""
                             >
-                            <div class="text-xs">
+                            <div class="mt-2 text-xs">
                                 {{ blockType.name }}
                             </div>
                         </div>

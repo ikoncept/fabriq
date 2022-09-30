@@ -2,7 +2,7 @@ image: lorisleiva/laravel-docker:latest
 
 
 before_script:
-# Install git, the php image doesn't have installed
+# Install git, the php image doesn't have installed.
  - apk add ffmpeg
 
 

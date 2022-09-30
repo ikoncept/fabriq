@@ -1,7 +1,7 @@
 <template>
-    <div class="mt-8 info-placeholder">
+    <div class="mt-4 info-placeholder">
         <div
-            class="flex items-center justify-center border border-dashed rounded-md border-royal-300"
+            class="flex items-center justify-center py-3 border border-dashed rounded-md border-royal-300"
             :class="size"
         >
             <div class="text-center">
@@ -19,7 +19,7 @@ export default {
     props: {
         size: {
             type: String,
-            default: 'min-h-36'
+            default: 'min-h-[150px]'
         }
     }
 }

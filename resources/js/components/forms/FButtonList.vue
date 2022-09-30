@@ -1,7 +1,17 @@
 <template>
     <div>
-        <div class="mt-2 mb-4 text-sm font-semibold">
-            <slot />
+        <div class="flex justify-between mt-2 mb-4 text-sm font-semibold">
+            <div class="text-xl font-light">
+                <slot />
+            </div>
+            <button
+                v-if="! noButtons"
+                class="flex items-center text-sm font-semibold focus:outline-none"
+                type="button"
+                @click="addButton"
+            >
+                <PlusIcon class="w-5 h-5 mr-2 " />Lägg till knapp
+            </button>
         </div>
         <div v-if="noButtons">
             <UiDashedBox size="min-h-24">
@@ -27,11 +37,11 @@
         <div
             v-for="(button, index) in buttons"
             :key="index"
-            class="grid grid-cols-6 mb-6 sm:grid-cols-12 gap-x-6 gap-y-6"
+            class="flex mb-6 space-x-6"
         >
             <FButtonItem
                 v-model="buttons[index]"
-                class="col-span-10 lg:col-span-10"
+                class="flex-1 col-span-12"
                 :pages="pages"
             />
             <div
@@ -52,7 +62,7 @@
                     />
                 </div>
             </div>
-            <div class="flex items-end col-span-2 spliceButton">
+            <div class="flex items-end col-span-1 spliceButton">
                 <button
                     type="button"
                     class="p-4 -m-4 transition-colors duration-200 transform focus:outline-none hover:text-red-600"
@@ -62,15 +72,6 @@
                 </button>
             </div>
         </div>
-
-        <button
-            v-if="! noButtons"
-            class="flex items-center text-sm font-semibold focus:outline-none"
-            type="button"
-            @click="addButton"
-        >
-            <PlusIcon class="w-5 h-5 mr-2 " />Lägg till knapp
-        </button>
     </div>
 </template>
 <script>
