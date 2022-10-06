@@ -21,6 +21,13 @@ class BlockTypesFeatureTest extends AdminUserTestCase
         // Assert
         $response->assertOk();
         $response->assertJsonCount(3, 'data');
+        $response->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'options'
+                ]
+            ]
+        ]);
     }
 
     /** @test **/
