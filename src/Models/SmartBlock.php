@@ -49,7 +49,7 @@ class SmartBlock extends Model
                 'video' => 'getVideos',
             ])
             ->registerDefaultTemplate('smart_block')
-            ->registerCacheTagsToFlush(['cms_pages']);
+            ->registerCacheTagsToFlush(['cms_pages', 'cms_smart_blocks']);
     }
 
     /**

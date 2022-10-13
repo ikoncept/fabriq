@@ -148,7 +148,7 @@ export default {
             try {
                 const payload = {
                     params: {
-                        field: 'id,name,component_name,has_children,base_64_svg'
+                        field: 'id,name,component_name,has_children,base_64_svg,options'
                     }
                 }
                 const { data } = await Page.index(payload)
