@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -14,15 +15,18 @@ class DownloadController extends ApiController
 {
     use ApiControllerTrait;
 
-    public const DOWNLOADABLE_TYPES = [
-        'images' => 'Ikoncept\Fabriq\Models\Image',
-        'files' => 'Ikoncept\Fabriq\Models\File',
-        'videos' => 'Ikoncept\Fabriq\Models\Video',
-    ];
+    protected static function downloadableTypes() : array
+    {
+        return [
+            'images' => Fabriq::getFqnModel('image'),
+            'files' => Fabriq::getFqnModel('file'),
+            'videos' => Fabriq::getFqnModel('video') ,
+        ];
+    }
 
     public function index(Request $request): BinaryFileResponse
     {
-        $type = self::DOWNLOADABLE_TYPES[$request->type];
+        $type = self::downloadableTypes()[$request->type];
         $files = $type::whereIn('id', $request->items)->get();
 
         $zip = new ZipArchive();
@@ -63,7 +67,7 @@ class DownloadController extends ApiController
      */
     public function show(Request $request, int $id)
     {
-        $type = self::DOWNLOADABLE_TYPES[$request->type];
+        $type = self::downloadableTypes()[$request->type];
         $item = $type::where('id', $id)->firstOrFail();
         $conversion = '';
         $mediaFile = $item->getFirstMedia($request->type);
