@@ -183,7 +183,7 @@ export default {
                 }, 600)
             })
             this.UploadDropzone.on('error', (file, errorMessage) => {
-                this.$toast.warning({ title: 'Kunde inte ladda upp filen', message: errorMessage })
+                this.$toast.warning({ title: 'Kunde inte ladda upp filen', message: errorMessage.message })
                 this.$emit('error', errorMessage)
                 this.UploadDropzone.removeAllFiles()
                 console.error(file, errorMessage)
