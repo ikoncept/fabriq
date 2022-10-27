@@ -48,7 +48,7 @@ class Video extends Model implements HasMedia
     /**
      * Set tags.
      *
-     * @param array $value
+     * @param  array  $value
      * @return void
      */
     public function setVideoTagsAttribute($value)
@@ -63,8 +63,8 @@ class Video extends Model implements HasMedia
     /**
      * Search for a video.
      *
-     * @param Builder $query
-     * @param string|null $search
+     * @param  Builder  $query
+     * @param  string|null  $search
      * @return Builder
      */
     public function scopeSearch(Builder $query, $search): Builder

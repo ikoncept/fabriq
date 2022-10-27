@@ -114,7 +114,7 @@ class Page extends Model implements HasMedia
     /**
      * Getter for images.
      *
-     * @param RevisionMeta $meta
+     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getImages(RevisionMeta $meta)
@@ -125,7 +125,7 @@ class Page extends Model implements HasMedia
     /**
      * Getter for files.
      *
-     * @param RevisionMeta $meta
+     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getFiles(RevisionMeta $meta)
@@ -136,7 +136,7 @@ class Page extends Model implements HasMedia
     /**
      * Getter for videos.
      *
-     * @param RevisionMeta $meta
+     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getVideos(RevisionMeta $meta)
@@ -147,7 +147,7 @@ class Page extends Model implements HasMedia
     /**
      * Getter for button.
      *
-     * @param RevisionMeta $meta
+     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getButton(RevisionMeta $meta)
@@ -158,7 +158,7 @@ class Page extends Model implements HasMedia
     /**
      * Getter for buttons.
      *
-     * @param RevisionMeta $meta
+     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getButtons(RevisionMeta $meta)
@@ -169,7 +169,7 @@ class Page extends Model implements HasMedia
     /**
      * Getter for buttons.
      *
-     * @param RevisionMeta $meta
+     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getSmartBlock(RevisionMeta $meta)
@@ -207,8 +207,8 @@ class Page extends Model implements HasMedia
     /**
      * Scope query to find by Slug.
      *
-     * @param Builder $query
-     * @param string $slug
+     * @param  Builder  $query
+     * @param  string  $slug
      * @return Builder
      */
     public function scopeWhereSlug(Builder $query, string $slug): Builder
@@ -221,8 +221,8 @@ class Page extends Model implements HasMedia
     /**
      * Search for pages.
      *
-     * @param Builder $query
-     * @param string $search
+     * @param  Builder  $query
+     * @param  string  $search
      * @return Builder
      */
     public function scopeSearch(Builder $query, string $search): Builder
@@ -233,7 +233,7 @@ class Page extends Model implements HasMedia
     /**
      * Set localized content.
      *
-     * @param array $value
+     * @param  array  $value
      * @return void
      */
     public function setLocalizedContentAttribute($value)

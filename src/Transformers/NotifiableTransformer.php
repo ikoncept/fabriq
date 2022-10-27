@@ -39,7 +39,7 @@ class NotifiableTransformer extends TransformerAbstract
     /**
      * Include user.
      *
-     * @param Model $notifiable
+     * @param  Model  $notifiable
      * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
      */
     public function includeUser(Model $notifiable)
@@ -54,7 +54,7 @@ class NotifiableTransformer extends TransformerAbstract
     /**
      * Include page.
      *
-     * @param Model $notifiable
+     * @param  Model  $notifiable
      * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
      */
     public function includePage(Model $notifiable)

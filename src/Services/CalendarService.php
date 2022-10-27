@@ -11,8 +11,8 @@ class CalendarService
     /**
      * Get daily intervals.
      *
-     * @param mixed $events
-     * @param CarbonImmutable $endDate
+     * @param  mixed  $events
+     * @param  CarbonImmutable  $endDate
      * @return Collection
      */
     public static function getComputedDailyIntervals($events, CarbonImmutable $endDate): Collection

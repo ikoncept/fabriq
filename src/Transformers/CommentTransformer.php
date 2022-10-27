@@ -39,7 +39,7 @@ class CommentTransformer extends TransformerAbstract
     /**
      * Include user.
      *
-     * @param Comment $comment
+     * @param  Comment  $comment
      * @return \League\Fractal\Resource\Item
      */
     public function includeUser(Comment $comment)
@@ -50,7 +50,7 @@ class CommentTransformer extends TransformerAbstract
     /**
      * Include children.
      *
-     * @param Comment $comment
+     * @param  Comment  $comment
      * @return \League\Fractal\Resource\Collection
      */
     public function includeChildren(Comment $comment)

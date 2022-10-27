@@ -15,7 +15,7 @@ class ImageSourceSetController extends ApiController
     /**
      * Get src set data.
      *
-     * @param int $id
+     * @param  int  $id
      * @return JsonResponse
      */
     public function show(int $id): JsonResponse

@@ -34,8 +34,8 @@ class Fabriq
     /**
      * Return a new instance of a model.
      *
-     * @param string $key
-     * @param mixed ...$arguments
+     * @param  string  $key
+     * @param  mixed  ...$arguments
      * @return mixed
      */
     public static function getModelClass(string $key, ...$arguments)
@@ -51,7 +51,7 @@ class Fabriq
     /**
      * Return the fully qualified model name.
      *
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public static function getFqnModel(string $key)
@@ -67,8 +67,8 @@ class Fabriq
     /**
      * Return new transformer class.
      *
-     * @param string $key
-     * @param mixed ...$arguments
+     * @param  string  $key
+     * @param  mixed  ...$arguments
      * @return mixed
      */
     public static function getTransformerFor(string $key, ...$arguments)

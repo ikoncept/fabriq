@@ -40,8 +40,8 @@ class PageTreeOptionTransformer extends TransformerAbstract
     /**
      * Walk page tree.
      *
-     * @param Collection $tree
-     * @param string $prefix
+     * @param  Collection  $tree
+     * @param  string  $prefix
      * @return Collection
      */
     protected function walktree($tree, $prefix = '-')

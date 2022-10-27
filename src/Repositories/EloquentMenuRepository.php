@@ -34,7 +34,7 @@ class EloquentMenuRepository implements MenuRepositoryInterface
     /**
      * Find by slug.
      *
-     * @param string $slug
+     * @param  string  $slug
      * @return mixed
      */
     public function findBySlug(string $slug)
@@ -57,8 +57,8 @@ class EloquentMenuRepository implements MenuRepositoryInterface
     /**
      * Create data.
      *
-     * @param object $collection
-     * @param mixed $callback
+     * @param  object  $collection
+     * @param  mixed  $callback
      * @return Scope
      */
     public function getCollection($collection, $callback): Scope

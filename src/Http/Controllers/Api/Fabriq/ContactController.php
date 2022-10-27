@@ -19,7 +19,7 @@ class ContactController extends ApiController
     /**
      * Returns an index of contacts.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function index(Request $request): JsonResponse

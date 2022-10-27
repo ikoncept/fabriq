@@ -36,7 +36,7 @@ class TagController extends ApiController
     /**
      * Associate a model with a tag.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function store(Request $request): JsonResponse

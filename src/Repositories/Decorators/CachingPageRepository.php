@@ -31,7 +31,7 @@ class CachingPageRepository implements PageRepositoryInterface
     /**
      * Find by slug.
      *
-     * @param string $slug
+     * @param  string  $slug
      * @return mixed
      */
     public function findBySlug(string $slug)
@@ -50,7 +50,7 @@ class CachingPageRepository implements PageRepositoryInterface
     /**
      * Find preview by slug.
      *
-     * @param string $slug
+     * @param  string  $slug
      * @return mixed
      */
     public function findPreviewBySlug(string $slug)
@@ -69,7 +69,7 @@ class CachingPageRepository implements PageRepositoryInterface
     /**
      * Find pages by ids.
      *
-     * @param array $ids
+     * @param  array  $ids
      * @return mixed
      */
     public function findByIds(array $ids)

@@ -21,7 +21,7 @@ class NotificationDeleted implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param mixed $notification
+     * @param  mixed  $notification
      * @return void
      */
     public function __construct($notification)

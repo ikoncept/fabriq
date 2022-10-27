@@ -45,7 +45,7 @@ class ContactTransformer extends TransformerAbstract
     /**
      * Include content.
      *
-     * @param Contact $contact
+     * @param  Contact  $contact
      * @return Item
      */
     public function includeContent(Contact $contact): Item

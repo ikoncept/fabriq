@@ -25,8 +25,8 @@ class NotifyAboutNotification extends Notification
     public $user;
 
     /**
-     * @param int $count
-     * @param mixed $user
+     * @param  int  $count
+     * @param  mixed  $user
      */
     public function __construct(int $count, $user)
     {

@@ -50,7 +50,7 @@ class UserTransformer extends TransformerAbstract
     /**
      * Include roles.
      *
-     * @param User $user
+     * @param  User  $user
      * @return Collection
      */
     public function includeRoles(User $user): Collection
@@ -61,7 +61,7 @@ class UserTransformer extends TransformerAbstract
     /**
      * Include image.
      *
-     * @param User $user
+     * @param  User  $user
      * @return Item
      */
     public function includeImage(User $user): Item
@@ -81,7 +81,7 @@ class UserTransformer extends TransformerAbstract
     /**
      * Get roles.
      *
-     * @param User $user
+     * @param  User  $user
      * @return IlluminateCollection
      */
     public function getRoles(User $user): IlluminateCollection

@@ -81,7 +81,7 @@ class MenuItem extends Model
      */
     public function getTitleAttribute(): string
     {
-        if($this->type === 'internal') {
+        if ($this->type === 'internal') {
             return $this->getSlug()->source_string ?? '';
         }
 
@@ -103,7 +103,7 @@ class MenuItem extends Model
     /**
      * Get the slug.
      *
-     * @param string $locale
+     * @param  string  $locale
      * @return mixed
      */
     public function getSlug(string $locale = '')
@@ -139,7 +139,7 @@ class MenuItem extends Model
     /**
      * Skip setting title.
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return void
      */
     public function setTitleAttribute($value): void
@@ -149,7 +149,7 @@ class MenuItem extends Model
     /**
      * Skip setting page attribute.
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return void
      */
     public function setPageAttribute($value): void

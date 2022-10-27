@@ -69,7 +69,7 @@ class Article extends Model
     /**
      * Getter for images.
      *
-     * @param RevisionMeta $meta
+     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getImages(RevisionMeta $meta)
@@ -107,7 +107,7 @@ class Article extends Model
     /**
      * Set publishes at attribute.
      *
-     * @param string|null $value
+     * @param  string|null  $value
      * @return void
      */
     public function setPublishesAtAttribute($value): void
@@ -118,7 +118,7 @@ class Article extends Model
     /**
      * Set publishes at attribute.
      *
-     * @param string|null $value
+     * @param  string|null  $value
      * @return void
      */
     public function setUnPublishesAtAttribute($value): void
@@ -129,8 +129,8 @@ class Article extends Model
     /**
      * Search for articles.
      *
-     * @param Builder $query
-     * @param string $search
+     * @param  Builder  $query
+     * @param  string  $search
      * @return Builder
      */
     public function scopeSearch(Builder $query, string $search): Builder
@@ -141,7 +141,7 @@ class Article extends Model
     /**
      * Scope for published articles.
      *
-     * @param Builder $query
+     * @param  Builder  $query
      * @return Builder
      */
     public function scopePublished(Builder $query): Builder

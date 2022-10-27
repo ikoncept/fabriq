@@ -21,7 +21,7 @@ class ImageController extends ApiController
     /**
      * Get index of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
@@ -46,8 +46,8 @@ class ImageController extends ApiController
     /**
      * Get a single image.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  Request  $request
+     * @param  int  $id
      * @return JsonResponse
      */
     public function show(Request $request, $id): JsonResponse

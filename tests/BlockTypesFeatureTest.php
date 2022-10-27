@@ -24,9 +24,9 @@ class BlockTypesFeatureTest extends AdminUserTestCase
         $response->assertJsonStructure([
             'data' => [
                 '*' => [
-                    'options'
-                ]
-            ]
+                    'options',
+                ],
+            ],
         ]);
     }
 

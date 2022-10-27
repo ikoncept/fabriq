@@ -15,7 +15,7 @@ class PublishPageController extends ApiController
     /**
      * Publish a page revision.
      *
-     * @param int $pageId
+     * @param  int  $pageId
      * @return JsonResponse
      */
     public function store(int $pageId): JsonResponse

@@ -15,12 +15,12 @@ class DownloadController extends ApiController
 {
     use ApiControllerTrait;
 
-    protected static function downloadableTypes() : array
+    protected static function downloadableTypes(): array
     {
         return [
             'images' => Fabriq::getFqnModel('image'),
             'files' => Fabriq::getFqnModel('file'),
-            'videos' => Fabriq::getFqnModel('video') ,
+            'videos' => Fabriq::getFqnModel('video'),
         ];
     }
 
@@ -61,8 +61,8 @@ class DownloadController extends ApiController
     /**
      * Undocumented function.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  Request  $request
+     * @param  int  $id
      * @return mixed BinaryFileResponse | StreamedResponse
      */
     public function show(Request $request, int $id)

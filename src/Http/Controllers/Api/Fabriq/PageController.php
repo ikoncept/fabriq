@@ -18,7 +18,7 @@ class PageController extends ApiController
     /**
      * Return index of pages.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
@@ -58,8 +58,8 @@ class PageController extends ApiController
     /**
      * Update the specified resource.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
@@ -82,7 +82,7 @@ class PageController extends ApiController
     /**
      * Create a new resource.
      *
-     * @param CreatePageRequest $request
+     * @param  CreatePageRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreatePageRequest $request)
@@ -104,7 +104,7 @@ class PageController extends ApiController
     /**
      * Create a new resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)

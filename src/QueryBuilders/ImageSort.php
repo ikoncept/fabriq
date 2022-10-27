@@ -10,9 +10,9 @@ class ImageSort implements Sort
     /**
      * Sort custom columns.
      *
-     * @param Builder $query
-     * @param mixed $descending
-     * @param string $property
+     * @param  Builder  $query
+     * @param  mixed  $descending
+     * @param  string  $property
      * @return Builder
      */
     public function __invoke(Builder $query, $descending, string $property): Builder

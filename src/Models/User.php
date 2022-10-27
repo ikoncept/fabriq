@@ -79,7 +79,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Set roles according to an array.
      *
-     * @param array $value
+     * @param  array  $value
      * @return void
      */
     public function setRoleListAttribute(array $value)
@@ -95,7 +95,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Create a new invitation.
      *
-     * @param int|null $invitedBy
+     * @param  int|null  $invitedBy
      * @return Invitation
      */
     public function createInvitation($invitedBy = null): Invitation
@@ -111,8 +111,8 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Search for users.
      *
-     * @param Builder $query
-     * @param string $search
+     * @param  Builder  $query
+     * @param  string  $search
      * @return Builder
      */
     public function scopeSearch(Builder $query, string $search): Builder

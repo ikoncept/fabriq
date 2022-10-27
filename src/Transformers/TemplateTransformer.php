@@ -34,7 +34,7 @@ class TemplateTransformer extends TransformerAbstract
     /**
      * Include template fields.
      *
-     * @param RevisionTemplate $template
+     * @param  RevisionTemplate  $template
      * @return Collection
      */
     public function includeFields(RevisionTemplate $template): Collection
@@ -45,7 +45,7 @@ class TemplateTransformer extends TransformerAbstract
     /**
      * Return grouped fields.
      *
-     * @param RevisionTemplate $template
+     * @param  RevisionTemplate  $template
      * @return Item
      */
     public function includeGroupedFields(RevisionTemplate $template): Item

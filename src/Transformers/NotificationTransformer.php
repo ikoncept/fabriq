@@ -35,7 +35,7 @@ class NotificationTransformer extends TransformerAbstract
     /**
      * Include notifiable.
      *
-     * @param Notification $notification
+     * @param  Notification  $notification
      * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
      */
     public function includeNotifiable(Notification $notification)

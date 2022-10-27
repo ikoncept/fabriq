@@ -21,7 +21,7 @@ class CommentDeleted implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param mixed $comment
+     * @param  mixed  $comment
      * @return void
      */
     public function __construct($comment)

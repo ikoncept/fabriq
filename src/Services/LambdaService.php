@@ -40,8 +40,8 @@ class LambdaService
     /**
      * Build function.
      *
-     * @param string $function
-     * @param array $payload
+     * @param  string  $function
+     * @param  array  $payload
      * @return mixed
      */
     public static function callAsync(string $function, array $payload)

@@ -54,7 +54,7 @@ class Contact extends Model
     /**
      * Getter for images.
      *
-     * @param mixed $meta
+     * @param  mixed  $meta
      * @return mixed
      */
     public function getImages($meta)
@@ -77,8 +77,8 @@ class Contact extends Model
     /**
      * Search for contacts.
      *
-     * @param Builder $query
-     * @param string $search
+     * @param  Builder  $query
+     * @param  string  $search
      * @return Builder
      */
     public function scopeSearch(Builder $query, string $search): Builder
@@ -92,7 +92,7 @@ class Contact extends Model
     /**
      * Set tags.
      *
-     * @param array $value
+     * @param  array  $value
      * @return void
      */
     public function setContactTagsAttribute($value)
@@ -107,7 +107,7 @@ class Contact extends Model
     /**
      * Set localized content.
      *
-     * @param array $value
+     * @param  array  $value
      * @return void
      */
     public function setLocalizedContentAttribute($value)

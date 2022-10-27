@@ -19,10 +19,11 @@ class ImageableController extends ApiController
     /**
      * Get associated images for another model.
      *
-     * @param Request $request
-     * @param string $model
-     * @param int $modelId
+     * @param  Request  $request
+     * @param  string  $model
+     * @param  int  $modelId
      * @return JsonResponse
+     *
      * @throws InvalidArgumentException
      */
     public function index(Request $request, $model, $modelId): JsonResponse
@@ -42,9 +43,9 @@ class ImageableController extends ApiController
     /**
      * Associate an image with another model.
      *
-     * @param Request $request
-     * @param int $imageId
-     * @param string $model
+     * @param  Request  $request
+     * @param  int  $imageId
+     * @param  string  $model
      * @return JsonResponse
      */
     public function store(Request $request, $imageId, $model): JsonResponse

@@ -7,7 +7,7 @@ interface PageRepositoryInterface
     /**
      * Find by slug.
      *
-     * @param string $slug
+     * @param  string  $slug
      * @return mixed
      */
     public function findBySlug(string $slug);
@@ -15,7 +15,7 @@ interface PageRepositoryInterface
     /**
      * Find a preview by slug.
      *
-     * @param string $slug
+     * @param  string  $slug
      * @return mixed
      */
     public function findPreviewBySlug(string $slug);
@@ -23,7 +23,7 @@ interface PageRepositoryInterface
     /**
      * Find by slug.
      *
-     * @param array $ids
+     * @param  array  $ids
      * @return mixed
      */
     public function findByIds(array $ids);

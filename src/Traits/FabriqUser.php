@@ -34,7 +34,7 @@ trait FabriqUser
     /**
      * Set roles according to an array.
      *
-     * @param array $value
+     * @param  array  $value
      * @return void
      */
     public function setRoleListAttribute(array $value)
@@ -45,8 +45,8 @@ trait FabriqUser
     /**
      * Search for users.
      *
-     * @param Builder $query
-     * @param string $search
+     * @param  Builder  $query
+     * @param  string  $search
      * @return Builder
      */
     public function scopeSearch(Builder $query, string $search): Builder

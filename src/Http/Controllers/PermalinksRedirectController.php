@@ -17,9 +17,9 @@ class PermalinksRedirectController extends Controller
     /**
      * Return redirect or paths.
      *
-     * @param Request $request
-     * @param string $hash
-     * @param string $locale
+     * @param  Request  $request
+     * @param  string  $hash
+     * @param  string  $locale
      * @return JsonResponse|RedirectResponse
      */
     public function __invoke(Request $request, string $hash, string $locale = 'sv')

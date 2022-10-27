@@ -45,7 +45,7 @@ class Event extends Model
     /**
      * Set the date attribute.
      *
-     * @param array|null $value
+     * @param  array|null  $value
      * @return void
      */
     public function setDateAttribute($value): void
@@ -69,8 +69,8 @@ class Event extends Model
     /**
      * Scope events between dates.
      *
-     * @param Builder $query
-     * @param string ...$dates
+     * @param  Builder  $query
+     * @param  string  ...$dates
      * @return Builder
      */
     public function scopeDateRange(Builder $query, ...$dates): Builder

@@ -46,7 +46,7 @@ class SmartBlockTransformer extends TransformerAbstract
     /**
      * Include content.
      *
-     * @param SmartBlock $smartblock
+     * @param  SmartBlock  $smartblock
      * @return Item
      */
     public function includeContent(SmartBlock $smartblock): Item

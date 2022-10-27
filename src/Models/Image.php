@@ -69,8 +69,8 @@ class Image extends Model implements HasMedia
     /**
      * Search for an image.
      *
-     * @param Builder $query
-     * @param string|null $search
+     * @param  Builder  $query
+     * @param  string|null  $search
      * @return Builder
      */
     public function scopeSearch(Builder $query, $search): Builder
@@ -87,7 +87,7 @@ class Image extends Model implements HasMedia
     /**
      * Set tags.
      *
-     * @param array $value
+     * @param  array  $value
      * @return void
      */
     public function setImageTagsAttribute($value)

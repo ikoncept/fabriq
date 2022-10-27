@@ -53,7 +53,7 @@ class MenuTreeItemTransformer extends TransformerAbstract
     /**
      * Include content.
      *
-     * @param MenuItem $menuItem
+     * @param  MenuItem  $menuItem
      * @return Item
      */
     public function includeContent(MenuItem $menuItem): Item

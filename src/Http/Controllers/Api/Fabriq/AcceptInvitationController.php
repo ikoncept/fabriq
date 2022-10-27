@@ -20,8 +20,8 @@ class AcceptInvitationController extends Controller
     /**
      * Show invitation view.
      *
-     * @param Request $request
-     * @param string $invitationUuid
+     * @param  Request  $request
+     * @param  string  $invitationUuid
      * @return JsonResponse|View
      */
     public function show(Request $request, string $invitationUuid)
@@ -43,8 +43,8 @@ class AcceptInvitationController extends Controller
     /**
      * Undocumented function.
      *
-     * @param AcceptInvitationRequest $request
-     * @param string $invitationUuid
+     * @param  AcceptInvitationRequest  $request
+     * @param  string  $invitationUuid
      * @return JsonResponse|RedirectResponse
      */
     public function store(AcceptInvitationRequest $request, string $invitationUuid)

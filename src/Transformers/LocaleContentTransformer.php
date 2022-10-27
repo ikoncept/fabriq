@@ -24,7 +24,7 @@ class LocaleContentTransformer extends TransformerAbstract
     protected $contentModel;
 
     /**
-     * @param mixed $contentModel
+     * @param  mixed  $contentModel
      */
     public function __construct($contentModel)
     {
@@ -34,7 +34,7 @@ class LocaleContentTransformer extends TransformerAbstract
     /**
      * Transform.
      *
-     * @param Collection $locales
+     * @param  Collection  $locales
      * @return array
      */
     public function transform(Collection $locales): array

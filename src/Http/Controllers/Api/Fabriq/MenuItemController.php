@@ -18,8 +18,8 @@ class MenuItemController extends ApiController
     /**
      * Show a single item.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  Request  $request
+     * @param  int  $id
      * @return JsonResponse
      */
     public function show(Request $request, int $id): JsonResponse
@@ -35,8 +35,8 @@ class MenuItemController extends ApiController
     /**
      * Update a menu item.
      *
-     * @param UpdateMenuItemRequest $request
-     * @param int $id
+     * @param  UpdateMenuItemRequest  $request
+     * @param  int  $id
      * @return JsonResponse
      */
     public function update(UpdateMenuItemRequest $request, int $id): JsonResponse
@@ -57,8 +57,8 @@ class MenuItemController extends ApiController
     /**
      * Store a new menu item.
      *
-     * @param UpdateMenuItemRequest $request
-     * @param int $menuId
+     * @param  UpdateMenuItemRequest  $request
+     * @param  int  $menuId
      * @return JsonResponse
      */
     public function store(UpdateMenuItemRequest $request, int $menuId): JsonResponse
@@ -80,7 +80,7 @@ class MenuItemController extends ApiController
     /**
      * Delete a menu item.
      *
-     * @param int $id
+     * @param  int  $id
      * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse

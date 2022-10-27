@@ -46,7 +46,7 @@ class ArticleTransformer extends TransformerAbstract
     /**
      * Include content.
      *
-     * @param Article $article
+     * @param  Article  $article
      * @return Item
      */
     public function includeContent(Article $article): Item
@@ -59,7 +59,7 @@ class ArticleTransformer extends TransformerAbstract
     /**
      * Include template.
      *
-     * @param Article $article
+     * @param  Article  $article
      * @return Item
      */
     public function includeTemplate(Article $article): Item
@@ -70,7 +70,7 @@ class ArticleTransformer extends TransformerAbstract
     /**
      * Include slugs.
      *
-     * @param Article $article
+     * @param  Article  $article
      * @return Collection
      */
     public function includeSlugs(Article $article): Collection

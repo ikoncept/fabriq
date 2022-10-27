@@ -70,7 +70,7 @@ class ImageTransformer extends TransformerAbstract
     /**
      * Get width.
      *
-     * @param Media $media
+     * @param  Media  $media
      * @return mixed
      */
     protected function getWidth(Media $media)
@@ -88,7 +88,7 @@ class ImageTransformer extends TransformerAbstract
     /**
      * Get height.
      *
-     * @param Media $media
+     * @param  Media  $media
      * @return mixed
      */
     protected function getHeight(Media $media)

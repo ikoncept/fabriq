@@ -21,7 +21,7 @@ class UserController extends ApiController
     /**
      * Returns an index of users.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
@@ -54,8 +54,8 @@ class UserController extends ApiController
     /**
      * Show a single user.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  Request  $request
+     * @param  int  $id
      * @return JsonResponse
      */
     public function show(Request $request, int $id): JsonResponse

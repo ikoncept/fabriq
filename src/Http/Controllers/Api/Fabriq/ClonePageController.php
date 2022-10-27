@@ -14,7 +14,7 @@ class ClonePageController extends ApiController
     /**
      * Create a new resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request, int $id)

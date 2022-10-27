@@ -37,7 +37,7 @@ class PageTransformer extends TransformerAbstract
     /**
      * Include content.
      *
-     * @param Page $page
+     * @param  Page  $page
      * @return Item
      */
     public function includeContent(Page $page): Item
@@ -50,7 +50,7 @@ class PageTransformer extends TransformerAbstract
     /**
      * Include page template.
      *
-     * @param Page $page
+     * @param  Page  $page
      * @return Item
      */
     public function includeTemplate(Page $page): Item
@@ -61,7 +61,7 @@ class PageTransformer extends TransformerAbstract
     /**
      * Include slugs.
      *
-     * @param Page $page
+     * @param  Page  $page
      * @return Collection
      */
     public function includeSlugs(Page $page): Collection

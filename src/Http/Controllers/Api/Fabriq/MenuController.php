@@ -16,7 +16,7 @@ class MenuController extends ApiController
     /**
      * Get index of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
@@ -30,8 +30,8 @@ class MenuController extends ApiController
     /**
      * Get a single resource.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  Request  $request
+     * @param  int  $id
      * @return JsonResponse
      */
     public function show(Request $request, int $id): JsonResponse
@@ -47,7 +47,7 @@ class MenuController extends ApiController
     /**
      * Create a new resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function store(Request $request): JsonResponse
@@ -66,8 +66,8 @@ class MenuController extends ApiController
     /**
      * Update a resource.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  Request  $request
+     * @param  int  $id
      * @return JsonResponse
      */
     public function update(Request $request, int $id): JsonResponse
@@ -85,7 +85,7 @@ class MenuController extends ApiController
     /**
      * Destroy a resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse

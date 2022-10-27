@@ -29,8 +29,8 @@ class UserMentionedInComment implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param mixed $comment
-     * @param mixed $notification
+     * @param  mixed  $comment
+     * @param  mixed  $notification
      * @return void
      */
     public function __construct($comment, $notification)

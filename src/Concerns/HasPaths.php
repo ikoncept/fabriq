@@ -20,7 +20,7 @@ trait HasPaths
     /**
      * Get the absolute path.
      *
-     * @param string|null $path
+     * @param  string|null  $path
      * @return string
      */
     public function getAbsolutePath($path): string

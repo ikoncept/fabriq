@@ -27,6 +27,6 @@ class BlockType extends Model
 
     protected $casts = [
         'has_children' => 'boolean',
-        'options' => 'array'
+        'options' => 'array',
     ];
 }

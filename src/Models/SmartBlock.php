@@ -55,7 +55,7 @@ class SmartBlock extends Model
     /**
      * Set localized content.
      *
-     * @param array $value
+     * @param  array  $value
      * @return void
      */
     public function setLocalizedContentAttribute($value)
@@ -66,7 +66,7 @@ class SmartBlock extends Model
     }
 
     /**
-     * @param RevisionMeta $meta
+     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getImages(RevisionMeta $meta)
@@ -75,7 +75,7 @@ class SmartBlock extends Model
     }
 
     /**
-     * @param RevisionMeta $meta
+     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getFiles(RevisionMeta $meta)
@@ -84,7 +84,7 @@ class SmartBlock extends Model
     }
 
     /**
-     * @param RevisionMeta $meta
+     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getVideos(RevisionMeta $meta)
@@ -95,7 +95,7 @@ class SmartBlock extends Model
     /**
      * Getter for button.
      *
-     * @param RevisionMeta $meta
+     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getButton(RevisionMeta $meta)
@@ -106,7 +106,7 @@ class SmartBlock extends Model
     /**
      * Getter for buttons.
      *
-     * @param RevisionMeta $meta
+     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getButtons(RevisionMeta $meta)
@@ -117,8 +117,8 @@ class SmartBlock extends Model
     /**
      * Search for smart blocks.
      *
-     * @param Builder $query
-     * @param string $search
+     * @param  Builder  $query
+     * @param  string  $search
      * @return Builder
      */
     public function scopeSearch(Builder $query, string $search): Builder

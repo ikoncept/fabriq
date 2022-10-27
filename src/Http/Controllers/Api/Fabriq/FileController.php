@@ -20,7 +20,7 @@ class FileController extends ApiController
     /**
      * Get index of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function index(Request $request): JsonResponse

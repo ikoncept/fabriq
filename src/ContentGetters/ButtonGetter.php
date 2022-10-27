@@ -11,8 +11,8 @@ class ButtonGetter
     /**
      * Return a representation of an image.
      *
-     * @param RevisionMeta $meta
-     * @param bool $publishing
+     * @param  RevisionMeta  $meta
+     * @param  bool  $publishing
      * @return mixed
      */
     public static function get(RevisionMeta $meta, $publishing = false)

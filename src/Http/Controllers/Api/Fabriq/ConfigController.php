@@ -26,7 +26,7 @@ class ConfigController extends ApiController
             'modules',
             'front_end_domain',
             'extras',
-            'ui'
+            'ui',
         ])->toArray();
 
         $supportedLocales = Fabriq::getModelClass('locale')->cachedLocales();
