@@ -187,8 +187,18 @@
                         <span v-else-if="prop == 'created_at'">
                             {{ item.created_at | localTime }}
                         </span>
-                        <span v-else-if="prop == 'c_name'">
+                        <span
+                            v-else-if="prop == 'c_name'"
+                            class="flex items-center space-x-3"
+                        >
+
+                            <div
+                                v-if="! item.processing && item.processing_failed"
+                            >
+                                <CircleXMarkIcon class="w-4 text-red-500 h-w-4" />
+                            </div>
                             <div class="truncate text-ellipsis max-w-64">
+
                                 {{ item.c_name }}
                             </div>
                         </span>
@@ -328,6 +338,7 @@ export default {
         this.fetchImages()
         this.uploadInit = true
         this.$eventBus.$on('image-updated', this.fetchImages)
+        this.$eventBus.$on('media-finished-processing', this.fetchImages)
     },
     methods: {
         resetSearch () {

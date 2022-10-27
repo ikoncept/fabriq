@@ -9,10 +9,32 @@
     >
         <template #title>
             <div class="flex items-center justify-between flex-1">
-                <span
-                    class="text-xl text-gray-700"
-                    v-text="'Redigera bild'"
-                />
+                <div class="flex items-end space-x-4">
+                    <span
+                        class="text-xl text-gray-700"
+                        v-text="'Redigera bild'"
+                    />
+                    <UiBadge v-if="image.processing">
+                        <span class="flex items-center space-x-2">
+                            <span>Skapar responsiva versioner</span>
+                            <div
+                                key="spinner"
+                                class="w-3 h-w-3"
+                            >
+                                <SpinIcon class="animate-spin" />
+                            </div>
+                        </span>
+                    </UiBadge>
+                    <UiBadge
+                        v-else-if="!image.processing && image.processing_failed"
+                        color="red"
+                    >
+                        <span class="flex items-center space-x-2">
+                            <span>Responsiva versioner kunde inte skapas, troligen för fet 🥵</span>
+                        </span>
+                    </UiBadge>
+                </div>
+
                 <button
                     type="button"
                     class="relative z-20 mr-6"
@@ -181,7 +203,8 @@ export default {
             tags: [],
             imageTags: [],
             y_position: '50%',
-            x_position: '50%'
+            x_position: '50%',
+            wsPrefix: ''
         }
     },
     computed: {
@@ -208,6 +231,7 @@ export default {
             }
         },
         async initModal (parameters) {
+            this.$eventBus.$on('media-finished-processing', this.evaluateNewStatus)
             try {
                 const promises = [
                     this.fetchImage(parameters),
@@ -217,6 +241,13 @@ export default {
             } catch (error) {
                 console.error(error)
             }
+        },
+        evaluateNewStatus(event) {
+            if(event.image_id !== this.image.id) {
+                return
+            }
+            this.image.processing = event.processing
+            this.image.processing_failed = event.processing_failed
         },
         async fetchImageTags () {
             try {
@@ -232,6 +263,7 @@ export default {
             }
         },
         resetImage () {
+            this.$eventBus.$off('media-finished-processing', this.evaluateNewStatus)
             this.image = {
                 id: 0,
                 size: 0
