@@ -19,6 +19,14 @@ class ImageFeatureTest extends AdminUserTestCase
 
         // Assert
         $response->assertOk();
+        $response->assertJsonStructure([
+            'data' => [
+                'width',
+                'height',
+                'processing',
+                'processing_failed',
+            ],
+        ]);
     }
 
     /** @test **/

@@ -105,7 +105,7 @@ class Image extends Model implements HasMedia
             [$width, $height] = getimagesize(request()->input('url', $url));
             $this->addMediaFromUrl(request()->input('url', $url))
                 ->withResponsiveImages()
-                ->withCustomProperties(['width' => $width, 'height' => $height])
+                ->withCustomProperties(['width' => $width, 'height' => $height, 'processing' => true, 'processing_failed' => false])
                 ->toMediaCollection($collection);
 
             return;
@@ -113,7 +113,11 @@ class Image extends Model implements HasMedia
         [$width, $height] = getimagesize(request()->file('image'));
         $this->addMediaFromRequest('image')
             ->withResponsiveImages()
-            ->withCustomProperties(['width' => $width, 'height' => $height])
+            ->withCustomProperties([
+                'width' => $width,
+                'height' => $height,
+                'processing' => ($width) ? true : false, 'processing_failed' => false,
+            ])
             ->toMediaCollection($collection);
     }
 }

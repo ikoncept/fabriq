@@ -57,6 +57,8 @@ class ImageTransformer extends TransformerAbstract
             'size' => $media->size,
             'width' => $this->getWidth($media),
             'height' => $this->getHeight($media),
+            'processing' => (bool) $media->getCustomProperty('processing'),
+            'processing_failed' => (bool) $media->getCustomProperty('processing_failed'),
             'updated_at' => $image->updated_at,
             'created_at' => $image->created_at,
         ];

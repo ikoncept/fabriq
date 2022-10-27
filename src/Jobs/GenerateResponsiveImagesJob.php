@@ -2,6 +2,8 @@
 
 namespace Ikoncept\Fabriq\Jobs;
 
+use Exception;
+use Ikoncept\Fabriq\Events\MediaFinishedProcessing;
 use Ikoncept\Fabriq\Services\ResponsiveImageGenerator;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,13 +29,27 @@ class GenerateResponsiveImagesJob implements ShouldQueue
         /** @var \Ikoncept\Fabriq\Services\ResponsiveImageGenerator $responsiveImageGenerator */
         $responsiveImageGenerator = app(ResponsiveImageGenerator::class);
 
-        if (config('fabriq.enable_remote_image_processing')) {
-            $responsiveImageGenerator->generateResponsiveImagesViaLambda($this->media);
+        try {
+            if (config('fabriq.enable_remote_image_processing')) {
+                $responsiveImageGenerator->generateResponsiveImagesViaLambda($this->media);
+
+                $this->media->setCustomProperty('processing', false);
+                $this->media->setCustomProperty('processing_failed', false);
+                $this->media->save();
+                MediaFinishedProcessing::dispatch($this->media);
+
+                return true;
+            }
+            $responsiveImageGenerator->generateResponsiveImages($this->media);
 
             return true;
+        } catch (Exception $exception) {
+            $this->media->setCustomProperty('processing', false);
+            $this->media->setCustomProperty('processing_failed', true);
+            $this->media->save();
+            MediaFinishedProcessing::dispatch($this->media);
+            $this->fail($exception);
         }
-
-        $responsiveImageGenerator->generateResponsiveImages($this->media);
 
         return true;
     }

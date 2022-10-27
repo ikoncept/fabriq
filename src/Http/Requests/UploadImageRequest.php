@@ -25,7 +25,14 @@ class UploadImageRequest extends FormRequest
     {
         return [
             'url' => 'required_without:image',
-            'image' => 'required_without:url|image',
+            'image' => 'required_without:url|image|dimensions:max_width=5000',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'image.dimensions' => 'Bilden får inte vara bredare än 5000 pixlar',
         ];
     }
 }
