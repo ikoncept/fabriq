@@ -122,6 +122,11 @@ export default {
                         this.$eventBus.$emit('user-declined-to-leave-echo', notification)
                     }
                 })
+            this.$echo.channel(`${wsPrefix}.media`)
+                .listen(`.media-finished-processing`, (event) => {
+                    console.log(event)
+                    this.$eventBus.$emit('media-finished-processing', event)
+                })
         }
     }
 }
