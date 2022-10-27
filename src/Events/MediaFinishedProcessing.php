@@ -20,7 +20,7 @@ class MediaFinishedProcessing implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param  mixed  $comment
+     * @param  mixed  $media
      * @return void
      */
     public function __construct($media)
