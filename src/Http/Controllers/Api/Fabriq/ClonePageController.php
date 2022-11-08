@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
+use Ikoncept\Fabriq\Actions\ClonePage;
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -17,7 +18,7 @@ class ClonePageController extends ApiController
      * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request, int $id)
+    public function store(Request $request, int $id, ClonePage $clonePage)
     {
         $pageRoot = Fabriq::getModelClass('page')->whereNull('parent_id')
             ->where('name', 'root')
@@ -25,15 +26,8 @@ class ClonePageController extends ApiController
             ->firstOrFail();
         $pageToClone = Fabriq::getModelClass('page')->findOrFail($id);
         $page = Fabriq::getModelClass('page');
-        $page->name = $request->name ?? 'Kopia av '.$pageToClone->name;
-        $page->template_id = $pageToClone->template_id;
-        $page->revision = $pageToClone->revision;
-        $page->published_version = $pageToClone->published_version;
-        $page->parent_id = $pageRoot->id;
-        $page->updated_by = $request->user()->id;
-        $page->save();
-        $page->localizedContent = $request->localizedContent;
-        $page->save();
+
+        $page = $clonePage($pageRoot, $pageToClone, $request->name ?? 'Kopia av '.$pageToClone->name);
 
         return $this->respondWithItem($page, Fabriq::getTransformerFor('page'), 201);
     }
