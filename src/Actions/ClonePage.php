@@ -11,7 +11,7 @@ class ClonePage
     public function __invoke(Model $root, Model $sourcePage, string $pageName = ''): Model
     {
         $page = Fabriq::getModelClass('page');
-        $page->name = $pageName ?? 'Kopia av '.$sourcePage->name;
+        $page->name = ($pageName) ? $pageName : 'Kopia av '.$sourcePage->name;
         $page->template_id = $sourcePage->template_id;
         $page->revision = $sourcePage->revision;
         $page->published_version = $sourcePage->published_version;
@@ -25,6 +25,7 @@ class ClonePage
             ->orderBy('id', 'desc')->get();
 
         foreach ($locales as $locale) {
+            /** @var \Ikoncept\Fabriq\Models\Page $sourcePage * */
             $content = $sourcePage->getFieldContent($sourcePage->revision, $locale->iso_code);
             $page->updateContent($content->toArray(), $locale->iso_code);
         }
