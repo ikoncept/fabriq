@@ -5,12 +5,16 @@
                 <slot />
             </div>
             <button
-                v-if="! noButtons"
+                :disabled="addLocked"
+                :class="{'cursor-not-allowed text-neutral-400': addLocked}"
                 class="flex items-center text-sm font-semibold focus:outline-none"
                 type="button"
                 @click="addButton"
             >
-                <PlusIcon class="w-5 h-5 mr-2 " />Lägg till knapp
+                <span
+                    v-if="maxItems && maxItems <= buttons.length"
+                    class="mr-4 text-xs italic font-normal text-neutral-400"
+                >Du har nått det maximala antalet knappar </span><PlusIcon class="w-5 h-5 mr-2 " />Lägg till knapp
             </button>
         </div>
         <div v-if="noButtons">
@@ -42,6 +46,7 @@
             <FButtonItem
                 v-model="buttons[index]"
                 class="flex-1 col-span-12"
+                :placeholder="placeholder"
                 :pages="pages"
             />
             <div
@@ -88,6 +93,16 @@ export default {
             required: false,
             type: Object,
             default: () => ({})
+        },
+        maxItems: {
+            type: Number,
+            required: false,
+            default: null
+        },
+        placeholder: {
+            type: String,
+            required: false,
+            default: ''
         }
     },
     data () {
@@ -108,6 +123,9 @@ export default {
                 ...this.defaultOptions,
                 ...this.options
             }
+        },
+        addLocked() {
+            return this.maxItems && this.maxItems <= this.buttons.length
         }
     },
     created () {

@@ -82,12 +82,12 @@ export default {
 </script>
 <style>
     .bg-checkered-sm {
-        background-image: url('/dist/images/checkered.svg');
+        background-image: url('@/../images/checkered.svg');
         background-size: 30px 23px;
         background-position: top top;
     }
     .bg-checkered-lg {
-        background-image: url('/dist/images/checkered.svg');
+        background-image: url('@/../images/checkered.svg');
         background-size: 4rem 3rem;
         background-position: top top;
     }

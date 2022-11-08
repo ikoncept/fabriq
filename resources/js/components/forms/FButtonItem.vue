@@ -7,6 +7,7 @@
             v-model="localButton.text"
             :class="{'w-80' : ! columnLayout}"
             :disabled="disabled"
+            :placeholder="placeholder"
             label="Knapptext"
         />
         <FInput
@@ -88,6 +89,10 @@ export default {
         columnLayout: {
             type: Boolean,
             default: false
+        },
+        placeholder: {
+            type: String,
+            default: ''
         }
     },
     data () {
@@ -122,9 +127,7 @@ export default {
         },
 
         checkForPages () {
-            // alert('hehe')
             this.fetchPages()
-            console.log('checking for pages')
         },
         emitupdate () {
         }
