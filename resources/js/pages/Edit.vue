@@ -20,6 +20,15 @@
                     <span>
                         {{ page.name }}
                     </span>
+                    <span v-if="devMode && page.locked">
+                        <RouterLink
+                            :to="{name: 'pages.edit', params: {id: page.template.data.source_model_id}}"
+                            class="flex items-center text-sm link"
+                            @click="showBlockTypeModal"
+                        >
+                            Redigera mall
+                        </RouterLink>
+                    </span>
                 </div>
             </template>
             <template #tools>
@@ -132,7 +141,7 @@
                                 <template #header>
                                     <h3 class>
                                         <span v-if="index === 'meta'">Meta-fält</span>
-                                        <span v-else-if="index === 'main_content'">Sidhuvud</span>
+                                        <span v-else-if="index === 'main_content'">Sidtypsegenskaper</span>
                                         <span v-else>{{ index }}</span>
                                     </h3>
                                 </template>
@@ -229,6 +238,7 @@
                                         Block
                                     </h4>
                                     <button
+                                        v-show="!lockedBlocks"
                                         class="flex items-center text-sm link"
                                         @click="showBlockTypeModal"
                                     >
@@ -284,7 +294,10 @@
                                                         <template #header>
                                                             <div class="flex items-center justify-between">
                                                                 <div class="flex items-center flex-1 space-x-6">
-                                                                    <GripVerticalIcon class="block w-6 h-6 text-gray-300 cursor-move handle" />
+                                                                    <GripVerticalIcon
+                                                                        v-if="!lockedBlocks"
+                                                                        class="block w-6 h-6 text-gray-300 cursor-move handle"
+                                                                    />
                                                                     <div class="flex items-end space-x-6">
                                                                         <div class="leading-none">
                                                                             {{ block.name }}
@@ -294,7 +307,17 @@
                                                                 </div>
                                                                 <div class="flex items-center space-x-4">
                                                                     <!-- <ellipsis-icon class="w-6 h-6 mr-4" /> -->
+                                                                    <div v-if="lockedBlocks">
+                                                                        <LockIcon
+                                                                            class="h-6"
+                                                                        />
+                                                                    </div>
+                                                                    <div
+                                                                        v-if="lockedBlocks"
+                                                                        class="w-px h-8 mx-6 bg-gray-300"
+                                                                    />
                                                                     <button
+                                                                        v-show="!lockedBlocks"
                                                                         v-tooltip.bottom="{ delay: { show: 300, hide: 100 }, content: 'Klona block' }"
                                                                         class="focus:outline-none"
                                                                         @click.stop="cloneBlock(block)"
@@ -322,6 +345,7 @@
                                                                         class="self-center mb-1 "
                                                                     />
                                                                     <FConfirmDropdown
+                                                                        v-show="!lockedBlocks"
                                                                         confirm-question="Vill du ta bort detta blocket?"
                                                                         class="relative w-6 h-6"
                                                                         @confirmed="deleteBlock(boxIndex)"
@@ -412,7 +436,7 @@ export default {
             return {
                 animation: 200,
                 group: 'description',
-                disabled: false,
+                disabled: this.lockedBlocks,
                 ghostClass: 'ghost'
             }
         },
@@ -430,6 +454,15 @@ export default {
         currentUserIsFirstIn() {
             return this.$store.getters['echo/currentUserIsFirstIn']
         },
+        devMode () {
+            return this.$store.getters['config/devMode']
+        },
+        lockedBlocks() {
+            if(this.devMode) {
+                return false
+            }
+            return this.page.locked
+        }
     },
     activated () {
         this.id = this.$route.params.id

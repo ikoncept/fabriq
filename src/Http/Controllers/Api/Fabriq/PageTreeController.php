@@ -16,6 +16,7 @@ class PageTreeController extends ApiController
     public function index(Request $request): JsonResponse
     {
         $pageRoot = Fabriq::getModelClass('page')
+            ->where('name', 'root')
             ->whereNull('parent_id')->first();
 
         $tree = Fabriq::getModelClass('page')->orderBy('sortindex')

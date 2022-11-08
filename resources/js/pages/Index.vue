@@ -32,7 +32,7 @@
                 name="name"
             />
             <FSelect
-                v-model="newPage.template_id"
+                v-model="newPage.template"
                 name="template_id"
                 :options="templates"
                 placeholder="Vänligen välj"
@@ -41,8 +41,9 @@
                 rules="required"
                 value-key="id"
                 label="Sidtyp"
-                :reduce-fn="item => item.id"
+                :reduce-fn="item => item"
             />
+            <pre>{{ newPage.template }}</pre>
         </CreateModal>
         <UiCard
             class="pb-4"
@@ -196,7 +197,7 @@ import '@/plugins/vue-nestable/vue-nestable.css';
 function defaultCreationObject () {
     return {
         name: '',
-        template_id: null
+        template: null
     }
 }
 export default {
@@ -210,7 +211,7 @@ export default {
             pageToClone: {},
             newPage: {
                 name: '',
-                template_id: null
+                template: null
             },
             templates: [],
             queryParams: {
@@ -290,14 +291,17 @@ export default {
                 console.log(error)
             }
         },
-        async clonePage(page) {
+        async clonePage(page, parameters = {}) {
             await this.fetchPage(page.id)
 
             let localizedContent = {}
             Object.keys(this.pageToClone.localizedContent.data).forEach((item) => {
                 localizedContent[item] = { ...this.pageToClone.localizedContent.data[item].content }
             })
-            await Page.clone(page.id, { localizedContent: localizedContent })
+            const payload = {
+                localizedContent: localizedContent,
+            }
+            await Page.clone(page.id, {...payload, ...parameters})
             this.$toast.success({ title: 'Sidan har klonats!' })
             this.fetchPageTree()
         },
@@ -352,8 +356,32 @@ export default {
                 console.error(error)
             }
         },
+        // async createPage () {
+        //     try {
+        //         const { data } = await Page.store(this.newPage)
+        //         this.$toast.success({
+        //             title: 'Sidan har skapats!',
+        //             buttonText: 'Gå till sidan',
+        //             onClick: () => this.$router.push({ name: 'pages.edit', params: { id: data.id } })
+        //         })
+        //         this.$vfm.hide('createPageModal')
+        //         this.resetCreateModal()
+        //         this.fetchPageTree()
+        //     } catch (error) {
+        //         console.error(error)
+        //         if (error.response.status === 422) {
+        //             this.$refs.observer.validate()
+        //         }
+        //     }
+        // },
         async createPage () {
             try {
+                if(this.newPage.template.locked) {
+                    await this.clonePage({id: this.newPage.template.source_model_id}, {name: this.newPage.name})
+                    this.$vfm.hide('createPageModal')
+                    this.resetCreateModal()
+                    return
+                }
                 const { data } = await Page.store(this.newPage)
                 this.$toast.success({
                     title: 'Sidan har skapats!',

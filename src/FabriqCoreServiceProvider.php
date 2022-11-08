@@ -7,6 +7,7 @@ use Ikoncept\Fabriq\Console\AddRoleToUserCommand;
 use Ikoncept\Fabriq\Console\ControllerMakeCommand;
 use Ikoncept\Fabriq\Console\CreateMenuCommand;
 use Ikoncept\Fabriq\Console\CreatePageRootCommand;
+use Ikoncept\Fabriq\Console\CreatePageTemplate;
 use Ikoncept\Fabriq\Console\InstallFabriqCommand;
 use Ikoncept\Fabriq\Console\MakeRevisionField;
 use Ikoncept\Fabriq\Console\PublishNotification;
@@ -123,6 +124,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
             VueResourceMakeCommand::class,
             MakeUser::class,
             UpdateFabriqCommand::class,
+            CreatePageTemplate::class,
         ]);
 
         $this->app->singleton(PageRepositoryInterface::class, function () {

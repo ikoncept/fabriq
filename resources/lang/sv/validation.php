@@ -148,6 +148,5 @@ return [
     'attributes' => [
         'password' => 'Lösenordet',
         'email' => 'E-post',
-        'image' => 'Bilden',
     ],
 ];

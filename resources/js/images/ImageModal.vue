@@ -30,7 +30,7 @@
                         color="red"
                     >
                         <span class="flex items-center space-x-2">
-                            <span>Responsiva versioner kunde inte skapas, troligen för fet 🥵</span>
+                            <span>Responsiva versioner kunde inte skapas, troligen för stor 🥵</span>
                         </span>
                     </UiBadge>
                 </div>

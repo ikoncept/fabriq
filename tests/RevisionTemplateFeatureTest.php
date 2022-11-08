@@ -12,7 +12,9 @@ class RevisionTemplateFeatureTest extends AdminUserTestCase
     {
         // Arrange
         RevisionTemplate::truncate();
-        $templates = RevisionTemplate::factory()->count(3)->create();
+        $templates = RevisionTemplate::factory()->count(3)->create([
+            'locked' => true,
+        ]);
 
         // Act
         $response = $this->json('GET', '/templates');
@@ -20,5 +22,13 @@ class RevisionTemplateFeatureTest extends AdminUserTestCase
         // Assert
         $response->assertOk();
         $response->assertJsonCount(3, 'data');
+        $response->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'locked',
+                    'source_model_id',
+                ],
+            ],
+        ]);
     }
 }
