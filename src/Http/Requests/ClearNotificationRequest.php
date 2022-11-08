@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Http\Requests;
 
 use Ikoncept\Fabriq\Models\Notification;
+use Ikoncept\Fabriq\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ClearNotificationRequest extends FormRequest
@@ -14,7 +15,10 @@ class ClearNotificationRequest extends FormRequest
      */
     public function authorize()
     {
-        if (request()->user()->hasAllRoles(['admin', 'dev'])) {
+        $user = request()->user();
+
+        /** @var User $user * */
+        if ($user->hasAllRoles(['admin', 'dev'])) {
             return true;
         }
 

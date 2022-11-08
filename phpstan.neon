@@ -45,6 +45,9 @@ parameters:
         -
             message: '#undefined method DOMNode#'
             path: ./src/Models/Comment.php
+        -
+            message: '#undefined method#'
+            path: ./src/Actions/ClonePage.php
         # -
 
         #     message: '#$view of function view expects view-string#'
@@ -59,3 +62,4 @@ parameters:
         - src/RouteRegistrar.php
 
     checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false

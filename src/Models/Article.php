@@ -97,9 +97,9 @@ class Article extends Model
     protected function getTimeZone(): string
     {
         $header = request()->header('X-TIMEZONE', 'Europe/Stockholm');
-        if (is_array($header)) {
-            return 'Europe/Stockholm';
-        }
+        // if (is_array($header)) {
+        //     return 'Europe/Stockholm';
+        // }
 
         return $header;
     }

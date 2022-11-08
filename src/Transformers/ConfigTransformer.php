@@ -16,6 +16,7 @@ class ConfigTransformer extends TransformerAbstract
      */
     public function transform(array $config)
     {
+        // @phpstan-ignore-next-line
         return collect($config)->filter(function ($item, $key) {
             return ! Str::contains($key, 'key');
         })->toArray();

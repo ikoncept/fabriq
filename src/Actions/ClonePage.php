@@ -25,7 +25,6 @@ class ClonePage
             ->orderBy('id', 'desc')->get();
 
         foreach ($locales as $locale) {
-            /** @var \Ikoncept\Fabriq\Models\Page $sourcePage * */
             $content = $sourcePage->getFieldContent($sourcePage->revision, $locale->iso_code);
             $page->updateContent($content->toArray(), $locale->iso_code);
         }

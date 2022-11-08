@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Http\Requests;
 
 use Ikoncept\Fabriq\Models\Comment;
+use Ikoncept\Fabriq\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DeleteCommentRequest extends FormRequest
@@ -14,7 +15,10 @@ class DeleteCommentRequest extends FormRequest
      */
     public function authorize()
     {
-        if (request()->user()->hasAllRoles(['admin', 'dev'])) {
+        $user = request()->user();
+
+        /** @var User $user * */
+        if ($user->hasAllRoles(['admin', 'dev'])) {
             return true;
         }
 
