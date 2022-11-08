@@ -43,7 +43,6 @@
                 label="Sidtyp"
                 :reduce-fn="item => item"
             />
-            <pre>{{ newPage.template }}</pre>
         </CreateModal>
         <UiCard
             class="pb-4"

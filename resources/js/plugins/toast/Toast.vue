@@ -24,7 +24,6 @@
                     v-if="countdown"
                     class="absolute bottom-0 w-full"
                 >
-                    <!-- <pre>{{ timeRemaining }}</pre> -->
                     <div
                         :style="{width: 100 - ((timeRemaining / duration) * 100) + '%'}"
                         class="h-1 ml-0.5 transition-all duration-100 rounded-bl-lg bg-royal-300 track"
