@@ -75,6 +75,6 @@ class ArticleTransformer extends TransformerAbstract
      */
     public function includeSlugs(Article $article): Collection
     {
-        return $this->collection($article->slugs, Fabriq::getTransformerFor('slug')());
+        return $this->collection($article->slugs, Fabriq::getTransformerFor('slug'));
     }
 }

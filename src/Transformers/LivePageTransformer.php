@@ -26,6 +26,7 @@ class LivePageTransformer extends TransformerAbstract
     public function transform(Page $page)
     {
         $pageData = [
+            'id' => $page->id,
             'name' => $page->name,
             'slug' => $page->slug,
             'template_id' => $page->template_id,
