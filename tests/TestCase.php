@@ -11,6 +11,8 @@ abstract class TestCase extends Orchestra
         parent::setUp();
 
         // Pass::routes(function ($registrar) { $registrar->forAuthorization(); });
+
+        $this->withoutVite();
         $this->loadLaravelMigrations(['--database' => 'testing']);
         $this->setUpDatabase($this->app);
     }

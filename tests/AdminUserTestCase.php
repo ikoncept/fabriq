@@ -18,6 +18,9 @@ abstract class AdminUserTestCase extends Orchestra
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->withoutVite();
+
         Fabriq::routes(function ($router) {
             $router->all();
         });
