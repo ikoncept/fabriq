@@ -69,10 +69,9 @@ class FabriqCoreServiceProvider extends ServiceProvider
 
             $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views'),
-                __DIR__.'/../resources/images' => resource_path('images'),
             ], 'fabriq-views');
             $this->publishes([
-                __DIR__.'/../resources/images' => public_path('images'),
+                __DIR__.'/../resources/images' => resource_path('fabriq/images'),
             ], 'fabriq-images');
         }
     }
@@ -183,11 +182,11 @@ class FabriqCoreServiceProvider extends ServiceProvider
     {
         return [
             __DIR__.'/../resources/css' => resource_path('css'),
-            __DIR__.'/../resources/images' => public_path('images'),
-            __DIR__.'/../resources/images' => resource_path('images'),
+            __DIR__.'/../resources/images' => public_path('fabriq/images'),
+            __DIR__.'/../resources/images' => resource_path('fabriq/images'),
             __DIR__.'/../resources/js' => resource_path('js'),
             __DIR__.'/../resources/fonts' => public_path('fonts'),
-            __DIR__.'/../tailwind.config.js' => 'tailwind.config.js',
+            __DIR__.'/../fabriq.tailwind.config.js' => 'fabriq.tailwind.config.js',
             __DIR__.'/../vite.config.js' => 'vite.config.js',
             __DIR__.'/../postcss.config.js' => 'postcss.config.js',
             __DIR__.'/../package.json' => 'package.json',

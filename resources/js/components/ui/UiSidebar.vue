@@ -61,7 +61,7 @@
                         <img
                             alt="Fabriq CMS Logotyp"
                             class="w-full px-12"
-                            src="@/../images/fabriq-cms-logo.svg"
+                            src="@/../fabriq/images/fabriq-cms-logo.svg"
                         >
                     </div>
                     <div class="flex-1 h-0 mt-5 overflow-y-auto">

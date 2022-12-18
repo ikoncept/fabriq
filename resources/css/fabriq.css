@@ -1,3 +1,4 @@
+@config "./fabriq.tailwind.config.js";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -161,5 +162,16 @@
         background-origin: border-box;
         background-size: 50% 50%;
         transition: background-size .08s ease;
+    }
+
+    .bg-checkered-sm {
+        background-image: url('@/../fabriq/images/checkered.svg');
+        background-size: 30px 23px;
+        background-position: top top;
+    }
+    .bg-checkered-lg {
+        background-image: url('@/../fabriq/images/checkered.svg');
+        background-size: 4rem 3rem;
+        background-position: top top;
     }
 }

@@ -1,11 +1,5 @@
 <template>
     <div class="mt-16">
-        <div class="mb-16 text-center">
-            <h2 class="mb-6 text-2xl font-semibold">
-                Välkommen till Fabriq CMS
-            </h2>
-            <p>Om du har frågor eller funderingar, hör gärna av dig till support@ikoncept.se</p>
-        </div>
         <div class="grid flex-grow grid-cols-4 gap-8">
             <StatsBox
                 :delay="0"
@@ -36,7 +30,7 @@
                 rel="noreferrer noopener"
             >
                 <img
-                    src="@/../images/ikoncept-logo.svg"
+                    src="@/../fabriq/images/ikoncept-logo.svg"
                     alt="Ikoncept logotyp"
                     class="block h-12 mt-2"
                 >
@@ -46,10 +40,10 @@
 </template>
 <script>
 import StatsBox from '@/dashboard/StatsBox.vue'
-import Page from '@/models/Page.js'
 import Article from '@/models/Article.js'
-import Image from '@/models/Image.js'
 import File from '@/models/File.js'
+import Image from '@/models/Image.js'
+import Page from '@/models/Page.js'
 export default {
     name: 'HomeIndex',
     components: {

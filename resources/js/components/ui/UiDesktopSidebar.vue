@@ -10,7 +10,7 @@
                     <img
                         alt="Fabriq CMS Logotyp"
                         class="h-12 px-2"
-                        src="@/../images/fabriq-cms-logo.svg"
+                        src="@/../fabriq/images/fabriq-cms-logo.svg"
                     >
                 </div>
                 <div class="flex flex-col flex-grow mt-5">
@@ -100,8 +100,8 @@
 <script>
 import UiLogo from '@/components/Logo.vue'
 import LogoutForm from '@/components/LogoutForm.vue'
-import * as types from '@/store/mutation-types'
 import Developer from '@/models/Developer.js'
+import * as types from '@/store/mutation-types'
 export default {
     name: 'UiDesktopSidebar',
     components: { UiLogo, LogoutForm },

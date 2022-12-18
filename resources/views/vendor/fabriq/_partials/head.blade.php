@@ -11,6 +11,7 @@
             font-named-instance: 'Regular';
             src: url('/fonts/Inter-roman.var.woff2') format("woff2");
         }
+
         @font-face {
             font-family: 'Inter var';
             font-weight: 100 900;
@@ -30,7 +31,7 @@
     <meta name="msapplication-config" content="/images/browserconfig.xml">
     <meta name="theme-color" content="#0b3b5b">
     <meta name="og:image" content="https://media.fabriq-cms.se/public/fabriq-og-image-1200.jpg">
-    @vite(['resources/js/main.js'])
+    @vite(['resources/js/fabriq.js'])
     <script>
         window.fabriqCms = {
             pusher: {
@@ -38,8 +39,8 @@
                 key: "{{ config('broadcasting.connections.pusher.key') }}",
                 ws_prefix: "{{ config('fabriq.ws_prefix') }}"
             },
-            @if(Auth::check())
-            userRoles: @json(auth()->user()->roles->pluck('name')),
+            @if (Auth::check())
+                userRoles: @json(auth()->user()->roles->pluck('name')),
             @endif
         }
     </script>

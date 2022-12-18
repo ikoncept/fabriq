@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 
 class UpdateFabriqCommand extends Command
 {
@@ -67,6 +68,15 @@ class UpdateFabriqCommand extends Command
             '--tag' => 'fabriq-images',
             '--force' => true,
         ]);
+
+        $this->call('vendor:publish', [
+            '--provider' => 'Ikoncept\Fabriq\FabriqCoreServiceProvider',
+            '--tag' => 'fabriq-public-images',
+            '--force' => true,
+        ]);
+
+        $this->info('Copying assets to public directory');
+        File::copyDirectory(__DIR__.'/../resources/images', public_path('fabriq/images'));
 
         $this->info('Front end assets has been installed');
 
