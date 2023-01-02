@@ -48,6 +48,7 @@ class ImageTransformer extends TransformerAbstract
             'webp_src' => (string) ($media->hasGeneratedConversion('webp')) ? $media->getUrl('webp') : '',
             'src' => $media->getUrl(),
             'srcset' => $media->getSrcSet(),
+            'responsive' => $media->toHtml(),
             'alt_text' => $image->alt_text,
             'caption' => $image->caption,
             'mime_type' => $media->mime_type,

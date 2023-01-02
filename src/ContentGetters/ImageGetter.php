@@ -48,6 +48,7 @@ class ImageGetter extends BaseGetter implements GetterInterface
             'width' => ($media->responsiveImages()->files->first()) ? $media->responsiveImages()->files->first()->width() : null,
             'height' => ($media->responsiveImages()->files->first()) ? $media->responsiveImages()->files->first()->height() : null,
             'custom_crop' => (bool) $image->custom_crop,
+            'responsive' => $media->toHtml(),
             'x_position' => (string) $image->x_position,
             'y_position' => (string) $image->y_position,
             'meta_id' => $meta->id,
