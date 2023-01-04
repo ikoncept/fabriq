@@ -79,7 +79,7 @@
                                     <img
                                         alt
                                         class="inline-block rounded-full h-9 w-9"
-                                        :src="`https://unavatar.now.sh/${user.email}`"
+                                        :src="`https://unavatar.io/${user.email}`"
                                     >
                                 </div>
                                 <div class="ml-3">

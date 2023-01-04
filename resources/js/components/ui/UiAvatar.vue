@@ -36,7 +36,7 @@ export default {
             return encodeURIComponent(`https://eu.ui-avatars.com/api?name=${this.user.name}&format=svg&bold=true&background=e2d3bb&color=0b3b5b`)
         },
         src () {
-            return this.user.image.data.src ?? `https://unavatar.now.sh/${this.user.email}?fallback=${this.fallbackUrl}`
+            return this.user.image.data.src ?? `https://unavatar.io/${this.user.email}?fallback=${this.fallbackUrl}`
         }
     }
 }
