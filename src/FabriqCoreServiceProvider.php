@@ -71,7 +71,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/views' => resource_path('views'),
             ], 'fabriq-views');
             $this->publishes([
-                __DIR__.'/../resources/images' => resource_path('fabriq/images'),
+                __DIR__.'/../resources/fabriq/images' => resource_path('fabriq/images'),
             ], 'fabriq-images');
         }
     }

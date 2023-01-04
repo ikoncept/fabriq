@@ -24,8 +24,8 @@
                                 {{ __('E-Mail Address') }}:
                             </label>
                             <input type="email" class="fabriq-input w-full  @error('email') border-red-500 @enderror"
-                                name="email" value="{{ old('email') }}" placeholder="{{ __('E-Mail Address') }}" required
-                                autocomplete="email" autofocus>
+                                   name="email" value="{{ old('email') }}" placeholder="{{ __('E-Mail Address') }}"
+                                   required autocomplete="email" autofocus>
 
                             @error('email')
                                 <p class="mt-2 text-xs italic text-red-500">
@@ -40,8 +40,8 @@
                             </label>
 
                             <input placeholder="{{ __('Password') }}" id="password" type="password"
-                                class="fabriq-input w-full @error('password') border-red-500 @enderror" name="password"
-                                required>
+                                   class="fabriq-input w-full @error('password') border-red-500 @enderror" name="password"
+                                   required>
 
                             @error('password')
                                 <p class="mt-4 text-xs italic text-red-500">
@@ -60,7 +60,7 @@
 
                             @if (Route::has('password.request'))
                                 <a class="mt-2 ml-auto text-sm text-gray-500 no-underline whitespace-no-wrap transition-colors duration-150 hover:text-gray-600"
-                                    href="{{ route('password.request') }}">
+                                   href="{{ route('password.request') }}">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
                             @endif
