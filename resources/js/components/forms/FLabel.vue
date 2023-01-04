@@ -6,7 +6,7 @@
     >
         <slot /><span
             v-if="required"
-            class="-ml-1 text-red-500"
+            class="-ml-1"
         >*</span><span
             v-if="showOptional"
             class="italic text-gray-400"
@@ -15,40 +15,48 @@
         <code v-if="devMode"><span class="text-xs">{{ name }}</span></code>
     </label>
 </template>
+
 <script>
 export default {
     name: 'FLabel',
     props: {
         label: {
             type: String,
-            default: ''
+            default: '',
         },
+
         name: {
             type: String,
-            default: 'name'
+            default: 'name',
         },
+
         nonWhiteBg: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         required: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         optional: {
             type: String,
-            default: ''
-        }
+            default: '',
+        },
     },
+
     computed: {
         devMode () {
             return this.$store.getters['config/devMode']
         },
+
         showOptional () {
             if (this.required && this.optional) return false
             if (!this.required && this.optional) return true
+
             return false
-        }
-    }
+        },
+    },
 }
 </script>
