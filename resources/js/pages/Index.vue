@@ -190,9 +190,9 @@
 import Page from '@/models/Page.js'
 import PageTree from '@/models/PageTree.js'
 import Template from '@/models/Template.js'
+import '@/plugins/vue-nestable/vue-nestable.css'
 import VueNestable from '@/plugins/vue-nestable/VueNestable.vue'
 import VueNestableHandle from '@/plugins/vue-nestable/VueNestableHandle.vue'
-import '@/plugins/vue-nestable/vue-nestable.css';
 function defaultCreationObject () {
     return {
         name: '',
@@ -379,19 +379,25 @@ export default {
                     await this.clonePage({id: this.newPage.template.source_model_id}, {name: this.newPage.name})
                     this.$vfm.hide('createPageModal')
                     this.resetCreateModal()
+
                     return
                 }
+
+                this.newPage.template_id = this.newPage.template.id
                 const { data } = await Page.store(this.newPage)
+
                 this.$toast.success({
                     title: 'Sidan har skapats!',
                     buttonText: 'Gå till sidan',
-                    onClick: () => this.$router.push({ name: 'pages.edit', params: { id: data.id } })
+                    onClick: () => this.$router.push({ name: 'pages.edit',
+                        params: { id: data.id } }),
                 })
                 this.$vfm.hide('createPageModal')
                 this.resetCreateModal()
                 this.fetchPageTree()
             } catch (error) {
                 console.error(error)
+
                 if (error.response.status === 422) {
                     this.$refs.observer.validate()
                 }
