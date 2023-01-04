@@ -33,35 +33,34 @@ class RouteRegistrar
      */
     public function allWeb(): void
     {
-        Route::get('/email/verify', function ($request) {
-            return view('auth.verify-email', ['request' => $request]);
-        })->middleware('auth')->name('verification.notice');
+        Route::prefix('admin')->group(function () {
+            Route::get('/email/verify', function ($request) {
+                return view('auth.verify-email', ['request' => $request]);
+            })->middleware('auth')->name('verification.notice');
 
-        Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
-            $request->fulfill();
+            Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
+                $request->fulfill();
 
-            return redirect('/profile/settings');
-        })->middleware(['auth', 'signed'])->name('verification.verify');
+                return redirect('/profile/settings');
+            })->middleware(['auth', 'signed'])->name('verification.verify');
 
-        Route::get('/email/verification-notification', function () {
-            config('fabriq.models.user')::find(1)->sendEmailVerificationNotification();
+            Route::get('/email/verification-notification', function () {
+                config('fabriq.models.user')::find(1)->sendEmailVerificationNotification();
 
-            return 'ok';
+                return 'ok';
 
-            return back()->with('message', 'Verification link sent!');
-        })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+                return back()->with('message', 'Verification link sent!');
+            })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-        Route::get('/invitations/accept/{token}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AcceptInvitationController::class, 'show'])->name('invitation.accept');
-        Route::post('/invitations/accept/{token}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AcceptInvitationController::class, 'store'])->name('invitation.accept.store');
+            Route::get('/invitations/accept/{token}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AcceptInvitationController::class, 'show'])->name('invitation.accept');
+            Route::post('/invitations/accept/{token}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\AcceptInvitationController::class, 'store'])->name('invitation.accept.store');
 
-        Route::get('/permalink/{hash}/{locale?}', \Ikoncept\Fabriq\Http\Controllers\PermalinksRedirectController::class)
-            ->name('permalink.redirect');
+            Route::get('/permalink/{hash}/{locale?}', \Ikoncept\Fabriq\Http\Controllers\PermalinksRedirectController::class)
+                ->name('permalink.redirect');
 
-        Route::get('/login', [AuthenticatedSessionController::class, 'create'])
-            ->name('login');
-
-        Route::get('/', [\Ikoncept\Fabriq\Http\Controllers\SpaController::class, 'index'])->middleware('auth');
-        Route::get('/{any}', [\Ikoncept\Fabriq\Http\Controllers\SpaController::class, 'index'])->where('any', '.*')->middleware('auth');
+            Route::get('/', [\Ikoncept\Fabriq\Http\Controllers\SpaController::class, 'index'])->middleware('auth');
+            Route::get('/{any}', [\Ikoncept\Fabriq\Http\Controllers\SpaController::class, 'index'])->where('any', '.*')->middleware('auth');
+        });
     }
 
     /**

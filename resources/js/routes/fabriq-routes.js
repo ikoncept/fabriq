@@ -25,15 +25,15 @@ import VideosIndex from '@/videos/Index.vue'
 
 export default [
     {
-        path: '/',
-        redirect: '/dashboard'
+        path: '/admin',
+        redirect: '/admin/dashboard'
     },
     {
-        path: '/home',
-        redirect: '/dashboard'
+        path: '/admin/home',
+        redirect: '/admin/dashboard'
     },
     {
-        path: '/dashboard',
+        path: '/admin/dashboard',
         name: 'home.index',
         component: Home,
         meta: {
@@ -42,7 +42,7 @@ export default [
         }
     },
     {
-        path: '/profile/settings',
+        path: '/admin/profile/settings',
         name: 'profile.settings',
         component: ProfileSettings,
         meta: {
@@ -51,7 +51,7 @@ export default [
         }
     },
     {
-        path: '/dashboard',
+        path: '/admin/dashboard',
         name: 'dashboard.index',
         component: Dashboard,
         meta: {
@@ -60,7 +60,7 @@ export default [
         }
     },
     {
-        path: '/pages',
+        path: '/admin/pages',
         name: 'pages.index',
         component: PagesIndex,
         meta: {
@@ -69,7 +69,7 @@ export default [
         }
     },
     {
-        path: '/pages/:id/edit',
+        path: '/admin/pages/:id/edit',
         name: 'pages.edit',
         component: PagesEdit,
         meta: {
@@ -80,7 +80,7 @@ export default [
         }
     },
     {
-        path: '/users',
+        path: '/admin/users',
         name: 'users.index',
         component: UsersIndex,
         meta: {
@@ -89,7 +89,7 @@ export default [
         }
     },
     {
-        path: '/users/:id/edit',
+        path: '/admin/users/:id/edit',
         name: 'users.edit',
         component: UsersEdit,
         meta: {
@@ -98,7 +98,7 @@ export default [
         }
     },
     {
-        path: '/notifications',
+        path: '/admin/notifications',
         name: 'notifications.index',
         component: NotificationIndex,
         meta: {
@@ -107,7 +107,7 @@ export default [
         }
     },
     {
-        path: '/menus',
+        path: '/admin/menus',
         name: 'menus.index',
         component: MenusIndex,
         meta: {
@@ -116,7 +116,7 @@ export default [
         }
     },
     {
-        path: '/menus/:id/edit',
+        path: '/admin/menus/:id/edit',
         name: 'menus.edit',
         component: MenusEdit,
         meta: {
@@ -125,7 +125,7 @@ export default [
         }
     },
     {
-        path: '/media/images',
+        path: '/admin/media/images',
         name: 'images.index',
         component: ImagesIndex,
         meta: {
@@ -134,7 +134,7 @@ export default [
         }
     },
     {
-        path: '/articles',
+        path: '/admin/articles',
         name: 'articles.index',
         component: ArticlesIndex,
         meta: {
@@ -143,7 +143,7 @@ export default [
         }
     },
     {
-        path: '/articles/:id/edit',
+        path: '/admin/articles/:id/edit',
         name: 'articles.edit',
         component: ArticlesEdit,
         meta: {
@@ -152,7 +152,7 @@ export default [
         }
     },
     {
-        path: '/calendar',
+        path: '/admin/calendar',
         name: 'calendar.index',
         component: CalendarIndex,
         meta: {
@@ -161,7 +161,7 @@ export default [
         }
     },
     {
-        path: '/contacts',
+        path: '/admin/contacts',
         name: 'contacts.index',
         component: ContactIndex,
         meta: {
@@ -170,7 +170,7 @@ export default [
         }
     },
     {
-        path: '/contacts/:id/edit',
+        path: '/admin/contacts/:id/edit',
         name: 'contacts.edit',
         component: ContactEdit,
         meta: {
@@ -179,7 +179,7 @@ export default [
         }
     },
     {
-        path: '/media/files',
+        path: '/admin/media/files',
         name: 'files.index',
         component: FilesIndex,
         meta: {
@@ -188,7 +188,7 @@ export default [
         }
     },
     {
-        path: '/media/videos',
+        path: '/admin/media/videos',
         name: 'videos.index',
         component: VideosIndex,
         meta: {
@@ -197,7 +197,7 @@ export default [
         }
     },
     {
-        path: '/smart-blocks',
+        path: '/admin/smart-blocks',
         name: 'smartBlocks.index',
         component: SmartBlocksIndex,
         meta: {
@@ -206,7 +206,7 @@ export default [
         }
     },
     {
-        path: '/smart-blocks/:id/edit',
+        path: '/admin/smart-blocks/:id/edit',
         name: 'smartBlocks.edit',
         component: SmartBlocksEdit,
         meta: {
