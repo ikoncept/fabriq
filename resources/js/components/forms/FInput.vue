@@ -6,17 +6,23 @@
             :rules="rules"
         >
             <span :class="classes">
-                <FLabel
-                    v-if="label"
-                    :name="name"
-                    :non-white-bg="nonWhiteBg"
-                    :optional="optional"
+                <div class="flex justify-between">
 
-                    :required="hasRuleRequired"
-                >
-                    {{ label }}
-                </FLabel>
+                    <FLabel
+                        v-if="label"
+                        :name="name"
+                        :non-white-bg="nonWhiteBg"
+                        :optional="optional"
 
+                        :required="hasRuleRequired"
+                    >
+                        {{ label }}
+                    </FLabel>
+                    <span
+                        v-if="characterCount"
+                        class="text-xs text-gray-500"
+                    >Antal tecken: {{ value.length }}</span>
+                </div>
                 <div
                     v-if="inputType === 'radio'"
                     class="flex items-center space-x-4 min-h-10"
@@ -117,6 +123,7 @@
         </ValidationProvider>
     </div>
 </template>
+
 <script>
 import autosize from 'autosize'
 
@@ -126,138 +133,176 @@ export default {
     props: {
         value: {
             type: [String, Number, Object, Array, Boolean],
-            default: ''
+            default: '',
         },
+
         textarea: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         disabled: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         absolutePosErrors: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         hideErrors: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         name: {
             type: String,
-            default: ''
+            default: '',
         },
+
         label: {
             type: String,
-            default: ''
+            default: '',
         },
+
         type: {
             type: String,
-            default: 'text'
+            default: 'text',
         },
+
         inputType: {
             type: String,
-            default: 'input'
+            default: 'input',
         },
+
         options: {
             type: Array,
             default: () => {
                 return []
-            }
+            },
         },
+
         min: {
             type: String,
-            default: ''
+            default: '',
         },
+
         rules: {
             type: String,
-            default: ''
+            default: '',
         },
+
         question: {
             type: String,
-            default: ''
+            default: '',
         },
+
         placeholder: {
             type: String,
-            default: ''
+            default: '',
         },
+
         errorMessage: {
             type: String,
-            default: 'Fältet är obligatoriskt'
+            default: 'Fältet är obligatoriskt',
         },
+
         readOnly: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         nonWhiteBg: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         helpText: {
             type: String,
-            default: ''
+            default: '',
         },
+
         mask: {
             type: String,
-            default: ''
+            default: '',
         },
+
         inputClasses: {
             type: String,
-            default: ''
+            default: '',
         },
+
         inputRef: {
             type: String,
-            default: 'input'
+            default: 'input',
         },
+
         validationMode: {
             type: String,
-            default: 'eager'
+            default: 'eager',
         },
+
         suffix: {
             type: String,
             required: false,
-            default: ''
+            default: '',
         },
+
         prefix: {
             type: String,
             required: false,
-            default: ''
+            default: '',
         },
+
         optional: {
             type: String,
-            default: ''
+            default: '',
         },
+
         rows: {
             type: Number,
-            default: 2
+            default: 2,
         },
+
         defaultValue: {
             type: [String, Number, Object, Array, Boolean],
-            default: ''
-        }
+            default: '',
+        },
+
+        characterCount: {
+            type: Boolean,
+            default: false,
+        },
     },
+
     data () {
         return {
-            id: ''
+            id: '',
         }
     },
+
     computed: {
         inputDisabled() {
             if(this.disabled) {
                 return true
             }
+
             if(! this.currentUserIsFirstIn) {
                 return true
             }
+
             return false
         },
+
         currentUserIsFirstIn() {
             return this.$store.getters['echo/currentUserIsFirstIn']
         },
+
         hasIcon () {
             return !!this.$slots.icon
         },
+
         roundedClasses () {
             if (this.prefix && this.suffix) return 'rounded-none'
             if (this.prefix) return 'rounded-r'
@@ -265,11 +310,14 @@ export default {
 
             return 'rounded'
         },
+
         hasRuleRequired () {
             return this.rules.includes('required')
         },
+
         inputListeners: function () {
             const vm = this
+
             // `Object.assign` merges objects together to form a new object
             return Object.assign({},
                 // We add all the listeners from the parent
@@ -280,37 +328,45 @@ export default {
                     // This ensures that the component works with v-model
                     input: function (event) {
                         vm.$emit('input', event.target.value)
-                    }
-                }
+                    },
+                },
             )
-        }
+        },
     },
+
     mounted () {
         this.id = 'uid' + this._uid
+
         if (this.textarea) {
             this.$nextTick(() => {
                 const area = this.$refs.textarea
+
                 autosize(area)
             })
         }
+
         if (this.defaultValue) {
             console.log(this.defaultValue)
             this.updateValue(this.defaultValue)
         }
     },
+
     methods: {
         updateValue (value) {
             this.$emit('input', value)
         },
+
         convertErrorMessage (string) {
             if (string.includes('{field}')) {
                 return string.replace('{field}', this.label.toLowerCase())
             }
+
             return string
-        }
-    }
+        },
+    },
 }
 </script>
+
 <style scoped>
 
 .form-radio:disabled {
