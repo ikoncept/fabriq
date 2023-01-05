@@ -43,77 +43,101 @@
         </SlideUpDown>
     </div>
 </template>
+
 <script>
 export default {
     name: 'UiCard',
     props: {
         padding: {
             type: Boolean,
-            default: true
+            default: true,
         },
+
         collapsible: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         headerClasses: {
             type: String,
-            default: ''
+            default: '',
         },
+
         noShadow: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         isChild: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         group: {
             type: String,
-            default: ''
+            default: '',
         },
+
         syncGroups: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         openByDefault: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
+
+        identifier: {
+            type: String,
+            default: '',
+        },
     },
+
     data () {
         return {
             open: false,
             delayOpen: false,
-            animationDuration: 500
+            animationDuration: 500,
         }
     },
+
     computed: {
         hasHeaderSlot () {
             return !!this.$slots.header
         },
+
         collapsedActive () {
             return this.open && this.collapsible
         },
+
         cHeaderClasses () {
             if (this.headerClasses) {
                 return this.headerClasses
             }
+
             return 'py-4'
-        }
+        },
+
+        openCards() {
+            return this.$store.getters['ui/openCards']
+        },
     },
 
-    beforeDestroy () {
+    beforeUnmount () {
         this.$eventBus.$off('open-all-cards', this.openCollapsible)
         this.$eventBus.$off('close-all-cards', this.closeCollapsible)
         this.$eventBus.$off('open-synced-groups', this.matchGroupAndOpen)
         this.$eventBus.$off('close-synced-groups', this.matchGroupAndClose)
     },
+
     mounted () {
         if (!this.isChild) {
             this.$eventBus.$on('open-all-cards', this.openCollapsible)
             this.$eventBus.$on('close-all-cards', this.closeCollapsible)
             this.$eventBus.$on('relayout-cards', this.relayoutCard)
         }
+
         if (this.syncGroups) {
             this.$eventBus.$on('open-synced-groups', this.matchGroupAndOpen)
             this.$eventBus.$on('close-synced-groups', this.matchGroupAndClose)
@@ -122,7 +146,16 @@ export default {
         if (this.collapsible && this.openByDefault) {
             this.open = true
         }
+
+        if (this.identifier && this.openCards.includes(this.identifier)) {
+            this.animationDuration = 0
+            this.open = true
+            setTimeout(() => {
+                this.animationDuration = 500
+            }, 100);
+        }
     },
+
     methods: {
         relayoutCard () {
             if (this.$refs.monkey) {
@@ -133,41 +166,56 @@ export default {
                 }, 100)
             }
         },
+
         matchGroupAndOpen (parameters) {
             if (this.group === parameters) {
                 this.openCollapsible(false)
             }
         },
+
         matchGroupAndClose (parameters) {
             if (this.group === parameters) {
                 this.closeCollapsible(false)
             }
         },
+
         openCollapsible (emit = true) {
             this.$emit('before-open')
+
             if (this.syncGroups) {
                 if (emit) {
                     this.$eventBus.$emit('open-synced-groups', this.group)
                 }
             }
+
             this.open = true
         },
+
         closeCollapsible (emit = true) {
             this.$emit('before-close')
+
             if (this.syncGroups) {
                 if (emit) {
                     this.$eventBus.$emit('close-synced-groups', this.group)
                 }
             }
+
             this.open = false
         },
+
         toggleCollapsible () {
+            if (this.identifier) {
+                this.$store.commit('ui/toggleOpenCard', this.identifier)
+            }
+
             if (this.open) {
                 this.closeCollapsible()
+
                 return
             }
+
             this.openCollapsible()
-        }
-    }
+        },
+    },
 }
 </script>

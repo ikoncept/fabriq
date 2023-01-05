@@ -98,6 +98,8 @@ class PageController extends ApiController
         $page->updated_by = $request->user()->id;
         $page->save();
 
+        $page->publish(1);
+
         return $this->respondWithItem($page, Fabriq::getTransformerFor('page'), 201);
     }
 

@@ -156,6 +156,11 @@ export default {
                 return item.name
             })
         },
+
+        activeLocale() {
+            return this.$store.getters['config/activeLocale']
+
+        },
     },
 
     methods: {
@@ -187,7 +192,11 @@ export default {
 
             this.chosenBlock.newlyAdded = true
             this.chosenBlock.id = 'i' + Math.random().toString(20).substr(2, 6)
-            this.$eventBus.$emit('block-type-added', this.chosenBlock)
+            const emitName = 'block-type-added-' + this.activeLocale
+
+            this.$store.commit('ui/toggleOpenCard', this.chosenBlock.id)
+
+            this.$eventBus.$emit(emitName, this.chosenBlock)
 
             this.show = false
         },

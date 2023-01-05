@@ -8,3 +8,4 @@ node_modules
 .idea
 /public/build
 .php-cs-fixer.cache
+pnpm-lock.yaml

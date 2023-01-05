@@ -1,11 +1,13 @@
 import * as types from '@/store/mutation-types'
 
 export const state = {
-    menuOpen: false
+    menuOpen: false,
+    openCards: [],
 }
 
 export const getters = {
-    menuOpen: state => state.menuOpen
+    menuOpen: state => state.menuOpen,
+    openCards: state => state.openCards,
 }
 
 export const mutations = {
@@ -17,7 +19,16 @@ export const mutations = {
     },
     [types.CLOSE_MENU]: (state) => {
         state.menuOpen = false
-    }
+    },
+    'toggleOpenCard': (state, identifier) => {
+        const index = state.openCards.indexOf(identifier);
+
+        if (index === -1) {
+            state.openCards.push(identifier);
+        } else {
+            state.openCards.splice(index, 1);
+        }
+    },
 }
 
 export const actions = {}
@@ -27,5 +38,5 @@ export default {
     state,
     getters,
     mutations,
-    actions
+    actions,
 }
