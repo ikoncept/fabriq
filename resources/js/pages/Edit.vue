@@ -243,12 +243,10 @@ import RefreshObjectModal from '@/components/modals/RefreshObjectModal.vue'
 import Page from '@/models/Page.js'
 import PagePaths from '@/pages/PagePaths.vue'
 import * as types from '@/store/mutation-types'
-import Draggable from 'vuedraggable'
 
 export default {
     name: 'PagesEdit',
     components: {
-        Draggable,
         PagePaths,
         RefreshObjectModal,
         BlockList,
