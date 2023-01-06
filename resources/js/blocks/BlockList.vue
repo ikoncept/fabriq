@@ -221,7 +221,6 @@ export default {
 
 
     mounted() {
-        console.log('adding event for block type added', 'block-type-added-' + this.locale)
         this.$eventBus.$on('block-type-added-' + this.locale, this.blockTypeAdded)
     },
 

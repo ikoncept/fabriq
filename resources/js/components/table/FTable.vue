@@ -122,6 +122,7 @@
                 <FPaginator
                     v-if="paginated"
                     :pagination="pagination"
+                    :position="options.paginationPosition"
                     @change-page="emitChangePage"
                 />
             </div>
@@ -180,7 +181,8 @@ export default {
                 emptyText: 'Det finns ingen data att visa',
                 checkableRows: false,
                 rowKey: 'id',
-                search: false
+                search: false,
+                paginationPosition: 'right',
             },
             currentSortable: '',
             descending: true,

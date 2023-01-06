@@ -13,7 +13,10 @@
                 href="#"
             >Next</a>
         </div>
-        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+        <div
+            class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"
+            :class="position === 'right' ? 'flex-row' : 'flex-row-reverse'"
+        >
             <div>
                 <p class="text-sm text-gray-700">
                     Visar
@@ -111,6 +114,10 @@ export default {
                     total_pages: 1
                 }
             }
+        },
+        position: {
+            type: String,
+            default: 'left'
         }
     },
     data () {
