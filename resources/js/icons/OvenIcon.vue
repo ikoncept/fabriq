@@ -20,6 +20,11 @@
 <script>
 export default {
     name: 'OvenIcon',
-    props: ['thin']
+    props: {
+        thin: {
+            type: Boolean,
+            default: false
+        }
+    }
 }
 </script>
