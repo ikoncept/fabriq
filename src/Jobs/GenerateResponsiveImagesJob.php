@@ -32,9 +32,7 @@ class GenerateResponsiveImagesJob implements ShouldQueue
         try {
             if (config('fabriq.enable_remote_image_processing')) {
                 $responsiveImageGenerator->generateResponsiveImagesViaLambda($this->media);
-
                 $this->setMediaProcessingStatus(false);
-                MediaFinishedProcessing::dispatch($this->media);
 
                 return true;
             }
@@ -44,7 +42,6 @@ class GenerateResponsiveImagesJob implements ShouldQueue
             return true;
         } catch (Exception $exception) {
             $this->setMediaProcessingStatus(true);
-            MediaFinishedProcessing::dispatch($this->media);
             $this->fail($exception);
         }
 
@@ -56,5 +53,6 @@ class GenerateResponsiveImagesJob implements ShouldQueue
         $this->media->setCustomProperty('processing', false);
         $this->media->setCustomProperty('processing_failed', $failed);
         $this->media->save();
+        MediaFinishedProcessing::dispatch($this->media);
     }
 }
