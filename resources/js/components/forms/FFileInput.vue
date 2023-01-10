@@ -19,7 +19,7 @@
             <div v-else>
                 <div class="flex items-center space-x-4 text-sm">
                     <div class="text-xs line-clamp-1">
-                        {{ localFile.c_name }}
+                        {{ localFile.file_name }}
                     </div>
                     <div class="flex justify-start space-x-2">
                         <button

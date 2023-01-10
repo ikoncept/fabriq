@@ -146,7 +146,7 @@
                                                 <UiImagePresenter
                                                     :image="item"
                                                     thumbnail
-                                                    class="w-20 cursor-pointer max-h-16"
+                                                    class="object-cover w-20 cursor-pointer max-h-16"
                                                 />
                                             </span>
                                             <span v-else-if="prop == 'created_at'">
@@ -192,24 +192,28 @@
         </div>
     </Transition>
 </template>
+
 <script>
-import Image from '@/models/Image.js'
-import File from '@/models/File.js'
-import Video from '@/models/Video.js'
 import AddImageFromUrlModal from '@/images/AddImageFromUrlModal.vue'
+import File from '@/models/File.js'
+import Image from '@/models/Image.js'
+import Video from '@/models/Video.js'
+
 export default {
     name: 'FMediaPicker',
     components: { AddImageFromUrlModal },
     props: {
         mediaType: {
             type: String,
-            default: 'image'
+            default: 'image',
         },
+
         open: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
+
     data () {
         return {
             items: [],
@@ -219,18 +223,18 @@ export default {
                     key: 'image',
                     title: '',
                     tdClasses: 'w-36',
-                    thClasses: 'w-36'
+                    thClasses: 'w-36',
                 },
                 {
                     key: 'c_name',
                     title: 'Namn',
                     tdClasses: 'text-gray-600 font-medium',
-                    sortable: true
+                    sortable: true,
                 },
                 {
                     key: 'created_at',
                     title: 'Uppladdad',
-                    sortable: true
+                    sortable: true,
                 },
                 // {
                 //     key: 'alt_text',
@@ -238,93 +242,105 @@ export default {
                 // },
                 {
                     key: 'tags',
-                    title: 'Taggar'
+                    title: 'Taggar',
                 },
                 {
                     key: 'size',
                     title: 'Storlek',
-                    sortable: true
+                    sortable: true,
                 },
                 {
                     key: 'dimensions',
                     title: 'Storlek',
-                    sortable: false
+                    sortable: false,
                 },
                 {
                     key: 'edit',
                     title: '',
                     tdClasses: 'text-right',
-                    thClasses: 'text-right'
-                }
+                    thClasses: 'text-right',
+                },
             ],
+
             pagination: {},
             queryParams: {
                 number: 10,
                 page: 1,
                 include: 'tags',
                 sort: '-created_at',
-                'filter[search]': ''
-            }
+                'filter[search]': '',
+            },
         }
     },
+
     watch: {
         open (value) {
             if (value) {
                 this.fetchItems()
                 window.addEventListener('keyup', this.onEscapeKeyUp)
             }
-        }
+        },
     },
+
     methods: {
         close () {
             this.$emit('close')
             this.search = ''
             window.removeEventListener('keyup', this.onEscapeKeyUp)
         },
+
         onEscapeKeyUp (event) {
             if (event.which === 27 && this.open) {
                 this.close()
             }
         },
+
         pickItem (id) {
             this.$emit('item-picked', id)
         },
+
         async fetchImages () {
             try {
                 const payload = {
-                    params: this.queryParams
+                    params: this.queryParams,
                 }
                 const { data, meta } = await Image.index(payload)
+
                 this.items = data
                 this.pagination = meta.pagination
             } catch (error) {
                 console.error(error)
             }
         },
+
         async fetchVideos () {
             try {
                 const payload = {
-                    params: this.queryParams
+                    params: this.queryParams,
                 }
                 const { data, meta } = await Video.index(payload)
+
                 this.items = data
                 this.pagination = meta.pagination
             } catch (error) {
                 console.error(error)
             }
         },
+
         async fetchFiles () {
             try {
                 const payload = {
-                    params: this.queryParams
+                    params: this.queryParams,
                 }
                 const { data, meta } = await File.index(payload)
+
                 this.items = data
                 this.pagination = meta.pagination
             } catch (error) {
                 console.error(error)
             }
         },
+
         fetchItems () {
             if (this.mediaType === 'image') {
                 this.fetchImages()
@@ -334,27 +350,32 @@ export default {
                 this.fetchFiles()
             }
         },
+
         handleRowClicked (item) {
             this.pickItem(item.id)
         },
+
         setSort (sort) {
             this.queryParams.sort = sort
             this.fetchItems()
         },
+
         setPage (pageNumber) {
             this.queryParams.page = pageNumber
             this.fetchItems()
         },
+
         resetSearch () {
             this.search = ''
             this.queryParams['filter[search]'] = ''
             this.queryParams.page = 1
             this.fetchItems()
         },
+
         setPageAndFetchItems () {
             this.queryParams.page = 1
             this.fetchItems()
-        }
-    }
+        },
+    },
 }
 </script>
