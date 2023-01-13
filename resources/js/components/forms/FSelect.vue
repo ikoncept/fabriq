@@ -29,6 +29,7 @@
                 :taggable="taggable"
                 :create-option="createOption"
                 :push-tags="pushTags"
+                @open="$emit('open')"
                 @input="emitValue"
             >
                 <template #selected-option="option">
@@ -90,119 +91,149 @@ export default {
     props: {
         value: {
             type: [String, Number, Object, Array],
-            default: ''
+            default: '',
         },
+
         options: {
             type: Array,
             required: false,
-            default: () => []
+            default: () => [],
         },
+
         label: {
             type: String,
-            default: ''
+            default: '',
         },
+
         optionLabel: {
             type: String,
-            default: 'label'
+            default: 'label',
         },
+
         valueKey: {
             type: String,
-            default: 'value'
+            default: 'value',
         },
+
         multiple: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         placeholder: {
             type: String,
-            default: 'Välj'
+            default: 'Välj',
         },
+
         clearable: {
             type: Boolean,
-            default: true
+            default: true,
         },
+
         reduceFn: {
             type: Function,
             required: false,
-            default: item => item.value
+            default: item => item.value,
         },
+
         rules: {
             type: String,
-            default: ''
+            default: '',
         },
+
         validationMode: {
             type: String,
-            default: 'eager'
+            default: 'eager',
         },
+
         name: {
             type: String,
-            required: true
+            required: true,
         },
+
         absolutePosErrors: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         hideErrors: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         taggable: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         pushTags: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         createOption: {
             type: Function,
-            default: () => {}
+            default: () => {},
         },
+
         disabled: {
             type: Boolean,
-            default: false
+            default: false,
         },
+
         helpText: {
             type: String,
-            default: ''
+            default: '',
         },
+
         defaultValue: {
             type: [String, Number, Object, Array],
-            default: ''
-        }
+            default: '',
+        },
     },
+
+    emits: ['open', 'input'],
+
     computed: {
         hasRuleRequired () {
             return this.rules.includes('required')
         },
+
         currentUserIsFirstIn() {
             return this.$store.getters['echo/currentUserIsFirstIn']
         },
+
         inputDisabled() {
             if(this.disabled) {
                 return true
             }
+
             if(! this.currentUserIsFirstIn) {
                 return true
             }
+
             return false
         },
     },
+
     mounted () {
         if (this.defaultValue && !this.value) {
             this.$emit('input', this.defaultValue)
         }
     },
+
     methods: {
         emitValue (value) {
             this.$emit('input', value)
         },
+
         convertErrorMessage (string) {
             if (string.includes('{field}')) {
                 return string.replace('{field}', this.label.toLowerCase())
             }
+
             return string
-        }
-    }
+        },
+    },
 }
 </script>
