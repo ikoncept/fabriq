@@ -50,6 +50,18 @@
                                 :push-tags="false"
                                 :options="contactTags"
                             />
+                            <FSelect
+                                v-if="localesOptions.length > 1"
+                                v-model="content.enabled_locales"
+                                multiple
+                                label="Aktiverade språk"
+                                class="w-96"
+                                name="tags"
+                                :reduce-fn="locale => locale.iso_code"
+                                value-key="iso_code"
+                                option-label="native"
+                                :options="localesOptions"
+                            />
                             <FSwitch
                                 v-model="contact.published"
                                 column-layout
@@ -139,8 +151,8 @@
     </div>
 </template>
 <script>
-import Tag from '@/models/Tag.js'
 import Contact from '@/models/Contact.js'
+import Tag from '@/models/Tag.js'
 export default {
     name: 'ContactsEdit',
     beforeRouteLeave (from, to, next) {
@@ -165,6 +177,12 @@ export default {
     computed: {
         locales () {
             return this.$store.getters['config/supportedLocales']
+        },
+        localesOptions() {
+            return Object.keys(this.locales).map((key) => {
+                console.log(key)
+                return this.locales[key]
+            })
         },
         nameTags () {
             return this.tags.map(item => {

@@ -22,20 +22,6 @@
                 title="Antal filer"
             />
         </div>
-        <div class="absolute bottom-0 left-0 right-0 flex flex-col items-center mb-8 text-xs">
-            Fabriq CMS är byggt av
-            <a
-                href="https://ikoncept.se"
-                target="_blank"
-                rel="noreferrer noopener"
-            >
-                <img
-                    src="@/../fabriq/images/ikoncept-logo.svg"
-                    alt="Ikoncept logotyp"
-                    class="block h-12 mt-2"
-                >
-            </a>
-        </div>
     </div>
 </template>
 <script>

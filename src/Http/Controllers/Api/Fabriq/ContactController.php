@@ -65,6 +65,7 @@ class ContactController extends ApiController
 
         $contact->updateContent([
             'image' => $request->content['image'] ?? null,
+            'enabled_locales' => $request->content['enabled_locales'] ?? [],
         ], $request->input('locale', app()->getLocale()));
 
         $contact->save();
