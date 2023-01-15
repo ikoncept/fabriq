@@ -194,9 +194,12 @@ export default {
             this.chosenBlock.id = 'i' + Math.random().toString(20).substr(2, 6)
             const emitName = 'block-type-added-' + this.activeLocale
 
-            this.$store.commit('ui/toggleOpenCard', this.chosenBlock.id)
 
             this.$eventBus.$emit(emitName, this.chosenBlock)
+
+            setTimeout(() => {
+                this.$store.commit('ui/toggleOpenCard', this.chosenBlock.id)
+            }, 150);
 
             this.show = false
         },
