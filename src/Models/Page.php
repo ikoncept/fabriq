@@ -72,8 +72,9 @@ class Page extends Model implements HasMedia
             MenuItem::where('page_id', $page->id)->get()->each(function ($item) {
                 $item->delete();
             });
+
             DB::table('slugs')->where('model_id', $page->id)
-                ->where('model_type', Fabriq::getFqnModel('page'))
+                ->where('model_type', config('fabriq.morph_map.'.Fabriq::getFqnModel('page')) ?? Fabriq::getFqnModel('page'))
                 ->delete();
         });
         static::created(function ($page) {
