@@ -18,7 +18,7 @@ return new class extends Migration
         if (! $template) {
             return;
         }
-        RevisionTemplateField::factory()->create([
+        RevisionTemplateField::create([
             'template_id' => $template->id,
             'name' => 'Språk',
             'key' => 'enabled_locales',
