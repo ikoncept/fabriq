@@ -10,6 +10,8 @@ class BlockType extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     /**
      * Morph class.
      *

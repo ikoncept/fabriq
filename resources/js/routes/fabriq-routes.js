@@ -1,5 +1,6 @@
 import ArticlesEdit from '@/articles/Edit.vue'
 import ArticlesIndex from '@/articles/Index.vue'
+import BlockTypesIndex from '@/blockTypes/Index.vue'
 import CalendarIndex from '@/calendar/Index.vue'
 import ContactEdit from '@/contacts/Edit.vue'
 import ContactIndex from '@/contacts/Index.vue'
@@ -212,6 +213,24 @@ export default [
         meta: {
             middleware: RolesMiddleware,
             roles: ['admin']
+        }
+    },
+    {
+        path: '/admin/block-types',
+        name: 'blockTypes.index',
+        component: BlockTypesIndex,
+        meta: {
+            middleware: RolesMiddleware,
+            roles: ['dev']
+        }
+    },
+    {
+        path: '/admin/block-types/:id/edit',
+        name: 'blockTypes.edit',
+        component: BlockTypesIndex,
+        meta: {
+            middleware: RolesMiddleware,
+            roles: ['dev']
         }
     },
     {

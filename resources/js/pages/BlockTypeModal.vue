@@ -169,13 +169,18 @@ export default {
                     return true
                 }
 
-                // If visible_for is defined and template slug is not present
-                if (item.options.visible_for && ! item.options.visible_for.includes(this.page.template.data.slug)) {
-                    return false
+                if (
+                    item.options.hidden_for.length === 0 &&
+                    item.options.visible_for.length === 0 &&
+                    item.options.recommended_for.length === 0
+                ) {
+                    return true
                 }
 
-                if (! item.options.hidden_for) {
-                    return true
+                // If visible_for is defined and template slug is not present
+                if (!item.options.visible_for.includes(this.page.template.data.slug)) {
+                    console.warn('triggered')
+                    return false
                 }
 
                 if (item.options.hidden_for.includes(this.page.template.data.slug)) {
