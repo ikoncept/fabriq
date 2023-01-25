@@ -77,7 +77,7 @@
                         </div>
                         <div
                             v-for="blockType in recommendedBlockTypes"
-                            :key="blockType.id"
+                            :key="'r' + blockType.id"
                             :class="blockType.id === chosenBlock.block_type.id ? '  border-royal-500  bg-royal-50' : 'opacity-60 border-white'"
                             class="flex flex-col items-center p-3 pb-1 transition-all duration-200 border rounded-md cursor-pointer"
                             @click="selectBlock(blockType)"
@@ -165,6 +165,9 @@ export default {
     computed: {
         computedBlockTypes() {
             const firstFilter = this.blockTypes.filter(item => {
+                if (! item.options) {
+                    return true
+                }
 
                 // If visible_for is defined and template slug is not present
                 if (item.options.visible_for && ! item.options.visible_for.includes(this.page.template.data.slug)) {
@@ -189,6 +192,9 @@ export default {
         },
         recommendedBlockTypes() {
             return this.blockTypes.filter(item => {
+                if (! item.options) {
+                    return false
+                }
                 return item.options.recommended_for.includes(this.page.template.data.slug)
             })
         },
