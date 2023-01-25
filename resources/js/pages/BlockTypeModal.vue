@@ -3,6 +3,7 @@
         v-model="show"
         name="block-type-modal"
         :click-to-close="false"
+        overflow="overflow-y-auto"
         :width="! largeBlockPicker ? 'max-w-3xl' : 'max-w-6xl'"
         @before-open="fetchBlockTypes"
         @closed="resetCreateModal"
@@ -68,11 +69,34 @@
                         v-if="largeBlockPicker"
                         class="grid grid-cols-4 col-span-2 gap-4"
                     >
-                        <div class="col-span-4 -mb-4">
-                            <FLabel>Välj blocktyp</FLabel>
+                        <div
+                            v-show="recommendedBlockTypes.length > 0"
+                            class="col-span-4 -mb-4"
+                        >
+                            <FLabel>Rekommenderade block</FLabel>
                         </div>
                         <div
-                            v-for="blockType in blockTypes"
+                            v-for="blockType in recommendedBlockTypes"
+                            :key="blockType.id"
+                            :class="blockType.id === chosenBlock.block_type.id ? '  border-royal-500  bg-royal-50' : 'opacity-60 border-white'"
+                            class="flex flex-col items-center p-3 pb-1 transition-all duration-200 border rounded-md cursor-pointer"
+                            @click="selectBlock(blockType)"
+                        >
+                            <img
+                                :src="`data:image/svg+xml;base64,` + blockType.base_64_svg"
+                                class="w-full"
+                                alt=""
+                            >
+                            <div class="mt-2 text-xs">
+                                {{ blockType.name }} !!
+                            </div>
+                        </div>
+                        <div class="col-span-4 -mb-4">
+                            <FLabel v-text="recommendedBlockTypes.length > 0 ? 'Övriga' : 'Välj blocktyp'" />
+                        </div>
+                        <!-- <pre>{{ recommendedBlockTypes }}</pre> -->
+                        <div
+                            v-for="blockType in computedBlockTypes"
                             :key="blockType.id"
                             :class="blockType.id === chosenBlock.block_type.id ? '  border-royal-500  bg-royal-50' : 'opacity-60 border-white'"
                             class="flex flex-col items-center p-3 pb-1 transition-all duration-200 border rounded-md cursor-pointer"
@@ -139,6 +163,35 @@ export default {
     },
 
     computed: {
+        computedBlockTypes() {
+            const firstFilter = this.blockTypes.filter(item => {
+
+                // If visible_for is defined and template slug is not present
+                if (item.options.visible_for && ! item.options.visible_for.includes(this.page.template.data.slug)) {
+                    return false
+                }
+
+                if (! item.options.hidden_for) {
+                    return true
+                }
+
+                if (item.options.hidden_for.includes(this.page.template.data.slug)) {
+                    return false
+                }
+
+                if (item.options.recommended_for.includes(this.page.template.data.slug)) {
+                    return false
+                }
+                return true
+            })
+
+            return firstFilter
+        },
+        recommendedBlockTypes() {
+            return this.blockTypes.filter(item => {
+                return item.options.recommended_for.includes(this.page.template.data.slug)
+            })
+        },
         largeBlockPicker() {
             if(! this.config.ui) {
                 return false
@@ -159,8 +212,10 @@ export default {
 
         activeLocale() {
             return this.$store.getters['config/activeLocale']
-
         },
+        page() {
+            return this.$store.getters['page/page']
+        }
     },
 
     methods: {

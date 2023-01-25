@@ -269,19 +269,6 @@ export default {
                 locale: 'all',
                 append: 'paths',
             },
-
-            page: {
-                id: 0,
-                updated_at: '2020-01-01 10:00:00',
-                localizedContent: {
-                    sv: {},
-                },
-
-                template: {
-                    data: {},
-                },
-            },
-
             paths: [],
             fields: {},
             content: {},
@@ -295,6 +282,14 @@ export default {
     },
 
     computed: {
+        page: {
+            set(value) {
+                this.$store.commit('page/SET_PAGE', value)
+            },
+            get() {
+                return this.$store.getters['page/page']
+            }
+        },
         openCards() {
             return this.$store.getters['ui/openCards']
         },

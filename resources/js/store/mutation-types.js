@@ -23,3 +23,6 @@ export const SET_SIDEBAR_ITEMS = 'SET_SIDEBAR_ITEMS'
 export const USER_JOINING = 'USER_JOINING'
 export const USER_LEAVING = 'USER_LEAVING'
 export const SET_USERS_HERE = 'SET_USERS_HERE'
+
+// Page
+export const SET_PAGE = 'SET_PAGE'

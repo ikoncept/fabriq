@@ -1,7 +1,7 @@
 <template>
     <VueFinalModal
         :lock-scroll="false"
-        classes="flex items-start justify-center sm:mt-12 mt-4"
+        classes="flex items-start justify-center sm:mt-12 mt-4 "
         content-class="relative flex flex-col mx-4 bg-white rounded-lg shadow modal-content sm:mx-0"
         v-bind="$attrs"
         :click-to-close="clickToClose"
