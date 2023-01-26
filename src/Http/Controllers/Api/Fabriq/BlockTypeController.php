@@ -57,6 +57,6 @@ class BlockTypeController extends ApiController
         $blockType = BlockType::findOrFail($id);
         $blockType->delete();
 
-        return $this->respondWithSuccess(['Block type has been deleted']);
+        return $this->respondWithSuccess('Block type has been deleted');
     }
 }
