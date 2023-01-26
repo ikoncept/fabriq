@@ -88,7 +88,7 @@
                                 alt=""
                             >
                             <div class="mt-2 text-xs">
-                                {{ blockType.name }} !!
+                                {{ blockType.name }}
                             </div>
                         </div>
                         <div class="col-span-4 -mb-4">
