@@ -178,8 +178,7 @@ export default {
                 }
 
                 // If visible_for is defined and template slug is not present
-                if (!item.options.visible_for.includes(this.page.template.data.slug)) {
-                    console.warn('triggered')
+                if (item.options.visible_for.length > 0 && !item.options.visible_for.includes(this.page.template.data.slug)) {
                     return false
                 }
 
@@ -197,9 +196,6 @@ export default {
         },
         recommendedBlockTypes() {
             return this.blockTypes.filter(item => {
-                if (! item.options) {
-                    return false
-                }
                 return item.options.recommended_for.includes(this.page.template.data.slug)
             })
         },
