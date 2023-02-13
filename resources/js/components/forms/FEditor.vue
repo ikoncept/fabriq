@@ -573,20 +573,20 @@
     </div>
 </template>
 <script>
-import { Editor, EditorContent } from '@tiptap/vue-2'
-import StarterKit from '@tiptap/starter-kit'
-import Underline from '@tiptap/extension-underline'
+import CustomIframe from '@/components/forms/extensions/CustomIframe.js'
+import FileAPI from '@/models/File.js'
+import ImageAPI from '@/models/Image.js'
+import Image from '@tiptap/extension-image'
+import Link from '@tiptap/extension-link'
 import Table from '@tiptap/extension-table'
-import TableRow from '@tiptap/extension-table-row'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
-import Link from '@tiptap/extension-link'
-import Image from '@tiptap/extension-image'
+import TableRow from '@tiptap/extension-table-row'
 import TextAlign from '@tiptap/extension-text-align'
 import Typography from '@tiptap/extension-typography'
-import CustomIframe from '@/components/forms/extensions/CustomIframe.js'
-import ImageAPI from '@/models/Image.js'
-import FileAPI from '@/models/File.js'
+import Underline from '@tiptap/extension-underline'
+import StarterKit from '@tiptap/starter-kit'
+import { Editor, EditorContent } from '@tiptap/vue-2'
 
 const CustomImage = Image.extend({
     addAttributes () {
@@ -715,6 +715,20 @@ export default {
             return false
         },
     },
+    watch: {
+        value(value) {
+            // HTML
+            const isSame = this.editor.getHTML() === value
+
+
+            if (isSame) {
+                return
+            }
+
+            this.editor.commands.setContent(value, false)
+        },
+    },
+
     mounted () {
         this.editor = new Editor({
             // content: '<p>I’m running tiptap with Vue.js. 🎉</p>',
@@ -735,11 +749,18 @@ export default {
                 CustomImage,
                 CustomIframe
 
-            ]
+            ],
+            onUpdate: () => {
+                // HTML
+                this.$emit('input', this.editor.getHTML())
+
+                // JSON
+                // this.$emit('input', this.editor.getJSON())
+            },
         })
-        this.editor.on('update', () => {
-            this.$emit('input', this.editor.getHTML())
-        })
+        // this.editor.on('update', () => {
+        //     this.$emit('input', this.editor.getHTML())
+        // })
         this.editor.commands.setContent(this.value)
     },
     beforeDestroy () {

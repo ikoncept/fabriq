@@ -78,15 +78,16 @@ class Page extends Model implements HasMedia
                 ->delete();
         });
         static::created(function ($page) {
+            $page->publish(1);
             $content = [
                 'page_title' => $page->name,
             ];
             $localPage = Fabriq::getModelClass('page')
-                ->select('id')
+                ->select('id', 'revision')
                 ->find($page->id);
             $supportedLocales = Fabriq::getModelClass('locale')->cachedLocales();
             $supportedLocales->each(function ($locale, $key) use ($content, $localPage) {
-                $localPage->updateContent($content, $key, 1);
+                $localPage->updateContent($content, $key, $localPage->revision);
             });
         });
     }
