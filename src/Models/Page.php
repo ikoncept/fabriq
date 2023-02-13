@@ -78,7 +78,6 @@ class Page extends Model implements HasMedia
                 ->delete();
         });
         static::created(function ($page) {
-            $page->publish(1);
             $content = [
                 'page_title' => $page->name,
             ];
