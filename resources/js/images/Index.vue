@@ -191,7 +191,6 @@
                             v-else-if="prop == 'c_name'"
                             class="flex items-center space-x-3"
                         >
-
                             <div
                                 v-if="! item.processing && item.processing_failed"
                             >
@@ -200,6 +199,14 @@
                             <div class="truncate text-ellipsis max-w-64">
 
                                 {{ item.c_name }}
+                            </div>
+                        </span>
+                        <span
+                            v-else-if="prop == 'alt_text'"
+                            class="flex items-center space-x-3"
+                        >
+                            <div class="text-xs truncate text-ellipsis max-w-64">
+                                {{ item.alt_text }}
                             </div>
                         </span>
                         <span
@@ -245,10 +252,10 @@
     </div>
 </template>
 <script>
-import Tag from '@/models/Tag.js'
-import Image from '@/models/Image.js'
-import Download from '@/models/Download.js'
 import AddImageFromUrlModal from '@/images/AddImageFromUrlModal.vue'
+import Download from '@/models/Download.js'
+import Image from '@/models/Image.js'
+import Tag from '@/models/Tag.js'
 export default {
     name: 'ImagesIndex',
     components: { AddImageFromUrlModal },
