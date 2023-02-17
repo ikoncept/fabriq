@@ -36,7 +36,7 @@
         "spatie/laravel-sluggable": "^2.6|^3.0",
         "infab/translatable-revisions": "^1.0",
         "laravel/fortify": "^1.8",
-        "dyrynda/laravel-make-user": "^7.3",
+        "dyrynda/laravel-make-user": "^7.3|^8.0",
         "php-ffmpeg/php-ffmpeg": "^1.0",
         "spatie/pdf-to-image": "^2.1",
         "spatie/once": "^2.0|^3.0",
