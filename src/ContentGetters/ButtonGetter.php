@@ -4,6 +4,7 @@ namespace Ikoncept\Fabriq\ContentGetters;
 
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 
 class ButtonGetter
@@ -34,7 +35,7 @@ class ButtonGetter
             return $value;
         }
 
-        if ($value['linkType'] === 'internal') {
+        if (Str::contains($value['linkType'], 'internal')) {
             if (empty($value['page_id'])) {
                 return $value;
             }
