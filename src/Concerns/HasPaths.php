@@ -116,6 +116,11 @@ trait HasPaths
         })->unique();
         $slugGroups->push($localizedSlugs);
 
+        // If no menu items exists, fetch the latest slug
+        if (! $slugGroups[0]->count()) {
+            $slugGroups[0]->push(['/'.$this->latestSlug->slug]);
+        }
+
         return $slugGroups;
     }
 }
