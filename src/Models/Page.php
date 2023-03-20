@@ -41,6 +41,9 @@ class Page extends Model implements HasMedia
      */
     public $morphClass = 'page';
 
+    /**
+     * @var array
+     */
     protected $dates = ['published_at'];
 
     protected $fillable = ['id', 'sortindex'];
@@ -51,6 +54,7 @@ class Page extends Model implements HasMedia
         '_lft' => 'int',
         '_rgt' => 'int',
         'parent_id' => 'int',
+        'published_at' => 'datetime',
     ];
 
     /**
@@ -115,7 +119,6 @@ class Page extends Model implements HasMedia
     /**
      * Getter for images.
      *
-     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getImages(RevisionMeta $meta)
@@ -126,7 +129,6 @@ class Page extends Model implements HasMedia
     /**
      * Getter for files.
      *
-     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getFiles(RevisionMeta $meta)
@@ -137,7 +139,6 @@ class Page extends Model implements HasMedia
     /**
      * Getter for videos.
      *
-     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getVideos(RevisionMeta $meta)
@@ -148,7 +149,6 @@ class Page extends Model implements HasMedia
     /**
      * Getter for button.
      *
-     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getButton(RevisionMeta $meta)
@@ -159,7 +159,6 @@ class Page extends Model implements HasMedia
     /**
      * Getter for buttons.
      *
-     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getButtons(RevisionMeta $meta)
@@ -170,7 +169,6 @@ class Page extends Model implements HasMedia
     /**
      * Getter for buttons.
      *
-     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getSmartBlock(RevisionMeta $meta)
@@ -190,8 +188,6 @@ class Page extends Model implements HasMedia
 
     /**
      * Relation for slugs.
-     *
-     * @return MorphMany
      */
     public function slugs(): MorphMany
     {
@@ -207,10 +203,6 @@ class Page extends Model implements HasMedia
 
     /**
      * Scope query to find by Slug.
-     *
-     * @param  Builder  $query
-     * @param  string  $slug
-     * @return Builder
      */
     public function scopeWhereSlug(Builder $query, string $slug): Builder
     {
@@ -221,10 +213,6 @@ class Page extends Model implements HasMedia
 
     /**
      * Search for pages.
-     *
-     * @param  Builder  $query
-     * @param  string  $search
-     * @return Builder
      */
     public function scopeSearch(Builder $query, string $search): Builder
     {

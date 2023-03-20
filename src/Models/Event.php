@@ -16,7 +16,15 @@ class Event extends Model
 
     protected $fillable = ['start', 'end', 'start_time', 'end_time', 'date', 'title', 'daily_interval'];
 
+    /**
+     * @var array
+     */
     protected $dates = ['start', 'end'];
+
+    protected $casts = [
+        'start' => 'datetime',
+        'end' => 'datetime',
+    ];
 
     /**
      * Morph class.
@@ -46,7 +54,6 @@ class Event extends Model
      * Set the date attribute.
      *
      * @param  array|null  $value
-     * @return void
      */
     public function setDateAttribute($value): void
     {
@@ -69,9 +76,7 @@ class Event extends Model
     /**
      * Scope events between dates.
      *
-     * @param  Builder  $query
      * @param  string  ...$dates
-     * @return Builder
      */
     public function scopeDateRange(Builder $query, ...$dates): Builder
     {

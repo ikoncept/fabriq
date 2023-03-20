@@ -27,8 +27,8 @@ class Comment extends Model
      */
     public $morphClass = 'comment';
 
-    protected $dates = [
-        'anonymized_at',
+    protected $casts = [
+        'anonymized_at' => 'datetime',
     ];
 
     /**

@@ -29,7 +29,15 @@ class Notification extends Model
 
     protected $fillable = ['user_id', 'content'];
 
+    /**
+     * @var array
+     */
     protected $dates = ['cleared_at', 'notified_at'];
+
+    protected $casts = [
+        'cleared_at' => 'datetime',
+        'notified_at' => 'datetime',
+    ];
 
     protected static function booted(): void
     {
