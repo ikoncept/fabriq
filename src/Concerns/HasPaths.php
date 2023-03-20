@@ -5,7 +5,6 @@ namespace Ikoncept\Fabriq\Concerns;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\MenuItem;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +20,6 @@ trait HasPaths
      * Get the absolute path.
      *
      * @param  string|null  $path
-     * @return string
      */
     public function getAbsolutePath($path): string
     {
@@ -62,7 +60,7 @@ trait HasPaths
         return '';
     }
 
-    protected function getWhereHashStatement(): Expression
+    protected function getWhereHashStatement(): mixed
     {
         $connection = config('database.default');
         $driver = config("database.connections.{$connection}.driver");
