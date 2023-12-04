@@ -46,6 +46,7 @@ class Contact extends Model
         return RevisionOptions::create()
             ->registerDefaultTemplate('contact')
             ->registerSpecialTypes(['image'])
+            ->registerCacheTagsToFlush(['cms_contacts'])
             ->registerGetters([
                 'image' => 'getImages',
             ]);
@@ -64,8 +65,6 @@ class Contact extends Model
 
     /**
      * Get a collection of all images the model has.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
     public function images(): MorphToMany
     {
@@ -76,10 +75,6 @@ class Contact extends Model
 
     /**
      * Search for contacts.
-     *
-     * @param  Builder  $query
-     * @param  string  $search
-     * @return Builder
      */
     public function scopeSearch(Builder $query, string $search): Builder
     {

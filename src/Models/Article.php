@@ -59,6 +59,7 @@ class Article extends Model
         return RevisionOptions::create()
             ->registerDefaultTemplate('article')
             ->registerSpecialTypes(['image'])
+            ->registerCacheTagsToFlush(['cms_articles'])
             ->registerGetters([
                 'image' => 'getImages',
             ]);
