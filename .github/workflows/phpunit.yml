@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DB_DATABASE: fabriq_testing
-      DB_USERNAME: homestead
-      DB_PASSWORD: secret
+      DB_USERNAME: root
+      DB_PASSWORD: password
       BROADCAST_DRIVER: log
 
     # Docs: https://docs.github.com/en/actions/using-containerized-services
