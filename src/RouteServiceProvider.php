@@ -5,7 +5,7 @@ namespace Ikoncept\Fabriq;
 use Ikoncept\Fabriq\Http\Middleware\LocaleMiddleware;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use Spatie\Permission\Middlewares\RoleMiddleware;
+use Spatie\Permission\Middleware\RoleMiddleware;
 
 class RouteServiceProvider extends ServiceProvider
 {
