@@ -19,6 +19,7 @@ class AddAdminRolesToUsers extends Migration
             'name' => 'admin',
             'display_name' => 'Admin',
             'description' => 'Administratörer',
+            'guard_name' => 'web',
         ]);
 
         User::all()->each(function ($user) {
