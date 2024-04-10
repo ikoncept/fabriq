@@ -27,6 +27,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('pages', function (Blueprint $table) {
+            $table->dropForeign('pages_updated_by_foreign');
             $table->dropColumn('updated_by');
         });
     }

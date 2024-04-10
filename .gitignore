@@ -9,3 +9,4 @@ node_modules
 /public/build
 .php-cs-fixer.cache
 pnpm-lock.yaml
+.phpunit.cache

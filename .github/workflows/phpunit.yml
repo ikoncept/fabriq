@@ -11,21 +11,26 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     env:
       BROADCAST_DRIVER: log
-      DB_CONNECTION: pgsql
+      DB_CONNECTION: mysql
       DB_HOST: localhost
       DB_PASSWORD: secret
       DB_USERNAME: homestead
       DB_DATABASE: fabriq_testing
+
     services:
-      postgres:
-        image: postgres:latest
+      mysql:
+        image: mysql:latest
         env:
-          POSTGRES_USER: homestead
-          POSTGRES_PASSWORD: secret
-          POSTGRES_DB: fabriq_testing
+          MYSQL_ALLOW_EMPTY_PASSWORD: false
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: laravel
+          MYSQL_USER: homestead
+          MYSQL_PASSWORD: secret
+          MYSQL_DB: fabriq_testing
         ports:
-          - 5432/tcp
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     strategy:
       fail-fast: false
       matrix:
@@ -65,4 +70,4 @@ jobs:
       - name: Test with phpunit
         run: vendor/bin/phpunit --coverage-text --testdox
         env:
-          DB_PORT: ${{ job.services.postgres.ports[5432] }}
+          DB_PORT: ${{ job.services.mysql.ports['3306'] }}

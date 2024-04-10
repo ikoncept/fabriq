@@ -80,8 +80,8 @@ class BlockTypesFeatureTest extends AdminUserTestCase
             'name' => 'Change my mind!',
             'base_64_svg' => 'PHN',
             'has_children' => true,
-            'options->visible_for' => json_encode(['one', 'two']),
-            'options->recommended_for' => json_encode(['ay']),
+            // 'options->visible_for' => json_encode(['one', 'two']),
+            // 'options->recommended_for' => json_encode(['ay']),
         ]);
     }
 

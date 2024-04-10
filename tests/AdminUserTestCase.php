@@ -66,9 +66,9 @@ abstract class AdminUserTestCase extends Orchestra
     {
         $app['config']->set('database.default', 'pgsql');
         $app['config']->set('database.connections.pgsql', [
-            'driver' => 'pgsql',
+            'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
+            'port' => env('DB_PORT', '3306'),
             'database' => 'fabriq_testing',
             'username' => 'homestead',
             'password' => 'secret',
