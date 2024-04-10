@@ -233,14 +233,14 @@ class ArticlesFeatureTest extends AdminUserTestCase
     {
         // Arrange
         $template = RevisionTemplate::factory()
-           ->hasFields(1, [
-               'key' => 'title',
-               'type' => 'text',
-               'translated' => true,
-           ])
-           ->create([
-               'slug' => 'article',
-           ]);
+            ->hasFields(1, [
+                'key' => 'title',
+                'type' => 'text',
+                'translated' => true,
+            ])
+            ->create([
+                'slug' => 'article',
+            ]);
 
         $metaField = RevisionTemplateField::factory()->create([
             'template_id' => $template->id,

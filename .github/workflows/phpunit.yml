@@ -1,53 +1,52 @@
-# GitHub Action for Laravel
-name: tests
-on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
+# GitHub Action for Laravel with MySQL and Redis
+name: Testing Laravel with MySQL
+on: [push, pull_request]
 jobs:
   laravel:
-    name: Laravel (PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }})
-    runs-on: ${{ matrix.operating-system }}
+    name: Laravel (PHP ${{ matrix.php-versions }})
+    runs-on: ubuntu-latest
     env:
-      BROADCAST_DRIVER: log
-      DB_CONNECTION: pgsql
-      DB_HOST: localhost
-      DB_PASSWORD: secret
-      DB_USERNAME: homestead
       DB_DATABASE: fabriq_testing
+      DB_USERNAME: root
+      DB_PASSWORD: password
+      BROADCAST_DRIVER: log
+
+    # Docs: https://docs.github.com/en/actions/using-containerized-services
     services:
-      postgres:
-        image: postgres:latest
+      mysql:
+        image: mysql:latest
         env:
-          POSTGRES_USER: homestead
-          POSTGRES_PASSWORD: secret
-          POSTGRES_DB: fabriq_testing
+          MYSQL_ALLOW_EMPTY_PASSWORD: false
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: fabriq_testing
         ports:
-          - 5432/tcp
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     strategy:
       fail-fast: false
       matrix:
-        operating-system: [ubuntu-latest]
-        php-versions: ['8.1', '8.0']
+        php-versions: ['8.3']
     steps:
-      - name: Install ffmpeg
-        run: sudo apt-get update && sudo apt-get install ffmpeg
-
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup PHP, with composer and extensions
-        uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
+      # Docs: https://github.com/shivammathur/setup-php
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: exif, imagick
-          coverage: pcov #optional
+          extensions: mbstring, dom, fileinfo, mysql
+          coverage: xdebug
+
+      # Local MySQL service in GitHub hosted environments is disabled by default.
+      # If you are using it instead of service containers, make sure you start it.
+      # - name: Start mysql service
+      #   run: sudo systemctl start mysql.service
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
         uses: actions/cache@v3
@@ -58,11 +57,10 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
-
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Test with phpunit
-        run: vendor/bin/phpunit --coverage-text --testdox
+        run: vendor/bin/phpunit --coverage-text
         env:
-          DB_PORT: ${{ job.services.postgres.ports[5432] }}
+          DB_PORT: ${{ job.services.mysql.ports['3306'] }}

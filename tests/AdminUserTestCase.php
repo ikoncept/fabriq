@@ -64,14 +64,14 @@ abstract class AdminUserTestCase extends Orchestra
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'pgsql');
-        $app['config']->set('database.connections.pgsql', [
-            'driver' => 'pgsql',
+        $app['config']->set('database.default', 'mysql');
+        $app['config']->set('database.connections.mysql', [
+            'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
+            'port' => env('DB_PORT', '3306'),
             'database' => 'fabriq_testing',
-            'username' => 'homestead',
-            'password' => 'secret',
+            'username' => 'root',
+            'password' => 'password',
         ]);
         $app['config']->set('filesystems.disks.__test', [
             'driver' => 'local',
@@ -79,6 +79,7 @@ abstract class AdminUserTestCase extends Orchestra
             'url' => env('APP_URL').'/storage/__test',
             'visibility' => 'public',
         ]);
+
         $app['config']->set('fabriq.models.user', \Ikoncept\Fabriq\Models\User::class);
     }
 

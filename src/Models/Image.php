@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Spatie\Image\Manipulations;
+use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -16,7 +16,7 @@ use Spatie\Tags\HasTags;
 
 class Image extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, HasTags;
+    use HasFactory, HasTags, InteractsWithMedia;
 
     /**
      * Morph class.
@@ -44,14 +44,13 @@ class Image extends Model implements HasMedia
         return $this->morphTo();
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-              ->nonQueued()
-              ->width(360)
-              ->crop(Manipulations::CROP_CENTER, 480, 320)
-              ->format(config('fabriq.enable_webp') ? 'webp' : 'jpg')
-              ->quality(80);
+            ->nonQueued()
+            ->fit(Fit::Crop, 480, 320)
+            ->format(config('fabriq.enable_webp') ? 'webp' : 'jpg')
+            ->quality(80);
 
         if (config('fabriq.enable_webp')) {
             $this->addMediaConversion('webp')
@@ -69,9 +68,7 @@ class Image extends Model implements HasMedia
     /**
      * Search for an image.
      *
-     * @param  Builder  $query
      * @param  string|null  $search
-     * @return Builder
      */
     public function scopeSearch(Builder $query, $search): Builder
     {
