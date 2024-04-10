@@ -17,7 +17,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, HasRoles, Notifiable;
 
     public const RELATIONSHIPS = ['roles'];
 
@@ -48,7 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * The attributes that are mass assignable.
      *
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
@@ -79,7 +79,6 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Set roles according to an array.
      *
-     * @param  array  $value
      * @return void
      */
     public function setRoleListAttribute(array $value)
@@ -96,7 +95,6 @@ class User extends Authenticatable implements MustVerifyEmail
      * Create a new invitation.
      *
      * @param  int|null  $invitedBy
-     * @return Invitation
      */
     public function createInvitation($invitedBy = null): Invitation
     {
@@ -110,10 +108,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Search for users.
-     *
-     * @param  Builder  $query
-     * @param  string  $search
-     * @return Builder
      */
     public function scopeSearch(Builder $query, string $search): Builder
     {
