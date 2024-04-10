@@ -6,7 +6,7 @@ use Ikoncept\Fabriq\Database\Factories\VideoFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Image\Manipulations;
+use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -14,7 +14,7 @@ use Spatie\Tags\HasTags;
 
 class Video extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, HasTags;
+    use HasFactory, HasTags, InteractsWithMedia;
 
     public const RELATIONSHIPS = ['tags'];
 
@@ -32,17 +32,17 @@ class Video extends Model implements HasMedia
 
     protected $with = ['media'];
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-              ->nonQueued()
-              ->extractVideoFrameAtSecond(20)
-              ->performOnCollections('videos')
-              ->crop(Manipulations::CROP_CENTER, 480, 320);
+            ->nonQueued()
+            ->extractVideoFrameAtSecond(20)
+            ->performOnCollections('videos')
+            ->fit(Fit::Crop, 480, 320);
 
         $this->addMediaConversion('poster')
-              ->performOnCollections('videos')
-              ->extractVideoFrameAtSecond(0);
+            ->performOnCollections('videos')
+            ->extractVideoFrameAtSecond(0);
     }
 
     /**
@@ -63,9 +63,7 @@ class Video extends Model implements HasMedia
     /**
      * Search for a video.
      *
-     * @param  Builder  $query
      * @param  string|null  $search
-     * @return Builder
      */
     public function scopeSearch(Builder $query, $search): Builder
     {
