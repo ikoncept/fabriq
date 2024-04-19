@@ -125,9 +125,9 @@
     </div>
 </template>
 <script>
-import Event from '@/models/Event.js'
 import EventModal from '@/calendar/EventModal.vue'
-import { endOfMonth, startOfMonth, format } from 'date-fns'
+import Event from '@/models/Event.js'
+import { endOfMonth, format, startOfMonth } from 'date-fns'
 export default {
     name: 'CalendarIndex',
     components: { EventModal },
@@ -254,64 +254,4 @@ export default {
 }
 </script>
 <style>
-/* .lg-cal .vc-header {
-    @apply w-96;
-} */
-.lg-cal .vc-header {
-    padding: 0 !important;
-}
-.lg-cal .vc-title {
-    @apply capitalize font-light text-gray-800 text-3xl py-6 !important;
-}
-.lg-cal.vc-container {
-    border: 0px solid red;
-}
-.lg-cal .vc-weeks .vc-weekday:first-child {
-    @apply border-l-0 !important;
-}
-.lg-cal .is-today .day-label {
-    @apply bg-gold-400 text-gray-800 flex rounded-full py-2.5 justify-center items-center leading-none w-7 h-7;
-}
-.lg-cal .vc-weeks .vc-weekday:nth-child(7n+7) {
-    @apply border-r-0 !important;
-}
-.lg-cal .weekday-1 {
-    @apply border-r-0 !important;
-}
-.lg-cal .vc-weeks {
-    padding: 0px !important;
-}
-.lg-cal .vc-weekday {
-    @apply capitalize;
-}
-
-.lg-cal .vc-weekday {
-    @apply border text-gray-400 py-2 font-bold !important;
-    /* border-bottom: 1px solid red;
-    border-top: 1px solid red; */
-}
-
-.lg-cal .vc-day {
-    /* padding: 0 5px 3px 5px; */
-    text-align: left;
-    /* height: var(--day-height);
-    min-width: var(--day-width); */
-    min-width: 6rem;
-    @apply h-36 p-3;
-    background-color: white;
-    /* border: 1px solid purple; */
-}
-
-.lg-cal .vc-day.in-prev-month {
-    @apply bg-gray-50;
-}
-.lg-cal .vc-day.in-next-month, .vc-day.in-next-month.is-not-in-month {
-    @apply bg-gray-50;
-}
-.lg-cal .vc-day:not(.on-right) {
-    @apply border-r ;
-}
-.lg-cal .vc-day:not(.on-bottom) {
-    @apply border-b border-r;
-}
 </style>

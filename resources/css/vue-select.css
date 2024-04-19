@@ -1,3 +1,5 @@
+@config "./fabriq.tailwind.config.js";
+
 .vs__selected button {
     height: 1rem;
     width: 1rem;
@@ -6,13 +8,16 @@
     /* background-image: url("data:image/svg+xml;base64,PHN2ZyBkYXRhLWljb249InhtYXJrIiByb2xlPSJpbWciCiAgICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzODQgNTEyIj4KICAgIDxwYXRoICBkPSJNMzQ1IDM3NUMzNTQgMzg0IDM1NCA0MDAgMzQ1IDQwOVMzMjAgNDE4IDMxMSA0MDlMMTkyIDI5MEw3MyA0MDlDNjQgNDE4IDQ4IDQxOCAzOSA0MDlTMzAgMzg0IDM5IDM3NUwxNTggMjU2TDM5IDEzN0MzMCAxMjggMzAgMTEyIDM5IDEwM1M2NCA5NCA3MyAxMDNMMTkyIDIyMkwzMTEgMTAzQzMyMCA5NCAzMzYgOTQgMzQ1IDEwM1MzNTQgMTI4IDM0NSAxMzdMMjI2IDI1NkwzNDUgMzc1WiIgZmlsbD0iIzZCNzI4MCIvPgo8L3N2Zz4="); */
     background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' data-prefix='fa-light' data-icon='xmark' class='svg-inline--fa fa-xmark fa-w-10' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M315.31 411.31C309.056 417.563 298.936 417.563 292.682 411.31L160 278.627L27.318 411.31C21.064 417.563 10.944 417.563 4.69 411.31C-1.563 405.056 -1.563 394.936 4.69 388.682L137.373 256L4.69 123.318C-1.563 117.064 -1.563 106.944 4.69 100.69C10.944 94.437 21.064 94.437 27.318 100.69L160 233.373L292.682 100.69C298.936 94.437 309.056 94.437 315.31 100.69C321.563 106.944 321.563 117.064 315.31 123.318L182.627 256L315.31 388.682C321.563 394.936 321.563 405.056 315.31 411.31Z' fill='%231F2937'/%3E%3C/svg%3E");
 }
+
 .fabriq-input .vs__search {
     color: inherit;
 }
- .vs__clear svg {
+
+.vs__clear svg {
     display: none;
 }
- .vs__clear {
+
+.vs__clear {
     z-index: 10;
     height: 1rem;
     width: 1rem;
@@ -67,6 +72,7 @@
 .vs__search {
     line-height: 1.35 !important;
 }
+
 .vs--disabled .vs__clear,
 .vs--disabled .vs__dropdown-toggle,
 .vs--disabled .vs__open-indicator,
@@ -81,7 +87,7 @@
     /* padding: 0 3px 0 6px */
 }
 
- .v-select[dir=rtl] .vs__clear {
+.v-select[dir=rtl] .vs__clear {
     margin-left: 6px;
     margin-right: 0
 }
@@ -95,7 +101,7 @@
     text-align: right
 }
 
-.vs__selected { }
+.vs__selected {}
 
 .vs__dropdown-toggle {
     -webkit-appearance: none;
@@ -118,12 +124,15 @@
     position: relative;
     @apply -mb-2;
 }
+
 .vs__selected-options span.vs__selected {
     margin-bottom: 0.4rem;
 }
+
 .vs__selected-options .vs__search {
     @apply pb-2;
 }
+
 .vs__actions {
     display: flex;
     align-items: center;
@@ -342,18 +351,21 @@
 .vs--loading .vs__spinner {
     opacity: 1
 }
+
 /* purgecss end ignore */
 
- .vs__selected {
+.vs__selected {
     @apply inline-flex items-center pl-3 pr-1.5 py-0.5 -my-0.5 mr-2 text-xs font-semibold text-gray-800 rounded-full bg-gold-200;
 }
- .vs__selected button {
+
+.vs__selected button {
     @apply ml-2;
 }
+
 .vs__selected button svg {
     display: none;
 }
 
- .vs--disabled  .vs__selected {
+.vs--disabled .vs__selected {
     @apply inline-flex items-center pl-3 pr-1.5 py-0.5 -my-0.5 mr-2 text-xs font-semibold text-gray-800 rounded-full bg-gold-200 opacity-75;
 }
