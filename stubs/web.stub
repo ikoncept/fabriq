@@ -1,0 +1,9 @@
+<?php
+
+use Ikoncept\Fabriq\Fabriq;
+
+Fabriq::routes(
+    function ($router) {
+        $router->allWeb();
+    }
+);

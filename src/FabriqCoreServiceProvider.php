@@ -179,6 +179,10 @@ class FabriqCoreServiceProvider extends ServiceProvider
     protected function standardPaths(): array
     {
         return [
+            __DIR__.'/../stubs/models_user.stub' => base_path('app/models/User.php'),
+            __DIR__.'/../stubs/api.stub' => base_path('routes/api.php'),
+            __DIR__.'/../stubs/bootstrap_app.stub' => base_path('bootstrap/app.php'),
+            __DIR__.'/../stubs/web.stub' => base_path('routes/web.php'),
             __DIR__.'/../resources/css' => resource_path('css'),
             __DIR__.'/../resources/fabriq/images' => resource_path('fabriq/images/'),
             __DIR__.'/../resources/fabriq/images/' => public_path('fabriq/images/'),
