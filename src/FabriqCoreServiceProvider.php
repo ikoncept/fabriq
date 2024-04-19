@@ -78,8 +78,6 @@ class FabriqCoreServiceProvider extends ServiceProvider
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -150,7 +148,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
             __DIR__.'/../resources/js/routes/router.js' => resource_path('js/routes/router.js'),
         ]);
 
-        return  array_merge($merged, $this->standardPaths());
+        return array_merge($merged, $this->standardPaths());
     }
 
     protected function installPaths(): array
@@ -182,11 +180,11 @@ class FabriqCoreServiceProvider extends ServiceProvider
     {
         return [
             __DIR__.'/../resources/css' => resource_path('css'),
-            __DIR__.'/../resources/images' => public_path('fabriq/images'),
-            __DIR__.'/../resources/images' => resource_path('fabriq/images'),
+            __DIR__.'/../resources/fabriq/images' => resource_path('fabriq/images/'),
+            __DIR__.'/../resources/fabriq/images/' => public_path('fabriq/images/'),
+            __DIR__.'/../resources/js' => resource_path('fabriq/images/'),
             __DIR__.'/../resources/js' => resource_path('js'),
             __DIR__.'/../resources/fonts' => public_path('fonts'),
-            __DIR__.'/../fabriq.tailwind.config.js' => 'fabriq.tailwind.config.js',
             __DIR__.'/../vite.config.js' => 'vite.config.js',
             __DIR__.'/../postcss.config.js' => 'postcss.config.js',
             __DIR__.'/../package.json' => 'package.json',
