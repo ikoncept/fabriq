@@ -18,7 +18,6 @@ class RouteRegistrar
     /**
      * Create a new route registrar instance.
      *
-     * @param  \Illuminate\Contracts\Routing\Registrar  $router
      * @return void
      */
     public function __construct(Router $router)
@@ -28,11 +27,10 @@ class RouteRegistrar
 
     /**
      * Register routes for web.
-     *
-     * @return void
      */
     public function allWeb(): void
     {
+        Route::redirect('/', '/admin');
         Route::get('/permalink/{hash}/{locale?}', \Ikoncept\Fabriq\Http\Controllers\PermalinksRedirectController::class)
             ->name('permalink.redirect');
 
@@ -65,8 +63,6 @@ class RouteRegistrar
 
     /**
      * Register routes forPublic API endpoints.
-     *
-     * @return void
      */
     public function all(): void
     {
