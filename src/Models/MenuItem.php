@@ -15,7 +15,7 @@ use Kalnoy\Nestedset\NodeTrait;
 
 class MenuItem extends Model
 {
-    use HasFactory, NodeTrait, HasTranslatedRevisions;
+    use HasFactory, HasTranslatedRevisions, NodeTrait;
 
     public const RELATIONSHIPS = ['page'];
 
@@ -66,7 +66,7 @@ class MenuItem extends Model
     {
         return RevisionOptions::create()
             ->registerDefaultTemplate('menu-item')
-            ->registerCacheTagsToFlush(['cms_menu']);
+            ->registerCacheTagsToFlush(['fabriq_menu']);
     }
 
     public function page(): BelongsTo
@@ -76,8 +76,6 @@ class MenuItem extends Model
 
     /**
      * Get the title attribute.
-     *
-     * @return string
      */
     public function getTitleAttribute(): string
     {
@@ -103,7 +101,6 @@ class MenuItem extends Model
     /**
      * Get the slug.
      *
-     * @param  string  $locale
      * @return mixed
      */
     public function getSlug(string $locale = '')
@@ -129,7 +126,7 @@ class MenuItem extends Model
                     return;
                 }
 
-                return  $carry.'/'.$subItem->getSlugString();
+                return $carry.'/'.$subItem->getSlugString();
             }, '').'/'.$this->getSlugString();
         }
 
@@ -140,7 +137,6 @@ class MenuItem extends Model
      * Skip setting title.
      *
      * @param  mixed  $value
-     * @return void
      */
     public function setTitleAttribute($value): void
     {
@@ -150,7 +146,6 @@ class MenuItem extends Model
      * Skip setting page attribute.
      *
      * @param  mixed  $value
-     * @return void
      */
     public function setPageAttribute($value): void
     {

@@ -49,7 +49,7 @@ class SmartBlock extends Model
                 'video' => 'getVideos',
             ])
             ->registerDefaultTemplate('smart_block')
-            ->registerCacheTagsToFlush(['cms_pages', 'cms_smart_blocks']);
+            ->registerCacheTagsToFlush(['fabriq_pages', 'fabriq_smart_blocks']);
     }
 
     /**
@@ -66,7 +66,6 @@ class SmartBlock extends Model
     }
 
     /**
-     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getImages(RevisionMeta $meta)
@@ -75,7 +74,6 @@ class SmartBlock extends Model
     }
 
     /**
-     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getFiles(RevisionMeta $meta)
@@ -84,7 +82,6 @@ class SmartBlock extends Model
     }
 
     /**
-     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getVideos(RevisionMeta $meta)
@@ -95,7 +92,6 @@ class SmartBlock extends Model
     /**
      * Getter for button.
      *
-     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getButton(RevisionMeta $meta)
@@ -106,7 +102,6 @@ class SmartBlock extends Model
     /**
      * Getter for buttons.
      *
-     * @param  RevisionMeta  $meta
      * @return mixed
      */
     public function getButtons(RevisionMeta $meta)
@@ -116,10 +111,6 @@ class SmartBlock extends Model
 
     /**
      * Search for smart blocks.
-     *
-     * @param  Builder  $query
-     * @param  string  $search
-     * @return Builder
      */
     public function scopeSearch(Builder $query, string $search): Builder
     {

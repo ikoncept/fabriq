@@ -17,7 +17,7 @@ use Spatie\Tags\HasTags;
 
 class Contact extends Model
 {
-    use HasFactory, HasTranslatedRevisions, HasTags, BroadcastsEvents;
+    use BroadcastsEvents, HasFactory, HasTags, HasTranslatedRevisions;
 
     public const RELATIONSHIPS = ['images', 'tags'];
 
@@ -46,7 +46,7 @@ class Contact extends Model
         return RevisionOptions::create()
             ->registerDefaultTemplate('contact')
             ->registerSpecialTypes(['image'])
-            ->registerCacheTagsToFlush(['cms_contacts'])
+            ->registerCacheTagsToFlush(['fabriq_contacts'])
             ->registerGetters([
                 'image' => 'getImages',
             ]);

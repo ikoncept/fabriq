@@ -30,7 +30,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Page extends Model implements HasMedia
 {
-    use HasFactory, HasTranslatedRevisions, InteractsWithMedia, NodeTrait, Commentable, HasPaths, BroadcastsModelEvents;
+    use BroadcastsModelEvents, Commentable, HasFactory, HasPaths, HasTranslatedRevisions, InteractsWithMedia, NodeTrait;
 
     public const RELATIONSHIPS = ['template', 'template.fields'];
 
@@ -113,7 +113,8 @@ class Page extends Model implements HasMedia
                 'button' => 'getButton',
                 'buttons' => 'getButtons',
                 'smartBlock' => 'getSmartBlock',
-            ]);
+            ])
+            ->registerCacheTagsToFlush(['fabriq_menu', 'fabriq_pages|slug']);
     }
 
     /**

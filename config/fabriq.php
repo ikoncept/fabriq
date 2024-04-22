@@ -169,4 +169,10 @@ return [
     'ui' => [
         'large_block_picker' => false,
     ],
+
+    'webhooks' => [
+        'enabled' => true,
+        'secret' => env('FABRIQ_WEBHOOK_SECRET'),
+        'endpoint' => env('FABRIQ_WEBHOOK_ENDPOINT'),
+    ],
 ];

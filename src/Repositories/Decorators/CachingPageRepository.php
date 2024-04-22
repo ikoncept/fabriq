@@ -31,15 +31,14 @@ class CachingPageRepository implements PageRepositoryInterface
     /**
      * Find by slug.
      *
-     * @param  string  $slug
      * @return mixed
      */
     public function findBySlug(string $slug)
     {
         $locale = 'sv';
-        $page = $this->cache->tags(['cms_pages', 'cms_page_'.$slug])
+        $page = $this->cache->tags(['fabriq_pages', 'fabriq_page_'.$slug])
             ->rememberForever($locale, function () use ($slug) {
-                Log::info('Caching page', ['cache_key' => 'cms_page_'.$slug, 'cms_page']);
+                Log::info('Caching page', ['cache_key' => 'fabriq_page_'.$slug, 'fabriq_page']);
 
                 return $this->repository->findBySlug($slug);
             });
@@ -50,15 +49,14 @@ class CachingPageRepository implements PageRepositoryInterface
     /**
      * Find preview by slug.
      *
-     * @param  string  $slug
      * @return mixed
      */
     public function findPreviewBySlug(string $slug)
     {
         $locale = 'sv';
-        $page = $this->cache->tags(['cms_page_'.$slug, 'cms_page'])
+        $page = $this->cache->tags(['fabriq_page_'.$slug, 'fabriq_page'])
             ->rememberForever($locale, function () use ($slug) {
-                Log::info('Caching page', ['cache_key' => 'cms_page_'.$slug, 'cms_page']);
+                Log::info('Caching page', ['cache_key' => 'fabriq_page_'.$slug, 'fabriq_page']);
 
                 return $this->repository->findPreviewBySlug($slug);
             });
@@ -69,12 +67,11 @@ class CachingPageRepository implements PageRepositoryInterface
     /**
      * Find pages by ids.
      *
-     * @param  array  $ids
      * @return mixed
      */
     public function findByIds(array $ids)
     {
-        $pages = $this->cache->tags(['cms_page'])
+        $pages = $this->cache->tags(['fabriq_page'])
             ->rememberForever(base64_encode(implode('-', $ids)), function () use ($ids) {
                 return $this->repository->findByIds($ids);
             });

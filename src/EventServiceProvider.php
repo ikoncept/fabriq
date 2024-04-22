@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq;
 
 use Ikoncept\Fabriq\Listeners\BustPageCacheListener;
+use Ikoncept\Fabriq\Listeners\CallCacheBustingWebhook;
 use Ikoncept\Fabriq\Listeners\FlushTagCacheListener;
 use Ikoncept\Fabriq\Listeners\UpdateSlugListener;
 use Illuminate\Auth\Events\Registered;
@@ -21,9 +22,11 @@ class EventServiceProvider extends ServiceProvider
         ],
         DefinitionsUpdated::class => [
             UpdateSlugListener::class,
+            CallCacheBustingWebhook::class,
         ],
         DefinitionsPublished::class => [
             BustPageCacheListener::class,
+            CallCacheBustingWebhook::class,
         ],
         TranslatedRevisionDeleted::class => [
             FlushTagCacheListener::class,

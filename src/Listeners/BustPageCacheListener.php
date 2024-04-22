@@ -22,7 +22,6 @@ class BustPageCacheListener
     /**
      * Handle the event.
      *
-     * @param  DefinitionsPublished  $event
      * @return void
      */
     public function handle(DefinitionsPublished $event)
@@ -30,15 +29,15 @@ class BustPageCacheListener
         $tagName = Str::lower(class_basename($event->model));
 
         Log::info('Flushing menu cache');
-        Cache::tags('cms_menu')->flush();
+        Cache::tags('fabriq_menu')->flush();
 
         if (! $event->model->slugs) {
             return;
         }
 
         foreach ($event->model->slugs as $slug) {
-            Log::info('Flushing page cache', ['name' => $event->model->name, 'key' => 'cms_'.$tagName.'_'.$slug->slug]);
-            Cache::tags('cms_'.$tagName.'_'.$slug->slug)->flush();
+            Log::info('Flushing page cache', ['name' => $event->model->name, 'key' => 'fabriq_'.$tagName.'_'.$slug->slug]);
+            Cache::tags('fabriq_'.$tagName.'_'.$slug->slug)->flush();
         }
     }
 }

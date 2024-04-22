@@ -18,7 +18,7 @@ use Infab\TranslatableRevisions\Traits\RevisionOptions;
 
 class Article extends Model
 {
-    use HasFactory, HasTranslatedRevisions, BroadcastsEvents;
+    use BroadcastsEvents, HasFactory, HasTranslatedRevisions;
 
     public const RELATIONSHIPS = ['template', 'template.fields', 'slugs'];
 
@@ -59,7 +59,7 @@ class Article extends Model
         return RevisionOptions::create()
             ->registerDefaultTemplate('article')
             ->registerSpecialTypes(['image'])
-            ->registerCacheTagsToFlush(['cms_articles'])
+            ->registerCacheTagsToFlush(['fabriq_articles|slug'])
             ->registerGetters([
                 'image' => 'getImages',
             ]);

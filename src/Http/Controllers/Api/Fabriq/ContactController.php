@@ -18,9 +18,6 @@ class ContactController extends ApiController
 
     /**
      * Returns an index of contacts.
-     *
-     * @param  Request  $request
-     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
@@ -68,7 +65,7 @@ class ContactController extends ApiController
             'enabled_locales' => $request->content['enabled_locales'] ?? [],
         ], $request->input('locale', app()->getLocale()));
 
-        $contact->save();
+        $contact->saveQuietly();
 
         return $this->respondWithItem($contact, Fabriq::getTransformerFor('contact'));
     }

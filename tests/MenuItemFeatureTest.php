@@ -118,7 +118,7 @@ class MenuItemFeatureTest extends AdminUserTestCase
         Event::assertDispatchedTimes(TranslatedRevisionUpdated::class, 2);
         Event::assertDispatched(function (TranslatedRevisionUpdated $event) {
             if (get_class($event->model) === Fabriq::getFqnModel('menuItem')) {
-                return $event->model->getRevisionOptions()->cacheTagsToFlush[0] === 'cms_menu';
+                return $event->model->getRevisionOptions()->cacheTagsToFlush[0] === 'fabriq_menu';
             }
         });
     }
@@ -417,7 +417,7 @@ class MenuItemFeatureTest extends AdminUserTestCase
 
         // Act
         $response = $this->withHeaders(['X-LOCALE' => 'en'])
-                ->json('GET', '/menus/'.$menu->slug.'/public/'.'?include=children');
+            ->json('GET', '/menus/'.$menu->slug.'/public/'.'?include=children');
 
         // Assert
         $response->assertOk();

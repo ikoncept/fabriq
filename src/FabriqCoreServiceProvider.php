@@ -49,7 +49,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
 
             $this->publishes([
                 __DIR__.'/../config/fortify.php' => config_path('fortify.php'),
-            ], 'config');
+            ], 'fortify-config');
 
             $this->loadMigrationsFrom([realpath(__DIR__.'/../database/migrations')]);
 
