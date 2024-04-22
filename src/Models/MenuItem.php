@@ -32,6 +32,8 @@ class MenuItem extends Model
 
     protected $guarded = [];
 
+    protected $touches = ['menu'];
+
     public array $templateSluggable = [];
 
     protected $casts = [
@@ -149,5 +151,10 @@ class MenuItem extends Model
      */
     public function setPageAttribute($value): void
     {
+    }
+
+    public function menu(): BelongsTo
+    {
+        return $this->belongsTo(Fabriq::getFqnModel('menu'));
     }
 }

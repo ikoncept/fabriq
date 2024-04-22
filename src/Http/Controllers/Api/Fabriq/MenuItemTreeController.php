@@ -17,10 +17,6 @@ class MenuItemTreeController extends ApiController
 
     /**
      * Return index of the resource.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return JsonResponse
      */
     public function index(Request $request, int $id): JsonResponse
     {
@@ -36,16 +32,13 @@ class MenuItemTreeController extends ApiController
 
     /**
      * Update the resoource.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return JsonResponse
      */
     public function update(Request $request, int $id): JsonResponse
     {
         $menuItemRoot = MenuItem::where('menu_id', $id)
             ->whereNull('parent_id')
             ->first();
+        $menuItemRoot->touch();
 
         $treeData = $request->tree;
         MenuItem::rebuildSubtree($menuItemRoot, $treeData);
@@ -55,10 +48,6 @@ class MenuItemTreeController extends ApiController
 
     /**
      * Return specific menu.
-     *
-     * @param  Request  $request
-     * @param  string  $slug
-     * @return JsonResponse
      */
     public function show(CachingMenuRepository $repo, Request $request, string $slug): JsonResponse
     {
