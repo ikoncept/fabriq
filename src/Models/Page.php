@@ -182,6 +182,12 @@ class Page extends Model implements HasMedia
         return $this->hasMany(Fabriq::getFqnModel('menuItem'));
     }
 
+    public function blocks(): HasMany
+    {
+        return $this->hasMany(Block::class)
+            ->orderBy('blocks.sortindex');
+    }
+
     public function updatedByUser(): BelongsTo
     {
         return $this->belongsTo(Fabriq::getFqnModel('user'), 'updated_by', 'id');
