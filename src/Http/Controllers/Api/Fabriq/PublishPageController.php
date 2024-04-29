@@ -31,17 +31,14 @@ class PublishPageController extends ApiController
                 // Up the revision
                 $block->revision = $page->revision;
                 $block->save();
-
-                // replicate the block to
-                // $block->block_type_id = $block->block_type_id;
-                // $block->locale = $block->locale;
-                // $block->content = $block->content;
-                // $block->hidden = $block->hidden ?? false;
-                // $block->save();
             }
             // Delete old blocks
-            $blocks = Block::where('revision', $page->revision - 2)->get()
-                ->where('page_id', $page->id)
+            $blocks = Block::where('page_id', $page->id)
+                ->where(function ($query) use ($page) {
+                    $query->where('revision', '!=', $page->revision)
+                        ->where('revision', '!=', $page->published_version);
+                })
+                ->get()
                 ->each(function ($item) {
                     $item->delete();
                 });
