@@ -8,7 +8,7 @@ use Spatie\WebhookServer\WebhookCall;
 
 class BustCacheWithWebhook
 {
-    public function handle(Collection $tagsToFlush)
+    public function handle(Collection $tagsToFlush): void
     {
         // 1 per 5 seconds for the same key
         RateLimiter::attempt(

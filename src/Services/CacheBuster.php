@@ -2,16 +2,18 @@
 
 namespace Ikoncept\Fabriq\Services;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class CacheBuster
 {
-    public function getCacheTags($model, array $cacheTagsToFlush = []): Collection
+    public function getCacheTags(Model $model, array $cacheTagsToFlush = []): Collection
     {
         if (method_exists($model, 'getRevisionOptions') && count($cacheTagsToFlush) === 0) {
             $cacheTagsToFlush = $model->getRevisionOptions()->cacheTagsToFlush;
         }
 
+        /** @var array<string, string> $cacheTagsToFlush */
         return collect($cacheTagsToFlush)->map(function ($tag) use ($model) {
             $parts = explode('|', $tag);
             if (isset($parts[1])) {
