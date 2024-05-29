@@ -10,6 +10,7 @@ jobs:
       DB_USERNAME: root
       DB_PASSWORD: password
       BROADCAST_DRIVER: log
+      FABRIQ_WEBHOOK_ENABLED: false
 
     # Docs: https://docs.github.com/en/actions/using-containerized-services
     services:

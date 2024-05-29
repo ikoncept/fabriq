@@ -171,7 +171,7 @@ return [
     ],
 
     'webhooks' => [
-        'enabled' => true,
+        'enabled' => env('FABRIQ_WEBHOOK_ENABLED', true),
         'secret' => env('FABRIQ_WEBHOOK_SECRET'),
         'endpoint' => env('FABRIQ_WEBHOOK_ENDPOINT'),
     ],

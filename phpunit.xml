@@ -11,6 +11,7 @@
     <env name="APP_ENV" value="testing"/>
     <env name="FFMPEG_PATH" value="ffmpeg"/>
     <env name="FFPROBE_PATH" value="ffprobe"/>
+    <env name="FABRIQ_WEBHOOK_ENABLED" value="false"/>
   </php>
   <source>
     <include>
