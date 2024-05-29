@@ -59,7 +59,7 @@ class Article extends Model
         return RevisionOptions::create()
             ->registerDefaultTemplate('article')
             ->registerSpecialTypes(['image'])
-            ->registerCacheTagsToFlush(['fabriq_articles|slug'])
+            ->registerCacheTagsToFlush(['fabriq_articles', 'fabriq_articles|slug'])
             ->registerGetters([
                 'image' => 'getImages',
             ]);
