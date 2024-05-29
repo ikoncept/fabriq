@@ -16,6 +16,10 @@ class BustCacheWithWebhook
             maxAttempts: 1,
             callback: function () use ($tagsToFlush) {
                 foreach (explode(',', config('fabriq.webhooks.endpoint')) as $url) {
+                    if (! filter_var($url, FILTER_VALIDATE_URL)) {
+
+                        return;
+                    }
                     WebhookCall::create()
                         ->url($url)
                         ->payload([

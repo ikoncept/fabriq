@@ -110,6 +110,7 @@ class UserFeatureTest extends AdminUserTestCase
             'name' => 'peasant',
             'display_name' => 'Peasant',
             'description' => '',
+            'guard_name' => 'web',
         ]);
         $user->assignRole('peasant');
 
@@ -134,6 +135,7 @@ class UserFeatureTest extends AdminUserTestCase
             'name' => 'editor',
             'display_name' => 'Editor',
             'description' => 'Redaktörer',
+            'guard_name' => 'web',
         ]);
         $editorRole = Role::where('name', 'editor')->first();
 

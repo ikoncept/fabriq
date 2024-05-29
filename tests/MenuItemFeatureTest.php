@@ -4,10 +4,10 @@ namespace Tests\Feature;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\I18nDefinition;
-use Ikoncept\Fabriq\Models\Menu;
 use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Schema;
 use Infab\TranslatableRevisions\Events\TranslatedRevisionUpdated;
 use Infab\TranslatableRevisions\Models\RevisionTemplate;
 use Infab\TranslatableRevisions\Models\RevisionTemplateField;
@@ -383,8 +383,9 @@ class MenuItemFeatureTest extends AdminUserTestCase
     public function it_will_prepend_a_slash_to_the_relative_url()
     {
         // Arrange
-        Menu::truncate();
+        Schema::disableForeignKeyConstraints();
         Page::truncate();
+        Schema::enableForeignKeyConstraints();
         $menu = \Ikoncept\Fabriq\Models\Menu::factory()->create(['slug' => 'main_menu']);
         $root = \Ikoncept\Fabriq\Models\MenuItem::factory()->create([
             'menu_id' => $menu->id,
