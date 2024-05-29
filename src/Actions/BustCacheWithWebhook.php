@@ -15,14 +15,16 @@ class BustCacheWithWebhook
             key: hash('adler32', json_encode($tagsToFlush)),
             maxAttempts: 1,
             callback: function () use ($tagsToFlush) {
-                WebhookCall::create()
-                    ->url(config('fabriq.webhooks.endpoint'))
-                    ->payload([
-                        'type' => 'cache_expiration',
-                        'invalid_cache_tags' => $tagsToFlush->toArray(),
-                    ])
-                    ->useSecret(config('fabriq.webhooks.secret'))
-                    ->dispatch();
+                foreach (explode(',', config('fabriq.webhooks.endpoint')) as $url) {
+                    WebhookCall::create()
+                        ->url($url)
+                        ->payload([
+                            'type' => 'cache_expiration',
+                            'invalid_cache_tags' => $tagsToFlush->toArray(),
+                        ])
+                        ->useSecret(config('fabriq.webhooks.secret'))
+                        ->dispatch();
+                }
             },
             decaySeconds: 1
         );
