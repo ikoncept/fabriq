@@ -62,7 +62,7 @@ class PagePathsFeatureTest extends AdminUserTestCase
     public function it_can_figure_out_a_path_given_an_sha_hash()
     {
         // Arrange
-        Page::truncate();
+        // Page::truncate();
         $menu = Menu::factory()->create();
         $parent = Page::factory()->create([
             'name' => 'parent 1',

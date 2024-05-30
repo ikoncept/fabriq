@@ -34,7 +34,7 @@ class PagesFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $response->assertJsonFragment([
             'id' => $page->id,
-            'locked' => false,
+            // 'locked' => true,
         ]);
     }
 

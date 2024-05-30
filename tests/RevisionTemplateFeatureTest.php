@@ -11,7 +11,10 @@ class RevisionTemplateFeatureTest extends AdminUserTestCase
     public function it_can_get_all_templates()
     {
         // Arrange
-        RevisionTemplate::truncate();
+        RevisionTemplate::all()->each(function ($item) {
+            $item->delete();
+        });
+        // RevisionTemplate::truncate();
         $templates = RevisionTemplate::factory()->count(3)->create([
             'locked' => true,
         ]);
