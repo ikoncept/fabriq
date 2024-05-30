@@ -137,6 +137,7 @@ return [
         'menuItem' => \Ikoncept\Fabriq\Transformers\MenuItemTransformer::class,
         'notification' => \Ikoncept\Fabriq\Transformers\NotificationTransformer::class,
         'page' => \Ikoncept\Fabriq\Transformers\PageTransformer::class,
+        'live_page' => \Ikoncept\Fabriq\Transformers\LivePageTransformer::class,
         'role' => \Ikoncept\Fabriq\Transformers\RoleTransformer::class,
         'slug' => \Ikoncept\Fabriq\Transformers\SlugTransformer::class,
         'smartBlock' => \Ikoncept\Fabriq\Transformers\SmartBlockTransformer::class,
