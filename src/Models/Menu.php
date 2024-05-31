@@ -24,13 +24,13 @@ class Menu extends Model
     protected static function booted()
     {
         static::saved(function ($menu) {
-            $tagsToFlush = (new CacheBuster)->getCacheTags($menu, ['fabriq_menu_'.$menu->slug]);
-            (new BustCacheWithWebhook)->handle($tagsToFlush);
+            $tagsToFlush = (new CacheBuster)->getCacheKeys($menu, ['fabriq_menu_'.$menu->slug]);
+            (new BustCacheWithWebhook)->handle($tagsToFlush->toArray());
         });
 
         static::deleted(function ($menu) {
-            $tagsToFlush = (new CacheBuster)->getCacheTags($menu, ['fabriq_menu_'.$menu->slug]);
-            (new BustCacheWithWebhook)->handle($tagsToFlush);
+            $tagsToFlush = (new CacheBuster)->getCacheKeys($menu, ['fabriq_menu_'.$menu->slug]);
+            (new BustCacheWithWebhook)->handle($tagsToFlush->toArray());
         });
     }
 
