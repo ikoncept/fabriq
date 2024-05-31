@@ -39,12 +39,12 @@ class CallCacheBustingWebhook
             return;
         }
 
-        $tagsToFlush = (new CacheBuster)->getCacheTags($model);
+        $keysToForget = (new CacheBuster)->getCacheKeys($model);
 
-        if (! $tagsToFlush->count()) {
+        if (! $keysToForget->count()) {
             return;
         }
 
-        (new BustCacheWithWebhook)->handle($tagsToFlush);
+        (new BustCacheWithWebhook)->handle($keysToForget->toArray());
     }
 }

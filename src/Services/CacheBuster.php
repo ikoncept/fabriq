@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 class CacheBuster
 {
-    public function getCacheTags(Model $model, array $cacheTagsToFlush = []): Collection
+    public function getCacheKeys(Model $model, array $cacheTagsToFlush = []): Collection
     {
         if (method_exists($model, 'getRevisionOptions') && count($cacheTagsToFlush) === 0) {
             $cacheTagsToFlush = $model->getRevisionOptions()->cacheTagsToFlush;
