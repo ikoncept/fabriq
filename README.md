@@ -10,8 +10,23 @@
 
 ## Installation instructions 💻
 
+Add the customer repository url for the make-user-command in your `composer.json` file:
+
 ```
-composer require ikoncept/fabriq
+...
+    "repositories": {
+        "0": {
+            "type": "vcs",
+            "url": "https://github.com/KarabinSE/laravel-make-user"
+        }
+    },
+
+```
+
+Install Fabriq:
+
+```
+composer require ikoncept/fabriq "^2.0" -W
 ```
 
 If you're planning on using AWS s3:
