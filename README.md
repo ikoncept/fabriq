@@ -99,6 +99,12 @@ pnpm install && pnpm production
 
 ## Auth configuration 🗝
 
+
+### Laravel v11 and above
+
+>[!NOTE]
+> On Laravel 11 and up the step below is not necessary since the files are overwritten when installing
+
 ### Laravel below v11
 Enable the Laravel Sanctum middleware in `app\Http\Kernel.php`
 ```php
@@ -128,12 +134,6 @@ Enable the Laravel Sanctum middleware in `app\Http\Kernel.php`
     ];
 
 ```
-
-### Laravel v11 and above
-
->[!NOTE]
-> On Laravel 11 and up the this is not necessary since the files are overwritten when installing
-
 
 
 ## Register routes 🛣
