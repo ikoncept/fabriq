@@ -34,8 +34,8 @@ class ArticleController extends Controller
 
     public function show(Request $request, int $id): JsonResponse
     {
-        $eagerLoad = $this->getEagerLoad(Article::RELATIONSHIPS);
-        $article = Article::where('id', $id)
+        $eagerLoad = $this->getEagerLoad(Fabriq::getFqnModel('article')::RELATIONSHIPS);
+        $article = Fabriq::getFqnModel('article')::where('id', $id)
             ->with($eagerLoad)
             ->firstOrFail();
 
