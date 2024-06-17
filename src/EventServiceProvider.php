@@ -5,6 +5,7 @@ namespace Ikoncept\Fabriq;
 use Ikoncept\Fabriq\Listeners\BustPageCacheListener;
 use Ikoncept\Fabriq\Listeners\CallCacheBustingWebhook;
 use Ikoncept\Fabriq\Listeners\FlushTagCacheListener;
+use Ikoncept\Fabriq\Listeners\UpdateSearchTerms;
 use Ikoncept\Fabriq\Listeners\UpdateSlugListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -27,6 +28,7 @@ class EventServiceProvider extends ServiceProvider
         DefinitionsPublished::class => [
             BustPageCacheListener::class,
             CallCacheBustingWebhook::class,
+            UpdateSearchTerms::class,
         ],
         TranslatedRevisionDeleted::class => [
             FlushTagCacheListener::class,

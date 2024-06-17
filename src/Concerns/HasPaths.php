@@ -86,10 +86,15 @@ trait HasPaths
                         return;
                     }
 
-                    return  $carry.'/'.$subItem->getSlugString($locale);
+                    return $carry.'/'.$subItem->getSlugString($locale);
                 }, '').'/'.$item->getSlugString($locale);
             })->unique();
-            $slugGroups->push([$locale => $localizedSlugs]);
+
+            if (! $localizedSlugs->count()) {
+                $slugGroups->push([$locale => $this->slugs->where('locale', $locale)->pluck('slug')]);
+            } else {
+                $slugGroups->push([$locale => $localizedSlugs]);
+            }
         }
 
         return $slugGroups;
@@ -109,7 +114,7 @@ trait HasPaths
                     return;
                 }
 
-                return  $carry.'/'.$subItem->getSlugString();
+                return $carry.'/'.$subItem->getSlugString();
             }, '').'/'.$item->getSlugString();
         })->unique();
         $slugGroups->push($localizedSlugs);

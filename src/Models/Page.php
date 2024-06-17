@@ -114,7 +114,8 @@ class Page extends Model implements HasMedia
                 'buttons' => 'getButtons',
                 'smartBlock' => 'getSmartBlock',
             ])
-            ->registerCacheTagsToFlush(['fabriq_menu', 'fabriq_pages|slug']);
+            ->registerCacheTagsToFlush(['fabriq_menu', 'fabriq_pages|slug'])
+            ->setIndexable(true, ['page_title', 'header']);
     }
 
     /**
