@@ -71,7 +71,7 @@ abstract class AdminUserTestCase extends Orchestra
             'port' => env('DB_PORT', '3306'),
             'database' => 'fabriq_testing',
             'username' => 'root',
-            'password' => 'password',
+            'password' => '',
         ]);
         $app['config']->set('filesystems.disks.__test', [
             'driver' => 'local',
