@@ -10,3 +10,4 @@ node_modules
 .php-cs-fixer.cache
 pnpm-lock.yaml
 .phpunit.cache
+.vscode
