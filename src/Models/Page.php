@@ -77,10 +77,20 @@ class Page extends Model implements HasMedia
                 $item->delete();
             });
 
+            $modelTypeByMorph = config('fabriq.morph_map.'.Fabriq::getFqnModel('page')) ?? Fabriq::getFqnModel('page');
+
             DB::table('slugs')->where('model_id', $page->id)
-                ->where('model_type', config('fabriq.morph_map.'.Fabriq::getFqnModel('page')) ?? Fabriq::getFqnModel('page'))
+                ->where('model_type', $modelTypeByMorph)
+                ->delete();
+
+            DB::table('search_terms')->where('model_id', $page->id)
+                ->where(function ($query) use ($modelTypeByMorph) {
+                    return $query->where('model_type', $modelTypeByMorph)
+                        ->orWhere('model_type', Fabriq::getFqnModel('page'));
+                })
                 ->delete();
         });
+
         static::created(function ($page) {
             $content = [
                 'page_title' => $page->name,
