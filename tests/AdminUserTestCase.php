@@ -64,14 +64,15 @@ abstract class AdminUserTestCase extends Orchestra
 
     protected function getEnvironmentSetUp($app)
     {
+        $app['config']->set('fabriq.webhooks.enabled', false);
         $app['config']->set('database.default', 'mysql');
         $app['config']->set('database.connections.mysql', [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => 'fabriq_testing',
-            'username' => 'root',
-            'password' => '',
+            'username' => 'homestead',
+            'password' => 'secret',
         ]);
         $app['config']->set('filesystems.disks.__test', [
             'driver' => 'local',

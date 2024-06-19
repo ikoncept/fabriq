@@ -65,7 +65,7 @@ class SearchTermsFeatureTest extends AdminUserTestCase
             'model_id' => $page->id,
             'model_type' => config('fabriq.models.page'),
             'locale' => 'dk',
-            'path' => 'en-siee-saom-skau-paublisers',
+            'path' => '/en-siee-saom-skau-paublisers',
             'search_string' => 'DK fosta titeln! DK andra titeln! En siee saom skau paublisers',
         ]);
 
@@ -73,7 +73,7 @@ class SearchTermsFeatureTest extends AdminUserTestCase
             'model_id' => $page->id,
             'model_type' => config('fabriq.models.page'),
             'locale' => 'en',
-            'path' => 'the-page-title-for-the-page',
+            'path' => '/the-page-title-for-the-page',
             'search_string' => 'EN Box 1 title! EN Box 2 title! EN Box 3 title! The page title for the page',
         ]);
 

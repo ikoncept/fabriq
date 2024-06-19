@@ -25,7 +25,8 @@ trait HasPaths
     {
         return config('fabriq.front_end_domain')
             .$this->currentLocaleString()
-            .($path ?? '/'.$this->latestSlug->slug);
+            .$path;
+        // .($path ?? '/'.$this->latestSlug->slug);
     }
 
     public function getPermalinkPath(): string
@@ -74,6 +75,19 @@ trait HasPaths
 
         $supportedLocales = Fabriq::getModelClass('locale')->cachedLocales();
 
+        if (! $this->menuItems?->count() ?? true) {
+
+            foreach ($supportedLocales as $locale => $item) {
+                $slugGroups->push([
+                    $locale => $this->slugs->where('locale', $locale)->pluck('slug')->map(function ($item) {
+                        return '/'.$item;
+                    }),
+                ]);
+            }
+
+            return $slugGroups;
+        }
+
         foreach ($supportedLocales as $locale => $item) {
             $localizedSlugs = $this->menuItems->map(function ($item) use ($locale) {
                 if (! $item->ancestors->count()) {
@@ -90,11 +104,7 @@ trait HasPaths
                 }, '').'/'.$item->getSlugString($locale);
             })->unique();
 
-            if (! $localizedSlugs->count()) {
-                $slugGroups->push([$locale => $this->slugs->where('locale', $locale)->pluck('slug')]);
-            } else {
-                $slugGroups->push([$locale => $localizedSlugs]);
-            }
+            $slugGroups->push([$locale => $localizedSlugs]);
         }
 
         return $slugGroups;

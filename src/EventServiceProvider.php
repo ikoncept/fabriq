@@ -24,6 +24,7 @@ class EventServiceProvider extends ServiceProvider
         DefinitionsUpdated::class => [
             UpdateSlugListener::class,
             CallCacheBustingWebhook::class,
+            UpdateSearchTerms::class,
         ],
         DefinitionsPublished::class => [
             BustPageCacheListener::class,
