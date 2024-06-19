@@ -26,7 +26,6 @@ trait HasPaths
         return config('fabriq.front_end_domain')
             .$this->currentLocaleString()
             .$path;
-        // .($path ?? '/'.$this->latestSlug->slug);
     }
 
     public function getPermalinkPath(): string
@@ -75,39 +74,39 @@ trait HasPaths
 
         $supportedLocales = Fabriq::getModelClass('locale')->cachedLocales();
 
-        if (! $this->menuItems?->count() ?? true) {
-
+        if ($this->menuItems !== null && $this->menuItems->count()) {
             foreach ($supportedLocales as $locale => $item) {
-                $slugGroups->push([
-                    $locale => $this->slugs->where('locale', $locale)->pluck('slug')->map(function ($item) {
-                        return '/'.$item;
-                    }),
-                ]);
+                $localizedSlugs = $this->menuItems->map(function ($item) use ($locale) {
+                    if (! $item->ancestors->count()) {
+                        return '';
+                    }
+
+                    return collect($item->ancestors)->reduce(function ($carry, $subItem) use ($locale) {
+                        /** @var MenuItem $subItem * */
+                        if (! $subItem->page) {
+                            return;
+                        }
+
+                        return $carry.'/'.$subItem->getSlugString($locale);
+                    }, '').'/'.$item->getSlugString($locale);
+                })->unique();
+
+                $slugGroups->push([$locale => $localizedSlugs]);
             }
 
             return $slugGroups;
         }
 
-        foreach ($supportedLocales as $locale => $item) {
-            $localizedSlugs = $this->menuItems->map(function ($item) use ($locale) {
-                if (! $item->ancestors->count()) {
-                    return '';
-                }
-
-                return collect($item->ancestors)->reduce(function ($carry, $subItem) use ($locale) {
-                    /** @var MenuItem $subItem * */
-                    if (! $subItem->page) {
-                        return;
-                    }
-
-                    return $carry.'/'.$subItem->getSlugString($locale);
-                }, '').'/'.$item->getSlugString($locale);
-            })->unique();
-
-            $slugGroups->push([$locale => $localizedSlugs]);
+        foreach ($supportedLocales as $locale) {
+            $slugGroups->push([
+                $locale => $this->slugs->where('locale', $locale)->pluck('slug')->map(function ($item) {
+                    return '/'.$item;
+                }),
+            ]);
         }
 
         return $slugGroups;
+
     }
 
     public function getLocalizedPathsAttribute(): Collection

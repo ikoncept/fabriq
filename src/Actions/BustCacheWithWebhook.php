@@ -7,7 +7,7 @@ use Spatie\WebhookServer\WebhookCall;
 
 class BustCacheWithWebhook
 {
-    public function handle(array $keysToForget, array $tagsToFlush = [])
+    public function handle(array $keysToForget, array $tagsToFlush = []): void
     {
         if (! config('fabriq.webhooks.enabled')) {
             return;

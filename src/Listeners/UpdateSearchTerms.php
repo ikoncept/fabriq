@@ -20,7 +20,6 @@ class UpdateSearchTerms
     /**
      * Handle the event.
      *
-     * @param  object  $event
      * @return void
      */
     public function handle(DefinitionsUpdated|DefinitionsPublished $event)
@@ -47,6 +46,8 @@ class UpdateSearchTerms
         }
 
         $event->model->paths->each(function ($path) use ($event, $options) {
+
+            /** @var array<string, string> $path */
             $locale = collect($path)->keys()->first();
 
             if (! isset($event->definitions[$locale][$options->titleKey])) {
