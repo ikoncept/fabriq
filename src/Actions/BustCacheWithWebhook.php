@@ -7,8 +7,11 @@ use Spatie\WebhookServer\WebhookCall;
 
 class BustCacheWithWebhook
 {
-    public function handle(array $keysToForget, array $tagsToFlush = [])
+    public function handle(array $keysToForget, array $tagsToFlush = []): void
     {
+        if (! config('fabriq.webhooks.enabled')) {
+            return;
+        }
         // 1 per 5 seconds for the same key
         RateLimiter::attempt(
             key: hash('adler32', json_encode([$keysToForget, $tagsToFlush])),

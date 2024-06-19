@@ -2,9 +2,11 @@
 
 namespace Ikoncept\Fabriq\Listeners;
 
+use Ikoncept\Fabriq\Fabriq;
+use Ikoncept\Fabriq\Helpers\RecursiveArrayValues;
 use Ikoncept\Fabriq\Models\SearchTerm;
-use Illuminate\Support\Collection;
 use Infab\TranslatableRevisions\Events\DefinitionsPublished;
+use Infab\TranslatableRevisions\Events\DefinitionsUpdated;
 
 class UpdateSearchTerms
 {
@@ -13,34 +15,55 @@ class UpdateSearchTerms
      *
      * @return void
      */
-    public function __construct()
-    {
-
-    }
+    public function __construct() {}
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
      * @return void
      */
-    public function handle(DefinitionsPublished $event)
+    public function handle(DefinitionsUpdated|DefinitionsPublished $event)
     {
-        if (! $event->model->getRevisionOptions()->isIndexable) {
+        $options = $event->model->getRevisionOptions();
+
+        if (! $options->isIndexable) {
             return;
         }
 
-        $event->model->paths->each(function ($path) use ($event) {
+        if ($options->indexFunction) {
+            call_user_func_array($options->indexFunction, [
+                'args' => [
+                    'definitions' => $event->definitions,
+                ],
+            ]);
+
+            return;
+        }
+
+        if (get_class($event) === DefinitionsUpdated::class && Fabriq::getFqnModel('page') === get_class($event->model)) {
+
+            return;
+        }
+
+        $event->model->paths->each(function ($path) use ($event, $options) {
+
+            /** @var array<string, string> $path */
             $locale = collect($path)->keys()->first();
 
-            $indexableKeys = $this->array_value_recursive($event->definitions[$locale], $event->model->getRevisionOptions()->indexableKeys);
+            if (! isset($event->definitions[$locale][$options->titleKey])) {
+                return;
+            }
+
+            $indexedKeys = RecursiveArrayValues::fromCollection($event->definitions[$locale], $options->indexableKeys);
+            $title = $event->definitions[$locale][$options->titleKey];
 
             $data = [
                 'model_id' => $event->model->id,
                 'model_type' => get_class($event->model),
+                'title' => $title,
                 'locale' => $locale,
                 'path' => collect($path)->flatten()->first(),
-                'search_string' => implode(' ', $indexableKeys),
+                'search_string' => implode(' ', $indexedKeys),
             ];
 
             SearchTerm::updateOrCreate([
@@ -49,17 +72,5 @@ class UpdateSearchTerms
                 'locale' => $data['locale'],
             ], $data);
         });
-    }
-
-    protected function array_value_recursive(Collection $collection, ?array $keys = null, bool $unique = true): array
-    {
-        $arr = $collection->toArray();
-        array_walk_recursive($arr, function ($v, $k) use ($keys, &$val) {
-            if (in_array($k, $keys)) {
-                $val[] = strip_tags($v);
-            }
-        });
-
-        return $unique ? array_unique($val ?? []) : $val ?? [];
     }
 }

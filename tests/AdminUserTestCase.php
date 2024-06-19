@@ -64,6 +64,7 @@ abstract class AdminUserTestCase extends Orchestra
 
     protected function getEnvironmentSetUp($app)
     {
+        $app['config']->set('fabriq.webhooks.enabled', false);
         $app['config']->set('database.default', 'mysql');
         $app['config']->set('database.connections.mysql', [
             'driver' => 'mysql',
