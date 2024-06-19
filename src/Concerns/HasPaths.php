@@ -97,7 +97,7 @@ trait HasPaths
             return $slugGroups;
         }
 
-        foreach ($supportedLocales as $locale) {
+        foreach ($supportedLocales as $locale => $item) {
             $slugGroups->push([
                 $locale => $this->slugs->where('locale', $locale)->pluck('slug')->map(function ($item) {
                     return '/'.$item;
