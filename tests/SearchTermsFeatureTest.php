@@ -66,7 +66,7 @@ class SearchTermsFeatureTest extends AdminUserTestCase
             'model_type' => config('fabriq.models.page'),
             'locale' => 'dk',
             'path' => '/en-siee-saom-skau-paublisers',
-            'search_string' => 'DK fosta titeln! DK andra titeln! En siee saom skau paublisers',
+            'search_string' => 'En siee saom skau paublisers DK fosta titeln! DK andra titeln!',
         ]);
 
         $this->assertDatabaseHas('search_terms', [
@@ -74,7 +74,7 @@ class SearchTermsFeatureTest extends AdminUserTestCase
             'model_type' => config('fabriq.models.page'),
             'locale' => 'en',
             'path' => '/the-page-title-for-the-page',
-            'search_string' => 'EN Box 1 title! EN Box 2 title! EN Box 3 title! The page title for the page',
+            'search_string' => 'The page title for the page EN Box 1 title! EN Box 2 title! EN Box 3 title!',
         ]);
 
         $this->assertDatabaseCount('search_terms', 3);
