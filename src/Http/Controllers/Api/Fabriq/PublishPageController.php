@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
+use Ikoncept\Fabriq\Models\Block;
 use Ikoncept\Fabriq\Models\Page;
 use Illuminate\Http\JsonResponse;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -14,15 +15,33 @@ class PublishPageController extends ApiController
 
     /**
      * Publish a page revision.
-     *
-     * @param  int  $pageId
-     * @return JsonResponse
      */
     public function store(int $pageId): JsonResponse
     {
         $page = Fabriq::getFqnModel('page')::withoutEvents(function () use ($pageId) {
-            $page = Fabriq::getFqnModel('page')::findOrFail($pageId);
+            $page = Fabriq::getFqnModel('page')::with('blocks')->whereId($pageId)->firstOrFail();
             $page->publish($page->revision);
+
+            foreach ($page->blocks->groupBy('revision')->values()[0] as $block) {
+
+                // Replicate the old draft block
+                $newBlock = $block->replicate();
+                $newBlock->save();
+
+                // Up the revision
+                $block->revision = $page->revision;
+                $block->save();
+            }
+            // Delete old blocks
+            $blocks = Block::where('page_id', $page->id)
+                ->where(function ($query) use ($page) {
+                    $query->where('revision', '!=', $page->revision)
+                        ->where('revision', '!=', $page->published_version);
+                })
+                ->get()
+                ->each(function ($item) {
+                    $item->delete();
+                });
 
             return $page;
         });
