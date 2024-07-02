@@ -118,7 +118,7 @@ class MenuItemFeatureTest extends AdminUserTestCase
         Event::assertDispatchedTimes(TranslatedRevisionUpdated::class, 2);
         Event::assertDispatched(function (TranslatedRevisionUpdated $event) {
             if (get_class($event->model) === Fabriq::getFqnModel('menuItem')) {
-                return $event->model->getRevisionOptions()->cacheTagsToFlush[0] === 'fabriq_menu';
+                return $event->model->getRevisionOptions()->cacheKeysToFlush[0] === 'fabriq_menu';
             }
         });
     }

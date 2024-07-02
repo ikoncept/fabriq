@@ -46,7 +46,7 @@ class Contact extends Model
         return RevisionOptions::create()
             ->registerDefaultTemplate('contact')
             ->registerSpecialTypes(['image'])
-            ->registerCacheTagsToFlush(['fabriq_contacts'])
+            ->registerCacheKeysToFlush(['fabriq_contacts'])
             ->registerGetters([
                 'image' => 'getImages',
             ]);

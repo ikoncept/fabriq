@@ -68,7 +68,7 @@ class MenuItem extends Model
     {
         return RevisionOptions::create()
             ->registerDefaultTemplate('menu-item')
-            ->registerCacheTagsToFlush(['fabriq_menu']);
+            ->registerCacheKeysToFlush(['fabriq_menu']);
     }
 
     public function page(): BelongsTo
@@ -140,18 +140,14 @@ class MenuItem extends Model
      *
      * @param  mixed  $value
      */
-    public function setTitleAttribute($value): void
-    {
-    }
+    public function setTitleAttribute($value): void {}
 
     /**
      * Skip setting page attribute.
      *
      * @param  mixed  $value
      */
-    public function setPageAttribute($value): void
-    {
-    }
+    public function setPageAttribute($value): void {}
 
     public function menu(): BelongsTo
     {

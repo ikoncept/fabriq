@@ -7,14 +7,14 @@ use Illuminate\Support\Collection;
 
 class CacheBuster
 {
-    public function getCacheKeys(Model $model, array $cacheTagsToFlush = []): Collection
+    public function getCacheKeys(Model $model, array $cacheKeysToFlush = []): Collection
     {
-        if (method_exists($model, 'getRevisionOptions') && count($cacheTagsToFlush) === 0) {
-            $cacheTagsToFlush = $model->getRevisionOptions()->cacheTagsToFlush;
+        if (method_exists($model, 'getRevisionOptions') && count($cacheKeysToFlush) === 0) {
+            $cacheKeysToFlush = $model->getRevisionOptions()->cacheKeysToFlush;
         }
 
-        /** @var array<string, string> $cacheTagsToFlush */
-        return collect($cacheTagsToFlush)->map(function ($tag) use ($model) {
+        /** @var array<string, string> $cacheKeysToFlush */
+        return collect($cacheKeysToFlush)->map(function ($tag) use ($model) {
             $parts = explode('|', $tag);
             if (isset($parts[1])) {
                 $key = $parts[1];

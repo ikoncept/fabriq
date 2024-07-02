@@ -49,7 +49,7 @@ class SmartBlock extends Model
                 'video' => 'getVideos',
             ])
             ->registerDefaultTemplate('smart_block')
-            ->registerCacheTagsToFlush(['fabriq_pages', 'fabriq_smart_blocks']);
+            ->registerCacheKeysToFlush(['fabriq_pages', 'fabriq_smart_blocks']);
     }
 
     /**
