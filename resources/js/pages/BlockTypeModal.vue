@@ -125,6 +125,7 @@
 
 <script>
 import Page from '@/models/BlockType.js'
+import axios from 'axios'
 
 function defaultCreationObject () {
     return {
@@ -216,7 +217,6 @@ export default {
                 return item.name
             })
         },
-
         activeLocale() {
             return this.$store.getters['config/activeLocale']
         },
@@ -247,13 +247,17 @@ export default {
             if (!isValid) {
                 return
             }
+            this.chosenBlock.content = {}
+            this.chosenBlock.content.name = this.chosenBlock.name
 
             if (this.chosenBlock.block_type.has_children) {
-                this.chosenBlock.children = []
+                this.chosenBlock.content.children = []
             }
 
+            const { data } = await axios.post(`/api/pages/${this.$route.params.id}/revision/blocks`, { ...this.chosenBlock, locale: this.activeLocale})
+
             this.chosenBlock.newlyAdded = true
-            this.chosenBlock.id = 'i' + Math.random().toString(20).substr(2, 6)
+            this.chosenBlock.id = data.data.id
             const emitName = 'block-type-added-' + this.activeLocale
 
 

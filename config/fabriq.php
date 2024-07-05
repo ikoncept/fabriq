@@ -121,6 +121,7 @@ return [
         'tag' => \Spatie\Tags\Tag::class,
         'user' => \App\Models\User::class,
         'video' => \Ikoncept\Fabriq\Models\Video::class,
+        'block' => \Ikoncept\Fabriq\Models\Block::class,
     ],
     'transformers' => [
         'article' => \Ikoncept\Fabriq\Transformers\ArticleTransformer::class,

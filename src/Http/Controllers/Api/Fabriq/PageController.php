@@ -4,6 +4,7 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreatePageRequest;
+use Ikoncept\Fabriq\Models\Block;
 use Ikoncept\Fabriq\Models\Page;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -18,7 +19,6 @@ class PageController extends ApiController
     /**
      * Return index of pages.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
@@ -39,7 +39,6 @@ class PageController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
@@ -58,7 +57,6 @@ class PageController extends ApiController
     /**
      * Update the specified resource.
      *
-     * @param  Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
@@ -73,8 +71,22 @@ class PageController extends ApiController
         $page->touch();
         $page->localizedContent = $request->localizedContent;
         $page->updated_by = $request->user()->id;
-
         $page->save();
+
+        foreach ($request->blocks as $contentBlock) {
+            $block = Block::firstOrNew([
+                'id' => $contentBlock['id'],
+                'page_id' => $page->id,
+                'revision' => $page->revision,
+            ]);
+            $block->block_type_id = $contentBlock['block_type']['id'];
+            $block->locale = $contentBlock['locale'];
+            $block->content = $contentBlock['content'];
+            $block->hidden = $contentBlock['hidden'] ?? false;
+            $block->save();
+        }
+
+        Block::setNewOrder(collect($request->blocks)->pluck('id'));
 
         return $this->respondWithItem($page, Fabriq::getTransformerFor('page'));
     }
@@ -82,7 +94,6 @@ class PageController extends ApiController
     /**
      * Create a new resource.
      *
-     * @param  CreatePageRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreatePageRequest $request)
