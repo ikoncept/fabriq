@@ -6,7 +6,6 @@ use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Controllers\Controller;
 use Ikoncept\Fabriq\Http\Requests\CreateArticleRequest;
 use Ikoncept\Fabriq\Http\Requests\UpdateArticleRequest;
-use Ikoncept\Fabriq\Models\Article;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Traits\ApiControllerTrait;
@@ -44,7 +43,7 @@ class ArticleController extends Controller
 
     public function store(CreateArticleRequest $request): JsonResponse
     {
-        $article = new Article();
+        $article = Fabriq::getModelClass('article');
         $article->fill($request->validated());
         $article->template_id = 2;
         $article->save();
@@ -54,7 +53,7 @@ class ArticleController extends Controller
 
     public function update(UpdateArticleRequest $request, int $id): JsonResponse
     {
-        $article = Article::findOrFail($id);
+        $article = Fabriq::getFqnModel('article')::findOrFail($id);
         $article->fill($request->validated());
         $article->updateContent($request->content);
         $article->save();
@@ -64,7 +63,7 @@ class ArticleController extends Controller
 
     public function destroy(int $id): JsonResponse
     {
-        $article = Article::findOrFail($id);
+        $article = Fabriq::getFqnModel('article')::findOrFail($id);
         $article->delete();
 
         return $this->respondWithSuccess('Article deleted successfully');
