@@ -14,8 +14,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class GenerateResponsiveImagesJob implements ShouldQueue
 {
     use InteractsWithQueue;
-    use SerializesModels;
     use Queueable;
+    use SerializesModels;
 
     protected Media $media;
 

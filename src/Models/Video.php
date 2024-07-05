@@ -36,7 +36,7 @@ class Video extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')
             ->nonQueued()
-            ->extractVideoFrameAtSecond(20)
+            ->extractVideoFrameAtSecond(2)
             ->performOnCollections('videos')
             ->fit(Fit::Crop, 480, 320);
 
