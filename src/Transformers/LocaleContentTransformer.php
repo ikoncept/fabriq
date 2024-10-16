@@ -10,8 +10,6 @@ class LocaleContentTransformer extends TransformerAbstract
     /**
      * Determines which objects
      * that can be included.
-     *
-     * @var array
      */
     protected array $availableIncludes = [
     ];
@@ -33,14 +31,11 @@ class LocaleContentTransformer extends TransformerAbstract
 
     /**
      * Transform.
-     *
-     * @param  Collection  $locales
-     * @return array
      */
     public function transform(Collection $locales): array
     {
         $localeContent = $locales->mapWithKeys(function ($locale) {
-            $content = $this->contentModel->getFieldContent($this->contentModel->revision, $locale->iso_code);
+            $content = $this->contentModel->getSimpleFieldContent($this->contentModel->revision, $locale->iso_code);
 
             return [
                 $locale->iso_code => ['content' => $content],

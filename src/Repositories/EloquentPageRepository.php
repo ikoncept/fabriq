@@ -25,7 +25,6 @@ class EloquentPageRepository implements PageRepositoryInterface
     /**
      * Find by slug.
      *
-     * @param  string  $slug
      * @return mixed
      */
     public function findBySlug(string $slug)
@@ -35,7 +34,7 @@ class EloquentPageRepository implements PageRepositoryInterface
         })->firstOrFail();
 
         // Decorate with content
-        $model->content = $model->getFieldContent($model->published_version, app()->getLocale());
+        $model->content = $model->getSimpleFieldContent($model->published_version, app()->getLocale());
         $model->slug = $slug;
 
         return $model;
@@ -48,7 +47,7 @@ class EloquentPageRepository implements PageRepositoryInterface
         })->firstOrFail();
 
         // Decorate with content
-        $model->content = $model->getFieldContent($model->revision);
+        $model->content = $model->getSimpleFieldContent($model->revision);
         $model->slug = $slug;
 
         return $model;
@@ -58,7 +57,7 @@ class EloquentPageRepository implements PageRepositoryInterface
     {
         $models = $this->model->whereIn('id', $ids)
             ->get()->transform(function ($model) {
-                $model->content = $model->getFieldContent($model->revision);
+                $model->content = $model->getSimpleFieldContent($model->revision);
 
                 return $model;
             });

@@ -14,8 +14,6 @@ class PageTransformer extends TransformerAbstract
     /**
      * Determines which objects
      * that can be included.
-     *
-     * @var array
      */
     protected array $availableIncludes = [
         'content', 'template', 'slugs',
@@ -25,9 +23,6 @@ class PageTransformer extends TransformerAbstract
     /**
      * Transform the given object
      * to the required format.
-     *
-     * @param  Page  $page
-     * @return array
      */
     public function transform(Page $page): array
     {
@@ -36,33 +31,24 @@ class PageTransformer extends TransformerAbstract
 
     /**
      * Include content.
-     *
-     * @param  Page  $page
-     * @return Item
      */
     public function includeContent(Page $page): Item
     {
-        $content = $page->getFieldContent($page->revision);
+        $content = $page->getSimpleFieldContent($page->revision);
 
-        return $this->item($content, new ContentTransformer());
+        return $this->item($content, new ContentTransformer);
     }
 
     /**
      * Include page template.
-     *
-     * @param  Page  $page
-     * @return Item
      */
     public function includeTemplate(Page $page): Item
     {
-        return $this->item($page->template, new TemplateTransformer());
+        return $this->item($page->template, new TemplateTransformer);
     }
 
     /**
      * Include slugs.
-     *
-     * @param  Page  $page
-     * @return Collection
      */
     public function includeSlugs(Page $page): Collection
     {

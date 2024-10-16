@@ -135,7 +135,7 @@ class Page extends Model implements HasMedia
      */
     public function getImages(RevisionMeta $meta)
     {
-        return ImageGetter::get($meta, $this->isPublishing);
+        return ImageGetter::get($meta);
     }
 
     /**
@@ -145,7 +145,7 @@ class Page extends Model implements HasMedia
      */
     public function getFiles(RevisionMeta $meta)
     {
-        return FileGetter::get($meta, $this->isPublishing);
+        return FileGetter::get($meta);
     }
 
     /**
@@ -155,7 +155,7 @@ class Page extends Model implements HasMedia
      */
     public function getVideos(RevisionMeta $meta)
     {
-        return VideoGetter::get($meta, $this->isPublishing);
+        return VideoGetter::get($meta);
     }
 
     /**
@@ -165,7 +165,7 @@ class Page extends Model implements HasMedia
      */
     public function getButton(RevisionMeta $meta)
     {
-        return ButtonGetter::get($meta, $this->isPublishing);
+        return ButtonGetter::get($meta);
     }
 
     /**
@@ -175,7 +175,7 @@ class Page extends Model implements HasMedia
      */
     public function getButtons(RevisionMeta $meta)
     {
-        return ButtonsGetter::get($meta, $this->isPublishing);
+        return ButtonsGetter::get($meta);
     }
 
     /**
@@ -185,7 +185,7 @@ class Page extends Model implements HasMedia
      */
     public function getSmartBlock(RevisionMeta $meta)
     {
-        return SmartBlockGetter::get($meta, $this->isPublishing);
+        return SmartBlockGetter::get($meta);
     }
 
     public function menuItems(): HasMany
