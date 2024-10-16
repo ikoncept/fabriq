@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\ContentGetters;
 
+use Exception;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Image;
 use Infab\TranslatableRevisions\Models\RevisionMeta;
@@ -23,9 +24,15 @@ class ImageGetter extends BaseGetter implements GetterInterface
             return null;
         }
 
-        $keyName = Fabriq::getModelClass('image')->getKeyName();
+        try {
+            $keyName = Fabriq::getModelClass('image')->getKeyName();
+            $id = $meta->meta_value[$keyName];
+        } catch (Exception $e) {
+            $id = $meta->meta_value[0];
+        }
+
         $image = Fabriq::getModelClass('image')
-            ->where('id', $meta->meta_value[$keyName])
+            ->where('id', $id)
             ->first();
 
         if (! $image) {
