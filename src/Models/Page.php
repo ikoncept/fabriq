@@ -239,8 +239,11 @@ class Page extends Model implements HasMedia
      */
     public function setLocalizedContentAttribute($value)
     {
-        foreach ($value as $key => $localeContent) {
-            $this->updateContent($localeContent, (string) $key);
+        foreach ($value as $locale => $localeContent) {
+            $this->updateContent($localeContent, (string) $locale);
+            $revisionContent = $this->getFieldContent($this->revision, $locale);
+
+            $this->updateContent($revisionContent->toArray(), (string) $locale);
         }
     }
 }
