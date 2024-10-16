@@ -19,10 +19,14 @@ class ImageGetter extends BaseGetter implements GetterInterface
             ];
         }
 
-        $image = Fabriq::getModelClass('image')
-            ->whereIn('id', (array) $meta->meta_value);
+        if ($meta->meta_value === null) {
+            return null;
+        }
 
-        $image = self::getObjectOnce(self::getHash($image), $image);
+        $keyName = Fabriq::getModelClass('image')->getKeyName();
+        $image = Fabriq::getModelClass('image')
+            ->where('id', $meta->meta_value[$keyName])
+            ->first();
 
         if (! $image) {
             return null;
