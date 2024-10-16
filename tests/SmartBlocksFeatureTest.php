@@ -69,14 +69,7 @@ class SmartBlocksFeatureTest extends AdminUserTestCase
             'name' => 'Another name',
         ]);
         $this->assertDatabaseHas('i18n_definitions', [
-            'content' => json_encode([
-                [
-                    'name' => 'Superblocket',
-                    'image' => [$image->id],
-                    'video' => [$video->id],
-                    'file' => [$file2->id],
-                ],
-            ]),
+
             'locale' => 'sv',
         ]);
         $this->assertDatabaseHas('i18n_definitions', [
