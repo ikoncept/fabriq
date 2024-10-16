@@ -10,7 +10,6 @@ class FileGetter
     /**
      * Return a representation of an image.
      *
-     * @param  RevisionMeta  $meta
      * @param  bool  $publishing
      * @return mixed
      */
@@ -22,8 +21,10 @@ class FileGetter
             ];
         }
 
+        $keyName = Fabriq::getModelClass('file')->getKeyName();
         $file = Fabriq::getModelClass('file')
-            ->whereIn('id', (array) $meta->meta_value)->first();
+            ->where('id', $meta->meta_value[$keyName])
+            ->first();
 
         if (! $file) {
             return null;
