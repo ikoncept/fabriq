@@ -36,8 +36,17 @@ class GenerateResponsiveImagesJob implements ShouldQueue
 
                 return true;
             }
+            if (config('fabriq.enable_webp')) {
+
+                $responsiveImageGenerator->generateResponsiveImagesWithWebP($this->media);
+                $this->setMediaProcessingStatus(false);
+
+                return true;
+            }
             $responsiveImageGenerator->generateResponsiveImages($this->media);
             $this->setMediaProcessingStatus(false);
+
+            return true;
 
             return true;
         } catch (Exception $exception) {
