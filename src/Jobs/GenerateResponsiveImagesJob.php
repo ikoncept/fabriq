@@ -47,8 +47,6 @@ class GenerateResponsiveImagesJob implements ShouldQueue
             $this->setMediaProcessingStatus(false);
 
             return true;
-
-            return true;
         } catch (Exception $exception) {
             $this->setMediaProcessingStatus(true);
             $this->fail($exception);
