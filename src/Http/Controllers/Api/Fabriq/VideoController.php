@@ -4,6 +4,7 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Video;
+use Ikoncept\Fabriq\QueryBuilders\TagSort;
 use Ikoncept\Fabriq\QueryBuilders\VideoSort;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -26,8 +27,9 @@ class VideoController extends ApiController
             ])
             ->allowedSorts([
                 'id', 'created_at', 'updated_at', 'alt_text',
-                AllowedSort::custom('file_name', new VideoSort()),
-                AllowedSort::custom('size', new VideoSort()),
+                AllowedSort::custom('file_name', new VideoSort),
+                AllowedSort::custom('size', new VideoSort),
+                AllowedSort::custom('tags', new TagSort, 'videos'),
             ])
             ->with($eagerLoad)
             ->paginate($this->number);

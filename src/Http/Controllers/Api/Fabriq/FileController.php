@@ -5,6 +5,7 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\File;
 use Ikoncept\Fabriq\QueryBuilders\FileSort;
+use Ikoncept\Fabriq\QueryBuilders\TagSort;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -19,9 +20,6 @@ class FileController extends ApiController
 
     /**
      * Get index of the resource.
-     *
-     * @param  Request  $request
-     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
@@ -29,8 +27,9 @@ class FileController extends ApiController
         $files = QueryBuilder::for(Fabriq::getFqnModel('file'))
             ->allowedSorts([
                 'id', 'created_at', 'updated_at', 'alt_text',
-                AllowedSort::custom('file_name', new FileSort()),
-                AllowedSort::custom('size', new FileSort()),
+                AllowedSort::custom('file_name', new FileSort),
+                AllowedSort::custom('size', new FileSort),
+                AllowedSort::custom('tags', new TagSort, 'files'),
             ])
             ->allowedFilters([
                 AllowedFilter::scope('search'),

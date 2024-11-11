@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Models;
 
 use Ikoncept\Fabriq\Database\Factories\FileFactory;
+use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,7 +35,12 @@ class File extends Model implements HasMedia
         return FileFactory::new();
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public static function getTagClassName(): string
+    {
+        return Fabriq::getFqnModel('tag');
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('file_thumb')
             ->performOnCollections('files')
@@ -60,18 +66,12 @@ class File extends Model implements HasMedia
     /**
      * Search for an image.
      *
-     * @param  Builder  $query
      * @param  string|null  $search
-     * @return Builder
      */
     public function scopeSearch(Builder $query, $search): Builder
     {
-        $searchColumns = ['media.file_name', 'media.name', 'readable_name'];
+        $searchColumns = ['media.file_name', 'media.name', 'readable_name', 'tags.plain_name'];
 
-        return $query->whereLike($searchColumns, $search)
-            ->orWhereHas('tags', function ($query) use ($search) {
-                return $query->where('name->sv', 'like', '%'.$search.'%')
-                    ->orWhere('name->en', 'like', '%'.$search.'%');
-            });
+        return $query->whereLike($searchColumns, $search);
     }
 }

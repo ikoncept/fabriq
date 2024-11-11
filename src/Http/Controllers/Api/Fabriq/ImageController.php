@@ -6,6 +6,7 @@ use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\UpdateImageRequest;
 use Ikoncept\Fabriq\Models\Image;
 use Ikoncept\Fabriq\QueryBuilders\ImageSort;
+use Ikoncept\Fabriq\QueryBuilders\TagSort;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
@@ -20,9 +21,6 @@ class ImageController extends ApiController
 
     /**
      * Get index of the resource.
-     *
-     * @param  Request  $request
-     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
@@ -30,8 +28,10 @@ class ImageController extends ApiController
         $images = QueryBuilder::for(Fabriq::getFqnModel('image'))
             ->allowedSorts([
                 'id', 'created_at', 'updated_at', 'alt_text',
-                AllowedSort::custom('file_name', new ImageSort()),
-                AllowedSort::custom('size', new ImageSort()),
+                AllowedSort::custom('file_name', new ImageSort),
+                AllowedSort::custom('c_name', new ImageSort, 'name'),
+                AllowedSort::custom('size', new ImageSort),
+                AllowedSort::custom('tags', new TagSort, 'images'),
             ])
             ->allowedFilters([
                 AllowedFilter::scope('search'),
@@ -46,9 +46,7 @@ class ImageController extends ApiController
     /**
      * Get a single image.
      *
-     * @param  Request  $request
      * @param  int  $id
-     * @return JsonResponse
      */
     public function show(Request $request, $id): JsonResponse
     {

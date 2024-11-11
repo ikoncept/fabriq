@@ -3,6 +3,7 @@
 namespace Ikoncept\Fabriq\Models;
 
 use Ikoncept\Fabriq\Database\Factories\ImageFactory;
+use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,6 +34,11 @@ class Image extends Model implements HasMedia
     protected static function newFactory(): ImageFactory
     {
         return ImageFactory::new();
+    }
+
+    public static function getTagClassName(): string
+    {
+        return Fabriq::getFqnModel('tag');
     }
 
     protected $with = ['media'];
@@ -72,13 +78,9 @@ class Image extends Model implements HasMedia
      */
     public function scopeSearch(Builder $query, $search): Builder
     {
-        $searchColumns = ['media.file_name', 'media.name', 'alt_text'];
+        $searchColumns = ['media.file_name', 'media.name', 'alt_text', 'tags.plain_name'];
 
-        return $query->whereLike($searchColumns, $search)
-            ->orWhereHas('tags', function ($query) use ($search) {
-                return $query->where('name->sv', 'like', '%'.$search.'%')
-                    ->orWhere('name->en', 'like', '%'.$search.'%');
-            });
+        return $query->whereLike($searchColumns, $search);
     }
 
     /**

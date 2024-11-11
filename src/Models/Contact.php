@@ -52,6 +52,11 @@ class Contact extends Model
             ]);
     }
 
+    public static function getTagClassName(): string
+    {
+        return Fabriq::getFqnModel('tag');
+    }
+
     /**
      * Getter for images.
      *
@@ -78,10 +83,7 @@ class Contact extends Model
      */
     public function scopeSearch(Builder $query, string $search): Builder
     {
-        return $query->whereLike(['name', 'email', 'phone'], $search)
-            ->orWhereHas('tags', function ($query) use ($search) {
-                return $query->where('name->sv', 'like', '%'.$search.'%');
-            });
+        return $query->whereLike(['name', 'email', 'phone', 'tags.plain_name'], $search);
     }
 
     /**

@@ -118,7 +118,7 @@ return [
         'role' => \Ikoncept\Fabriq\Models\Role::class,
         'slug' => \Ikoncept\Fabriq\Models\Slug::class,
         'smartBlock' => \Ikoncept\Fabriq\Models\SmartBlock::class,
-        'tag' => \Spatie\Tags\Tag::class,
+        'tag' => \Ikoncept\Fabriq\Models\Tag::class,
         'user' => \App\Models\User::class,
         'video' => \Ikoncept\Fabriq\Models\Video::class,
     ],
