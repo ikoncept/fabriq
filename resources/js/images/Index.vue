@@ -300,7 +300,8 @@ export default {
                 },
                 {
                     key: 'tags',
-                    title: 'Taggar'
+                    title: 'Taggar',
+                    sortable: true
                 },
                 {
                     key: 'size',

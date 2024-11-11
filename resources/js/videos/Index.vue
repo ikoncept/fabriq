@@ -215,8 +215,8 @@
 </template>
 <script>
 import Download from '@/models/Download.js'
-import Video from '@/models/Video.js'
 import Tag from '@/models/Tag.js'
+import Video from '@/models/Video.js'
 export default {
     name: 'VideosIndex',
     beforeRouteLeave (from, to, next) {
@@ -249,7 +249,8 @@ export default {
                 },
                 {
                     key: 'tags',
-                    title: 'Taggar'
+                    title: 'Taggar',
+                    sortable: true,
                 },
                 {
                     key: 'size',
