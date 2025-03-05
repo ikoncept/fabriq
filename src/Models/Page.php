@@ -239,6 +239,13 @@ class Page extends Model implements HasMedia
      */
     public function setLocalizedContentAttribute($value)
     {
+        // Sort by locale order, so that primary locale overwrites other locales when
+        // saving non localized meta data
+        $locales = Fabriq::getModelClass('locale')->cachedLocales();
+        $value = collect($value)->sortBy(function ($item, $key) use ($locales) {
+            return $locales->firstWhere('iso_code', $key)->sortindex;
+        })->reverse()->toArray();
+
         foreach ($value as $locale => $localeContent) {
             $this->updateContent($localeContent, (string) $locale);
             $revisionContent = $this->getFieldContent($this->revision, $locale);
