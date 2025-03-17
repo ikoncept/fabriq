@@ -14,8 +14,6 @@ class ImageTransformer extends TransformerAbstract
     /**
      * Determines which objects
      * that can be included.
-     *
-     * @var array
      */
     protected array $availableIncludes = [
         'tags',
@@ -25,7 +23,6 @@ class ImageTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format.
      *
-     * @param  Image  $image
      * @return array
      */
     public function transform(Image $image)
@@ -45,6 +42,7 @@ class ImageTransformer extends TransformerAbstract
             'extension' => Str::afterLast($media->file_name, '.'),
             'file_name' => $media->file_name,
             'thumb_src' => $media->getUrl('thumb'),
+            'og_image_src' => $media->hasGeneratedConversion('og_image') ? $media->getUrl('og_image') : null,
             'webp_src' => (string) ($media->hasGeneratedConversion('webp')) ? $media->getUrl('webp') : '',
             'src' => $media->getUrl(),
             'srcset' => $media->getSrcSet(),
@@ -73,7 +71,6 @@ class ImageTransformer extends TransformerAbstract
     /**
      * Get width.
      *
-     * @param  Media  $media
      * @return mixed
      */
     protected function getWidth(Media $media)
@@ -91,7 +88,6 @@ class ImageTransformer extends TransformerAbstract
     /**
      * Get height.
      *
-     * @param  Media  $media
      * @return mixed
      */
     protected function getHeight(Media $media)
