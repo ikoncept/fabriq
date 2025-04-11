@@ -30,7 +30,9 @@ class RouteRegistrar
      */
     public function allWeb(): void
     {
-        Route::redirect('/', '/admin');
+        if (config('fabriq.redirect_to_admin')) {
+            Route::redirect('/', '/admin');
+        }
         Route::get('/permalink/{hash}/{locale?}', \Ikoncept\Fabriq\Http\Controllers\PermalinksRedirectController::class)
             ->name('permalink.redirect');
 

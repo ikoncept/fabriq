@@ -87,6 +87,7 @@ return [
         ],
     ],
     'front_end_domain' => env('FABRIQ_FRONT_END_DOMAIN', 'http://localhost:3000'),
+    'redirect_to_admin' => env('FABRIQ_REDIRECT_TO_ADMIN', true),
     'bucket_prefix' => env('BUCKET_PREFIX', 'fabriq-dev'),
     'enable_webp' => env('FABRIQ_ENABLE_WEBP', false),
     'enable_remote_image_processing' => env('FABRIQ_REMOTE_IMAGE_PROCESSING', false),
