@@ -13,7 +13,7 @@ class CreatePageRootCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'fabriq:create-page-root {--silent= : Generate a root named root}';
+    protected $signature = 'fabriq:create-page-root';
 
     /**
      * The console command description.
