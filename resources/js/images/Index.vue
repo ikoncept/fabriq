@@ -197,7 +197,6 @@
                                 <CircleXMarkIcon class="w-4 text-red-500 h-w-4" />
                             </div>
                             <div class="truncate text-ellipsis max-w-64">
-
                                 {{ item.c_name }}
                             </div>
                         </span>
