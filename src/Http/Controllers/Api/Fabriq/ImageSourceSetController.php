@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 
-use Ikoncept\Fabriq\Models\Image;
+use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Http\JsonResponse;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
@@ -14,13 +14,10 @@ class ImageSourceSetController extends ApiController
 
     /**
      * Get src set data.
-     *
-     * @param  int  $id
-     * @return JsonResponse
      */
     public function show(int $id): JsonResponse
     {
-        $image = Image::findOrFail($id);
+        $image = Fabriq::getFqnModel('image')::whereId($id)->firstOrFail();
 
         /** @var Media $media */
         $media = $image->media->first();
