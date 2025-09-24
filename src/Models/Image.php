@@ -103,13 +103,14 @@ class Image extends Model implements HasMedia
         }
     }
 
-    public function saveMedia(bool $fromUrl = false, string $collection = 'images', string $url = ''): void
+    public function saveMedia(bool $fromUrl = false, string $collection = 'images', string $url = '', ?string $name = null): void
     {
         if ($fromUrl) {
             [$width, $height] = getimagesize(request()->input('url', $url));
             $this->addMediaFromUrl(request()->input('url', $url))
                 ->withResponsiveImages()
                 ->withCustomProperties(['width' => $width, 'height' => $height, 'processing' => true, 'processing_failed' => false])
+                ->setName($name ?? basename($url))
                 ->toMediaCollection($collection);
 
             return;
