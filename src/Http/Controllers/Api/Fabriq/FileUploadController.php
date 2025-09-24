@@ -17,8 +17,7 @@ class FileUploadController extends ApiController
         $file = Fabriq::getModelClass('file');
         $file->save();
         try {
-            $file->addMediaFromRequest('file')
-                ->toMediaCollection('files');
+            $file->saveMedia($request->has('url'));
         } catch (\Throwable $exception) {
             $file->delete();
             throw $exception;

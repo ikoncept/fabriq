@@ -74,4 +74,16 @@ class File extends Model implements HasMedia
 
         return $query->whereLike($searchColumns, $search);
     }
+
+    public function saveMedia(bool $fromUrl = false, string $collection = 'files', string $url = ''): void
+    {
+        if ($fromUrl) {
+            $this->addMediaFromUrl(request()->input('url', $url))
+                ->toMediaCollection($collection);
+
+            return;
+        }
+        $this->addMediaFromRequest('file')
+            ->toMediaCollection($collection);
+    }
 }
