@@ -155,7 +155,7 @@ class PagesFeatureTest extends AdminUserTestCase
         ]);
         DB::table('slugs')->insert([
             'model_id' => \Ikoncept\Fabriq\Models\Page::factory()->create()->id,
-            'model_type' => \Ikoncept\Fabriq\Models\Page::class,
+            'model_type' => 'fabriq_page',
             'slug' => 'en-mycket-bra-titel',
             'locale' => app()->getLocale(),
             'source_string' => 'En mycket bra titel',
@@ -192,7 +192,7 @@ class PagesFeatureTest extends AdminUserTestCase
         ]);
         $this->assertDatabaseHas('slugs', [
             'model_id' => $page->id,
-            'model_type' => \Ikoncept\Fabriq\Models\Page::class,
+            'model_type' => 'fabriq_page',
             'locale' => 'sv',
             'slug' => 'en-mycket-bra-titel-1',
         ]);

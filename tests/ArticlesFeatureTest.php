@@ -194,7 +194,7 @@ class ArticlesFeatureTest extends AdminUserTestCase
         ]);
         $this->assertDatabaseMissing('revision_meta', [
             'model_id' => $article->id,
-            'model_type' => 'Ikoncept\Fabriq\Models\Article',
+            'model_type' => 'fabriq_article',
         ]);
     }
 

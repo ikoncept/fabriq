@@ -109,7 +109,7 @@ class CommentableFeatureTest extends AdminUserTestCase
         $comments = \Ikoncept\Fabriq\Models\Comment::factory()
             ->count(5)
             ->create([
-                'commentable_type' => 'Ikoncept\Fabriq\Models\Page',
+                'commentable_type' => 'fabriq_page',
                 'commentable_id' => $page->id,
                 'user_id' => \Ikoncept\Fabriq\Models\User::factory()->create(),
             ]);

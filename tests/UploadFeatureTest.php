@@ -21,7 +21,7 @@ class UploadFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $this->assertDatabaseHas('media', [
             'file_name' => 'new-image.png',
-            'model_type' => 'Ikoncept\Fabriq\Models\Image',
+            'model_type' => 'fabriq_image',
         ]);
     }
 
@@ -39,7 +39,7 @@ class UploadFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $this->assertDatabaseHas('media', [
             'file_name' => 'document.txt',
-            'model_type' => 'Ikoncept\Fabriq\Models\File',
+            'model_type' => 'fabriq_file',
         ]);
     }
 
@@ -60,7 +60,7 @@ class UploadFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $this->assertDatabaseHas('media', [
             'file_name' => 'video.mov',
-            'model_type' => 'Ikoncept\Fabriq\Models\Video',
+            'model_type' => 'fabriq_video',
         ]);
     }
 }

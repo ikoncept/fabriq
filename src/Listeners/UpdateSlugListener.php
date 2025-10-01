@@ -37,7 +37,7 @@ class UpdateSlugListener
             $slug = Slug::firstOrNew([
                 'model_id' => $event->model->id,
                 'locale' => $item['definition']->locale,
-                'model_type' => config('fabriq.morph_map.'.get_class($event->model)) ?? get_class($event->model),
+                'model_type' => $event->model->getMorphClass(),
             ], [
                 'source_key' => $item['term']->key,
             ]);

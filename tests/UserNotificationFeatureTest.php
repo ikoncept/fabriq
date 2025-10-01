@@ -22,7 +22,7 @@ class UserNotificationFeatureTest extends AdminUserTestCase
         // Assert
         $response->assertOk();
         $response->assertJsonFragment([
-            'commentable_type' => 'Ikoncept\Fabriq\Models\Page',
+            'commentable_type' => 'fabriq_page',
             'comment' => $comment->comment,
         ]);
         $this->assertDatabaseHas('comments', [

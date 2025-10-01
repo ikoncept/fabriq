@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Ikoncept\Fabriq\Database\Seeders\DatabaseSeeder;
 use Ikoncept\Fabriq\Database\Seeders\PageTemplateSeeder;
+use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Infab\TranslatableRevisions\Models\RevisionTemplate;
 
@@ -31,7 +32,6 @@ class SearchTermsFeatureTest extends AdminUserTestCase
             'page_content' => '<h1>Wow, a header</h1><p>Ok lets see</p>',
             'meta_title' => 'Meta title',
             'meta_description' => 'Describing the page',
-            'meta_og_image' => 'https://placehold.it/40',
             'boxes' => [
                 ['header' => 'EN Box 1 title!', 'url' => 'https://google.com'],
                 ['header' => 'EN Box 2 title!', 'url' => 'https://bog.com'],
@@ -44,7 +44,6 @@ class SearchTermsFeatureTest extends AdminUserTestCase
             'page_content' => '<h1>Wow</h1><p>Da ska vi se...</p>',
             'meta_title' => 'Meta titel',
             'meta_description' => 'En forklaring av sidan',
-            'meta_og_image' => 'https://placehold.it/40',
             'boxes' => [
                 ['header' => 'DK fosta titeln!', 'url' => 'https://google.com'],
                 ['header' => 'DK andra titeln!', 'url' => 'https://bog.com'],
@@ -55,6 +54,7 @@ class SearchTermsFeatureTest extends AdminUserTestCase
         $response = $this->json('POST', "/pages/{$page->id}/publish");
 
         // Assert
+        $response->assertOk();
         $this->assertDatabaseHas('pages', [
             'id' => $page->id,
             'revision' => 2,
@@ -63,7 +63,7 @@ class SearchTermsFeatureTest extends AdminUserTestCase
 
         $this->assertDatabaseHas('search_terms', [
             'model_id' => $page->id,
-            'model_type' => config('fabriq.models.page'),
+            'model_type' => Fabriq::getModelClass('page')->getMorphClass(),
             'locale' => 'dk',
             'path' => '/en-siee-saom-skau-paublisers',
             'search_string' => 'En siee saom skau paublisers DK fosta titeln! DK andra titeln!',
@@ -71,7 +71,7 @@ class SearchTermsFeatureTest extends AdminUserTestCase
 
         $this->assertDatabaseHas('search_terms', [
             'model_id' => $page->id,
-            'model_type' => config('fabriq.models.page'),
+            'model_type' => 'fabriq_page',
             'locale' => 'en',
             'path' => '/the-page-title-for-the-page',
             'search_string' => 'The page title for the page EN Box 1 title! EN Box 2 title! EN Box 3 title!',

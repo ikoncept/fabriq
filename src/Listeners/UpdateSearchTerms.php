@@ -40,7 +40,7 @@ class UpdateSearchTerms
             return;
         }
 
-        if (get_class($event) === DefinitionsUpdated::class && Fabriq::getFqnModel('page') === get_class($event->model)) {
+        if (get_class($event) === DefinitionsUpdated::class && Fabriq::getModelClass('page')->getMorphClass() === $event->model->getMorphClass()) {
 
             return;
         }
@@ -59,7 +59,7 @@ class UpdateSearchTerms
 
             $data = [
                 'model_id' => $event->model->id,
-                'model_type' => get_class($event->model),
+                'model_type' => $event->model->getMorphClass(),
                 'title' => $title,
                 'locale' => $locale,
                 'path' => collect($path)->flatten()->first(),

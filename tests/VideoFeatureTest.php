@@ -122,7 +122,7 @@ class VideoFeatureTest extends AdminUserTestCase
         ]);
         $this->assertDatabaseMissing('media', [
             'model_id' => $video->id,
-            'model_type' => 'Ikoncept\Fabriq\Models\Video',
+            'model_type' => 'fabriq_video',
         ]);
     }
 

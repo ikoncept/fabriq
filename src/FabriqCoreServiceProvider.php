@@ -24,6 +24,7 @@ use Ikoncept\Fabriq\Repositories\Decorators\CachingPageRepository;
 use Ikoncept\Fabriq\Repositories\EloquentMenuRepository;
 use Ikoncept\Fabriq\Repositories\EloquentPageRepository;
 use Ikoncept\Fabriq\Repositories\Interfaces\PageRepositoryInterface;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Infab\Core\CoreServiceProvider;
@@ -42,6 +43,29 @@ class FabriqCoreServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Relation::morphMap([
+            'fabriq_article' => Fabriq::getFqnModel('article'),
+            'fabriq_blockType' => Fabriq::getFqnModel('blockType'),
+            'fabriq_comment' => Fabriq::getFqnModel('comment'),
+            'fabriq_contact' => Fabriq::getFqnModel('contact'),
+            'fabriq_event' => Fabriq::getFqnModel('event'),
+            'fabriq_file' => Fabriq::getFqnModel('file'),
+            'fabriq_i18nDefinition' => Fabriq::getFqnModel('i18nDefinition'),
+            'fabriq_image' => Fabriq::getFqnModel('image'),
+            'fabriq_locale' => Fabriq::getFqnModel('locale'),
+            'fabriq_media' => Fabriq::getFqnModel('media'),
+            'fabriq_menu' => Fabriq::getFqnModel('menu'),
+            'fabriq_menuItem' => Fabriq::getFqnModel('menuItem'),
+            'fabriq_notification' => Fabriq::getFqnModel('notification'),
+            'fabriq_page' => Fabriq::getFqnModel('page'),
+            'fabriq_role' => Fabriq::getFqnModel('role'),
+            'fabriq_slug' => Fabriq::getFqnModel('slug'),
+            'fabriq_smartBlock' => Fabriq::getFqnModel('smartBlock'),
+            'fabriq_tag' => Fabriq::getFqnModel('tag'),
+            'fabriq_user' => Fabriq::getFqnModel('user'),
+            'fabriq_video' => Fabriq::getFqnModel('video'),
+        ]);
+
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/fabriq.php' => config_path('fabriq.php'),
@@ -132,7 +156,7 @@ class FabriqCoreServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('Ikoncept\Fabriq\Repositories\Interfaces\MenuRepositoryInterface', function () {
-            $baseRepo = new EloquentMenuRepository(new Manager(), Fabriq::getModelClass('menuItem'), Fabriq::getModelClass('menu'));
+            $baseRepo = new EloquentMenuRepository(new Manager, Fabriq::getModelClass('menuItem'), Fabriq::getModelClass('menu'));
             $cachingRepo = new CachingMenuRepository($baseRepo, $this->app->get('cache.store'));
 
             return $cachingRepo;

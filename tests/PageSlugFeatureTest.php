@@ -15,7 +15,7 @@ class PageSlugFeatureTest extends AdminUserTestCase
         $page = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $otherPage = \Ikoncept\Fabriq\Models\Page::factory()->create();
         $slug = Slug::create([
-            'model_type' => \Ikoncept\Fabriq\Models\Page::class,
+            'model_type' => 'fabriq_page',
             'model_id' => $page->id,
             'slug' => 'a-slug',
             'source_string' => 'none',
@@ -23,7 +23,7 @@ class PageSlugFeatureTest extends AdminUserTestCase
             'locale' => 'sv',
         ]);
         $otherSlug = Slug::create([
-            'model_type' => \Ikoncept\Fabriq\Models\Page::class,
+            'model_type' => 'fabriq_page',
             'model_id' => $otherPage->id,
             'slug' => 'a-slug',
             'source_string' => 'none',

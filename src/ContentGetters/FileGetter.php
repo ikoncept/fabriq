@@ -23,7 +23,7 @@ class FileGetter
 
         $keyName = Fabriq::getModelClass('file')->getKeyName();
         $file = Fabriq::getModelClass('file')
-            ->where('id', $meta->meta_value[$keyName])
+            ->where('id', $meta->meta_value[$keyName] ?? $meta->meta_value[0])
             ->first();
 
         if (! $file) {

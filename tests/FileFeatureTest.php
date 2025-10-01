@@ -85,7 +85,7 @@ class FileFeatureTest extends AdminUserTestCase
         ]);
         $this->assertDatabaseMissing('media', [
             'model_id' => $file->id,
-            'model_type' => 'Ikoncept\Fabriq\Models\File',
+            'model_type' => 'fabriq_file',
         ]);
         // $test = Storage::disk('public')->exists('file1.jpg');
         $test = Storage::disk('__test')->allFiles();
