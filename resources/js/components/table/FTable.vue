@@ -35,11 +35,11 @@
                                 >
                                     <span v-if="currentSortable.includes(column.key)">
                                         <ChevronUpIcon
-                                            v-show="descending"
+                                            v-show="!descending"
                                             class="w-2 leading-none text-gray-400"
                                         />
                                         <ChevronDownIcon
-                                            v-show="!descending"
+                                            v-show="descending"
                                             class="w-2 text-gray-400"
                                         />
                                     </span>

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Ikoncept\Fabriq\Models\Contact;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 
 class ContactsFeatureTest extends AdminUserTestCase
@@ -143,6 +144,36 @@ class ContactsFeatureTest extends AdminUserTestCase
         $response->assertOk();
         $this->assertDatabaseHas('tags', [
             'type' => 'contacts',
+        ]);
+    }
+
+    /** @test **/
+    public function test_it_can_sort_contacts()
+    {
+        // Arrange
+        $contact0 = Contact::factory()->create([
+            'name' => 'Tian',
+            'sortindex' => 10,
+        ]);
+        $contact1 = Contact::factory()->create([
+            'name' => 'Femman',
+            'sortindex' => 5,
+        ]);
+
+        // Act
+        $response = $this->json('POST', route('contacts.sort'), [
+            'contacts' => [$contact0->toArray(), $contact1->toArray()],
+        ]);
+
+        // Assert
+        $response->assertOk();
+        $this->assertDatabaseHas('contacts', [
+            'name' => 'Tian',
+            'sortindex' => 10,
+        ]);
+        $this->assertDatabaseHas('contacts', [
+            'name' => 'Femman',
+            'sortindex' => 5,
         ]);
     }
 }

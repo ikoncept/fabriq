@@ -1,11 +1,20 @@
 <template>
     <div>
+        <SortModal @updated="fetchContacts" />
         <UiSectionHeader class="mb-4">
             Kontakter
             <template #tools>
+                <FButton
+                    without-loader
+                    :click="() => $vfm.show('sort-contact-modal')"
+                    spinner-color="text-royal-500"
+                    class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-outline-royal"
+                >
+                    Sortera kontakter
+                </FButton>
                 <button
                     type="button"
-                    class="fabriq-btn ml-10  btn-royal py-2.5 px-4 inline-flex items-center"
+                    class="fabriq-btn ml-4  btn-royal py-2.5 px-4 inline-flex items-center"
                     @click="$vfm.show('createContactModal')"
                 >
                     Lägg till kontakt
@@ -144,6 +153,7 @@
 </template>
 <script>
 import Contact from '@/models/Contact.js'
+import SortModal from './SortModal.vue'
 function defaultCreationObject () {
     return {
         name: ''
@@ -151,6 +161,7 @@ function defaultCreationObject () {
 }
 export default {
     name: 'ContactsIndex',
+    components: { SortModal },
     data () {
         return {
             contacts: [],

@@ -140,6 +140,8 @@ class RouteRegistrar
 
     public function forContacts(): void
     {
+        Route::post('contacts/sort-contacts', \Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ContactSortController::class)
+            ->name('contacts.sort');
         Route::resource('contacts', \Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\ContactController::class);
     }
 
