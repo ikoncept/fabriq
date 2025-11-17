@@ -91,14 +91,10 @@
                         type="tel"
                         name="mobile"
                     />
-                    <FInput
-                        v-model="contact.sortindex"
-                        type="number"
-                        class="col-span-4 row-start-2"
-                        label="Sorteringsindex"
-                        help-text="Sorterar kontakter i stigande ordning (lägst först)"
-                    />
-
+                    <div class="col-span-4 row-start-2">
+                        <FLabel>Sorteringsindex</FLabel>
+                        <UiBadge>{{ contact.sortindex }}</UiBadge>
+                    </div>
                     <div class="col-span-12">
                         <div class="w-96">
                             <FImageInput
