@@ -6,7 +6,7 @@ use Infab\TranslatableRevisions\Models\RevisionMeta;
 
 class MediaGetter extends GetterInterface
 {
-    public function get(RevisionMeta $meta)
+    public static function get(RevisionMeta $meta)
     {
         if ($meta->meta_value['type'] === 'image') {
             $localMeta = new RevisionMeta;

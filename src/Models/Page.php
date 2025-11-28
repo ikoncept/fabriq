@@ -8,6 +8,7 @@ use Ikoncept\Fabriq\ContentGetters\ButtonGetter;
 use Ikoncept\Fabriq\ContentGetters\ButtonsGetter;
 use Ikoncept\Fabriq\ContentGetters\FileGetter;
 use Ikoncept\Fabriq\ContentGetters\ImageGetter;
+use Ikoncept\Fabriq\ContentGetters\MediaGetter;
 use Ikoncept\Fabriq\ContentGetters\SmartBlockGetter;
 use Ikoncept\Fabriq\ContentGetters\VideoGetter;
 use Ikoncept\Fabriq\Database\Factories\PageFactory;
@@ -123,6 +124,7 @@ class Page extends Model implements HasMedia
                 'button' => 'getButton',
                 'buttons' => 'getButtons',
                 'smartBlock' => 'getSmartBlock',
+                'media' => 'getMediaViaType',
             ])
             ->registerCacheKeysToFlush(['fabriq_menu', 'fabriq_pages|slug'])
             ->setIndexable(indexable: true, indexableKeys: ['page_title', 'header'], titleKey: 'page_title');
@@ -186,6 +188,11 @@ class Page extends Model implements HasMedia
     public function getSmartBlock(RevisionMeta $meta)
     {
         return SmartBlockGetter::get($meta);
+    }
+
+    public function getMediaViaType(RevisionMeta $meta)
+    {
+        return MediaGetter::get($meta);
     }
 
     public function menuItems(): HasMany
