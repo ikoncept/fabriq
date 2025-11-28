@@ -4,9 +4,9 @@ namespace Ikoncept\Fabriq\ContentGetters;
 
 use Infab\TranslatableRevisions\Models\RevisionMeta;
 
-class MediaGetter extends GetterInterface
+class MediaGetter implements GetterInterface
 {
-    public static function get(RevisionMeta $meta)
+    public static function get(RevisionMeta $meta, bool $isPublishing = false)
     {
         if ($meta->meta_value['type'] === 'image') {
             $localMeta = new RevisionMeta;
