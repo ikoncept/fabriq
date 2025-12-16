@@ -89,6 +89,12 @@ class MenuItem extends Model
      */
     public function getFiles(RevisionMeta $meta)
     {
+        if (! $meta->meta_value) {
+            return [
+                'meta_id' => $meta->id,
+            ];
+        }
+
         return FileGetter::get($meta);
     }
 
