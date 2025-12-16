@@ -28,6 +28,6 @@ class ImageUploadController extends ApiController
                 ]);
         }
 
-        return $this->respondWithArray($image->toArray());
+        return $this->respondWithArray(array_merge($image->toArray(), $image->getFirstMedia('images')->only('uuid')));
     }
 }

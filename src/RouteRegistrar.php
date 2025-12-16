@@ -189,6 +189,7 @@ class RouteRegistrar
 
     public function forDownloads(): void
     {
+        Route::get('media/downloads/{uuid}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\MediaDownloadController::class, 'show']);
         Route::get('downloads', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\DownloadController::class, 'index']);
         Route::get('downloads/{id}', [\Ikoncept\Fabriq\Http\Controllers\Api\Fabriq\DownloadController::class, 'show']);
     }
