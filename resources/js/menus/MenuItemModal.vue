@@ -47,7 +47,7 @@
                         input-type="radio"
                         name="link_types"
                         label="Länktyp"
-                        :options="[{ label: 'Intern', value: 'internal' }, { label: 'Extern', value: 'external' }]"
+                        :options="[{ label: 'Intern', value: 'internal' }, { label: 'Extern', value: 'external' }, { label: 'Fil', value: 'file' }]"
                     />
                 </fieldset>
             </div>
@@ -83,18 +83,19 @@
                 >
                     <div class="grid grid-cols-12 gap-6">
                         <div
-                            v-if="mItem.type === 'external'"
+                            v-if="['external', 'file'].includes(mItem.type)"
                             class="grid grid-cols-2 col-span-12 gap-6"
                         >
                             <FInput
                                 v-model="content.title"
-                                class="mb-6"
+                                class=""
                                 help-text="Denna text visas i menyer"
                                 label="Titel"
                                 name="title"
                                 :rules="!isCreating ? 'required' : ''"
                             />
                             <FInput
+                                v-if="mItem.type === 'external'"
                                 v-model="content.external_url"
                                 label="URL"
                                 placeholder="https://exempel.se"
@@ -102,12 +103,16 @@
                                 :rules="!isCreating ? 'required' : ''"
                                 type="url"
                             />
+                            <div class="col-span-2">
+                                <FFileInput v-model="content.file" />
+                            </div>
                         </div>
                     </div>
                     <FEditor
                         v-if="ready"
                         :key="'html' + mItem.Id"
                         v-model="content.body"
+                        class="mt-6"
                         label="Menytext"
                     />
                 </ValidationObserver>
@@ -225,7 +230,11 @@ export default {
                 } else if (this.mItem.type === 'external') {
                     isValid = await this.$refs.externalObserver.validate()
                     this.$refs.internalObserver.reset()
+                } else if (this.mItem.type === 'file') {
+                    isValid = true
+                    this.$refs.internalObserver.reset()
                 }
+
                 if (!isValid) {
                     return
                 }
@@ -249,6 +258,9 @@ export default {
                 this.$refs.externalObserver.reset()
             } else if (this.mItem.type === 'external') {
                 isValid = await this.$refs.externalObserver.validate()
+                this.$refs.internalObserver.reset()
+            } else if (this.mItem.type === 'file') {
+                isValid = true
                 this.$refs.internalObserver.reset()
             }
             if (!isValid) {

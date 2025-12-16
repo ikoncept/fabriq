@@ -2,6 +2,7 @@
 
 namespace Ikoncept\Fabriq\Models;
 
+use Ikoncept\Fabriq\ContentGetters\FileGetter;
 use Ikoncept\Fabriq\Database\Factories\MenuItemFactory;
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Infab\TranslatableRevisions\Models\RevisionMeta;
 use Infab\TranslatableRevisions\Traits\HasTranslatedRevisions;
 use Infab\TranslatableRevisions\Traits\RevisionOptions;
 use Kalnoy\Nestedset\NodeTrait;
@@ -68,12 +70,26 @@ class MenuItem extends Model
     {
         return RevisionOptions::create()
             ->registerDefaultTemplate('menu-item')
+            ->registerSpecialTypes(['file'])
+            ->registerGetters([
+                'file' => 'getFiles',
+            ])
             ->registerCacheKeysToFlush(['fabriq_menu']);
     }
 
     public function page(): BelongsTo
     {
         return $this->belongsTo(Fabriq::getFqnModel('page'));
+    }
+
+    /**
+     * Getter for files.
+     *
+     * @return mixed
+     */
+    public function getFiles(RevisionMeta $meta)
+    {
+        return FileGetter::get($meta);
     }
 
     /**
@@ -113,7 +129,7 @@ class MenuItem extends Model
         try {
             return $this->page->slugs->where('locale', $locale)->first();
         } catch (\Throwable $th) {
-            return new Slug();
+            return new Slug;
         }
     }
 
