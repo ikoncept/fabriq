@@ -19,7 +19,10 @@
             <div v-else>
                 <div class="flex items-center space-x-4 text-sm">
                     <div class="text-xs line-clamp-1">
-                        {{ localFile.name }} <span v-if="localFile.extension">({{ localFile.extension }})</span>
+                        {{ localFile.name }} <span
+                            v-if="localFile.extension"
+                            class="font-mono text-[10px]"
+                        >(.{{ localFile.extension }})</span>
                     </div>
                     <div class="flex justify-start space-x-2">
                         <button

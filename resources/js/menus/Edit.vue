@@ -79,17 +79,27 @@
                                 >
                                     {{ item.page.name }}
                                 </span>
-                                <span v-if="item.type === 'external'">{{ item.title }}</span>
-                                <span class="ml-4 mr-auto">
-                                    <!-- <external-link-icon
+                                <template v-if="item.type === 'external'">
+                                    <span>{{ item.title }}</span>
+                                    <span class="ml-4 mr-auto">
+                                        <!-- <external-link-icon
                                         v-if="item.is_external"
                                         class="w-4 h-4"
                                         title="Extern url"
                                     /> -->
-                                    <UiBadge v-if="item.type === 'external'">
-                                        <ExternalLinkIcon class="w-3 h-3 mr-1" /> Extern länk
-                                    </UiBadge>
-                                </span>
+                                        <UiBadge v-if="item.type === 'external'">
+                                            <ExternalLinkIcon class="w-3 h-3 mr-1" /> Extern länk
+                                        </UiBadge>
+                                    </span>
+                                </template>
+                                <template v-if="item.type === 'file'">
+                                    <span>{{ item.title }}</span>
+                                    <span class="ml-4 mr-auto">
+                                        <UiBadge>
+                                            <FileIcon class="w-3 h-3 mr-1" /> Fil
+                                        </UiBadge>
+                                    </span>
+                                </template>
                             </div>
                             <div class="flex md:space-x-6">
                                 <button
@@ -121,6 +131,7 @@
     </div>
 </template>
 <script>
+import FileIcon from '@/icons/FileIcon.vue'
 import MenuItemModal from '@/menus/MenuItemModal.vue'
 import Menu from '@/models/Menu.js'
 import MenuItem from '@/models/MenuItem.js'
