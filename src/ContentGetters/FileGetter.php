@@ -40,7 +40,7 @@ class FileGetter
             'name' => $media->name,
             'file_name' => $media->file_name,
             'thumb_src' => ($media->hasGeneratedConversion('file_thumb')) ? $media->getUrl('file_thumb') : '',
-            'extensions' => pathinfo($media->file_name, PATHINFO_EXTENSION),
+            'extension' => pathinfo($media->file_name, PATHINFO_EXTENSION),
             'src' => $media->getUrl(),
             'readable_name' => $file->readable_name,
             'caption' => $file->caption,
