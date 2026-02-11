@@ -36,8 +36,8 @@ class CachingMenuRepository implements MenuRepositoryInterface
     public function findBySlug(string $slug)
     {
         $locale = app()->getLocale();
-        $menu = $this->cache->tags(['fabriq_menu_'.$slug, 'fabriq_menu'])
-            ->rememberForever($locale, function () use ($slug) {
+        $menu = $this->cache->tags(['fabriq_menu'])
+            ->rememberForever('fabriq_menu_'.$slug, function () use ($slug) {
                 Log::info('Caching menu', ['cache_key' => 'fabriq_menu_'.$slug, 'fabriq_menu']);
 
                 return $this->repository->findBySlug($slug);

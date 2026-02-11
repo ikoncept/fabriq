@@ -35,9 +35,8 @@ class CachingPageRepository implements PageRepositoryInterface
      */
     public function findBySlug(string $slug)
     {
-        $locale = 'sv';
-        $page = $this->cache->tags(['fabriq_pages', 'fabriq_page_'.$slug])
-            ->rememberForever($locale, function () use ($slug) {
+        $page = $this->cache->tags(['fabriq_pages'])
+            ->rememberForever('fabriq_page_'.$slug, function () use ($slug) {
                 Log::info('Caching page', ['cache_key' => 'fabriq_page_'.$slug, 'fabriq_page']);
 
                 return $this->repository->findBySlug($slug);

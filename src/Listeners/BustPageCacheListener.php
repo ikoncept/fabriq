@@ -36,7 +36,8 @@ class BustPageCacheListener
         }
 
         foreach ($event->model->slugs as $slug) {
-            Log::info('Flushing page cache', ['name' => $event->model->name, 'key' => 'fabriq_'.$tagName.'_'.$slug->slug]);
+            Log::debug('Flushing page cache', ['name' => $event->model->name, 'key' => 'fabriq_'.$tagName.'_'.$slug->slug]);
+            Cache::pull('fabriq_'.$tagName.'_'.$slug->slug);
             Cache::tags('fabriq_'.$tagName.'_'.$slug->slug)->flush();
         }
     }
