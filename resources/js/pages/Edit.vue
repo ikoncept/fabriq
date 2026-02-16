@@ -221,10 +221,17 @@
                                 </div>
                             </UiCard>
                             <div v-else>
-                                <BlockList
+                                <!-- <BlockList
                                     v-if="activeLocale === lIndex"
                                     :key="activeLocale + 'b'"
                                     v-model="localizedContent[activeLocale].boxes"
+                                    :locale="lIndex"
+                                    :page="page"
+                                /> -->
+                                <BlockListV2
+                                    v-if="activeLocale === lIndex"
+                                    :key="activeLocale + 'b'"
+                                    v-model="blocks"
                                     :locale="lIndex"
                                     :page="page"
                                 />
@@ -232,6 +239,8 @@
                         </div>
                     </div>
                 </div>
+                <!-- <pre>{{ blocks }}</pre> -->
+                <!-- <pre>{{ localizedContent[activeLocale].boxes }}</pre> -->
             </FTab>
         </FTabs>
     </div>
@@ -239,10 +248,12 @@
 
 <script>
 import BlockList from '@/blocks/BlockList.vue'
+import BlockListV2 from '@/blocks/BlockListV2.vue'
 import RefreshObjectModal from '@/components/modals/RefreshObjectModal.vue'
 import Page from '@/models/Page.js'
 import PagePaths from '@/pages/PagePaths.vue'
 import * as types from '@/store/mutation-types'
+import axios from 'axios'
 
 export default {
     name: 'PagesEdit',
@@ -250,6 +261,7 @@ export default {
         PagePaths,
         RefreshObjectModal,
         BlockList,
+        BlockListV2,
     },
 
     beforeRouteLeave (from, to, next) {
@@ -276,6 +288,7 @@ export default {
             repeaterKeys: ['boxes'],
             drag: false,
             localizedContent: {},
+            blocks: [],
             showBlockTypeModalF: false,
 
         }
@@ -327,6 +340,7 @@ export default {
 
             return this.page.locked
         },
+
     },
 
     watch: {
@@ -340,6 +354,7 @@ export default {
         this.$eventBus.$on('block-type-added', this.blockTypeAdded)
         this.$eventBus.$on('page-updated-echo', this.askToUpdatePage)
         this.fetchPage()
+        this.fetchBlocks()
         this.$nextTick(() => {
             if (this.$route.query.openComments) {
                 this.$eventBus.$emit('open-comment-section')
@@ -348,6 +363,9 @@ export default {
     },
 
     methods: {
+        filteredBlocks(locale) {
+            return this.blocks.filter(item => item.locale === locale)
+        },
         askToUpdatePage(event) {
             this.$vfm.show('RefreshObjectModal', event)
         },
@@ -372,11 +390,13 @@ export default {
                 const payload = {
                     name: this.page.name,
                     localizedContent: { ...this.localizedContent },
+                    blocks: this.blocks,
                 }
 
                 await Page.update(this.id, payload)
                 this.$toast.success({ title: 'Utkastet har sparats' })
                 this.$eventBus.$emit('page-updated')
+                console.log(this.blocks)
             } catch (error) {
                 console.error(error)
             }
@@ -410,6 +430,27 @@ export default {
                     this.$set(this.localizedContent, item, { ...localizedContent[item].content })
                 })
                 this.checkBoxesArray()
+            } catch (error) {
+                console.error(error)
+            }
+        },
+
+        async fetchBlocks() {
+            const payload = {
+            }
+
+            try {
+                const { data } = await axios.get(`/api/pages/${this.id}/revision/blocks`)
+
+                this.blocks = data.data
+                // this.page = data
+                // this.fields = data.template.data.fields
+                // this.groupedFields = data.template.data.groupedFields.data
+                // localizedContent = { ...data.localizedContent.data }
+                // Object.keys(localizedContent).forEach((item) => {
+                //     this.$set(this.localizedContent, item, { ...localizedContent[item].content })
+                // })
+                // this.checkBoxesArray()
             } catch (error) {
                 console.error(error)
             }

@@ -2,14 +2,14 @@
     <div>
         <div class="grid grid-cols-3 gap-x-6">
             <FInput
-                v-model="localContent.name"
+                v-model="localContent.content.name"
                 name="name"
                 label="Namn"
                 rules="required"
                 help-text="Visas endast internt"
             />
             <FSelect
-                v-model="localContent.size"
+                v-model="localContent.content.size"
                 name="size"
                 default-value="large"
                 :clearable="false"
@@ -20,19 +20,19 @@
         <hr class="w-full h-px my-6 ">
         <div class="grid grid-cols-12 mb-10 gap-x-6 gap-y-6">
             <FInput
-                v-model="localContent.header"
+                v-model="localContent.content.header"
                 name="header"
                 class="col-span-4"
                 label="Rubriktext"
             />
             <FInput
-                v-model="localContent.subheader"
+                v-model="localContent.content.subheader"
                 class="col-span-4"
                 name="subheader"
                 label="Underrubrik"
             />
             <FImageInput
-                v-model="localContent.image"
+                v-model="localContent.content.image"
                 class="col-span-4"
                 label="Bild"
                 name="image"
@@ -52,7 +52,7 @@
             </div>
         </div>
         <Draggable
-            v-model="localContent.children"
+            v-model="localContent.content.children"
             handle=".handle"
             tag="ul"
             v-bind="dragOptions"
@@ -62,7 +62,7 @@
             @end="drag = false"
         >
             <UiCard
-                v-for="(child, childIndex) in localContent.children"
+                v-for="(child, childIndex) in localContent.content.children"
                 :key="'child' + childIndex"
                 is-child
                 collapsible
@@ -176,7 +176,7 @@
         </Draggable>
 
         <UiDashedBox
-            v-show="localContent.children.length <= 0"
+            v-show="localContent.content.children.length <= 0"
             size="min-h-24"
         >
             <template #header>
@@ -203,18 +203,18 @@
                 </FLabel>
                 <div class="flex items-center">
                     <FSwitch
-                        v-model="localContent.hasButton"
+                        v-model="localContent.content.hasButton"
                         class="h-10"
                     />
                     <div
                         class="ml-2 text-sm"
-                        v-text="localContent.hasButton ? 'Ja' : 'Nej'"
+                        v-text="localContent.content.hasButton ? 'Ja' : 'Nej'"
                     />
                 </div>
             </div>
             <FButtonItem
-                v-model="localContent.button"
-                :disabled="! localContent.hasButton"
+                v-model="localContent.content.button"
+                :disabled="! localContent.content.hasButton"
                 class="col-span-12 lg:col-span-8"
             />
         </div>
@@ -301,7 +301,7 @@ export default {
                 newItem.id = 'i' + Math.random().toString(20).substr(2, 6)
                 newItem.name = 'Kopia av ' + newItem.name
             }
-            this.localContent.children.push(newItem)
+            this.localContent.content.children.push(newItem)
             this.$nextTick(() => {
                 newItem.newlyAdded = false
             })
