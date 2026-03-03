@@ -43,14 +43,18 @@ return new class extends Migration
             $item->commentable_type = $morphName;
             $item->save();
         });
-        $modelHasRoles = DB::table('model_has_roles')->where('model_type', 'LIKE', 'Ikoncept%')->get()->each(function ($item) {
-            $model = new $item->model_type;
-            $morphName = $model->getMorphClass();
-            DB::table('model_has_roles')
-                ->where('role_id', $item->role_id)
-                ->where('model_id', $item->model_id)
-                ->update(['model_type' => $morphName]);
-        });
+
+        $modelHasRoles = DB::table('model_has_roles')
+            ->where('model_type', 'LIKE', 'App%')
+            ->orWhere('model_type', 'LIKE', 'Ikoncept%')
+            ->get()->each(function ($item) {
+                $model = new $item->model_type;
+                $morphName = $model->getMorphClass();
+                DB::table('model_has_roles')
+                    ->where('role_id', $item->role_id)
+                    ->where('model_id', $item->model_id)
+                    ->update(['model_type' => $morphName]);
+            });
 
         $slugs = Slug::where('model_type', 'LIKE', 'Ikoncept%')->get()->each(function ($item) {
             $model = new $item->model_type;
