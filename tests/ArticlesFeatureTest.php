@@ -3,8 +3,8 @@
 namespace Ikoncept\Fabriq\Tests\Feature;
 
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
-use Infab\TranslatableRevisions\Models\RevisionTemplateField;
+use Karabin\TranslatableRevisions\Models\RevisionTemplate;
+use Karabin\TranslatableRevisions\Models\RevisionTemplateField;
 
 class ArticlesFeatureTest extends AdminUserTestCase
 {

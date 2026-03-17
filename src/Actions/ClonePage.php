@@ -4,7 +4,7 @@ namespace Ikoncept\Fabriq\Actions;
 
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Database\Eloquent\Model;
-use Infab\TranslatableRevisions\Models\I18nLocale;
+use Karabin\TranslatableRevisions\Models\I18nLocale;
 
 class ClonePage
 {

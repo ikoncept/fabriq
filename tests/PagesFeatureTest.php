@@ -7,7 +7,7 @@ use Ikoncept\Fabriq\Database\Seeders\PageTemplateSeeder;
 use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Illuminate\Support\Facades\DB;
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
+use Karabin\TranslatableRevisions\Models\RevisionTemplate;
 
 class PagesFeatureTest extends AdminUserTestCase
 {

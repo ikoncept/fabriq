@@ -4,8 +4,8 @@ namespace Ikoncept\Fabriq\Database\Seeders;
 
 use Ikoncept\Fabriq\Models\BlockType;
 use Illuminate\Database\Seeder;
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
-use Infab\TranslatableRevisions\Models\RevisionTemplateField;
+use Karabin\TranslatableRevisions\Models\RevisionTemplate;
+use Karabin\TranslatableRevisions\Models\RevisionTemplateField;
 
 class PageTemplateSeeder extends Seeder
 {

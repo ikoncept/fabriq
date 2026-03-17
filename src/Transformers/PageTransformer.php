@@ -4,7 +4,7 @@ namespace Ikoncept\Fabriq\Transformers;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Page;
-use Infab\TranslatableRevisions\Models\I18nLocale;
+use Karabin\TranslatableRevisions\Models\I18nLocale;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;

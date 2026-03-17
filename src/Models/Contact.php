@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Infab\TranslatableRevisions\Traits\HasTranslatedRevisions;
-use Infab\TranslatableRevisions\Traits\RevisionOptions;
+use Karabin\TranslatableRevisions\Traits\HasTranslatedRevisions;
+use Karabin\TranslatableRevisions\Traits\RevisionOptions;
 use Spatie\Tags\HasTags;
 
 class Contact extends Model
@@ -22,13 +22,6 @@ class Contact extends Model
     public const RELATIONSHIPS = ['images', 'tags'];
 
     protected $guarded = ['content', 'localizedContent'];
-
-    /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'contact';
 
     /**
      * Create a new factory.

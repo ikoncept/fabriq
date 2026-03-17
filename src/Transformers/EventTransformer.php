@@ -3,7 +3,7 @@
 namespace Ikoncept\Fabriq\Transformers;
 
 use Ikoncept\Fabriq\Models\Event;
-use Infab\TranslatableRevisions\Models\I18nLocale;
+use Karabin\TranslatableRevisions\Models\I18nLocale;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
 
@@ -12,8 +12,6 @@ class EventTransformer extends TransformerAbstract
     /**
      * Determines which objects
      * that can be included.
-     *
-     * @var array
      */
     protected array $availableIncludes = [
         'localizedContent', 'content',
@@ -23,7 +21,6 @@ class EventTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format.
      *
-     * @param  Event  $event
      * @return array
      */
     public function transform(Event $event)
@@ -45,7 +42,7 @@ class EventTransformer extends TransformerAbstract
     {
         $content = $event->getFieldContent();
 
-        return $this->item($content, new ContentTransformer());
+        return $this->item($content, new ContentTransformer);
     }
 
     public function includeLocalizedContent(Event $event): Item

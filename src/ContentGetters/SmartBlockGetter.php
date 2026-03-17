@@ -3,14 +3,13 @@
 namespace Ikoncept\Fabriq\ContentGetters;
 
 use Ikoncept\Fabriq\Fabriq;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
+use Karabin\TranslatableRevisions\Models\RevisionMeta;
 
 class SmartBlockGetter
 {
     /**
      * Return a representation of an image.
      *
-     * @param  RevisionMeta  $meta
      * @param  bool  $publishing
      * @return mixed
      */

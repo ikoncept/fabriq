@@ -3,7 +3,7 @@
 namespace {{ namespace }};
 
 use {{ namespacedModel }};
-use Infab\TranslatableRevisions\Models\I18nLocale;
+use Karabin\TranslatableRevisions\Models\I18nLocale;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;

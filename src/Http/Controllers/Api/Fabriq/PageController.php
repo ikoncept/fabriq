@@ -5,6 +5,7 @@ namespace Ikoncept\Fabriq\Http\Controllers\Api\Fabriq;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Http\Requests\CreatePageRequest;
 use Ikoncept\Fabriq\Models\Page;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Infab\Core\Http\Controllers\Api\ApiController;
 use Infab\Core\Traits\ApiControllerTrait;
@@ -18,8 +19,7 @@ class PageController extends ApiController
     /**
      * Return index of pages.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index(Request $request)
     {
@@ -39,9 +39,8 @@ class PageController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function show(Request $request, $id)
     {
@@ -58,9 +57,8 @@ class PageController extends ApiController
     /**
      * Update the specified resource.
      *
-     * @param  Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
@@ -82,8 +80,7 @@ class PageController extends ApiController
     /**
      * Create a new resource.
      *
-     * @param  CreatePageRequest  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(CreatePageRequest $request)
     {
@@ -91,7 +88,7 @@ class PageController extends ApiController
             ->select('id')
             ->firstOrFail();
 
-        $page = new Page();
+        $page = new Page;
         $page->name = $request->name;
         $page->template_id = $request->template_id;
         $page->parent_id = $pageRoot->id;
@@ -105,7 +102,7 @@ class PageController extends ApiController
      * Create a new resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function destroy($id)
     {

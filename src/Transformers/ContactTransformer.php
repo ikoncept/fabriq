@@ -4,7 +4,7 @@ namespace Ikoncept\Fabriq\Transformers;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Contact;
-use Infab\TranslatableRevisions\Models\I18nLocale;
+use Karabin\TranslatableRevisions\Models\I18nLocale;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
@@ -14,8 +14,6 @@ class ContactTransformer extends TransformerAbstract
     /**
      * Determines which objects
      * that can be included.
-     *
-     * @var array
      */
     protected array $availableIncludes = [
         'localizedContent', 'content', 'tags',
@@ -25,7 +23,6 @@ class ContactTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format.
      *
-     * @param  Contact  $contact
      * @return array
      */
     public function transform(Contact $contact)
@@ -44,15 +41,12 @@ class ContactTransformer extends TransformerAbstract
 
     /**
      * Include content.
-     *
-     * @param  Contact  $contact
-     * @return Item
      */
     public function includeContent(Contact $contact): Item
     {
         $content = $contact->getFieldContent($contact->revision);
 
-        return $this->item($content, new ContentTransformer());
+        return $this->item($content, new ContentTransformer);
     }
 
     public function includeTags(Contact $contact): Collection

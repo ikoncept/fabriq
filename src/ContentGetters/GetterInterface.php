@@ -2,7 +2,7 @@
 
 namespace Ikoncept\Fabriq\ContentGetters;
 
-use Infab\TranslatableRevisions\Models\RevisionMeta;
+use Karabin\TranslatableRevisions\Models\RevisionMeta;
 
 interface GetterInterface
 {

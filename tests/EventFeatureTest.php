@@ -4,9 +4,9 @@ namespace Tests\Feature;
 
 use Carbon\CarbonImmutable;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Infab\TranslatableRevisions\Models\I18nLocale;
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
-use Infab\TranslatableRevisions\Models\RevisionTemplateField;
+use Karabin\TranslatableRevisions\Models\I18nLocale;
+use Karabin\TranslatableRevisions\Models\RevisionTemplate;
+use Karabin\TranslatableRevisions\Models\RevisionTemplateField;
 
 class EventFeatureTest extends AdminUserTestCase
 {

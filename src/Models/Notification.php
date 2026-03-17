@@ -13,13 +13,6 @@ class Notification extends Model
 {
     use HasFactory;
 
-    /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'notification';
-
     protected static function newFactory(): NotificationFactory
     {
         return NotificationFactory::new();

@@ -22,13 +22,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public const RELATIONSHIPS = ['roles'];
 
     /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'user';
-
-    /**
      * Guard name.
      *
      * @var string

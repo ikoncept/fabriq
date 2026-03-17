@@ -11,22 +11,15 @@ use Ikoncept\Fabriq\Database\Factories\SmartBlockFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
-use Infab\TranslatableRevisions\Traits\HasTranslatedRevisions;
-use Infab\TranslatableRevisions\Traits\RevisionOptions;
+use Karabin\TranslatableRevisions\Models\RevisionMeta;
+use Karabin\TranslatableRevisions\Traits\HasTranslatedRevisions;
+use Karabin\TranslatableRevisions\Traits\RevisionOptions;
 
 class SmartBlock extends Model
 {
     use HasFactory, HasTranslatedRevisions;
 
     public const RELATIONSHIPS = [];
-
-    /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'smart_block';
 
     protected static function newFactory(): SmartBlockFactory
     {

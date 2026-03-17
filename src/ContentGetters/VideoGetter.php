@@ -4,14 +4,13 @@ namespace Ikoncept\Fabriq\ContentGetters;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Video;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
+use Karabin\TranslatableRevisions\Models\RevisionMeta;
 
 class VideoGetter
 {
     /**
      * Return a representation of an video.
      *
-     * @param  RevisionMeta  $meta
      * @param  bool  $publishing
      * @return mixed
      */

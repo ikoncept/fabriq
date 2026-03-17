@@ -6,7 +6,7 @@ use Ikoncept\Fabriq\ContentGetters\FileGetter;
 use Ikoncept\Fabriq\ContentGetters\ImageGetter;
 use Ikoncept\Fabriq\ContentGetters\VideoGetter;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
+use Karabin\TranslatableRevisions\Models\RevisionMeta;
 
 class SmartBlocksFeatureTest extends AdminUserTestCase
 {

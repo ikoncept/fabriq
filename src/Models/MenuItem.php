@@ -10,23 +10,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
-use Infab\TranslatableRevisions\Traits\HasTranslatedRevisions;
-use Infab\TranslatableRevisions\Traits\RevisionOptions;
 use Kalnoy\Nestedset\NodeTrait;
+use Karabin\TranslatableRevisions\Models\RevisionMeta;
+use Karabin\TranslatableRevisions\Traits\HasTranslatedRevisions;
+use Karabin\TranslatableRevisions\Traits\RevisionOptions;
 
 class MenuItem extends Model
 {
     use HasFactory, HasTranslatedRevisions, NodeTrait;
 
     public const RELATIONSHIPS = ['page'];
-
-    /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'menu_item';
 
     protected $with = ['page'];
 

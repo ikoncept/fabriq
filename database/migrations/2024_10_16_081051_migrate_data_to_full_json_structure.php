@@ -2,7 +2,7 @@
 
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Database\Migrations\Migration;
-use Infab\TranslatableRevisions\Models\I18nLocale;
+use Karabin\TranslatableRevisions\Models\I18nLocale;
 
 return new class extends Migration
 {

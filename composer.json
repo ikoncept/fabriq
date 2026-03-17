@@ -34,7 +34,7 @@
         "kalnoy/nestedset": "^6.0",
         "spatie/laravel-tags": "^3.1|^4.0",
         "spatie/laravel-sluggable": "^2.6|^3.0",
-        "infab/translatable-revisions": "^1.7.0",
+        "karabinse/translatable-revisions": "^2.0.0|dev-main",
         "laravel/fortify": "^1.8",
         "dyrynda/laravel-make-user": "^7.3|^8.0|^9.0",
         "php-ffmpeg/php-ffmpeg": "^1.0",
@@ -48,8 +48,7 @@
     "require-dev": {
         "phpunit/phpunit": "^10.0",
         "orchestra/testbench": "^9.0",
-        "nunomaduro/collision": "^5.1|^6.0|^8.0",
-        "nunomaduro/larastan": "^2.0"
+        "nunomaduro/collision": "^5.1|^6.0|^8.0"
     },
     "extra": {
         "laravel": {

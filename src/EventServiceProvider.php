@@ -10,10 +10,10 @@ use Ikoncept\Fabriq\Listeners\UpdateSlugListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Infab\TranslatableRevisions\Events\DefinitionsPublished;
-use Infab\TranslatableRevisions\Events\DefinitionsUpdated;
-use Infab\TranslatableRevisions\Events\TranslatedRevisionDeleted;
-use Infab\TranslatableRevisions\Events\TranslatedRevisionUpdated;
+use Karabin\TranslatableRevisions\Events\DefinitionsPublished;
+use Karabin\TranslatableRevisions\Events\DefinitionsUpdated;
+use Karabin\TranslatableRevisions\Events\TranslatedRevisionDeleted;
+use Karabin\TranslatableRevisions\Events\TranslatedRevisionUpdated;
 
 class EventServiceProvider extends ServiceProvider
 {

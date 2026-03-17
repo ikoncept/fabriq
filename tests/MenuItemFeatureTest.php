@@ -8,9 +8,9 @@ use Ikoncept\Fabriq\Models\Page;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
-use Infab\TranslatableRevisions\Events\TranslatedRevisionUpdated;
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
-use Infab\TranslatableRevisions\Models\RevisionTemplateField;
+use Karabin\TranslatableRevisions\Events\TranslatedRevisionUpdated;
+use Karabin\TranslatableRevisions\Models\RevisionTemplate;
+use Karabin\TranslatableRevisions\Models\RevisionTemplateField;
 
 class MenuItemFeatureTest extends AdminUserTestCase
 {

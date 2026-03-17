@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Ikoncept\Fabriq\Database\Seeders\DatabaseSeeder;
 use Ikoncept\Fabriq\Database\Seeders\PageTemplateSeeder;
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
+use Karabin\TranslatableRevisions\Models\RevisionTemplate;
 
 class ClonePageFeatureTest extends AdminUserTestCase
 {

@@ -4,7 +4,7 @@ namespace Ikoncept\Fabriq\Database\Factories;
 
 use Ikoncept\Fabriq\Models\Page;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
+use Karabin\TranslatableRevisions\Models\RevisionTemplate;
 
 class PageFactory extends Factory
 {

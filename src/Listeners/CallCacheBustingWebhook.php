@@ -5,7 +5,7 @@ namespace Ikoncept\Fabriq\Listeners;
 use Ikoncept\Fabriq\Actions\BustCacheWithWebhook;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Services\CacheBuster;
-use Infab\TranslatableRevisions\Events\DefinitionsUpdated;
+use Karabin\TranslatableRevisions\Events\DefinitionsUpdated;
 
 class CallCacheBustingWebhook
 {

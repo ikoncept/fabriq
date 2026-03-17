@@ -4,7 +4,7 @@ namespace Ikoncept\Fabriq\Transformers;
 
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\MenuItem;
-use Infab\TranslatableRevisions\Models\I18nLocale;
+use Karabin\TranslatableRevisions\Models\I18nLocale;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
 
@@ -13,8 +13,6 @@ class MenuItemTransformer extends TransformerAbstract
     /**
      * Determines which objects
      * that can be included.
-     *
-     * @var array
      */
     protected array $availableIncludes = [
         'content', 'page', 'localizedContent',
@@ -24,7 +22,6 @@ class MenuItemTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format.
      *
-     * @param  MenuItem  $menuItem
      * @return array
      */
     public function transform(MenuItem $menuItem)
@@ -44,15 +41,12 @@ class MenuItemTransformer extends TransformerAbstract
 
     /**
      * Include content.
-     *
-     * @param  MenuItem  $menuItem
-     * @return Item
      */
     public function includeContent(MenuItem $menuItem): Item
     {
         $content = $menuItem->getFieldContent();
 
-        return $this->item($content, new ContentTransformer());
+        return $this->item($content, new ContentTransformer);
     }
 
     public function includePage(MenuItem $menuItem): Item

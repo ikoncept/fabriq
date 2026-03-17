@@ -3,14 +3,13 @@
 namespace Ikoncept\Fabriq\ContentGetters;
 
 use Illuminate\Support\Collection;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
+use Karabin\TranslatableRevisions\Models\RevisionMeta;
 
 class ButtonsGetter
 {
     /**
      * Return a representation of an image.
      *
-     * @param  RevisionMeta  $meta
      * @param  bool  $publishing
      * @return mixed
      */

@@ -6,7 +6,7 @@ use Ikoncept\Fabriq\Actions\ClonePage;
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
+use Karabin\TranslatableRevisions\Models\RevisionTemplate;
 
 class CreatePageTemplate extends Command
 {

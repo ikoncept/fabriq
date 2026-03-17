@@ -22,10 +22,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\DB;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
-use Infab\TranslatableRevisions\Traits\HasTranslatedRevisions;
-use Infab\TranslatableRevisions\Traits\RevisionOptions;
 use Kalnoy\Nestedset\NodeTrait;
+use Karabin\TranslatableRevisions\Models\RevisionMeta;
+use Karabin\TranslatableRevisions\Traits\HasTranslatedRevisions;
+use Karabin\TranslatableRevisions\Traits\RevisionOptions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -34,13 +34,6 @@ class Page extends Model implements HasMedia
     use BroadcastsModelEvents, Commentable, HasFactory, HasPaths, HasTranslatedRevisions, InteractsWithMedia, NodeTrait;
 
     public const RELATIONSHIPS = ['template', 'template.fields'];
-
-    /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'page';
 
     /**
      * @var array

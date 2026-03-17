@@ -19,13 +19,6 @@ class Image extends Model implements HasMedia
 {
     use HasFactory, HasTags, InteractsWithMedia;
 
-    /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'image';
-
     protected $fillable = ['alt_text', 'caption', 'custom_crop', 'x_position', 'y_position'];
 
     /**

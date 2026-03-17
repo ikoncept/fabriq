@@ -3,7 +3,7 @@
 namespace Ikoncept\Fabriq\Transformers;
 
 use Ikoncept\Fabriq\Models\SmartBlock;
-use Infab\TranslatableRevisions\Models\I18nLocale;
+use Karabin\TranslatableRevisions\Models\I18nLocale;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
 
@@ -12,8 +12,6 @@ class SmartBlockTransformer extends TransformerAbstract
     /**
      * Determines which objects
      * that can be included.
-     *
-     * @var array
      */
     protected array $availableIncludes = [
         'localizedContent', 'content',
@@ -23,7 +21,6 @@ class SmartBlockTransformer extends TransformerAbstract
      * Transform the given object
      * to the required format.
      *
-     * @param  SmartBlock  $smartBlock
      * @return array
      */
     public function transform(SmartBlock $smartBlock)
@@ -45,14 +42,11 @@ class SmartBlockTransformer extends TransformerAbstract
 
     /**
      * Include content.
-     *
-     * @param  SmartBlock  $smartblock
-     * @return Item
      */
     public function includeContent(SmartBlock $smartblock): Item
     {
         $content = $smartblock->getFieldContent($smartblock->revision);
 
-        return $this->item($content, new ContentTransformer());
+        return $this->item($content, new ContentTransformer);
     }
 }

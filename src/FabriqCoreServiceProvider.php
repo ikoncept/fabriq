@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Infab\Core\CoreServiceProvider;
-use Infab\TranslatableRevisions\TranslatableRevisionsServiceProvider;
+use Karabin\TranslatableRevisions\TranslatableRevisionsServiceProvider;
 use League\Fractal\Manager;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;

@@ -5,7 +5,7 @@ namespace Ikoncept\Fabriq\ContentGetters;
 use Exception;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Models\Image;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
+use Karabin\TranslatableRevisions\Models\RevisionMeta;
 
 class ImageGetter extends BaseGetter implements GetterInterface
 {

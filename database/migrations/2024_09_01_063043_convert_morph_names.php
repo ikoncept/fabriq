@@ -6,7 +6,7 @@ use Ikoncept\Fabriq\Models\SearchTerm;
 use Ikoncept\Fabriq\Models\Slug;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
-use Infab\TranslatableRevisions\Models\I18nTerm;
+use Karabin\TranslatableRevisions\Models\I18nTerm;
 
 return new class extends Migration
 {

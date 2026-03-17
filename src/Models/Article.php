@@ -12,9 +12,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
-use Infab\TranslatableRevisions\Traits\HasTranslatedRevisions;
-use Infab\TranslatableRevisions\Traits\RevisionOptions;
+use Karabin\TranslatableRevisions\Models\RevisionMeta;
+use Karabin\TranslatableRevisions\Traits\HasTranslatedRevisions;
+use Karabin\TranslatableRevisions\Traits\RevisionOptions;
 
 class Article extends Model
 {
@@ -35,13 +35,6 @@ class Article extends Model
     ];
 
     public array $templateSluggable = ['title'];
-
-    /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'article';
 
     /**
      * Create a new factory.

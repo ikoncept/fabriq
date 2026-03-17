@@ -7,8 +7,8 @@ use Ikoncept\Fabriq\Database\Factories\EventFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Infab\TranslatableRevisions\Traits\HasTranslatedRevisions;
-use Infab\TranslatableRevisions\Traits\RevisionOptions;
+use Karabin\TranslatableRevisions\Traits\HasTranslatedRevisions;
+use Karabin\TranslatableRevisions\Traits\RevisionOptions;
 
 class Event extends Model
 {
@@ -25,13 +25,6 @@ class Event extends Model
         'start' => 'datetime',
         'end' => 'datetime',
     ];
-
-    /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'event';
 
     /**
      * Create a new factory.

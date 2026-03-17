@@ -19,13 +19,6 @@ class Video extends Model implements HasMedia
 
     public const RELATIONSHIPS = ['tags'];
 
-    /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'video';
-
     protected $with = ['media'];
 
     protected static function newFactory(): VideoFactory

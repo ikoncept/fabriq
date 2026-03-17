@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Ikoncept\Fabriq\Tests\AdminUserTestCase;
-use Infab\TranslatableRevisions\Models\RevisionTemplateField;
+use Karabin\TranslatableRevisions\Models\RevisionTemplateField;
 
 class MenuFeatureTest extends AdminUserTestCase
 {

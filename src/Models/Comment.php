@@ -20,13 +20,6 @@ class Comment extends Model
 {
     use HasFactory;
 
-    /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'comment';
-
     protected $casts = [
         'anonymized_at' => 'datetime',
     ];
@@ -42,11 +35,11 @@ class Comment extends Model
     protected static function booted(): void
     {
         static::saved(function ($model) {
-            $doc = new DOMDocument();
+            $doc = new DOMDocument;
             $doc->loadHTML($model->comment);
             $xpath = new DOMXPath($doc);
             $filtered = $xpath->query('//span[@data-email]');
-            $notification = new Notification();
+            $notification = new Notification;
             if ($filtered) {
                 foreach ($filtered as $filter) {
                     $email = $filter->getAttribute('data-email');

@@ -3,8 +3,8 @@
 namespace Ikoncept\Fabriq\Console;
 
 use Illuminate\Console\Command;
-use Infab\TranslatableRevisions\Models\RevisionTemplate;
-use Infab\TranslatableRevisions\Models\RevisionTemplateField;
+use Karabin\TranslatableRevisions\Models\RevisionTemplate;
+use Karabin\TranslatableRevisions\Models\RevisionTemplateField;
 
 class MakeRevisionField extends Command
 {
@@ -63,7 +63,7 @@ class MakeRevisionField extends Command
         $repeater = $this->choice('Is the field a repeater?', ['Yes', 'No'], 1);
         $fieldType = $this->choice('Choose field type', ['text', 'textarea', 'image', 'html', 'date_time', 'video', 'date', 'switch'], 0);
 
-        $newField = new RevisionTemplateField();
+        $newField = new RevisionTemplateField;
         $newField->template_id = $matches[1][0];
         $newField->name = $fieldName;
         $newField->key = $fieldKey;

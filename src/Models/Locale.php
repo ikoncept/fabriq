@@ -11,13 +11,6 @@ class Locale extends Model
 {
     protected $table = 'i18n_locales';
 
-    /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'locale';
-
     public function scopeEnabled(Builder $query): Builder
     {
         return $query->where('enabled', 1);

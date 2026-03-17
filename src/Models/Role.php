@@ -10,13 +10,6 @@ class Role extends SpatieRole
 {
     use HasFactory;
 
-    /**
-     * Morph class.
-     *
-     * @var string
-     */
-    public $morphClass = 'role';
-
     public function scopeNotHidden(Builder $query): Builder
     {
         return $query->where('hidden', 0);

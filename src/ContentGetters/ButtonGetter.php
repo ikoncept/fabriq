@@ -5,14 +5,13 @@ namespace Ikoncept\Fabriq\ContentGetters;
 use Ikoncept\Fabriq\Fabriq;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Infab\TranslatableRevisions\Models\RevisionMeta;
+use Karabin\TranslatableRevisions\Models\RevisionMeta;
 
 class ButtonGetter
 {
     /**
      * Return a representation of an image.
      *
-     * @param  RevisionMeta  $meta
      * @param  bool  $publishing
      * @return mixed
      */

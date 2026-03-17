@@ -5,7 +5,7 @@ namespace Ikoncept\Fabriq\Listeners;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Infab\TranslatableRevisions\Events\DefinitionsPublished;
+use Karabin\TranslatableRevisions\Events\DefinitionsPublished;
 
 class BustPageCacheListener
 {

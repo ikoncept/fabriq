@@ -5,8 +5,8 @@ namespace Ikoncept\Fabriq\Listeners;
 use Ikoncept\Fabriq\Fabriq;
 use Ikoncept\Fabriq\Helpers\RecursiveArrayValues;
 use Ikoncept\Fabriq\Models\SearchTerm;
-use Infab\TranslatableRevisions\Events\DefinitionsPublished;
-use Infab\TranslatableRevisions\Events\DefinitionsUpdated;
+use Karabin\TranslatableRevisions\Events\DefinitionsPublished;
+use Karabin\TranslatableRevisions\Events\DefinitionsUpdated;
 
 class UpdateSearchTerms
 {

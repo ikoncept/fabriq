@@ -58,7 +58,7 @@ SESSION_DOMAIN=your-domain.test
 Publish the configurations:
 ```
 php artisan vendor:publish --provider="Ikoncept\Fabriq\FabriqCoreServiceProvider" --tag=config
-php artisan vendor:publish --provider="Infab\TranslatableRevisions\TranslatableRevisionsServiceProvider" --tag=config
+php artisan vendor:publish --provider="Karabin\TranslatableRevisions\TranslatableRevisionsServiceProvider" --tag=config
 ```
 
 Setup your database using the .env
