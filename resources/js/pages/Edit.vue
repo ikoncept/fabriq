@@ -33,7 +33,10 @@
             </template>
             <template #tools>
                 <div :class="{'opacity-70 pointer-events-none': !currentUserIsFirstIn }">
-                    <div class="flex flex-wrap space-x-4 whitespace-nowrap">
+                    <div
+                        v-if="pageHasLoaded"
+                        class="flex flex-wrap space-x-4 whitespace-nowrap"
+                    >
                         <FButton
                             class="px-6 py-2.5 leading-none text-sm fabriq-btn btn-link"
                             back-button="pages.index"
@@ -262,6 +265,7 @@ export default {
 
     data () {
         return {
+            pageHasLoaded: false,
             active: false,
             id: 0,
             queryParams: {
@@ -368,6 +372,11 @@ export default {
 
 
         async updateContent () {
+            if(!this.pageHasLoaded) {
+                console.warn('page not loaded yet');
+
+                return
+            }
             try {
                 const payload = {
                     name: this.page.name,
@@ -383,6 +392,12 @@ export default {
         },
 
         async publishPage () {
+            if(!this.pageHasLoaded) {
+                console.warn('page not loaded yet');
+
+                return
+            }
+
             try {
                 await this.updateContent(false)
                 await Page.publish(this.id)
@@ -410,6 +425,7 @@ export default {
                     this.$set(this.localizedContent, item, { ...localizedContent[item].content })
                 })
                 this.checkBoxesArray()
+                this.pageHasLoaded = true
             } catch (error) {
                 console.error(error)
             }
@@ -424,6 +440,11 @@ export default {
         },
 
         async previewPage () {
+            if(!this.pageHasLoaded) {
+                console.warn('page not loaded yet');
+
+                return
+            }
             try {
                 await this.updateContent()
                 const data = await Page.signedPreview(this.id)
