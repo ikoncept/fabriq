@@ -15,7 +15,7 @@ class FileTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'tags'
     ];
 

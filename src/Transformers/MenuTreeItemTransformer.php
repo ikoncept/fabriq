@@ -16,7 +16,7 @@ class MenuTreeItemTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'children', 'page', 'content'
     ];
 

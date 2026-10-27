@@ -13,7 +13,7 @@ class PageTreeOptionTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
     ];
 
     /**

@@ -15,7 +15,7 @@ class SmartBlockTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'localizedContent', 'content'
     ];
 

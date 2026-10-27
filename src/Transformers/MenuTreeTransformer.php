@@ -13,7 +13,7 @@ class MenuTreeTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
     ];
 
     /**

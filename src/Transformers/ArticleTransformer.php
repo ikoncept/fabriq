@@ -15,7 +15,7 @@ class ArticleTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'content', 'template', 'slugs'
     ];
 

@@ -13,7 +13,7 @@ class TagTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
     ];
 
     /**

@@ -15,7 +15,7 @@ class VideoTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'tags'
     ];
 

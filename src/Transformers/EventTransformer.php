@@ -15,7 +15,7 @@ class EventTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'localizedContent', 'content'
     ];
 

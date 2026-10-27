@@ -14,7 +14,7 @@ class LocaleContentTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
     ];
 
     /**

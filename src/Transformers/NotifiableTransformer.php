@@ -14,7 +14,7 @@ class NotifiableTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'user', 'page'
     ];
 

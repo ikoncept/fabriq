@@ -15,7 +15,7 @@ class TemplateTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'fields', 'groupedFields'
     ];
 

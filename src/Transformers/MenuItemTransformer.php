@@ -15,7 +15,7 @@ class MenuItemTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'content', 'page', 'localizedContent'
     ];
 
